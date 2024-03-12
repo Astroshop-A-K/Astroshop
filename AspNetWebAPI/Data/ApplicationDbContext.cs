@@ -10,6 +10,9 @@ namespace AspNetCoreAPI.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
+        public DbSet<ProductsModel> Products { get; set; }
+        public DbSet<ProblemsModel> Problems { get; set; }
     }
 }
