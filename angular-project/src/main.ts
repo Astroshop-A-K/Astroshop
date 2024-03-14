@@ -11,9 +11,14 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { errorHandlerInterceptor } from './app/api-authorization/error-handler.interceptor';
 import { authGuard } from './app/api-authorization/auth.guard';
 import { jwtInterceptor } from './app/api-authorization/jwt.interceptor';
+import { HomeComponent } from './app/home/home.component';import { ProductsComponent } from './app/products/products.component';
+import { ContactPageComponent } from './app/contact-page/contact-page.component';
+import { ProductsDetailComponent } from './app/products-detail/products-detail.component';
+import { ShoppingCartComponent } from './app/shopping-cart/shopping-cart.component';
+
 
 export function getBaseUrl() {
-  return 'https://localhost:7186/api';
+  return 'https://localhost:7186/api/';
 }
 
 export function tokenGetter() {
@@ -37,9 +42,16 @@ bootstrapApplication(AppComponent, {
       provideAnimations(),
       provideHttpClient(withInterceptors([errorHandlerInterceptor, jwtInterceptor])),
       provideRouter([
-        { path: '', component: DashboardComponent, canActivate: [authGuard]},
+        { path: '', component: HomeComponent},
         { path: 'login', component: LoginComponent},
-        { path: 'register', component: RegistrationComponent}
+        { path: 'register', component: RegistrationComponent},
+        { path: 'home', component: HomeComponent },
+        { path: 'products', component: ProductsComponent },
+        { path: 'contact', component: ContactPageComponent },
+        { path: 'products/:productName', component: ProductsDetailComponent },
+        { path: 'home/products/:productName', component: ProductsDetailComponent },
+        { path: 'shopping-cart', component: ShoppingCartComponent},
+        { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ])
     ]
 })

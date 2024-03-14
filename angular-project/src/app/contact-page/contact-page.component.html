@@ -1,0 +1,23 @@
+<title>Contact</title>
+<div class="contact-form">
+  <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <h1>Contact</h1><br />
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna,</p><br />
+    <mat-form-field class="field">
+      <mat-label>Name & Surname</mat-label>
+      <input matInput placeholder="Peter Parker" id="name-surname" formControlName="nameSurname">
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="peter@astroshop.com" id="e-mail" formControlName="email" type="email">
+    </mat-form-field>
+
+    <mat-form-field class="field">
+      <mat-label>Your problem</mat-label>
+      <textarea matInput placeholder="My product is not working..." id="problem" formControlName="problem"></textarea>
+    </mat-form-field>
+
+    <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-outline-danger">Confirm</button>
+  </form>
+</div>

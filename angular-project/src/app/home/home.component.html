@@ -1,0 +1,81 @@
+<title>Home</title>
+<div class="content">
+  <div class="title">
+    <div>
+      <h1 style="font-size: 60px;"><b>Astroshop</b></h1><br />
+      <h3>The best seller of telescopes</h3><br />
+      <button (click)="shopNow()" class="btn btn-outline-danger">Shop now</button>
+    </div>
+  </div>
+  <div class="our_products">
+    <h1 style="margin: 20px;font-weight: bold;">Our Products</h1>
+    <div class="our_products_content">
+      <h3>Telescopes</h3><br />
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+      <div class="gallery">
+        <ng-container *ngFor="let product of productData.slice(0, 4)">
+          <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
+            <div *ngIf="product.productCategory === 'TELE'" class="telescope_1">
+              <img [src]="product.productImage0" alt="Telescope + {{product.productId}}">
+              <p>{{ product.productName }}</p>
+              <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
+                <p>{{ product.price }}€</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+              </div>
+            </div>
+            </a>
+        </ng-container>
+      </div>
+      <h3>Tracking mounts</h3><br />
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+      <div class="gallery">
+        <ng-container *ngFor="let product of productData.slice(4, 8)">
+          <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
+            <div *ngIf="product.productCategory === 'MONT'" class="telescope_1">
+              <img [src]="product.productImage0" alt="Mount + {{product.productId}}">
+              <p>{{ product.productName }}</p>
+              <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
+                <p>{{ product.price }}€</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+              </div>
+            </div>
+            </a>
+        </ng-container>
+      </div>
+      <h3>Other equimpment</h3><br />
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+      <div class="gallery">
+        <ng-container *ngFor="let product of productData.slice(8, 12)">
+          <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
+            <div *ngIf="product.productCategory === 'OTHR'" class="telescope_1">
+              <img [src]="product.productImage0" alt="Others + {{product.productId}}">
+              <p>{{product.productName }}</p>
+              <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
+                <p>{{ product.price }}€</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+              </div>
+            </div>
+            </a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="top-brands">
+    <hr />
+    <h2>TOP BRANDS TELESCOPES</h2>
+    <div class="gallery1">
+      <img src="https://www.astroshop.eu/Marken/normal/Celestron.jpg" alt="brand1" />
+      <img src="https://www.astroshop.eu/Marken/normal/Omegon.jpg" alt="brand2" />
+      <img src="https://www.astroshop.eu/Marken/normal/Skywatcher.jpg" alt="brand3" />
+      <img src="https://www.astroshop.eu/Marken/normal/Meade.jpg" alt="brand4" />
+    </div>
+    <hr />
+    <h2>TOP BRANDS ACCESSORIES</h2>
+    <div class="gallery1">
+      <img src="https://www.astroshop.eu/Marken/normal/Pegasus-Astro.jpg" alt="brand5" />
+      <img src="https://www.astroshop.eu/Marken/normal/iOptron.jpg" alt="brand6" />
+      <img src="https://www.astroshop.eu/Marken/normal/ZWO.jpg" alt="brand7" />
+      <img src="https://www.astroshop.eu/Marken/normal/Farpoint.jpg" alt="brand8" />
+    </div>
+  </div><br />
+</div>

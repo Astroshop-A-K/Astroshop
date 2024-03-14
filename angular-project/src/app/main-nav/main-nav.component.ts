@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { AuthenticationService } from '../api-authorization/authentication.service';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-main-nav',
@@ -12,12 +12,14 @@ import { NgIf } from '@angular/common';
     RouterLink,
     MatToolbar,
     MatButton,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
 })
 export class MainNavComponent {
+  navbarfixed: boolean = false;
   authService = inject(AuthenticationService);
   private router = inject(Router);
 
@@ -25,4 +27,14 @@ export class MainNavComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  @HostListener('window:scroll', ['$event']) onscroll() {
+    if (window.scrollY > 50) {
+      this.navbarfixed = true;
+    }
+    else {
+      this.navbarfixed = false;
+    }
+  }
 }
+

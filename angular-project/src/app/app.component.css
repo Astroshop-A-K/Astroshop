@@ -1,0 +1,101 @@
+body{
+    width: 100vw;
+}
+  .ending {
+    background-color: #262626;
+    height: auto;
+    width: 100%;
+  }
+  .terms {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .terms > div {
+    flex: 1;
+    margin: 0 10px;
+    text-align: center;
+  }
+  h2 {
+    color: #dc3545;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .ending a {
+    color: white;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 5px;
+    width: auto;
+  }
+  .ending a:hover {
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+  }
+  .shop, .brands, .get_help, .contact {
+    border-right: 1px solid #ccc;
+    padding-right: 20px;
+  }
+  .contact {
+    border-right: none;
+  }
+  .payments_end {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+  }
+  .first, .second, .third {
+    flex: 1;
+    text-align: center;
+  }
+  .first p {
+      margin: 5px 0;
+      color: white;
+    }
+  .second, .third img {
+      max-width: 100%;
+      height: auto; 
+    }
+  .ad {
+    width: 100vw;
+    height: 50px;
+    background-color: #262626;
+    color: white;
+    line-height: 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .adText {
+    position: absolute;
+    top: 0;
+    left: 0; 
+    white-space: nowrap; 
+    animation: slideIn 9s linear infinite; 
+  }
+  @keyframes slideIn {
+    0% {
+      transform: translateX(0); 
+    }
+    100% {
+      transform: translateX(100vw);
+    }
+  }
+  @media (max-width: 768px) {
+    .terms > div {
+      flex: 1 0 100%;
+      margin-bottom: 10px;
+    }
+  
+    .shop, .brands, .get_help, .contact {
+      border-right: none;
+      padding-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+  
+  

@@ -1,9 +1,41 @@
 mat-toolbar {
   button {
     margin-left: auto;
+    border: none;
+    padding: 5px 10px;
+    background-color: white;
+    font-size: 14px;
   }
+  a{
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    text-decoration: none;
+    color: black;
+  }
+  z-index: 1000;
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  background-color: white;
 }
 
 .spacer {
   flex: 1 1 auto;
+}
+.fixed{
+  position: fixed;
+  width: 100vw;
+  transition: 0.5s linear;
+  top: 0;
+}
+.unfixed{
+  position: static;
+  transition: 0.5s linear;
+  top: -50px;
+}
+
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
 }
