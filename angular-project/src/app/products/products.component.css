@@ -114,6 +114,13 @@
     justify-content: space-between;
     align-items: center;
 }
+.category-list li{
+  display: flex;
+  align-items: center;
+}
+.category-list img{
+  margin: 5px;
+}
 @media screen and (max-width: 1180px) {
   .left-panel {
     display: none;

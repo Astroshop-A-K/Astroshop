@@ -19,13 +19,13 @@ body{
   }
   h2 {
     color: #dc3545;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
     text-transform: uppercase;
   }
   .ending a {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: block;
     margin-bottom: 5px;
     width: auto;
@@ -75,7 +75,8 @@ body{
     top: 0;
     left: 0; 
     white-space: nowrap; 
-    animation: slideIn 9s linear infinite; 
+    animation: slideIn 9s linear infinite;
+    font-size: 17px; 
   }
   @keyframes slideIn {
     0% {

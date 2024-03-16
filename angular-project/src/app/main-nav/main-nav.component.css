@@ -32,7 +32,14 @@ mat-toolbar {
   transition: 0.5s linear;
   top: -50px;
 }
-
+.title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+button:hover{
+  cursor: pointer;
+}
 
 @media (min-width: 768px) {
   html {

@@ -1,13 +1,13 @@
 <mat-toolbar (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
-  <span><a [routerLink]="['/home']">Astroshop</a></span>
+  <span><a class="title" [routerLink]="['/home']"><img src="https://static.thenounproject.com/png/129365-200.png" height="45" width="45"/>Astroshop</a></span>
   <span class="spacer"></span>
+  <button [routerLink]="['/home']">Home</button>
+  <button [routerLink]="['/products']">Products</button>
+  <button [routerLink]="['/contact']">Contact</button>
+  <button [routerLink]="['/shopping-cart']"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" alt="shopping-cart" height="25" width="25" /></button>
   @if (authService.authenticated()) {
     <button mat-button (click)="logout()">Logout</button>
   } @else {
-    <button [routerLink]="['/home']">Home</button>
-    <button [routerLink]="['/products']">Products</button>
-    <button [routerLink]="['/contact']">Contact</button>
-    <button [routerLink]="['/shopping-cart']"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" alt="user" height="25" width="25" /></button>
     <button [routerLink]="['/login']"><img src="https://toppng.com/uploads/preview/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png" alt="user" height="40" width="40" /></button>
     <!--<button mat-button [routerLink]="['/register']">Registration</button>-->
   }

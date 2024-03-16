@@ -38,6 +38,7 @@
     .our_products_content h3 {
       color: #dc3545;
       font-weight: bold;
+      font-size: 23px;
     }
   .title1{
     margin: 10px;
@@ -90,7 +91,7 @@
     margin: 0 auto;
   }
   .top-brands h2 {
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
     margin-left: 10px;
     font-weight: bold;
@@ -105,10 +106,6 @@
   .gallery1 img:hover{
       filter: none;
       cursor: pointer;
-  }
-  hr {
-    width: 100vw;
-    color: #dc3545;
   }
   .check {
     display: flex;
@@ -125,6 +122,9 @@
     padding: 8px 18px;
     margin: 10px;
     border-radius: 15px;
+  }
+  p{
+    font-size: 17px;
   }
   @media (max-width: 768px) {
     .title {
