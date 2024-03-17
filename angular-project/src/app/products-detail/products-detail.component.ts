@@ -2,14 +2,14 @@ import { Component, Inject, NgModule } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-products-detail',
     templateUrl: './products-detail.component.html',
     styleUrls: ['./products-detail.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor]
+    imports: [NgIf, NgFor, NgClass]
 })
 export class ProductsDetailComponent {
     public productInfo: ProductsDTO = { //namiesto array vytvorim objekt, ktory ma ProductsDTO interface 

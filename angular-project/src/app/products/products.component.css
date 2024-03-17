@@ -10,11 +10,11 @@
 .telescope_1 {
   border: 1px solid #ddd;
   padding: 15px;
-  text-align: center;
   transition: transform 0.3s ease;
   width: 250px;
-  height: 350px;
+  height: 365px;
   border-radius: 10px;
+  text-align: left;
 }
 .telescope_1:hover {
   transform: translateY(-5px);
@@ -27,10 +27,6 @@
 }
 .telescope_1 p {
   margin: 10px 0;
-}
-.telescope_1 p:first-child {
-  color: black;
-  font-weight: bold;
 }
 .products{
     display: flex;

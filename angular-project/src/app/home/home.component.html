@@ -19,7 +19,7 @@
               <img [src]="product.productImage0" alt="Telescope + {{product.productId}}">
               <p>{{ product.productName }}</p>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                <p>{{ product.price }}€</p>
+                <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
               </div>
             </div>
@@ -35,7 +35,7 @@
               <img [src]="product.productImage0" alt="Mount + {{product.productId}}">
               <p>{{ product.productName }}</p>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                <p>{{ product.price }}€</p>
+                <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
               </div>
             </div>
@@ -51,7 +51,7 @@
               <img [src]="product.productImage0" alt="Others + {{product.productId}}">
               <p>{{product.productName }}</p>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                <p>{{ product.price }}€</p>
+                <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
               </div>
             </div>

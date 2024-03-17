@@ -1,13 +1,17 @@
 <div class="content" *ngIf="productInfo">
     <title>{{productInfo.productName}}</title>
     <div class="gallery">
-      <img [src]="productInfo.productImage0" [alt]="productInfo.productName + 1" />
-      <img [src]="productInfo.productImage1" [alt]="productInfo.productName + 2" />
-      <img [src]="productInfo.productImage2" [alt]="productInfo.productName + 3" />
+      <img [src]="productInfo.productImage0" [alt]="productInfo.productName + 1" height="300"/>
+      <!--<img [src]="productInfo.productImage1" [alt]="productInfo.productName + 2" />
+      <img [src]="productInfo.productImage2" [alt]="productInfo.productName + 3" />-->
     </div>
     <div class="product-information">
       <h1>{{productInfo.productName}}</h1>
-      <p>{{productInfo.productDescription}}</p> <!--TODO-->
+      <p>{{productInfo.productDescription}}</p>
+      <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
+        <p style="color: black; font-weight: bold;">{{ productInfo.price }}€</p>
+        <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+      </div>
     </div>
   </div>
   

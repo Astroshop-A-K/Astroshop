@@ -1,0 +1,17 @@
+.content{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 400px;
+    padding-top: 50px;
+}
+.product-information{
+    height: 200px;
+}
+.available {
+    color: green;
+}
+.unavailable {
+    color: red;
+}

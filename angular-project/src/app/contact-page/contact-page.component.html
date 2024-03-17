@@ -1,4 +1,4 @@
-<title>Contact</title>
+<title>Contact</title><!--TODO => prerobit mat-forms na svoje vlastne-->
 <div class="contact-form">
   <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <h1 style="font-weight: bold;">Contact</h1><br />
@@ -18,6 +18,6 @@
       <textarea matInput placeholder="My product is not working..." id="problem" formControlName="problem"></textarea>
     </mat-form-field>
 
-    <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-outline-danger">Confirm</button>
+    <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-danger">Confirm</button>
   </form>
 </div>

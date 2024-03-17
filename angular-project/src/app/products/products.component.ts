@@ -1,9 +1,8 @@
-import { Component, Inject, NgModule } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
 import { SearchPipe } from './search.pipe';
-import { NgModel, ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
 @Component({
