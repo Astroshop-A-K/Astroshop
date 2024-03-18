@@ -33,12 +33,12 @@
   .our_products_content p{
     margin-left: 100px;
     margin-right: 100px;
-    text-align: left;
+    text-align: justify;
   }
-    .our_products_content h3 {
+    .our_products_content h2 {
       color: #dc3545;
       font-weight: bold;
-      font-size: 23px;
+      font-size: 22px;
     }
   .title1{
     margin: 10px;
@@ -64,7 +64,7 @@
   }
   .telescope_1:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); som nasiel na nete je to celkom fajne*/
   }
   .telescope_1 img {
     max-width: 100%;

@@ -1,4 +1,5 @@
 <div class="content" *ngIf="productInfo">
+  <div class="part1">
     <title>{{productInfo.productName}}</title>
     <div class="gallery">
       <img [src]="productInfo.productImage0" [alt]="productInfo.productName + 1" height="300"/>
@@ -6,12 +7,19 @@
       <img [src]="productInfo.productImage2" [alt]="productInfo.productName + 3" />-->
     </div>
     <div class="product-information">
-      <h1>{{productInfo.productName}}</h1>
-      <p>{{productInfo.productDescription}}</p>
+      <h1 style="padding-bottom: 25px;">{{productInfo.productName}}</h1>
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
         <p style="color: black; font-weight: bold;">{{ productInfo.price }}€</p>
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
       </div>
+      <div class="add-to-cart-button">
+        <button class="btn btn-success">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
+      </div>
+    </div>
+  </div>
+    <div class="part2">
+      <h2>Description</h2>
+      <p>{{productInfo.productDescription}}</p>
     </div>
   </div>
   
