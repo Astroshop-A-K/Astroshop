@@ -1,1 +1,8 @@
 <title>Shopping cart</title>
+<div class="content">
+    <div class="product" *ngFor="let product of products">
+        <p>{{product.price}}</p>
+        <p>{{product.productName}}</p>
+        <img [src]="product.productImage0">
+    </div>
+</div>
