@@ -4,7 +4,7 @@
   <button [routerLink]="['/home']">Home</button>
   <button [routerLink]="['/products']">Products</button>
   <button [routerLink]="['/contact']">Contact</button>
-  <button [routerLink]="['/shopping-cart']"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" alt="shopping-cart" height="25" width="25" /></button>
+  <button [routerLink]="['/shopping-cart']"><mat-icon matBadge="0" matBadgeColor="warn"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" alt="shopping-cart" height="25" width="25" /></mat-icon></button>
   @if (authService.authenticated()) {
     <button mat-button (click)="logout()">Logout</button>
   } @else {

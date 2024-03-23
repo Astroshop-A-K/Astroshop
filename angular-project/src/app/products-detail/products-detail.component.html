@@ -2,20 +2,27 @@
   <div class="part1">
     <title>{{productInfo.productName}}</title>
     <div class="gallery">
-      <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50"></button>
-      <img [src]="productInfo.productImage0" [alt]="productInfo.productName + 1" height="300"/>
-      <!--<img [src]="productInfo.productImage1" [alt]="productInfo.productName + 2" />
-      <img [src]="productInfo.productImage2" [alt]="productInfo.productName + 3" />-->
-      <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50"></button>
+      <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50" (click)="positionLeft()"></button>
+     <div [ngSwitch]="currentImagePosition" class="images">
+      <img [src]="productInfo.productImage0" [alt]="productInfo.productName + 1" height="300" *ngSwitchCase="0"/>
+      <img [src]="productInfo.productImage1" [alt]="productInfo.productName + 2" *ngSwitchCase="1"/>
+      <img [src]="productInfo.productImage2" [alt]="productInfo.productName + 3" *ngSwitchCase="2"/>
+    </div>
+      <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50" (click)="positionRight()"></button>
     </div>
     <div class="product-information">
-      <h1 style="padding-bottom: 25px;">{{productInfo.productName}}</h1>
+      <h1>{{productInfo.productName}}</h1>
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
         <p style="color: black; font-weight: bold;">{{ productInfo.price }}€</p>
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
       </div>
       <div class="add-to-cart-button">
-        <button class="btn btn-success" (click)="addToCart()">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
+        @if(productInfo.quantity > 0){
+          <button class="btn btn-success" (click)="addToCart()">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
+        }
+        @else{
+          <button class="btn btn-success">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
+        }
       </div>
     </div>
   </div>

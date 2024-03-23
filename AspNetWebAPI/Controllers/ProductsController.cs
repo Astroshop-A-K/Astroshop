@@ -35,8 +35,8 @@ namespace AspNetCoreAPI.Controllers
             });
         }
         [HttpGet]
-        [Route("getProductsInfo")]
-        public ProductsDTO getProductsInfo(string productName)
+        [Route("getProductInfo")]
+        public ProductsDTO getProductInfo(string productName)
         {
             ProductsModel product = _context.Products.Where(p => p.ProductName == productName).FirstOrDefault();
 

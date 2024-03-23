@@ -2,7 +2,7 @@ import { Component, Inject, NgModule } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     templateUrl: './products-detail.component.html',
     styleUrls: ['./products-detail.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, NgClass],
+    imports: [NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase],
     providers: [MatSnackBar]
 })
 export class ProductsDetailComponent {
@@ -27,12 +27,13 @@ export class ProductsDetailComponent {
         quantity: 0
     }; 
     public productName: string = '';
+    public currentImagePosition: number = 0;
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar) {
         const routeParams = this.route.snapshot.paramMap;
         this.productName = String(routeParams.get('productName'));
 
-        this.getProductsInfo(this.productName).subscribe(
+        this.getProductInfo(this.productName).subscribe(
             result => {
                 this.productInfo = result; 
                 console.log(this.productInfo);
@@ -46,11 +47,22 @@ export class ProductsDetailComponent {
         this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); // v ms
     }
 
-    getProductsInfo(productName: string): Observable<ProductsDTO> { 
+    positionLeft(){
+        if(this.currentImagePosition > 0){
+            this.currentImagePosition -= 1;
+        }
+    }
+    positionRight(){
+        if(this.currentImagePosition < 2){
+            this.currentImagePosition += 1;
+        }
+    }
+
+    getProductInfo(productName: string): Observable<ProductsDTO> { 
         let queryParams = new HttpParams();
         queryParams = queryParams.append("productName", productName);
 
-        return this.http.get<ProductsDTO>(this.baseUrl + 'products/getProductsInfo', { params: queryParams });
+        return this.http.get<ProductsDTO>(this.baseUrl + 'products/getProductInfo', { params: queryParams });
     }
 }
 export interface ProductsDTO {
