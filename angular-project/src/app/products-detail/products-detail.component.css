@@ -32,6 +32,9 @@ p{
     height: 200px;
     margin-left: 15px;
 }
+.add-to-cart-button img{
+    margin-bottom: 14px;
+}
 .available {
     color: green;
 }
