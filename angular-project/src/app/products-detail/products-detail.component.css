@@ -44,21 +44,39 @@ h2{
     color: #dc3545;
       font-weight: bold;
 }
-@media (max-width: 1200px) {
+.arrow-left, .arrow-right{
+    background: transparent;
+    border: none;
+}
+.arrow-left img{
+    transform: rotate(180deg);
+} 
+.arrow-left:hover, .arrow-right:hover{
+    transform: translateY(-1px);
+}
+.gallery{
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (max-width: 1340px) {
     .part1, .part2{
         margin-right: 200px;
         margin-left: 200px;
     }
 }
-@media (max-width: 950px){
+@media (max-width: 1015px){
     .part1, .part2{
         margin-right: 100px;
         margin-left: 100px;
     }
 }
-@media (max-width: 760px){
+@media (max-width: 900px){
     .part1{
         flex-direction: column;
+        margin-left: 50px;;
+        margin-right: 50px;
       }
       .part2{
         padding-top: 20px;
