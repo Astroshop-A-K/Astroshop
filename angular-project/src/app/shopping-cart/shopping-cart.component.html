@@ -1,8 +1,34 @@
 <title>Shopping cart</title>
 <div class="content">
+    <div class="heading">
+        <h1>Your cart</h1><br>
+        <div class="clear-total-price">
+            <div class="total-price">
+                <p>Total: {{CartService.totalPrice()}}€</p>
+            </div>
+            <div class="clear-cart">
+                <button class="btn btn-danger" (click)="clearCart()">Clear cart</button>
+            </div>
+        </div>
+    </div>
     <div class="product" *ngFor="let product of products">
-        <p>{{product.price}}</p>
-        <p>{{product.productName}}</p>
+      <div class="part1">
         <img [src]="product.productImage0">
+      </div>
+      <div class="part2">
+        <h2>{{product.productName}}</h2>
+        <p>{{product.price}}€</p>
+      </div>
+      <div class="part3">
+        <button class="btn btn-danger"><img src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" height="20" width="20" alt="bin"></button>
+      </div>
+    </div>
+    <div class="order">
+        @if(products.length > 0){
+            <button class="btn btn-success">Proceed to checkout</button>
+        }
+        @else{
+            
+        }
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
@@ -6,8 +6,6 @@ import { AuthenticationService } from '../api-authorization/authentication.servi
 import { NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
-import { CartService } from '../shopping-cart/cart.service';
-
 
 @Component({
   selector: 'app-main-nav',
@@ -28,7 +26,6 @@ export class MainNavComponent {
   navbarfixed: boolean = false;
   authService = inject(AuthenticationService);
   private router = inject(Router);
-  private CartService: CartService;
   
   logout() {
     this.authService.logout();

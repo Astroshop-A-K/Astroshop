@@ -12,5 +12,10 @@ import { NgFor } from '@angular/common';
 export class ShoppingCartComponent {
   products = this.CartService.getProducts();
 
-  constructor(private CartService: CartService){}
+  constructor(public CartService: CartService){}
+
+  clearCart(){
+    this.products = [];
+    this.CartService.products = [];
+  }
 }

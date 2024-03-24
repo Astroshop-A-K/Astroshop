@@ -12,15 +12,10 @@ p{
     margin-left: 350px
 }
 .part2{
-    padding-bottom: 40px;
+    padding-bottom: 150px;
     margin-right: 350px;
     margin-left: 350px;
     text-align: justify;
-}
-.part3{
-    padding-bottom: 400px;
-    margin-right: 350px;
-    margin-left: 350px;
 }
 .content{
     display: flex;
