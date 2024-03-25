@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
@@ -26,7 +26,7 @@ export class MainNavComponent {
   navbarfixed: boolean = false;
   authService = inject(AuthenticationService);
   private router = inject(Router);
-  
+
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
