@@ -1,10 +1,7 @@
-import { Component, Inject, NgModule } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { Component, Inject } from '@angular/core';
 import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,8 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './contact-page.component.html',
   styleUrls: ['./contact-page.component.css'],
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule],
-  providers: [MatSnackBar]
+  imports: [FormsModule, ReactiveFormsModule],
 })
 
 export class ContactPageComponent {
@@ -32,8 +28,7 @@ export class ContactPageComponent {
       let emailBE = this.contactForm.value.email ?? '';
       let problemBE = this.contactForm.value.problem ?? '';
 
-      this.createProblem(nameSurnameBE, emailBE, problemBE).subscribe();
-      //this._snackBar.open("Succes!", "Redirecting...", { duration: 2000, });
+      this.createProblem(nameSurnameBE, emailBE, problemBE).subscribe();;
       this.router.navigate(['/home']);
     }
   }
