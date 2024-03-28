@@ -44,7 +44,7 @@ export class ProductsDetailComponent {
 
     addToCart(){
         this.CartService.addToCart(this.productInfo);
-        this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); // v ms
+        this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); 
         console.log(this.CartService.getCounter());
     }
 
