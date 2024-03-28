@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from './cart.service';
 import { NgFor } from '@angular/common';
+import { ProductsDTO } from '../products/products.component';
 
 @Component({
   selector: 'app-shopping-cart',

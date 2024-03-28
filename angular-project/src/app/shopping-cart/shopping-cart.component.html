@@ -20,7 +20,7 @@
         <p>{{product.price}}€</p>
       </div>
       <div class="part3">
-        <button class="btn btn-danger"><img src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" height="20" width="20" alt="bin"></button>
+        <button class="btn btn-danger" (click)="CartService.removeProduct(product)"><img src="https://static-00.iconduck.com/assets.00/trash-bin-icon-2048x2048-duca73jv.png" height="20" width="20" alt="bin"></button>
       </div>
     </div>
     <div class="order">

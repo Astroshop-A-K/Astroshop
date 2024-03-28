@@ -28,4 +28,11 @@ export class CartService {
     }
     return totalPrice;
   }
+
+  removeProduct(product: ProductsDTO){
+    const index = this.products.indexOf(product);
+    if(index !== -1){
+      this.products.splice(index, 1);
+    }
+  }
 }
