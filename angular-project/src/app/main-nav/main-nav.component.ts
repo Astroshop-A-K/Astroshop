@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
@@ -6,6 +6,8 @@ import { AuthenticationService } from '../api-authorization/authentication.servi
 import { NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
+import { CartService } from '../shopping-cart/cart.service';
+import { ProductsDetailComponent } from '../products-detail/products-detail.component';
 
 @Component({
   selector: 'app-main-nav',
@@ -25,7 +27,10 @@ import {MatBadgeModule} from '@angular/material/badge';
 export class MainNavComponent {
   navbarfixed: boolean = false;
   authService = inject(AuthenticationService);
-  private router = inject(Router);
+  private router = inject(Router)
+  countNum = this.CartService.countNum;
+
+  constructor(private CartService: CartService){}
 
   logout() {
     this.authService.logout();

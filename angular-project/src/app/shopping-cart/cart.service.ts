@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ProductsDTO } from '../products/products.component';
 
 @Injectable({
@@ -6,11 +6,13 @@ import { ProductsDTO } from '../products/products.component';
 })
 export class CartService {
   public products: ProductsDTO[] = [];
+  countNum = signal(0);
 
   constructor() { }
 
   addToCart(product: ProductsDTO){
     this.products.push(product);
+    this.countNum.update(value => value + 1);
   }
 
   getProducts(){
@@ -33,6 +35,7 @@ export class CartService {
     const index = this.products.indexOf(product);
     if(index !== -1){
       this.products.splice(index, 1);
+      this.countNum.update(value => value + -1);
     }
   }
 }

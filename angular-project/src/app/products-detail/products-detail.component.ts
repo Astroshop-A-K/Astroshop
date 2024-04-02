@@ -1,10 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MainNavComponent } from '../main-nav/main-nav.component';
 
 @Component({
     selector: 'app-products-detail',
@@ -45,7 +46,6 @@ export class ProductsDetailComponent {
     addToCart(){
         this.CartService.addToCart(this.productInfo);
         this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); 
-        console.log(this.CartService.getCounter());
     }
 
     positionLeft(){

@@ -18,5 +18,6 @@ export class ShoppingCartComponent {
   clearCart(){
     this.products = [];
     this.CartService.products = [];
+    this.CartService.countNum.update(value => 0);
   }
 }
