@@ -19,10 +19,6 @@ export class CartService {
     return this.products;
   }
 
-  getCounter(){
-    return this.products.length;
-  }
-
   totalPrice(){
     let totalPrice = 0;
     for (const product of this.products) {
