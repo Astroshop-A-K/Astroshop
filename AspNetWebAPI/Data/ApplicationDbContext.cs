@@ -14,5 +14,6 @@ namespace AspNetCoreAPI.Data
         }
         public DbSet<ProductsModel> Products { get; set; }
         public DbSet<ProblemsModel> Problems { get; set; }
+        public DbSet<OrdersModel> Orders { get; set; }
     }
 }
