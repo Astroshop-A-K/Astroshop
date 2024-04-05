@@ -52,7 +52,7 @@ bootstrapApplication(AppComponent, {
         { path: 'products/:productName', component: ProductsDetailComponent },
         { path: 'home/products/:productName', component: ProductsDetailComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent},
-        { path: 'order-page', component: OrderPageComponent},
+        { path: 'order', component: OrderPageComponent},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ])
     ]

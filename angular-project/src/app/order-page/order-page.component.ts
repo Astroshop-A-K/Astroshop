@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from '../shopping-cart/cart.service';
 
 @Component({
   selector: 'app-order-page',
@@ -8,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './order-page.component.css'
 })
 export class OrderPageComponent {
+  totalPrice = this.CartService.totalPrice();
+  products = this.CartService.getProducts();
 
+  constructor(private CartService: CartService){}
 }

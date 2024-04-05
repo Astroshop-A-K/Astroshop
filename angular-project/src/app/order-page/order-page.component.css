@@ -1,0 +1,56 @@
+.content{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 300px;
+}
+.form{
+    width: 50vw;
+}
+.name_surname, .email_phonenumber, .address_psc, .city, .country, .delivery_option, .submit{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.name_surname input{
+    margin: 10px;
+}
+.email_phonenumber input{
+    margin: 10px;
+}
+.address_psc input{
+    margin: 10px;
+}
+.city input{
+    margin: 10px;
+}
+.country select{
+    margin: 10px;
+}
+.delivery_option{
+    margin: 10px;
+}
+.field label{
+    margin-left: 10px;
+}
+.field input, select{
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+.delivery_option input[type="radio"]{
+    margin: 10px;
+}
+.submit{
+    padding-top: 20px;
+}
+.submit button{
+    width: 10vw;
+}
+p{
+    text-align: left;
+}
