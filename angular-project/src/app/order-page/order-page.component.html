@@ -1,6 +1,6 @@
 <div class="content">
     <h1 style="font-weight: bold; font-size: 30px;">Order</h1><br>
-    <form class="form">
+    <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
         <div class="name_surname">
             <div class="field">
                 <label>Name:</label><br>
@@ -67,7 +67,7 @@
         </div>
         <div class="submit">
             <div class="field">
-                <button class="btn btn-success">Continue</button>
+                <button class="btn btn-success" (click)="onSubmit()">Continue</button>
             </div>
         </div>
     </form>
