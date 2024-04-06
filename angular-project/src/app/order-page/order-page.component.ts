@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CartService } from '../shopping-cart/cart.service';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-order-page',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css'
 })
@@ -31,5 +32,9 @@ export class OrderPageComponent {
   }
   onRadioChange(event: any){
     this.orderForm.get('deliveryOption')?.setValue(event.target.value);
+  }
+
+  onSubmit(){
+    
   }
 }

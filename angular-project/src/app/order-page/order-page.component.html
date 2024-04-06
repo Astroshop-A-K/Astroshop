@@ -1,48 +1,49 @@
+<title>Your order</title>
 <div class="content">
     <h1 style="font-weight: bold; font-size: 30px;">Order</h1><br>
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
         <div class="name_surname">
             <div class="field">
-                <label>Name:</label><br>
-                <input type="text" class="name" placeholder="Your name...">
+                <label>Name</label><br>
+                <input type="text" class="name" placeholder="Peter">
             </div>
             
             <div class="field">
-                <label>Surname:</label><br>
-                <input type="text" class="name" placeholder="Your surname...">
+                <label>Surname</label><br>
+                <input type="text" class="name" placeholder="Parker">
             </div>
         </div>
         <div class="email_phonenumber">
             <div class="field">
-                <label>E-mail:</label><br>
-                <input type="email" class="name" placeholder="youremail@email.com...">
+                <label>E-mail</label><br>
+                <input type="email" class="name" placeholder="peter@astroshop.com...">
             </div>
             
             <div class="field">
-                <label>Phone number:</label><br>
+                <label>Phone number</label><br>
                 <input type="number" class="name" placeholder="+421...">
             </div>
         </div>
         <div class="address_psc">
             <div class="field">
-                <label>Address:</label><br>
-                <input type="text" class="name" placeholder="Your address...">
+                <label>Address</label><br>
+                <input type="text" class="name" placeholder="Parker's street 10">
             </div>
     
             <div class="field">
-                <label>PSC:</label><br>
-                <input type="text" class="name" placeholder="Your PSC...">
+                <label>PSC</label><br>
+                <input type="text" class="name" placeholder="02020">
             </div>
         </div>
         <div class="city">
             <div class="field">
-                <label>City:</label><br>
-                <input type="text" class="name" placeholder="Your city...">
+                <label>City</label><br>
+                <input type="text" class="name" placeholder="Peterson">
             </div>
         </div>
         <div class="country">
             <div class="field">
-                <label>Country:</label><br>
+                <label>Country</label><br>
                 <select>
                     <option>Slovakia</option>
                     <option>Czech Republic</option>
@@ -52,7 +53,7 @@
         </div> 
         <div class="delivery_option">
             <div class="field">
-                <p>Delivery Option:</p>
+                <p>Delivery Option</p>
                 <form>              
                     <input type="radio" id="packeta" name="delivery_option">
                     <label for="packeta"><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Logo_Packeta_s.r.o..png" height="35" width="110" alt="packeta"></label><br>
