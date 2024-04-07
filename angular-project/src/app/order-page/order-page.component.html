@@ -5,46 +5,47 @@
         <div class="name_surname">
             <div class="field">
                 <label>Name</label><br>
-                <input type="text" class="name" placeholder="Peter">
+                <input type="text" class="name" placeholder="Peter" formControlName="name">
             </div>
             
             <div class="field">
                 <label>Surname</label><br>
-                <input type="text" class="name" placeholder="Parker">
+                <input type="text" class="surname" placeholder="Parker" formControlName="surname">
             </div>
         </div>
         <div class="email_phonenumber">
             <div class="field">
                 <label>E-mail</label><br>
-                <input type="email" class="name" placeholder="peter@astroshop.com...">
+                <input type="email" class="email" placeholder="peter@astroshop.com..." formControlName="email">
             </div>
             
             <div class="field">
                 <label>Phone number</label><br>
-                <input type="number" class="name" placeholder="+421...">
+                <input type="number" class="phoneNumber" placeholder="+421..." formControlName="phoneNumber">
             </div>
         </div>
         <div class="address_psc">
             <div class="field">
                 <label>Address</label><br>
-                <input type="text" class="name" placeholder="Parker's street 10">
+                <input type="text" class="address" placeholder="Parker's street 10" formControlName="address">
             </div>
     
             <div class="field">
                 <label>PSC</label><br>
-                <input type="text" class="name" placeholder="02020">
+                <input type="text" class="psc" placeholder="02020" formControlName="psc">
             </div>
         </div>
         <div class="city">
             <div class="field">
                 <label>City</label><br>
-                <input type="text" class="name" placeholder="Peterson">
+                <input type="text" class="city" placeholder="Peterson" formControlName="city">
             </div>
         </div>
         <div class="country">
             <div class="field">
                 <label>Country</label><br>
-                <select>
+                <select (change)="onSelectChange($event)">
+                    <option disabled selected value>Not selected</option>
                     <option>Slovakia</option>
                     <option>Czech Republic</option>
                     <option>Poland</option>
@@ -54,14 +55,14 @@
         <div class="delivery_option">
             <div class="field">
                 <p>Delivery Option</p>
-                <form>              
-                    <input type="radio" id="packeta" name="delivery_option">
+                <form [formGroup]="orderForm">
+                    <input type="radio" id="packeta" name="deliveryOption" value="packeta" formControlName="deliveryOption" (change)="onRadioChange($event)">
                     <label for="packeta"><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Logo_Packeta_s.r.o..png" height="35" width="110" alt="packeta"></label><br>
                     
-                    <input type="radio" id="posta" name="delivery_option">
+                    <input type="radio" id="posta" name="deliveryOption" value="posta" formControlName="deliveryOption" (change)="onRadioChange($event)">
                     <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" height="35" width="35" alt="posta"></label><br>
                     
-                    <input type="radio" id="paketa" name="delivery_option">
+                    <input type="radio" id="kurier" name="deliveryOption" value="kurier" formControlName="deliveryOption" (change)="onRadioChange($event)">
                     <label for="kurier"><img src="https://cdn-icons-png.flaticon.com/512/7000/7000501.png" height="35" width="35" alt="kurier"></label><br>
                 </form>
             </div>
