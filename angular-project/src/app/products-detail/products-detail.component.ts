@@ -1,11 +1,10 @@
 import { Component, Inject, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MainNavComponent } from '../main-nav/main-nav.component';
 
 @Component({
     selector: 'app-products-detail',
@@ -29,8 +28,9 @@ export class ProductsDetailComponent {
     }; 
     public productName: string = '';
     public currentImagePosition: number = 0;
+    public currentPageURL: string = '';
 
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar) {
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private Router: Router) {
         const routeParams = this.route.snapshot.paramMap;
         this.productName = String(routeParams.get('productName'));
 

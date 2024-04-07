@@ -12,15 +12,10 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 })
 
 export class HomeComponent {
-
   public productData: HomeProductsDTO[] = [];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router ) {
     this.getData();
-  }
-
-  shopNow() {
-    this.router.navigate(['/products']);
   }
 
   getData() {

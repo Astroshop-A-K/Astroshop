@@ -105,6 +105,8 @@ h2{
         margin-right: 200px;
         margin-left: 200px;
     }
+}
+@media (max-width: 1400px){
     .part1{
         flex-direction: column;
     }

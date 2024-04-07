@@ -25,7 +25,8 @@
               </div>
                 <div class="select">
                   <select class="sort" (change)="onSortChange($event)">
-                    <!--<option value="all">All products</option> Tu ked tak mozeme nechat alebo dat prec zalezi na nas-->
+                    <option disabled selected value>Not selected</option>
+                    <option value="all">All products</option>
                     <option value="isAvailable">Are available</option>
                     <option value="mostExpensive">From the most expensive</option>
                     <option value="leastExpensive">From the least expensive</option>
@@ -37,7 +38,7 @@
                   <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
                     <div class="telescope_1">
                       <div class="names">
-                        <img [src]="product.productImage0" alt="Telescope + {{product.productId}}">
+                        <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
                         <p>{{ product.productName }}</p>
                       </div>
                       <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
