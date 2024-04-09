@@ -1,0 +1,32 @@
+<title>Order summary</title>
+<div class="content">
+    <div class="part1">
+        <div class="order-info">
+            <ng-container *ngFor="let info of order">
+                <p>{{info.name}}</p><br>
+                <p>{{info.surname}}</p><br>
+                <p>{{info.email}}</p><br>
+                <p>{{info.address}}</p><br>
+                <p>{{info.psc}}</p><br>
+                <p>{{info.phoneNumber}}</p><br>
+                <p>{{info.city}}</p><br>
+                <p>{{info.deliveryOption}}</p><br>
+                <p>{{info.country}}</p><br>
+            </ng-container>
+        </div>
+        <div class="payment-option">
+    
+        </div>
+    </div>
+    <div class="part2">
+        <div class="selected-products">
+            <ng-container *ngFor="let product of selectedProducts">
+                <p>{{product.productName}}</p>
+                <img [src]="product.productImage0">
+            </ng-container>
+        </div>
+        <div class="totalPrice">
+
+        </div>
+    </div>
+</div>

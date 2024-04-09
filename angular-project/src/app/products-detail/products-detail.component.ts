@@ -36,8 +36,7 @@ export class ProductsDetailComponent {
 
         this.getProductInfo(this.productName).subscribe(
             result => {
-                this.productInfo = result; 
-                console.log(this.productInfo);
+                this.productInfo = result;
             },
             error => console.error(error)
         );
