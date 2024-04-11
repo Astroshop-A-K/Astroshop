@@ -1,5 +1,6 @@
 <title>Contact</title>
-<div class="contact-form">
+<div class="content">
+  <div class="contact-form">
   <img src="../../favicon.ico" height="50" width="50" alt="astroshop-icon">
   <h1 style="font-weight: bold;">Contact</h1>
   <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
@@ -21,3 +22,5 @@
     <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-danger">Confirm</button>
   </form>
 </div>
+</div>
+

@@ -1,21 +1,27 @@
 <title>Order summary</title>
 <div class="content">
+    <img src="../../favicon.ico" height="50" width="50" alt="astroshop-icon">
+    <h1 style="font-weight: bold; font-size: 30px;">Order summary</h1><br>
     <div class="part1">
         <div class="order-info">
+            <address>
             <ng-container *ngFor="let info of order">
-                <p>{{info.name}}</p><br>
-                <p>{{info.surname}}</p><br>
-                <p>{{info.email}}</p><br>
-                <p>{{info.address}}</p><br>
-                <p>{{info.psc}}</p><br>
-                <p>{{info.phoneNumber}}</p><br>
-                <p>{{info.city}}</p><br>
-                <p>{{info.deliveryOption}}</p><br>
-                <p>{{info.country}}</p><br>
+                <b>Name: </b>{{info.name}}<br>
+                <b>Surname: </b>{{info.surname}}<br>
+                <b>E-mail: </b>{{info.email}}<br>
+                <b>Address: </b>{{info.address}}<br>
+                <b>Postal code: </b>{{info.psc}}<br>
+                <b>Phone number: </b>{{info.phoneNumber}}<br>
+                <b>City: </b>{{info.city}}<br>
+                <b>Country: </b>{{info.country}}<br>
+                <b>Delivery option: </b>{{info.deliveryOption}}
             </ng-container>
+            </address>
         </div>
         <div class="payment-option">
-    
+            <form>
+
+            </form>
         </div>
     </div>
     <div class="part2">
