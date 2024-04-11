@@ -10,7 +10,7 @@
 .form{
     width: 50vw;
 }
-.name_surname, .email_phonenumber, .address_psc, .city, .country, .delivery_option, .submit{
+.name_surname, .email_phonenumber, .address_psc, .city, .delivery_option, .submit{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -25,11 +25,11 @@
 .address_psc input{
     margin: 10px;
 }
-.city input{
+.city input, select{
     margin: 10px;
 }
-.country select{
-    margin: 10px;
+.city input{
+    width: 70%;
 }
 .delivery_option{
     margin: 10px;
