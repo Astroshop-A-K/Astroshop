@@ -4,6 +4,7 @@
     <h1 style="font-weight: bold; font-size: 30px;">Order summary</h1><br>
     <div class="part1">
         <div class="order-info">
+            <h2 style="font-weight: bold; text-align: center;">Your delivery data</h2>
             <address>
             <ng-container *ngFor="let info of order">
                 <b>Name: </b>{{info.name}}<br>
@@ -25,11 +26,14 @@
         </div>
     </div>
     <div class="part2">
-        <div class="selected-products">
+        <div class="selected-products"><br>
+            <h2 style="font-weight: bold; text-align: center;">Selected products</h2>
+            <div class="product">
             <ng-container *ngFor="let product of selectedProducts">
+                <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName">
                 <p>{{product.productName}}</p>
-                <img [src]="product.productImage0">
             </ng-container>
+          </div>
         </div>
         <div class="totalPrice">
 

@@ -6,3 +6,9 @@
     padding-top: 50px;
     padding-bottom: 300px;
 }
+.product{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
