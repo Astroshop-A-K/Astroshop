@@ -11,4 +11,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.part1, .part2, .part3{
+    margin: 15px;
+}
+input[type="radio"]{
+    margin: 10px;
 }
