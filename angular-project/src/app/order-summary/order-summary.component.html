@@ -19,24 +19,40 @@
             </ng-container>
             </address>
         </div>
-        <div class="payment-option">
-            <form>
-
+        <div class="payment-option"><br>
+            <h2 style="font-weight: bold; text-align: center;">Payment method</h2>
+            <form [formGroup]="paymentForm">
+                <input type="radio" id="p1" name="paymentMethod" value="p1" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery"></label><br>
+                    
+                <input type="radio" id="p2" name="paymentMethod" value="p2" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                <label for="p2"><img src="https://i.pinimg.com/564x/5f/55/76/5f55760df2d12a4d66638bd20212d73d.jpg" height="40" width="40" alt="cardPaymentUponCollection"></label><br>
+                    
+                <input type="radio" id="p3" name="paymentMethod" value="p3" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment"></label><br>
             </form>
         </div>
     </div>
     <div class="part2">
         <div class="selected-products"><br>
             <h2 style="font-weight: bold; text-align: center;">Selected products</h2>
-            <div class="product">
-            <ng-container *ngFor="let product of selectedProducts">
-                <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName">
-                <p>{{product.productName}}</p>
-            </ng-container>
-          </div>
+            <div class="product" *ngFor="let product of selectedProducts">
+                <div class="part1">
+                  <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName">
+                </div>
+                <div class="part2">
+                  <h2>{{product.productName}}</h2>
+                  <p>{{product.price}}€</p>
+                </div>
+                <div class="part3">
+                  <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;" (click)="CartService.removeProduct(product)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>
+                </div>
+              </div>
         </div>
-        <div class="totalPrice">
-
+    </div>
+    <div class="part3">
+        <div class="submit">
+            <button class="btn btn-success" [disabled]="!paymentForm.valid" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
         </div>
     </div>
 </div>
