@@ -100,6 +100,9 @@ h2{
 .star-rating input[type="radio"]:checked ~ label{
     color: gold;
 }
+.images img{
+    border-bottom: 1px solid #ddd;
+}
 @media (max-width: 1700px) {
     .part1, .part2{
         margin-right: 200px;

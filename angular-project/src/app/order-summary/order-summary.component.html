@@ -1,10 +1,10 @@
 <title>Order summary</title>
 <div class="content">
-    <img src="../../favicon.ico" height="50" width="50" alt="astroshop-icon">
-    <h1 style="font-weight: bold; font-size: 30px;">Order summary</h1><br>
+    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+    <h1 style="font-weight: bold;">Order summary</h1><br>
     <div class="part1">
         <div class="order-info">
-            <h2 style="font-weight: bold; text-align: center;">Your delivery data</h2>
+            <h2>Your delivery data</h2>
             <address>
             <ng-container *ngFor="let info of order">
                 <b>Name: </b>{{info.name}}<br>
@@ -20,28 +20,28 @@
             </address>
         </div>
         <div class="payment-option"><br>
-            <h2 style="font-weight: bold; text-align: center;">Payment method</h2>
+            <h2>Payment method</h2>
             <form [formGroup]="paymentForm">
                 <input type="radio" id="p1" name="paymentMethod" value="p1" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery"></label><br>
+                <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery">Payment on delivery</label><br>
                     
                 <input type="radio" id="p2" name="paymentMethod" value="p2" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                <label for="p2"><img src="https://i.pinimg.com/564x/5f/55/76/5f55760df2d12a4d66638bd20212d73d.jpg" height="40" width="40" alt="cardPaymentUponCollection"></label><br>
+                <label for="p2"><img src="https://i.pinimg.com/564x/5f/55/76/5f55760df2d12a4d66638bd20212d73d.jpg" height="40" width="40" alt="cardPaymentUponCollection">Payment by card upon collection</label><br>
                     
                 <input type="radio" id="p3" name="paymentMethod" value="p3" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment"></label><br>
+                <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment">Online card payment</label><br>
             </form>
         </div>
     </div>
     <div class="part2">
         <div class="selected-products"><br>
-            <h2 style="font-weight: bold; text-align: center;">Selected products</h2>
+            <h2>Selected products</h2>
             <div class="product" *ngFor="let product of selectedProducts">
                 <div class="part1">
                   <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName">
                 </div>
                 <div class="part2">
-                  <h2>{{product.productName}}</h2>
+                  <h2 style="color: black; text-align: left;">{{product.productName}}</h2>
                   <p>{{product.price}}€</p>
                 </div>
                 <div class="part3">
@@ -51,8 +51,11 @@
         </div>
     </div>
     <div class="part3">
+        <p>Total price: {{CartService.totalPrice()}}€</p>
+    </div>
+    <div class="part4">
         <div class="submit">
-            <button class="btn btn-success" [disabled]="!paymentForm.valid" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
+            <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || order.length === 0" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Finish order</button>
         </div>
     </div>
 </div>

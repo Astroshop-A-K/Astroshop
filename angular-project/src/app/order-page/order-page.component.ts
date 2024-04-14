@@ -44,7 +44,7 @@ export class OrderPageComponent {
   }
 
   onSubmit(){
-    if(this.orderForm.valid){
+    if(this.orderForm.valid && this.products.length > 0){
       this.OrderService.order.push(this.orderForm.value);
     }
   }

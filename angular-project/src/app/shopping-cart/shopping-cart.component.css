@@ -3,14 +3,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right: 300px;
-    margin-left: 300px;
     padding-bottom: 650px;
+    padding-top: 30px;
 }
 .product{
     background-color: white;
     border: 1px solid #ddd;
-    width: 100%;
+    width: 60vw;
     margin: 10px;
     border-radius: 10px;
     height: auto;
@@ -52,11 +51,12 @@
     margin: 0;
 }
 @media (max-width: 1250px){
-    .content{
-        margin-left: 60px;
-        margin-right: 60px;
-    }
     .product{
-        grid-template-columns: 200px 1fr 100px;
+        width: 80vw;
+    }
+}
+@media (max-width: 750px){
+    .product{
+        width: 90vw;
     }
 }

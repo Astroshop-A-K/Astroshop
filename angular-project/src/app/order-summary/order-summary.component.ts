@@ -30,7 +30,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
   onSubmit(){
     if(this.paymentForm.valid){
-      
+      //Tu spravit PUT request na backend
     }
   }
 

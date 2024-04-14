@@ -1,8 +1,8 @@
 .title {
-    background-image: url(https://assets.newatlas.com/dims4/default/900ec1c/2147483647/strip/true/crop/2000x1333+0+0/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Fa0%2F2f%2F999ade75433b8cc2f7bb70678395%2F01.jpg);
+    background-image: url(https://static.vecteezy.com/system/resources/previews/002/262/086/non_2x/telescope-on-tripod-with-a-starry-sky-in-the-background-3d-rendering-free-photo.jpg);
     background-size:cover;
     background-repeat: no-repeat;
-    background-position:center;
+    background-position:right;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@
   }
   .our_products_content {
     margin: 50px;
-    max-width: 100vw; 
+    width: auto;
     padding: 20px;
     text-align: center;
   }
@@ -52,6 +52,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 150px;
+    width: 100%;
   }
   .telescope_1 {
     border: 1px solid #ddd;
@@ -122,6 +123,9 @@
   }
   p{
     font-size: 17px;
+  }
+  .text{
+    max-width: 1300px;
   }
   @media (max-width: 768px) {
     .title {

@@ -1,7 +1,7 @@
 <title>Your order</title>
 <div class="content">
-    <img src="../../favicon.ico" height="50" width="50" alt="astroshop-icon">
-    <h1 style="font-weight: bold; font-size: 30px;">Order</h1><br>
+    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+    <h1 style="font-weight: bold;">Order</h1><br>
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
         <div class="name_surname">
             <div class="field">
@@ -54,20 +54,20 @@
             <div class="field">
                 <p>Delivery Option</p>
                 <form [formGroup]="orderForm">
-                    <input type="radio" id="packeta" name="deliveryOption" value="packeta" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                    <label for="packeta"><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Logo_Packeta_s.r.o..png" height="35" width="110" alt="packeta"></label><br>
+                    <input type="radio" id="packeta" name="deliveryOption" value="Packeta" formControlName="deliveryOption" (change)="onRadioChange($event)">
+                    <label for="packeta"><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Logo_Packeta_s.r.o..png" height="35" width="110" alt="packeta" title="packeta"></label><br>
                     
-                    <input type="radio" id="posta" name="deliveryOption" value="posta" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                    <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" height="35" width="35" alt="posta"></label><br>
+                    <input type="radio" id="posta" name="deliveryOption" value="Posta" formControlName="deliveryOption" (change)="onRadioChange($event)">
+                    <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" height="35" width="35" alt="posta" title="posta"></label><br>
                     
-                    <input type="radio" id="kurier" name="deliveryOption" value="kurier" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                    <label for="kurier"><img src="https://cdn-icons-png.flaticon.com/512/7000/7000501.png" height="35" width="35" alt="kurier"></label><br>
+                    <input type="radio" id="kurier" name="deliveryOption" value="Kurier" formControlName="deliveryOption" (change)="onRadioChange($event)">
+                    <label for="kurier"><img src="https://cdn-icons-png.flaticon.com/512/7000/7000501.png" height="35" width="35" alt="kurier" title="kurier"></label><br>
                 </form>
             </div>
         </div>
         <div class="submit">
             <div class="field">
-                <button class="btn btn-success" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
+                <button class="btn btn-success" [disabled]="!orderForm.valid || products.length === 0" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
             </div>
         </div>
     </form>

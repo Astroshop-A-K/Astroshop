@@ -1,8 +1,8 @@
 <title>Home</title>
 <div class="content">
   <div class="title">
-    <div>
-      <h1 style="font-size: 60px;"><b>Astroshop</b></h1><br />
+    <div class="title_content">
+      <h1 style="font-size: 60px;"><b><img src="../../assets/favicon-white.ico"  height="85" width="85" alt="astroshop-icon" title="astroshop-icon">Astroshop</b></h1><br />
       <h3>The best seller of telescopes</h3><br />
       <button [routerLink]="['/products']" class="btn btn-danger">Shop now</button>
     </div>
@@ -11,7 +11,9 @@
     <h1 style="margin: 20px;font-weight: bold; font-size: 30px;">Our Products</h1>
     <div class="our_products_content">
       <h2>Telescopes</h2><br />
+      <div class="text">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+    </div>
       <div class="gallery">
         <ng-container *ngFor="let product of productData.slice(0, 4)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
@@ -27,7 +29,9 @@
         </ng-container>
       </div>
       <h2>Tracking mounts</h2><br />
+      <div class="text">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+    </div>
       <div class="gallery">
         <ng-container *ngFor="let product of productData.slice(4, 8)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
@@ -43,7 +47,9 @@
         </ng-container>
       </div>
       <h2>Other equimpment</h2><br />
+      <div class="text">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+    </div>
       <div class="gallery">
         <ng-container *ngFor="let product of productData.slice(8, 12)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">

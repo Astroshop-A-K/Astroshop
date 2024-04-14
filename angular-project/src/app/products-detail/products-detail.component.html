@@ -4,9 +4,9 @@
     <div class="gallery">
       <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50" (click)="positionLeft()"></button>
      <div [ngSwitch]="currentImagePosition" class="images">
-      <img [src]="productInfo.productImage0" [alt]="productInfo.productName + 1" height="300" *ngSwitchCase="0"/>
-      <img [src]="productInfo.productImage1" [alt]="productInfo.productName + 2" *ngSwitchCase="1"/>
-      <img [src]="productInfo.productImage2" [alt]="productInfo.productName + 3" *ngSwitchCase="2"/>
+      <img [src]="productInfo.productImage0" [title]="productInfo.productName" [alt]="productInfo.productName + 1" height="300" *ngSwitchCase="0"/>
+      <img [src]="productInfo.productImage1" [title]="productInfo.productName" [alt]="productInfo.productName + 2" *ngSwitchCase="1"/>
+      <img [src]="productInfo.productImage2" [title]="productInfo.productName" [alt]="productInfo.productName + 3" *ngSwitchCase="2"/>
     </div>
       <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50" (click)="positionRight()"></button>
     </div>
