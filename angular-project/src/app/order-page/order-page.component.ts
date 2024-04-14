@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../shopping-cart/cart.service';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderService } from './order.service';
 import { RouterLink } from '@angular/router';
 
@@ -12,21 +12,20 @@ import { RouterLink } from '@angular/router';
   styleUrl: './order-page.component.css'
 })
 export class OrderPageComponent {
-  totalPrice = this.CartService.totalPrice();
   products = this.CartService.getProducts();
 
   constructor(private CartService: CartService, private OrderService: OrderService){}
 
   orderForm = new FormGroup({
-    name: new FormControl(''),
-    surname: new FormControl(''),
-    email: new FormControl(''),
-    phoneNumber: new FormControl(''),
-    address: new FormControl(''),
-    psc: new FormControl(''),
-    city: new FormControl(''),
-    country: new FormControl(''),
-    deliveryOption: new FormControl(''),
+    name: new FormControl('', Validators.required),
+    surname: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email, this.emailValidator]),
+    phoneNumber: new FormControl('', Validators.required),
+    address: new FormControl('', Validators.required),
+    psc: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    deliveryOption: new FormControl('', Validators.required),
   });
 
   onSelectChange(event: any){
@@ -36,7 +35,17 @@ export class OrderPageComponent {
     this.orderForm.get('deliveryOption')?.setValue(event.target.value);
   }
 
+  emailValidator(control: any) {
+    const email = control.value;
+    if (email && email.indexOf('@') === -1 && email.indexOf('.') === -1) {
+      return { invalidEmail: true };
+    }
+    return null;
+  }
+
   onSubmit(){
-    this.OrderService.order.push(this.orderForm.value);
+    if(this.orderForm.valid){
+      this.OrderService.order.push(this.orderForm.value);
+    }
   }
 }
