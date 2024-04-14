@@ -60,7 +60,7 @@ namespace AspNetCoreAPI.Migrations
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ProblemsModel", b =>
@@ -82,7 +82,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ProblemId");
 
-                    b.ToTable("Problems", (string)null);
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ProductsModel", b =>
@@ -119,7 +119,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.User", b =>

@@ -24,7 +24,8 @@ namespace AspNetCoreAPI.Migrations
                     DeliveryOption = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Payment = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Payment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalPrice = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

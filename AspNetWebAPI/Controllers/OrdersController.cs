@@ -1,5 +1,6 @@
 ﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.DTO;
+using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreAPI.Controllers

@@ -27,6 +27,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   onRadioChange(event: any){
     this.paymentForm.get('paymentMethod')?.setValue(event.target.value);
   }
+  
 
   onSubmit(){
     if(this.paymentForm.valid){
