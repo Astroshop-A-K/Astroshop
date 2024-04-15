@@ -2,14 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-contact-page',
   templateUrl: './contact-page.component.html',
   styleUrls: ['./contact-page.component.css'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
 })
 
 export class ContactPageComponent {
@@ -22,14 +22,12 @@ export class ContactPageComponent {
     problem: new FormControl('', Validators.required),
   });
   onSubmit() {
-    console.log(this.contactForm.value);
     if (this.contactForm.valid) {
       let nameSurnameBE = this.contactForm.value.nameSurname ?? '';
       let emailBE = this.contactForm.value.email ?? '';
       let problemBE = this.contactForm.value.problem ?? '';
 
       this.createProblem(nameSurnameBE, emailBE, problemBE).subscribe();;
-      this.router.navigate(['/home']);
     }
   }
   emailValidator(control: any) {

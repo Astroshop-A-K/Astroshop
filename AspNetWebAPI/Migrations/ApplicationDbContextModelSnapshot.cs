@@ -24,6 +24,12 @@ namespace AspNetCoreAPI.Migrations
 
             modelBuilder.Entity("AspNetCoreAPI.Models.OrdersModel", b =>
                 {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
@@ -42,23 +48,22 @@ namespace AspNetCoreAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PSC")
-                        .HasColumnType("int");
+                    b.Property<double>("PSC")
+                        .HasColumnType("float");
 
                     b.Property<string>("Payment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<double>("PhoneNumber")
+                        .HasColumnType("float");
 
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("OrderId");
 
                     b.ToTable("Orders");
                 });

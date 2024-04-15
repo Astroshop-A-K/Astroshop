@@ -19,7 +19,7 @@
       <textarea placeholder="My product is not working..." id="problem" formControlName="problem"></textarea>
     </div>
 
-    <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-danger">Confirm</button>
+    <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-danger" [routerLink]="['/home']">Confirm</button>
   </form>
 </div>
 </div>

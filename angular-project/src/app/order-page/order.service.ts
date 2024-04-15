@@ -4,7 +4,32 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class OrderService {
-  order: any[] = [];
+  order: OrdersDTO = {
+    name: '',
+    surname: '',
+    email: '',
+    phoneNumber: 0,
+    address: '',
+    postalCode: 0,
+    city: '',
+    country: '',
+    deliveryOption: '',
+    payment: '',
+    totalPrice: 0,
+  }
 
   constructor() { }
+}
+export interface OrdersDTO{
+  name?: string;
+  surname?: string;
+  email?: string;
+  phoneNumber?: number;
+  address?: string;
+  postalCode?: number;
+  city?: string;
+  country?: string;
+  deliveryOption?: string;
+  payment?: string;
+  totalPrice?: number;
 }

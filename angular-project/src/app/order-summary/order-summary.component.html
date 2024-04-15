@@ -6,29 +6,29 @@
         <div class="order-info">
             <h2>Your delivery data</h2>
             <address>
-            <ng-container *ngFor="let info of order">
-                <b>Name: </b>{{info.name}}<br>
-                <b>Surname: </b>{{info.surname}}<br>
-                <b>E-mail: </b>{{info.email}}<br>
-                <b>Address: </b>{{info.address}}<br>
-                <b>Postal code: </b>{{info.psc}}<br>
-                <b>Phone number: </b>{{info.phoneNumber}}<br>
-                <b>City: </b>{{info.city}}<br>
-                <b>Country: </b>{{info.country}}<br>
-                <b>Delivery option: </b>{{info.deliveryOption}}
+            <ng-container>
+                <b>Name: </b>{{OrderService.order?.name}}<br>
+                <b>Surname: </b>{{OrderService.order?.surname}}<br>
+                <b>E-mail: </b>{{OrderService.order?.email}}<br>
+                <b>Address: </b>{{OrderService.order?.address}}<br>
+                <b>Postal code: </b>{{OrderService.order?.postalCode}}<br>
+                <b>Phone number: </b>{{OrderService.order?.phoneNumber}}<br>
+                <b>City: </b>{{OrderService.order?.city}}<br>
+                <b>Country: </b>{{OrderService.order?.country}}<br>
+                <b>Delivery option: </b>{{OrderService.order?.deliveryOption}}
             </ng-container>
             </address>
         </div>
         <div class="payment-option"><br>
             <h2>Payment method</h2>
             <form [formGroup]="paymentForm">
-                <input type="radio" id="p1" name="paymentMethod" value="p1" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                <input type="radio" id="p1" name="paymentMethod" value="paymentOnDelivery" formControlName="paymentMethod" (change)="onRadioChange($event)">
                 <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery">Payment on delivery</label><br>
                     
-                <input type="radio" id="p2" name="paymentMethod" value="p2" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                <input type="radio" id="p2" name="paymentMethod" value="cardPaymentUponCollection" formControlName="paymentMethod" (change)="onRadioChange($event)">
                 <label for="p2"><img src="https://i.pinimg.com/564x/5f/55/76/5f55760df2d12a4d66638bd20212d73d.jpg" height="40" width="40" alt="cardPaymentUponCollection">Payment by card upon collection</label><br>
                     
-                <input type="radio" id="p3" name="paymentMethod" value="p3" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                <input type="radio" id="p3" name="paymentMethod" value="cardPayment" formControlName="paymentMethod" (change)="onRadioChange($event)">
                 <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment">Online card payment</label><br>
             </form>
         </div>
@@ -55,7 +55,7 @@
     </div>
     <div class="part4">
         <div class="submit">
-            <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || order.length === 0" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Finish order</button>
+            <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button" [routerLink]="['/home']">Finish order</button>
         </div>
     </div>
 </div>

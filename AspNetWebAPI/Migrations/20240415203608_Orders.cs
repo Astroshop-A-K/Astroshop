@@ -14,21 +14,23 @@ namespace AspNetCoreAPI.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PSC = table.Column<int>(type: "int", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
+                    PSC = table.Column<double>(type: "float", nullable: false),
+                    PhoneNumber = table.Column<double>(type: "float", nullable: false),
                     DeliveryOption = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Payment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalPrice = table.Column<int>(type: "int", nullable: false)
+                    TotalPrice = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
                 });
         }
 
