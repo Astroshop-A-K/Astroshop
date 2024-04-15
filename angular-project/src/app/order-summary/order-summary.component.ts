@@ -6,12 +6,13 @@ import { CartService } from '../shopping-cart/cart.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { OrdersDTO } from '../order-page/order.service';
+import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 
 @Component({
   selector: 'app-order-summary',
   standalone: true,
   imports: [NgFor, ReactiveFormsModule, RouterLink],
+  providers: [ShoppingCartComponent],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css'
 })
@@ -19,7 +20,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   selectedProducts: ProductsDTO[];
   totalPrice = this.CartService.totalPrice();
 
-  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient){}
+  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent){}
 
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
@@ -42,10 +43,13 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       let country = this.OrderService.order.country;
       let deliveryOption = this.OrderService.order.deliveryOption;
       let totalPrice = this.OrderService.order.totalPrice;
-      
+
       this.OrderService.order.payment = payment;
 
+      this.ShoppingCart.clearCart();
+
       this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, totalPrice).subscribe();
+      localStorage.clear();
     } 
   }
 
@@ -60,5 +64,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy(): void{
     this.OrderService.order = null;
+    this.selectedProducts = [];
   }
 }
