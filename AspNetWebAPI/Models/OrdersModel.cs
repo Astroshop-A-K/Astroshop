@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AspNetCoreAPI.DTO;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace AspNetCoreAPI.Models
 {

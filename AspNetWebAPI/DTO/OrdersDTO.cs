@@ -1,4 +1,6 @@
-﻿namespace AspNetCoreAPI.DTO
+﻿using AspNetCoreAPI.Models;
+
+namespace AspNetCoreAPI.DTO
 {
     public class OrdersDTO
     {

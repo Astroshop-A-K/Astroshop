@@ -65,7 +65,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ProblemsModel", b =>
@@ -87,7 +87,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ProblemId");
 
-                    b.ToTable("Problems");
+                    b.ToTable("Problems", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ProductsModel", b =>
@@ -124,7 +124,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.User", b =>
