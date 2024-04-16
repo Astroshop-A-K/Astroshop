@@ -55,7 +55,7 @@
             <form [formGroup]="paymentForm">
                 <div class="field">
                     <input id="coupon" name="coupon" placeholder="Type your coupon here..." formControlName="coupon">
-                    <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">Apply</button>
+                    <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
                 </div>
             </form>
         </div>
