@@ -33,23 +33,13 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   onSubmit(){
     if(this.paymentForm.valid){
       let payment = this.paymentForm.value.paymentMethod;
-      let name = this.OrderService.order.name;
-      let surname = this.OrderService.order.surname;
-      let email = this.OrderService.order.email;
-      let phoneNumber = this.OrderService.order.phoneNumber;
-      let address = this.OrderService.order.address;
-      let postalCode = this.OrderService.order.postalCode;
-      let city = this.OrderService.order.city;
-      let country = this.OrderService.order.country;
-      let deliveryOption = this.OrderService.order.deliveryOption;
-      let totalPrice = this.OrderService.order.totalPrice;
+      let {name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, totalPrice} = this.OrderService.order;
 
       this.OrderService.order.payment = payment;
 
       this.ShoppingCart.clearCart();
 
       this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, totalPrice).subscribe();
-      localStorage.clear();
     } 
   }
 
@@ -60,10 +50,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    console.log(this.OrderService.order);
     this.selectedProducts = this.CartService.products;
   }
   ngOnDestroy(): void{
-    this.OrderService.order = null;
     this.selectedProducts = [];
   }
 }
