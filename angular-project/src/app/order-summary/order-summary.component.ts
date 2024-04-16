@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, signal } from '@angular/core';
 import { OrderService } from '../order-page/order.service';
 import { NgFor } from '@angular/common';
 import { ProductsDTO } from '../products/products.component';
@@ -7,40 +7,53 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order-summary',
   standalone: true,
   imports: [NgFor, ReactiveFormsModule, RouterLink],
-  providers: [ShoppingCartComponent],
+  providers: [ShoppingCartComponent, MatSnackBar],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css'
 })
 export class OrderSummaryComponent implements OnInit, OnDestroy{
   selectedProducts: ProductsDTO[];
-  totalPrice = this.CartService.totalPrice();
   orderCompleted: boolean;
+  appliedCoupon: boolean = false;
+  totalPrice = this.CartService.totalPrice();
 
-  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent){}
+  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar){}
 
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
+    coupon: new FormControl('', Validators.required),
   });
 
   onRadioChange(event: any){
     this.paymentForm.get('paymentMethod')?.setValue(event.target.value);
   }
+
+  applyCoupon(){
+    if(this.paymentForm.value.coupon == "BESTSHOP"){
+      this.appliedCoupon = true;
+      this.totalPrice /= 2;
+    }
+    else{
+      this.snackBar.open("Invalid coupon", "", { duration: 1500, });
+    }
+  }
   
   onSubmit(){
     if(this.paymentForm.valid){
       let payment = this.paymentForm.value.paymentMethod;
-      let {name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, totalPrice} = this.OrderService.order;
+      let {name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption} = this.OrderService.order;
 
       this.OrderService.order.payment = payment;
 
       this.ShoppingCart.clearCart();
 
-      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, totalPrice).subscribe();
+      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice).subscribe();
 
       this.orderCompleted = true;
     } 
@@ -53,7 +66,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    console.log(this.OrderService.order);
     this.selectedProducts = this.CartService.products;
   }
   ngOnDestroy(): void{

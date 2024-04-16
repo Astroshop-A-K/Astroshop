@@ -52,9 +52,17 @@
             </div>
         </div>
         <div class="part3">
-            <p>Total price: {{CartService.totalPrice()}}€</p>
+            <form [formGroup]="paymentForm">
+                <div class="field">
+                    <input id="coupon" name="coupon" placeholder="Type your coupon here..." formControlName="coupon">
+                    <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">Apply</button>
+                </div>
+            </form>
         </div>
         <div class="part4">
+            <p>Total price: {{totalPrice}}€</p>
+        </div>
+        <div class="part5">
             <div class="submit">
                 <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
             </div>
