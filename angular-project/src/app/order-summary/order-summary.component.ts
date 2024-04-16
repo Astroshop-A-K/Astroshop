@@ -19,6 +19,7 @@ import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component'
 export class OrderSummaryComponent implements OnInit, OnDestroy{
   selectedProducts: ProductsDTO[];
   totalPrice = this.CartService.totalPrice();
+  orderCompleted: boolean;
 
   constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent){}
 
@@ -40,6 +41,8 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       this.ShoppingCart.clearCart();
 
       this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, totalPrice).subscribe();
+
+      this.orderCompleted = true;
     } 
   }
 
@@ -55,5 +58,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy(): void{
     this.selectedProducts = [];
+    this.orderCompleted = false;
   }
 }

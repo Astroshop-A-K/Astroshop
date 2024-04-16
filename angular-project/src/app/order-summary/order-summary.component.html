@@ -1,61 +1,71 @@
 <title>Order summary</title>
-<div class="content">
-    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-    <h1 style="font-weight: bold;">Order summary</h1><br>
-    <div class="part1">
-        <div class="order-info">
-            <h2>Your delivery data</h2>
-            <address>
-            <ng-container>
-                <b>Name: </b>{{OrderService.order?.name}}<br>
-                <b>Surname: </b>{{OrderService.order?.surname}}<br>
-                <b>E-mail: </b>{{OrderService.order?.email}}<br>
-                <b>Address: </b>{{OrderService.order?.address}}<br>
-                <b>Postal code: </b>{{OrderService.order?.postalCode}}<br>
-                <b>Phone number: </b>{{OrderService.order?.phoneNumber}}<br>
-                <b>City: </b>{{OrderService.order?.city}}<br>
-                <b>Country: </b>{{OrderService.order?.country}}<br>
-                <b>Delivery option: </b>{{OrderService.order?.deliveryOption}}
-            </ng-container>
-            </address>
+@if(!orderCompleted){
+    <div class="content">
+        <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+        <h1 style="font-weight: bold;">Order summary</h1><br>
+        <div class="part1">
+            <div class="order-info">
+                <h2>Your delivery data</h2>
+                <address>
+                <ng-container>
+                    <b>Name: </b>{{OrderService.order?.name}}<br>
+                    <b>Surname: </b>{{OrderService.order?.surname}}<br>
+                    <b>E-mail: </b>{{OrderService.order?.email}}<br>
+                    <b>Address: </b>{{OrderService.order?.address}}<br>
+                    <b>Postal code: </b>{{OrderService.order?.postalCode}}<br>
+                    <b>Phone number: </b>{{OrderService.order?.phoneNumber}}<br>
+                    <b>City: </b>{{OrderService.order?.city}}<br>
+                    <b>Country: </b>{{OrderService.order?.country}}<br>
+                    <b>Delivery option: </b>{{OrderService.order?.deliveryOption}}
+                </ng-container>
+                </address>
+            </div>
+            <div class="payment-option"><br>
+                <h2>Payment method</h2>
+                <form [formGroup]="paymentForm">
+                    <input type="radio" id="p1" name="paymentMethod" value="paymentOnDelivery" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                    <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery">Payment on delivery</label><br>
+                        
+                    <input type="radio" id="p2" name="paymentMethod" value="cardPaymentUponCollection" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                    <label for="p2"><img src="https://cdn4.iconfinder.com/data/icons/sales-and-online-shop-3-line/100/sales_online_shop_giving_credit_card-512.png" height="40" width="40" alt="cardPaymentUponCollection">Payment by card upon collection</label><br>
+                        
+                    <input type="radio" id="p3" name="paymentMethod" value="cardPayment" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                    <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment">Online card payment</label><br>
+                </form>
+            </div>
         </div>
-        <div class="payment-option"><br>
-            <h2>Payment method</h2>
-            <form [formGroup]="paymentForm">
-                <input type="radio" id="p1" name="paymentMethod" value="paymentOnDelivery" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery">Payment on delivery</label><br>
-                    
-                <input type="radio" id="p2" name="paymentMethod" value="cardPaymentUponCollection" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                <label for="p2"><img src="https://cdn4.iconfinder.com/data/icons/sales-and-online-shop-3-line/100/sales_online_shop_giving_credit_card-512.png" height="40" width="40" alt="cardPaymentUponCollection">Payment by card upon collection</label><br>
-                    
-                <input type="radio" id="p3" name="paymentMethod" value="cardPayment" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment">Online card payment</label><br>
-            </form>
+        <div class="part2">
+            <div class="selected-products"><br>
+                <h2>Selected products</h2>
+                <div class="product" *ngFor="let product of selectedProducts">
+                    <div class="part1">
+                      <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
+                    </div>
+                    <div class="part2">
+                      <h2 style="color: black; text-align: left;">{{product.productName}}</h2>
+                      <p>{{product.price}}€</p>
+                    </div>
+                    <div class="part3">
+                      <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;" (click)="CartService.removeProduct(product)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="part3">
+            <p>Total price: {{CartService.totalPrice()}}€</p>
+        </div>
+        <div class="part4">
+            <div class="submit">
+                <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
+            </div>
         </div>
     </div>
-    <div class="part2">
-        <div class="selected-products"><br>
-            <h2>Selected products</h2>
-            <div class="product" *ngFor="let product of selectedProducts">
-                <div class="part1">
-                  <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
-                </div>
-                <div class="part2">
-                  <h2 style="color: black; text-align: left;">{{product.productName}}</h2>
-                  <p>{{product.price}}€</p>
-                </div>
-                <div class="part3">
-                  <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;" (click)="CartService.removeProduct(product)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>
-                </div>
-              </div>
-        </div>
+}
+@else{
+    <div class="content">
+        <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+        <h1 style="font-weight: bold;">Thank you for your order!</h1><br>
+        <p>Your order is being processed and soon will be send to you!</p><br>
+        <button class="btn btn-success" [routerLink]="['/home']">Return home</button>
     </div>
-    <div class="part3">
-        <p>Total price: {{CartService.totalPrice()}}€</p>
-    </div>
-    <div class="part4">
-        <div class="submit">
-            <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button" [routerLink]="['/home']">Finish order</button>
-        </div>
-    </div>
-</div>
+}

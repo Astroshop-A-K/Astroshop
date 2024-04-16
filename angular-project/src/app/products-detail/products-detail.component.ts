@@ -61,7 +61,6 @@ export class ProductsDetailComponent {
     getProductInfo(productName: string): Observable<ProductsDTO> { 
         let queryParams = new HttpParams();
         queryParams = queryParams.append("productName", productName);
-
         return this.http.get<ProductsDTO>(this.baseUrl + 'products/getProductInfo', { params: queryParams });
     }
 }
