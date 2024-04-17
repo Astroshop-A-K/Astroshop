@@ -16,11 +16,11 @@ export class AuthenticationService {
   constructor(@Inject('BASE_URL') private baseUrl: string) {  }
 
   registerUser(userData: UserRegistration): Observable<RegistrationResponse> {
-    return this.httpClient.post<RegistrationResponse>(this.baseUrl + '/user/register', userData);
+    return this.httpClient.post<RegistrationResponse>(this.baseUrl + 'user/register', userData);
   }
 
   loginUser(userData: UserLogin): Observable<UserLoginResponse> {
-    return this.httpClient.post<UserLoginResponse>(this.baseUrl + '/user/login', userData);
+    return this.httpClient.post<UserLoginResponse>(this.baseUrl + 'user/login', userData);
   }
 
   logout() {
@@ -28,13 +28,18 @@ export class AuthenticationService {
     this.authenticated.set(false);
   }
 
-  storeToken(token: string) {
-    localStorage.setItem("token", token);
+  storeUserCredentials(token: string, username: string) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
     this.authenticated.set(true);
   }
 
+  getCurrentUsername(): string {
+    return this.isAuthenticated() ? localStorage.getItem('username') : null;
+  }
+
   private isAuthenticated() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     return token && !this.jwtHelper.isTokenExpired(token);
   }

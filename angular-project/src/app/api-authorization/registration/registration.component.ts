@@ -7,7 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { HttpErrorResponse } from '@angular/common/http';
 import { equalValuesValidator, passwordStrengthValidator } from '../password-validators';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -19,7 +19,8 @@ import { Router } from '@angular/router';
     MatInput,
     MatIcon,
     MatIconButton,
-    MatButton
+    MatButton,
+    RouterLink
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.css'

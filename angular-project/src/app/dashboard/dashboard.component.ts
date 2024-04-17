@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { TestService } from '../test.service';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { MatList, MatListItem } from '@angular/material/list';
@@ -30,12 +30,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class DashboardComponent implements OnInit {
   private testService = inject(TestService);
+  private destroyRef = inject(DestroyRef)
 
   dataSource: MatTableDataSource<string>;
 
   ngOnInit(): void {
     this.testService.getNames()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(names => this.dataSource = new MatTableDataSource(names));
   }
 }

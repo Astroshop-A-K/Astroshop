@@ -46,21 +46,29 @@
                       <p>{{product.price}}€</p>
                     </div>
                     <div class="part3">
-                      <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;" (click)="CartService.removeProduct(product)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>
+                      <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;" (click)="CartService.removeProduct(product)" [disabled]="appliedCoupon"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>
                     </div>
                   </div>
             </div>
         </div>
         <div class="part3">
             <form [formGroup]="paymentForm">
-                <div class="field">
-                    <input id="coupon" name="coupon" placeholder="Type your coupon here..." formControlName="coupon">
-                    <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
+                <div class="coupon-field">
+                    <div class="field">
+                        <input id="coupon" name="coupon" placeholder="Type your coupon here..." formControlName="coupon">
+                        <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
+                    </div>
+                    <br><p style="font-size: 14px;">After using discount coupon you can't remove your selected products anymore!</p>
                 </div>
             </form>
         </div>
         <div class="part4">
-            <p>Total price: {{totalPrice}}€</p>
+            @if(!appliedCoupon){
+                <p>Total price: {{CartService.totalPrice()}}€</p>
+            }
+            @else{
+                <p>Total price: {{CartService.totalPrice() / 2}}€</p>
+            }
         </div>
         <div class="part5">
             <div class="submit">

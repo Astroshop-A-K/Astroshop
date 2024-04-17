@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { ProductsDTO } from '../products/products.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   public products: ProductsDTO[] = [];

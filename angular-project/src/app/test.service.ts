@@ -10,6 +10,6 @@ export class TestService {
   constructor(@Inject('BASE_URL') private baseUrl: string) { }
 
   getNames() {
-    return this.httpClient.get<string[]>(this.baseUrl + '/home');
+    return this.httpClient.get<string[]>(this.baseUrl + 'home');
   }
 }

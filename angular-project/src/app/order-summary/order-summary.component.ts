@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-order-summary',
@@ -22,6 +23,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   orderCompleted: boolean;
   appliedCoupon: boolean = false;
   couponButtonText: string = "Apply";
+  
   totalPrice = this.CartService.totalPrice();
 
   constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar){}
@@ -39,7 +41,8 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     if(this.paymentForm.value.coupon == "BESTSHOP"){
       this.appliedCoupon = true;
       this.couponButtonText = "Applied";
-      this.totalPrice /= 2;
+      
+      this.totalPrice /= 2; 
     }
     else{
       this.snackBar.open("Invalid coupon", "", { duration: 1500, });

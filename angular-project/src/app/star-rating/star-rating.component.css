@@ -1,0 +1,20 @@
+fa-icon{
+    cursor: pointer;
+    color: gray;
+    font-size: 24px;
+    margin: 0 0.2rem;
+
+    &.rated{
+        color: orange;
+    }
+    transition: color 0.2s ease-in-out;
+}
+
+&.readOnly{
+    fa-icon{
+        cursor: default;
+        &:hover:not(.rated) ~ fa-icon{
+            color: gray;
+        }
+    }
+}

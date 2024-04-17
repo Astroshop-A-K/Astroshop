@@ -82,26 +82,47 @@ h2{
     margin: 20px;
     padding-bottom: 10px;
 }
-.star-rating{
-    margin-top: 15px;
-}
-.star-rating input[type="radio"]{
-    display: none;
-}
-.star-rating label{
-    font-size: 30px;
-    color: #ccc;
-    cursor: pointer;
-    float: right;
-}
-.star-rating label::before{
-    content: '\2605';
-}
-.star-rating input[type="radio"]:checked ~ label{
-    color: gold;
-}
 .images img{
     border-bottom: 1px solid #ddd;
+}
+input{
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+.field{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 0px;
+}
+.review-form{
+    width: 100%;
+}
+.review{
+    width: 100%;
+    height: auto;
+    background-color:#ebebeb;
+    border-radius: 10px;
+}
+.title{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+.title h3, img{
+    margin: 10px;
+}
+.description{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.star-rating{
+    margin-top: 20px;
 }
 @media (max-width: 1700px) {
     .part1, .part2{
