@@ -16,8 +16,6 @@ export class StarRatingComponent {
   @Input() readOnly: boolean = false;
   @Output() ratingChange: EventEmitter<number> = new EventEmitter<number>();
 
-  productRating: number = 0;
-
   constructor(){}
 
   setRating(value: number){

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, OnInit, signal} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'app-products-detail',
@@ -64,7 +65,13 @@ export class ProductsDetailComponent implements OnInit {
             let reviewComment = this.reviewForm.value.reviewComment;
             let starRating = this.productRating;
 
-            this.createReview(reviewComment, "Anonymous", this.productName, starRating).subscribe();
+            this.createReview(reviewComment, "Anonymous", this.productName, starRating).subscribe(newReview =>{
+                const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
+                this.reviewsData.push(reviewDto);
+            }
+            );
+            this.reviewForm.reset();
+            this.productRating = 0;
         }
     }
 
