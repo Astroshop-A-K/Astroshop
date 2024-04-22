@@ -69,11 +69,6 @@ namespace AspNetCoreAPI.Controllers
                 })
                 .ToList();
 
-            if (!reviews.Any())
-            {
-                return NotFound(); 
-            }
-
             return reviews;
         }
     }

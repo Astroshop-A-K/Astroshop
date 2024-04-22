@@ -105,10 +105,12 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.authService.getCurrentUser().subscribe(result =>{
-            this.user = result;
-            this.reviewCreator = this.user.userName;
-        })
+        if(this.authService.authenticated()){
+            this.authService.getCurrentUser().subscribe(result =>{
+                this.user = result;
+                this.reviewCreator = this.user.userName;
+            })
+        }
 
         const routeParams = this.route.snapshot.paramMap;
         this.productName = String(routeParams.get('productName'));
