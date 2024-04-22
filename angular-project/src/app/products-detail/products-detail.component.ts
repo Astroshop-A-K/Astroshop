@@ -7,7 +7,6 @@ import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 
 @Component({

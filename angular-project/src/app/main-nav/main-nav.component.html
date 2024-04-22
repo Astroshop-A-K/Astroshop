@@ -4,7 +4,8 @@
   <button [routerLink]="['/home']">Home</button>
   <button [routerLink]="['/products']">Products</button>
   <button [routerLink]="['/contact']">Contact</button>
-  <button [routerLink]="['/shopping-cart']"><mat-icon matBadge="{{countNum()}}" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" alt="shopping-cart" height="25" width="25" /></mat-icon></button>
+  <button [routerLink]="[]"><mat-icon matBadge="0" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></button>
+  <button [routerLink]="['/shopping-cart']"><mat-icon matBadge="{{countNum()}}" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25" alt="shopping-cart" title="shopping-cart"/></mat-icon></button>
   @if (authService.authenticated()) {
     <button mat-button (click)="logout()">Logout</button>
   } @else {
