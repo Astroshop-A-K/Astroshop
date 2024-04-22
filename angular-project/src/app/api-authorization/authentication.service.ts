@@ -38,9 +38,16 @@ export class AuthenticationService {
     return this.isAuthenticated() ? localStorage.getItem('username') : null;
   }
 
+  getCurrentUser(){
+    return this.httpClient.get<UserDTO>(this.baseUrl + 'base');
+  }
+
   private isAuthenticated() {
     const token = localStorage.getItem('token');
 
     return token && !this.jwtHelper.isTokenExpired(token);
   }
+}
+export interface UserDTO{
+  userName: string;
 }

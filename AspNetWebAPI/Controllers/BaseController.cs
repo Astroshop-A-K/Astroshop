@@ -6,15 +6,16 @@ using System.Security.Claims;
 namespace AspNetCoreAPI.Controllers
 {
     [ApiController]
+    [Route("[controller]")]
     public class BaseController : ControllerBase
     {
-        protected readonly ApplicationDbContext Context;
+        public readonly ApplicationDbContext Context;
 
         public BaseController(ApplicationDbContext context) => Context = context;
 
 
         [HttpGet]
-        protected User? GetCurrentUser()
+        public User? GetCurrentUser()
         {
             var userName = User.FindFirstValue(ClaimTypes.Name);
 

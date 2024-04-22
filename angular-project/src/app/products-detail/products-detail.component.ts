@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, signal} from '@angular/core';
+import { Component, Inject, OnInit, inject, signal} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 
 @Component({
     selector: 'app-products-detail',
@@ -32,8 +33,14 @@ export class ProductsDetailComponent implements OnInit {
     public productName: string = '';
     public currentImagePosition: number = 0;
     public currentPageURL: string = '';
+
     public reviewsData: ReviewsDTO[] = [];
+    reviewCreator: string = '';
+
     productRating: number = 0;
+
+    authService = inject(AuthenticationService);
+    user: UserDTO;
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private Router: Router, private StarRating: StarRatingComponent) {}
 
@@ -65,7 +72,7 @@ export class ProductsDetailComponent implements OnInit {
             let reviewComment = this.reviewForm.value.reviewComment;
             let starRating = this.productRating;
 
-            this.createReview(reviewComment, "Anonymous", this.productName, starRating).subscribe(newReview =>{
+            this.createReview(reviewComment, this.reviewCreator, this.productName, starRating).subscribe(newReview =>{
                 const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
                 this.reviewsData.push(reviewDto);
             }
@@ -98,6 +105,11 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.authService.getCurrentUser().subscribe(result =>{
+            this.user = result;
+            this.reviewCreator = this.user.userName;
+        })
+
         const routeParams = this.route.snapshot.paramMap;
         this.productName = String(routeParams.get('productName'));
 
