@@ -71,9 +71,23 @@ h2{
     border-radius: 10px;
 }
 .title{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.title-part1{
+    width: 60%;
     display: flex;
     flex-direction: row;
     justify-content: left;
+}
+.title-part2{
+    width: 40%;
+    display: flex;
+    justify-content: right;
+    margin-right: 20px;
 }
 .title h3, img{
     margin: 10px;
