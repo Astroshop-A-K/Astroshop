@@ -7,11 +7,11 @@ namespace AspNetCoreAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BaseController : ControllerBase
+    public class UserController : ControllerBase
     {
         public readonly ApplicationDbContext Context;
 
-        public BaseController(ApplicationDbContext context) => Context = context;
+        public UserController(ApplicationDbContext context) => Context = context;
 
 
         [HttpGet]

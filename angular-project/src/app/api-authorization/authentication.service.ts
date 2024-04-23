@@ -39,7 +39,7 @@ export class AuthenticationService {
   }
 
   getCurrentUser(){
-    return this.httpClient.get<UserDTO>(this.baseUrl + 'base');
+    return this.httpClient.get<UserDTO>(this.baseUrl + 'user');
   }
 
   private isAuthenticated() {
