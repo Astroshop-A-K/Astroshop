@@ -138,6 +138,33 @@ input{
 .star-rating{
     margin-top: 20px;
 }
+.dropdown{
+    position: relative;
+    display: inline-block;
+    border-radius: 15px;
+}
+.dropdown-content{
+    display: none;
+    position: absolute;
+    transition: transform 0.3s ease;
+}   
+.dropdown:hover .dropdown-content{
+    display: block;
+    background-color:#ebebeb;
+    border-radius: 15px;
+}
+.dropdown:hover{
+    background-color: #bfbfbf;
+}
+.dropdown-content a:hover{
+    background-color: #bfbfbf;
+    border-radius: 15px;
+}
+.dropdown-content a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media (max-width: 1700px) {
     .part1, .part2{
         margin-right: 200px;

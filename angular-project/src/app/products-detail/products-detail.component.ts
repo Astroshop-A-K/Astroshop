@@ -81,6 +81,17 @@ export class ProductsDetailComponent implements OnInit {
         }
     }
 
+    removeReview(reviewId: number){
+        if(reviewId != null){
+            this.deleteReview(reviewId).subscribe(
+                () => {
+                    const index = this.reviewsData.findIndex(review => review.reviewId === reviewId);
+                    this.reviewsData.splice(index, 1);
+                }
+            );
+        }
+    }
+
     onRatingChange(rating: number) {
         this.productRating = rating;
     }
@@ -95,6 +106,11 @@ export class ProductsDetailComponent implements OnInit {
         let queryParams = new HttpParams();
         queryParams = queryParams.append("productName", productName);
         return this.http.get<ReviewsDTO[]>(this.baseUrl + 'reviews/getReviews', { params: queryParams });
+    }
+
+    deleteReview(reviewId: number): Observable<any>{
+        const url = `${this.baseUrl}reviews/${reviewId}`;
+        return this.http.delete(url);
     }
     
     getProductInfo(productName: string): Observable<ProductsDTO> { 

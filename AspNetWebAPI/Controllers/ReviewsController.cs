@@ -71,5 +71,31 @@ namespace AspNetCoreAPI.Controllers
 
             return reviews;
         }
+        [HttpDelete("{reviewId}")]
+        public IActionResult DeleteReview(int reviewId)
+        {
+            try
+            {
+                using (var context = _context)
+                {
+                    var review = context.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
+
+                    if (review == null)
+                    {
+                        return NotFound();
+                    }
+
+                    context.Reviews.Remove(review);
+                    context.SaveChanges();
+
+                    return NoContent();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return StatusCode(500);
+            }
+        }
     }
 }
