@@ -81,11 +81,11 @@ export class ProductsDetailComponent implements OnInit {
         }
     }
 
-    removeReview(reviewId: number){
-        if(reviewId != null){
-            this.deleteReview(reviewId).subscribe(
+    removeReview(reviewCreator: string){
+        if(reviewCreator != null){
+            this.deleteReview(reviewCreator).subscribe(
                 () => {
-                    const index = this.reviewsData.findIndex(review => review.reviewId === reviewId);
+                    const index = this.reviewsData.findIndex(review => review.reviewCreator === reviewCreator);
                     this.reviewsData.splice(index, 1);
                 }
             );
@@ -108,8 +108,8 @@ export class ProductsDetailComponent implements OnInit {
         return this.http.get<ReviewsDTO[]>(this.baseUrl + 'reviews/getReviews', { params: queryParams });
     }
 
-    deleteReview(reviewId: number): Observable<any>{
-        const url = `${this.baseUrl}reviews/${reviewId}`;
+    deleteReview(reviewCreator: string): Observable<any>{
+        const url = `${this.baseUrl}reviews/${reviewCreator}`;
         return this.http.delete(url);
     }
     
