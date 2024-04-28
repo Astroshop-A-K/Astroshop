@@ -35,6 +35,7 @@ export class ProductsDetailComponent implements OnInit {
 
     public reviewsData: ReviewsDTO[] = [];
     reviewCreator: string = '';
+    sharingReviewText: string = '';
 
     productRating: number = 0;
 
@@ -61,6 +62,24 @@ export class ProductsDetailComponent implements OnInit {
         if(this.currentImagePosition < 2){
             this.currentImagePosition += 1;
         }
+    }
+
+    shareReview(reviewCreator: string, reviewComment: string){
+        this.sharingReviewText = `<${reviewCreator}> wrote: <${reviewComment}>`;
+
+        const textArea = document.createElement('textarea');
+
+        textArea.value = this.sharingReviewText;
+
+        document.body.appendChild(textArea);
+
+        textArea.focus();
+        textArea.select();
+
+        document.execCommand('copy');
+        this.snackBar.open("Copied!", "", { duration: 1500, }); 
+
+        document.body.removeChild(textArea);
     }
 
     onSubmit(){
