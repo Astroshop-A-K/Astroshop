@@ -1,7 +1,7 @@
 fa-icon{
     cursor: pointer;
     color: gray;
-    font-size: 24px;
+    font-size: 23px;
     margin: 0 0.2rem;
 
     &.rated{

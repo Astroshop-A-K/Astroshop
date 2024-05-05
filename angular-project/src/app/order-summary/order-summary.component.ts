@@ -30,7 +30,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
-    coupon: new FormControl('', Validators.required),
+    coupon: new FormControl(''),
   });
 
   onRadioChange(event: any){

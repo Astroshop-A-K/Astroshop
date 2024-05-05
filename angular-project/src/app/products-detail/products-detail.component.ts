@@ -41,6 +41,9 @@ export class ProductsDetailComponent implements OnInit {
 
     productRating: number = 0;
 
+    averageStarRatingSignal = signal(0);
+    reviewsCountSignal = signal(0);
+
     authService = inject(AuthenticationService);
     user: UserDTO;
 
@@ -101,8 +104,10 @@ export class ProductsDetailComponent implements OnInit {
 
                 if(this.reviewsData.length > 0){
                     averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
+                    this.averageStarRatingSignal.update(value => averageStarRating);
                 }
                 reviewsCount = this.reviewsData.length;
+                this.reviewsCountSignal.update(value => this.reviewsData.length);
                 this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
             }
             );
@@ -123,8 +128,10 @@ export class ProductsDetailComponent implements OnInit {
 
                     if(this.reviewsData.length > 0){
                         averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
+                        this.averageStarRatingSignal.update(value => averageStarRating);
                     }
                     reviewsCount = this.reviewsData.length;
+                    this.reviewsCountSignal.update(value => this.reviewsData.length);
                     this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
                 }
             );
@@ -177,7 +184,8 @@ export class ProductsDetailComponent implements OnInit {
         this.getProductInfo(this.productName).subscribe(
             result => {
                 this.productInfo = result;
-                console.table(this.productInfo);
+                this.averageStarRatingSignal.set(this.productInfo.averageStarRating); //ked tak tie signaly prerobit
+                this.reviewsCountSignal.set(this.productInfo.reviewsCount);
             },
             error => console.error(error)
         );

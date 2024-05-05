@@ -15,8 +15,8 @@
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
         <p style="color: black; font-weight: bold;">{{ productInfo.price }}€</p>
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
-        <app-star-rating [rating]="productInfo.averageStarRating" [readOnly]="true"></app-star-rating>
-        <p style="color: black;">({{productInfo.reviewsCount}})</p>
+        <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>
+        <p style="color: black;">({{reviewsCountSignal()}})</p>
       </div>
       <div class="add-to-cart-button">
         @if(productInfo.quantity > 0){

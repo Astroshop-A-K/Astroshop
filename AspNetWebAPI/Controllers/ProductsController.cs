@@ -32,6 +32,8 @@ namespace AspNetCoreAPI.Controllers
                 ProductImage1 = dbProducts.ProductImage1,
                 ProductImage2 = dbProducts.ProductImage2,
                 Quantity = dbProducts.Quantity,
+                AverageStarRating = dbProducts.AverageStarRating,
+                ReviewsCount = dbProducts.ReviewsCount,
             });
         }
         [HttpGet]

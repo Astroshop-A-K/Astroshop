@@ -4,13 +4,14 @@ import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
 import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule]
+  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent]
 })
 export class ProductsComponent {
   public productData: ProductsDTO[] = [];
@@ -50,8 +51,9 @@ export class ProductsComponent {
       this.sortData('isa');
     } else if (selectedValue === 'all') {
       this.sortData('asa');
+    } else if (selectedValue === 'review') {
+      this.sortData('rew');
     }
-    // tu ked tak pridat ostatne sorting
   }
 
   private sortData(order: string) {
@@ -63,6 +65,8 @@ export class ProductsComponent {
       this.ourFilteredProducts = this.ourFilteredProducts.filter(product => product.quantity > 0);
     } else if (order === 'asa') {
       this.showAllProducts();
+    } else if(order === 'rew') {
+      this.ourFilteredProducts.sort((a, b) => b.averageStarRating - a.averageStarRating);
     }
   }
 

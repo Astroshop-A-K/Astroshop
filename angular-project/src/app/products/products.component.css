@@ -12,7 +12,7 @@
   padding: 15px;
   transition: transform 0.3s ease;
   width: 250px;
-  height: 365px;
+  height: 410px;
   border-radius: 10px;
   text-align: left;
 }
@@ -66,6 +66,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 0.2rem;
 }
 .left-panel {
   background-color: #f4f4f4;
@@ -118,6 +119,14 @@
 }
 p{
   font-size: 17px;
+}
+.star-rating{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.names{
+  margin: 0 0.2rem;
 }
 @media screen and (max-width: 1180px) {
   .left-panel {

@@ -20,6 +20,10 @@
             <div *ngIf="product.productCategory === 'TELE'" class="telescope_1">
               <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
               <p>{{ product.productName }}</p>
+              <div class="star-rating">
+                <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+                <p style="color: black;">({{product.reviewsCount}})</p>
+              </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
                 <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
@@ -38,6 +42,10 @@
             <div *ngIf="product.productCategory === 'MONT'" class="telescope_1">
               <img [src]="product.productImage0" alt="Mount + {{product.productId}}" title="{{product.productName}}">
               <p>{{ product.productName }}</p>
+              <div class="star-rating">
+                <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+                <p style="color: black;">({{product.reviewsCount}})</p>
+              </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
                 <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
@@ -56,6 +64,10 @@
             <div *ngIf="product.productCategory === 'OTHR'" class="telescope_1">
               <img [src]="product.productImage0" alt="Others + {{product.productId}}" title="{{product.productName}}">
               <p>{{product.productName }}</p>
+              <div class="star-rating">
+                <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+                <p style="color: black;">({{product.reviewsCount}})</p>
+              </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
                 <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>

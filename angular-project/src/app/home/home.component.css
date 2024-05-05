@@ -59,7 +59,7 @@
     padding: 15px;
     transition: transform 0.3s ease;
     width: 250px; 
-    height: 365px;
+    height: 410px;
     border-radius: 10px;
     text-align: left;
   }
@@ -126,6 +126,14 @@
   }
   .text{
     max-width: 1300px;
+  }
+  .star-rating{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .names{
+    margin: 0 0.2rem;
   }
   @media (max-width: 768px) {
     .title {

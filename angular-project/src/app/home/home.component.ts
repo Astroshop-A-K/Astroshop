@@ -2,13 +2,14 @@ import { Component, Inject, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgFor]
+  imports: [RouterLink, NgClass, NgIf, NgFor, StarRatingComponent]
 })
 
 export class HomeComponent {
