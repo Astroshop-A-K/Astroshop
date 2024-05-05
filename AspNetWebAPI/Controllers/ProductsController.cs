@@ -51,7 +51,8 @@ namespace AspNetCoreAPI.Controllers
                 ProductImage1 = product.ProductImage1,
                 ProductImage2 = product.ProductImage2,
                 Quantity = product.Quantity,
-                AverageStarRating = product.AverageStarRating
+                AverageStarRating = product.AverageStarRating,
+                ReviewsCount = product.ReviewsCount
             };
 
             return info;
@@ -69,6 +70,7 @@ namespace AspNetCoreAPI.Controllers
                 }
 
                 product.AverageStarRating = updateRatingDTO.Rating;
+                product.ReviewsCount = updateRatingDTO.ReviewsCount;
                 _context.SaveChanges();
 
                 return Ok(updateRatingDTO);

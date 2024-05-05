@@ -28,7 +28,8 @@ export class ProductsDetailComponent implements OnInit {
         productImage1: '',
         productImage2: '',
         quantity: 0,
-        averageStarRating: 0
+        averageStarRating: 0,
+        reviewsCount: 0
     }; 
     public productName: string = '';
     public currentImagePosition: number = 0;
@@ -90,8 +91,9 @@ export class ProductsDetailComponent implements OnInit {
 
             let reviewComment = this.reviewForm.value.reviewComment;
             let starRating = this.productRating;
-            let averageStarRating = 0;
 
+            let averageStarRating = 0;
+            let reviewsCount = 0;
 
             this.createReview(reviewComment, this.reviewCreator, this.productName, starRating).subscribe(newReview =>{
                 const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
@@ -100,7 +102,8 @@ export class ProductsDetailComponent implements OnInit {
                 if(this.reviewsData.length > 0){
                     averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
                 }
-                this.updateAverageStarRating(this.productName, averageStarRating).subscribe();
+                reviewsCount = this.reviewsData.length;
+                this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
             }
             );
 
@@ -111,16 +114,18 @@ export class ProductsDetailComponent implements OnInit {
 
     removeReview(reviewCreator: string){
         let averageStarRating = 0;
+        let reviewsCount = 0;
         if(reviewCreator != null){
             this.deleteReview(reviewCreator).subscribe(
                 () => {
                     const index = this.reviewsData.findIndex(review => review.reviewCreator === reviewCreator);
                     this.reviewsData.splice(index, 1);
 
-                    if(this.reviewsData.length > 4){
+                    if(this.reviewsData.length > 0){
                         averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
                     }
-                    this.updateAverageStarRating(this.productName, averageStarRating).subscribe();
+                    reviewsCount = this.reviewsData.length;
+                    this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
                 }
             );
         }
@@ -152,10 +157,10 @@ export class ProductsDetailComponent implements OnInit {
         queryParams = queryParams.append("productName", productName);
         return this.http.get<ProductsDTO>(this.baseUrl + 'products/getProductInfo', { params: queryParams });
     }
-    updateAverageStarRating(productNameBE: string, RatingBE: number){
+    updateAverageStarRating(productNameBE: string, ratingBE: number, reviewsCountBE: number){
         const url = `${this.baseUrl}products/update-rating`;
         const headers = new HttpHeaders({'Content-Type': 'application/json' });
-        return this.http.put(url, { ProductName: productNameBE, Rating: RatingBE }, { headers });
+        return this.http.put(url, { ProductName: productNameBE, Rating: ratingBE, ReviewsCount: reviewsCountBE }, { headers });
     }
 
     ngOnInit(): void {
@@ -195,6 +200,7 @@ export interface ProductsDTO {
     productImage2: string;
     quantity: number;
     averageStarRating: number;
+    reviewsCount: number;
 }
 export interface ReviewsDTO{
     reviewId: number;

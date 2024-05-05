@@ -166,8 +166,8 @@ input{
     align-items: center;
     justify-content: center;
 }
-.container.readOnly{
-    padding: 0;
+app-star-rating{
+    margin-bottom: 13px;
 }
 @media (max-width: 1700px) {
     .part1, .part2{

@@ -12,10 +12,11 @@
     </div>
     <div class="product-information">
       <h1>{{productInfo.productName}}</h1>
-      <app-star-rating [rating]="productInfo.averageStarRating" [readOnly]="true"></app-star-rating>
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
         <p style="color: black; font-weight: bold;">{{ productInfo.price }}€</p>
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+        <app-star-rating [rating]="productInfo.averageStarRating" [readOnly]="true"></app-star-rating>
+        <p style="color: black;">({{productInfo.reviewsCount}})</p>
       </div>
       <div class="add-to-cart-button">
         @if(productInfo.quantity > 0){
