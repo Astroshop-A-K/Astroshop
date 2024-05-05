@@ -14,5 +14,6 @@ namespace AspNetCoreAPI.Models
         public string? ProductImage1 { get; set; }
         public string? ProductImage2 { get; set; }
         public int Quantity { get; set; }
+        public int AverageStarRating { get; set; }
     }
 }

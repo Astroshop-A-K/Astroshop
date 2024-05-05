@@ -51,9 +51,32 @@ namespace AspNetCoreAPI.Controllers
                 ProductImage1 = product.ProductImage1,
                 ProductImage2 = product.ProductImage2,
                 Quantity = product.Quantity,
+                AverageStarRating = product.AverageStarRating
             };
 
             return info;
+        }
+        [HttpPut("update-rating")]
+        public ActionResult<UpdateRatingDTO> UpdateAverageStarRating([FromBody] UpdateRatingDTO updateRatingDTO)
+        {
+            try
+            {
+                var product = _context.Products.SingleOrDefault(p => p.ProductName == updateRatingDTO.ProductName);
+
+                if(product == null)
+                {
+                    return NotFound(updateRatingDTO.ProductName);
+                }
+
+                product.AverageStarRating = updateRatingDTO.Rating;
+                _context.SaveChanges();
+
+                return Ok(updateRatingDTO);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

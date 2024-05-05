@@ -83,4 +83,5 @@ export interface ProductsDTO {
   productImage1: string;
   productImage2: string;
   quantity: number;
+  averageStarRating: number;
 }
