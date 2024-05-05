@@ -51,7 +51,7 @@ export class ProductsComponent {
       this.sortData('isa');
     } else if (selectedValue === 'all') {
       this.sortData('asa');
-    } else if (selectedValue === 'review') {
+    } else if (selectedValue === 'top') {
       this.sortData('rew');
     }
   }
@@ -66,6 +66,7 @@ export class ProductsComponent {
     } else if (order === 'asa') {
       this.showAllProducts();
     } else if(order === 'rew') {
+      this.ourFilteredProducts = this.ourFilteredProducts.filter(product => product.averageStarRating >= 4);
       this.ourFilteredProducts.sort((a, b) => b.averageStarRating - a.averageStarRating);
     }
   }

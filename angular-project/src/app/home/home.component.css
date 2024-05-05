@@ -132,7 +132,7 @@
     align-items: center;
     justify-content: space-between;
   }
-  .names{
+  .names, .check{
     margin: 0 0.2rem;
   }
   @media (max-width: 768px) {

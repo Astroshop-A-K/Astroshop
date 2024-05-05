@@ -42,8 +42,10 @@
                       <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
                     </div>
                     <div class="part2">
-                      <h2 style="color: black; text-align: left;">{{product.productName}}</h2>
-                      <p>{{product.price}}€</p>
+                        <div class="text">
+                          <h2 style="color: black; text-align: left;">{{product.productName}}</h2>
+                          <p>{{product.price}}€</p>
+                        </div>
                     </div>
                     <div class="part3">
                       <button class="btn btn-danger" style="display: flex; align-items: center; justify-content: center;" (click)="CartService.removeProduct(product)" [disabled]="appliedCoupon"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>

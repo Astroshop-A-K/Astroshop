@@ -21,19 +21,17 @@
 .product:hover{
     transform: translateY(-5px);
 }
-.part1, .part2{
+.part1, .part2, .part3{
     padding: 10px;
 }
-.part2{
-    padding-top: 15px;
+.part2, .part3{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 .part2 h2{
     font-weight: bold;
-}
-.part3{
-    padding-top: 10px;
-    padding-left: 15px;
-    margin: 10px;
 }
 .heading{
     padding-top: 20px;

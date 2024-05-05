@@ -18,8 +18,10 @@
         <ng-container *ngFor="let product of productData.slice(0, 4)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
             <div *ngIf="product.productCategory === 'TELE'" class="telescope_1">
-              <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
-              <p>{{ product.productName }}</p>
+              <div class="names">
+                <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
+                <p>{{ product.productName }}</p>
+              </div>
               <div class="star-rating">
                 <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
                 <p style="color: black;">({{product.reviewsCount}})</p>
@@ -40,8 +42,10 @@
         <ng-container *ngFor="let product of productData.slice(4, 8)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
             <div *ngIf="product.productCategory === 'MONT'" class="telescope_1">
-              <img [src]="product.productImage0" alt="Mount + {{product.productId}}" title="{{product.productName}}">
-              <p>{{ product.productName }}</p>
+              <div class="names">
+                <img [src]="product.productImage0" alt="Mount + {{product.productId}}" title="{{product.productName}}">
+                <p>{{ product.productName }}</p>
+              </div>
               <div class="star-rating">
                 <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
                 <p style="color: black;">({{product.reviewsCount}})</p>
@@ -62,8 +66,10 @@
         <ng-container *ngFor="let product of productData.slice(8, 12)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
             <div *ngIf="product.productCategory === 'OTHR'" class="telescope_1">
-              <img [src]="product.productImage0" alt="Others + {{product.productId}}" title="{{product.productName}}">
-              <p>{{product.productName }}</p>
+              <div class="names">
+                <img [src]="product.productImage0" alt="Others + {{product.productId}}" title="{{product.productName}}">
+                <p>{{product.productName }}</p>
+              </div>
               <div class="star-rating">
                 <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
                 <p style="color: black;">({{product.reviewsCount}})</p>
