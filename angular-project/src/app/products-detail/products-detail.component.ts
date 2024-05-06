@@ -73,8 +73,8 @@ export class ProductsDetailComponent implements OnInit {
         }
     }
 
-    shareReview(reviewCreator: string, reviewComment: string){
-        this.sharingReviewText = `<${reviewCreator}> wrote: <${reviewComment}>`;
+    shareReview(reviewCreator: string, reviewComment: string, reviewDate: string){
+        this.sharingReviewText = `<${reviewCreator}> wrote: <${reviewComment}> on <${reviewDate}>`;
 
         const textArea = document.createElement('textarea');
 
