@@ -71,14 +71,14 @@ namespace AspNetCoreAPI.Controllers
 
             return reviews;
         }
-        [HttpDelete("{reviewCreator}")]
-        public IActionResult DeleteReview(string reviewCreator)
+        [HttpDelete("{reviewId}")]
+        public IActionResult DeleteReview(int reviewId)
         {
             try
             {
                 using (var context = _context)
                 {
-                    var review = context.Reviews.FirstOrDefault(r => r.ReviewCreator == reviewCreator);
+                    var review = context.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
 
                     if (review == null)
                     {

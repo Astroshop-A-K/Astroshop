@@ -59,7 +59,7 @@
               <div class="dropdown-content">
                 <a (click)="shareReview(review.reviewCreator, review.reviewComment)"><img src="https://www.freeiconspng.com/thumbs/share-icon/share-icon-png-2.png" height="20" width="20" alt="share-icon"></a>
                 @if(review.reviewCreator === user?.userName || roleName === 'admin'){
-                  <a (click)="removeReview(review.reviewCreator)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="20px" width="16px" alt="bin"></a>
+                  <a (click)="removeReview(review.reviewId)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="20px" width="16px" alt="bin"></a>
                 }
                 @else{
 

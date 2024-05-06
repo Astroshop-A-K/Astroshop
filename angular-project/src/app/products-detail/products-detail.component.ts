@@ -111,6 +111,9 @@ export class ProductsDetailComponent implements OnInit {
                 reviewsCount = this.reviewsData.length;
                 this.reviewsCountSignal.update(value => this.reviewsData.length);
                 this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
+                this.getReviews(this.productName).subscribe(result => {
+                    this.reviewsData = result;
+                })
             }
             );
 
@@ -119,13 +122,14 @@ export class ProductsDetailComponent implements OnInit {
         }
     }
 
-    removeReview(reviewCreator: string){
+    removeReview(reviewId: number){
         let averageStarRating = 0;
         let reviewsCount = 0;
-        if(reviewCreator != null){
-            this.deleteReview(reviewCreator).subscribe(
+
+        if(reviewId != null){
+            this.deleteReview(reviewId).subscribe(
                 () => {
-                    const index = this.reviewsData.findIndex(review => review.reviewCreator === reviewCreator);
+                    const index = this.reviewsData.findIndex(review => review.reviewId === reviewId);
                     this.reviewsData.splice(index, 1);
 
                     if(this.reviewsData.length > 0){
@@ -138,6 +142,23 @@ export class ProductsDetailComponent implements OnInit {
                 }
             );
         }
+    }
+
+    refreshData(){
+        const routeParams = this.route.snapshot.paramMap;
+        this.productName = String(routeParams.get('productName'));
+
+        let averageStarRating = 0;
+        let reviewsCount = 0;
+        
+        if(this.reviewsData.length > 0){
+            averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
+            this.averageStarRatingSignal.update(value => averageStarRating);
+        }
+        reviewsCount = this.reviewsData.length;
+        this.reviewsCountSignal.update(value => this.reviewsData.length);
+
+        this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
     }
 
     onRatingChange(rating: number) {
@@ -155,9 +176,14 @@ export class ProductsDetailComponent implements OnInit {
         queryParams = queryParams.append("productName", productName);
         return this.http.get<ReviewsDTO[]>(this.baseUrl + 'reviews/getReviews', { params: queryParams });
     }
+    getCurrentReview(reviewId: number): Observable<ReviewsDTO>{
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append("reviewId", reviewId);
+        return this.http.get<ReviewsDTO>(this.baseUrl + 'reviews/getCurrentReview', { params: queryParams});
+    }
 
-    deleteReview(reviewCreator: string): Observable<any>{
-        const url = `${this.baseUrl}reviews/${reviewCreator}`;
+    deleteReview(reviewId: number): Observable<any>{
+        const url = `${this.baseUrl}reviews/${reviewId}`;
         return this.http.delete(url);
     }
     
@@ -173,6 +199,9 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        const routeParams = this.route.snapshot.paramMap;
+        this.productName = String(routeParams.get('productName'));
+
         if(this.authService.authenticated()){
             this.authService.getCurrentUser().subscribe(result =>{
                 this.user = result;
@@ -187,20 +216,16 @@ export class ProductsDetailComponent implements OnInit {
             })
         }
 
-        const routeParams = this.route.snapshot.paramMap;
-        this.productName = String(routeParams.get('productName'));
-
         this.getProductInfo(this.productName).subscribe(
             result => {
                 this.productInfo = result;
-                this.averageStarRatingSignal.set(this.productInfo.averageStarRating); //ked tak tie signaly prerobit
-                this.reviewsCountSignal.set(this.productInfo.reviewsCount);
             },
             error => console.error(error)
         );
         this.getReviews(this.productName).subscribe(
            result => {
                this.reviewsData = result;
+               this.refreshData();
            },
            error => console.error(error)
         );
