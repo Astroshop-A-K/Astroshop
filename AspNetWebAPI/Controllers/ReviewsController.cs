@@ -30,6 +30,7 @@ namespace AspNetCoreAPI.Controllers
                         ReviewCreator = reviewsDTO.ReviewCreator,
                         ReviewedProduct = reviewsDTO.ReviewedProduct,
                         StarRating = reviewsDTO.StarRating,
+                        ReviewDate = reviewsDTO.ReviewDate,
                     };
 
                     context.Reviews.Add(newReview);
@@ -42,6 +43,7 @@ namespace AspNetCoreAPI.Controllers
                         ReviewCreator = reviewsDTO.ReviewCreator,
                         ReviewedProduct = reviewsDTO.ReviewedProduct,
                         StarRating = reviewsDTO.StarRating,
+                        ReviewDate = reviewsDTO.ReviewDate,
                     };
 
                     return Ok(info);
@@ -65,7 +67,8 @@ namespace AspNetCoreAPI.Controllers
                     ReviewComment = r.ReviewComment,
                     ReviewCreator = r.ReviewCreator,
                     ReviewedProduct = r.ReviewedProduct,
-                    StarRating = r.StarRating
+                    StarRating = r.StarRating,
+                    ReviewDate = r.ReviewDate 
                 })
                 .ToList();
 

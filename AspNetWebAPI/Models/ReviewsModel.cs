@@ -10,5 +10,6 @@ namespace AspNetCoreAPI.Models
         public string? ReviewCreator { get; set; }
         public double StarRating { get; set; }
         public string? ReviewedProduct { get; set; }
+        public string? ReviewDate { get; set; }
     }
 }

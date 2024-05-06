@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, inject, signal} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, DatePipe } from '@angular/common';
 import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,8 +14,8 @@ import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/au
     templateUrl: './products-detail.component.html',
     styleUrls: ['./products-detail.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, ReactiveFormsModule, RouterLink, StarRatingComponent],
-    providers: [MatSnackBar, StarRatingComponent]
+    imports: [NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, ReactiveFormsModule, RouterLink, StarRatingComponent, DatePipe],
+    providers: [MatSnackBar, StarRatingComponent, DatePipe]
 })
 export class ProductsDetailComponent implements OnInit {
     public productInfo: ProductsDTO = { //namiesto array vytvorim objekt, ktory ma ProductsDTO interface 
@@ -49,7 +49,9 @@ export class ProductsDetailComponent implements OnInit {
     role: RoleDTO;
     roleName: string = '';
 
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private Router: Router, private StarRating: StarRatingComponent) {}
+    currentDate: string = '';
+
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private Router: Router, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
@@ -100,7 +102,7 @@ export class ProductsDetailComponent implements OnInit {
             let averageStarRating = 0;
             let reviewsCount = 0;
 
-            this.createReview(reviewComment, this.reviewCreator, this.productName, starRating).subscribe(newReview =>{
+            this.createReview(reviewComment, this.reviewCreator, this.productName, starRating, this.currentDate).subscribe(newReview =>{
                 const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
                 this.reviewsData.push(reviewDto);
 
@@ -165,10 +167,10 @@ export class ProductsDetailComponent implements OnInit {
         this.productRating = rating;
     }
 
-    createReview(reviewCommentBE: string, reviewCreatorBE: string, reviewdProductBE: string, starRatingBE: number) {
+    createReview(reviewCommentBE: string, reviewCreatorBE: string, reviewdProductBE: string, starRatingBE: number, reviewDateBE: string) {
         const url = `${this.baseUrl}reviews/create-review`;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.put(url, { ReviewComment: reviewCommentBE, ReviewCreator: reviewCreatorBE, ReviewedProduct: reviewdProductBE, StarRating: starRatingBE }, { headers });
+        return this.http.put(url, { ReviewComment: reviewCommentBE, ReviewCreator: reviewCreatorBE, ReviewedProduct: reviewdProductBE, StarRating: starRatingBE, ReviewDate: reviewDateBE }, { headers });
     }
 
     getReviews(productName: string): Observable<ReviewsDTO[]> { 
@@ -229,6 +231,8 @@ export class ProductsDetailComponent implements OnInit {
            },
            error => console.error(error)
         );
+
+        this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
     }
 }
 export interface ProductsDTO {
@@ -250,4 +254,5 @@ export interface ReviewsDTO{
     reviewCreator: string;
     reviewedProduct: string;
     starRating: number;
+    reviewDate: string;
 }
