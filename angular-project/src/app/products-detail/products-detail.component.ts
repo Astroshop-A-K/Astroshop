@@ -7,7 +7,7 @@ import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
+import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
 
 @Component({
     selector: 'app-products-detail',
@@ -46,6 +46,8 @@ export class ProductsDetailComponent implements OnInit {
 
     authService = inject(AuthenticationService);
     user: UserDTO;
+    role: RoleDTO;
+    roleName: string = '';
 
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private Router: Router, private StarRating: StarRatingComponent) {}
 
@@ -175,6 +177,13 @@ export class ProductsDetailComponent implements OnInit {
             this.authService.getCurrentUser().subscribe(result =>{
                 this.user = result;
                 this.reviewCreator = this.user.userName;
+                this.authService.getRole(this.user.id).subscribe(result => {
+                    this.role = result;
+                    if(this.role != null){
+                        this.roleName = this.role.name;
+                        console.table(this.role);
+                    }
+                })
             })
         }
 

@@ -1,5 +1,5 @@
 import { inject, Inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegistrationResponse, UserLogin, UserLoginResponse, UserRegistration } from './user-registration';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -42,6 +42,12 @@ export class AuthenticationService {
     return this.httpClient.get<UserDTO>(this.baseUrl + 'user');
   }
 
+  getRole(userId: string): Observable<RoleDTO>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("userId", userId);
+    return this.httpClient.get<RoleDTO>(this.baseUrl + 'user/role', { params: queryParams });
+  }
+
   private isAuthenticated() {
     const token = localStorage.getItem('token');
 
@@ -50,4 +56,11 @@ export class AuthenticationService {
 }
 export interface UserDTO{
   userName: string;
+  id: string;
+}
+export interface RoleDTO{
+  id: number;
+  name: string;
+  normalizedName: string;
+  concurrencyStamp: string;
 }

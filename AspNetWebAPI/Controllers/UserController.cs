@@ -1,4 +1,5 @@
 ﻿using AspNetCoreAPI.Data;
+using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -20,6 +21,27 @@ namespace AspNetCoreAPI.Controllers
             var userName = User.FindFirstValue(ClaimTypes.Name);
 
             return Context.Users.SingleOrDefault(user => user.UserName == userName);
+        }
+
+        [HttpGet("role")]
+        public ActionResult<GetRoleDTO> GetRole(string userId)
+        {
+            var role = Context.UserRoles.SingleOrDefault(u => u.UserId == userId);
+
+            if(role == null)
+            {
+                return null;
+            }
+
+            var roleId = role.RoleId;
+            var newRole = Context.Roles.SingleOrDefault(r => r.Id == roleId);
+
+            if(newRole == null)
+            {
+                return null;
+            }
+
+            return Ok(newRole);
         }
     }
 }
