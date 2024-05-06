@@ -23,14 +23,14 @@ namespace AspNetCoreAPI.Controllers
             return Context.Users.SingleOrDefault(user => user.UserName == userName);
         }
 
-        [HttpGet("role")]
-        public ActionResult<GetRoleDTO> GetRole(string userId)
+        [HttpGet("role/{userId}")]
+        public IActionResult GetRole(string userId)
         {
             var role = Context.UserRoles.SingleOrDefault(u => u.UserId == userId);
 
             if(role == null)
             {
-                return null;
+                return NoContent();
             }
 
             var roleId = role.RoleId;
@@ -38,7 +38,7 @@ namespace AspNetCoreAPI.Controllers
 
             if(newRole == null)
             {
-                return null;
+                return NoContent();
             }
 
             return Ok(newRole);

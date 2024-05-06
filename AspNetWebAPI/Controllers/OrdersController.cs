@@ -1,6 +1,7 @@
 ﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
+using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreAPI.Controllers
@@ -37,6 +38,7 @@ namespace AspNetCoreAPI.Controllers
                         DeliveryOption = ordersDTO.DeliveryOption,
                         Payment = ordersDTO.Payment,
                         TotalPrice = ordersDTO.TotalPrice,
+                        OrderVerificationKey = ordersDTO.OrderVerificationKey,
                     };
 
                     context.Orders.Add(newOrder);
@@ -55,7 +57,8 @@ namespace AspNetCoreAPI.Controllers
                         Country = ordersDTO.Country,
                         DeliveryOption = ordersDTO.DeliveryOption,
                         Payment = ordersDTO.Payment,
-                        TotalPrice = ordersDTO.TotalPrice
+                        TotalPrice = ordersDTO.TotalPrice,
+                        OrderVerificationKey = ordersDTO.OrderVerificationKey
                     };
 
                     return Ok(info);
@@ -65,6 +68,40 @@ namespace AspNetCoreAPI.Controllers
             {
                 Console.WriteLine("Error");
                 return StatusCode(500, new { message = "Mame problem." });
+            }
+        }
+        [HttpGet("{orderVerificationKey}")]
+        public ActionResult<int> GetOrderId(string orderVerificationKey)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderVerificationKey == orderVerificationKey);
+
+            if(order == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(order.OrderId);
+        }
+        [HttpPut("add-productId")]
+        public ActionResult<OrderProductsDTO> AddProductId([FromBody] OrderProductsDTO orderProductsDTO)
+        {
+            try
+            {
+                var newRow = new OrderProductsModel
+                {
+                    ProductId = orderProductsDTO.ProductId,
+                    OrderId = orderProductsDTO.OrderId,
+                };
+
+                _context.OrderProducts.Add(newRow);
+                _context.SaveChanges();
+
+                return Ok("Success!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message); 
+                return StatusCode(500, new { message = "Internal server error" });
             }
         }
     }

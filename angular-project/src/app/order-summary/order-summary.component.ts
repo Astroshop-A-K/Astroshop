@@ -25,6 +25,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   couponButtonText: string = "Apply";
   
   totalPrice = this.CartService.totalPrice();
+  orderId: number = 0;
 
   constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar){}
 
@@ -50,24 +51,48 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   }
   
   onSubmit(){
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let orderVerificationKey: string = '';
     if(this.paymentForm.valid){
       let payment = this.paymentForm.value.paymentMethod;
       let {name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption} = this.OrderService.order;
 
       this.OrderService.order.payment = payment;
 
+      for(let i = 0; i < 32; i++){
+        let randomIndex = Math.floor(Math.random() * characters.length);
+        orderVerificationKey += characters[randomIndex];
+      }
+
       this.ShoppingCart.clearCart();
 
-      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice).subscribe();
+      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey).subscribe(
+        () => {
+          this.getOrderId(orderVerificationKey).subscribe(result => {
+            this.orderId = result;
+            console.table(this.orderId);
+            for(let i = 0; i < this.selectedProducts.length; i++){
+              this.addProductId(this.selectedProducts[i].productId, this.orderId).subscribe();
+            }
+          });
+        }
+      );
 
       this.orderCompleted = true;
     } 
   }
-
-  createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number) {
+  createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string) {
     const url = `${this.baseUrl}orders/create-order`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE }, { headers });
+    return this.http.put(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE, OrderVerificationKey: orderVerificationKeyBE }, { headers });
+  }
+  getOrderId(orderVerificationKeyBE: string){
+    return this.http.get<number>(this.baseUrl + `orders/${orderVerificationKeyBE}`);
+  }
+  addProductId(productId: number, orderId: number){
+    const url = `${this.baseUrl}orders/add-productId`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(url, { ProductId: productId, OrderId: orderId }, { headers });
   }
 
   ngOnInit(): void {
@@ -77,4 +102,8 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     this.selectedProducts = [];
     this.orderCompleted = false;
   }
+}
+interface OrderProductsDTO{
+  orderId: number;
+  productId: number;
 }

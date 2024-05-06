@@ -20,5 +20,6 @@ namespace AspNetCoreAPI.Models
         public string? City { get; set; }
         public string? Payment { get; set; }
         public double TotalPrice { get; set; }
+        public string? OrderVerificationKey { get; set; }
     }
 }

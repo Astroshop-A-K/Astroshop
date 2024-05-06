@@ -43,9 +43,7 @@ export class AuthenticationService {
   }
 
   getRole(userId: string): Observable<RoleDTO>{
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", userId);
-    return this.httpClient.get<RoleDTO>(this.baseUrl + 'user/role', { params: queryParams });
+    return this.httpClient.get<RoleDTO>(this.baseUrl + `user/role/${userId}`);
   }
 
   private isAuthenticated() {
