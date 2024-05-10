@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreAPI.Models
 {
@@ -8,5 +7,6 @@ namespace AspNetCoreAPI.Models
         [Key]
         public int OrderId { get; set; }
         public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }

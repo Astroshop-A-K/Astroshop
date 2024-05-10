@@ -72,7 +72,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
             this.orderId = result;
             console.table(this.orderId);
             for(let i = 0; i < this.selectedProducts.length; i++){
-              this.addProductId(this.selectedProducts[i].productId, this.orderId).subscribe();
+              this.addProductId(this.selectedProducts[i].productId, this.orderId, this.selectedProducts[i].amount).subscribe();
             }
           });
         }
@@ -89,10 +89,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   getOrderId(orderVerificationKeyBE: string){
     return this.http.get<number>(this.baseUrl + `orders/${orderVerificationKeyBE}`);
   }
-  addProductId(productId: number, orderId: number){
+  addProductId(productId: number, orderId: number, amountBE: number){
     const url = `${this.baseUrl}orders/add-productId`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { ProductId: productId, OrderId: orderId }, { headers });
+    return this.http.put(url, { ProductId: productId, OrderId: orderId, Quantity: amountBE }, { headers });
   }
 
   ngOnInit(): void {

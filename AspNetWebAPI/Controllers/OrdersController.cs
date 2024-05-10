@@ -91,6 +91,7 @@ namespace AspNetCoreAPI.Controllers
                 {
                     ProductId = orderProductsDTO.ProductId,
                     OrderId = orderProductsDTO.OrderId,
+                    Quantity = orderProductsDTO.Quantity
                 };
 
                 _context.OrderProducts.Add(newRow);
