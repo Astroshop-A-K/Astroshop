@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
+import { ProductsDTO } from '../shopping-cart/cart.service';
 
 @Component({
     selector: 'app-products-detail',
@@ -29,7 +30,8 @@ export class ProductsDetailComponent implements OnInit {
         productImage2: '',
         quantity: 0,
         averageStarRating: 0,
-        reviewsCount: 0
+        reviewsCount: 0,
+        amount: 0
     }; 
     public productName: string = '';
     public currentImagePosition: number = 0;
@@ -234,19 +236,6 @@ export class ProductsDetailComponent implements OnInit {
 
         this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
     }
-}
-export interface ProductsDTO {
-    productId: number;
-    productName: string;
-    productDescription: string;
-    price: number;
-    productCategory: string;
-    productImage0: string;
-    productImage1: string;
-    productImage2: string;
-    quantity: number;
-    averageStarRating: number;
-    reviewsCount: number;
 }
 export interface ReviewsDTO{
     reviewId: number;

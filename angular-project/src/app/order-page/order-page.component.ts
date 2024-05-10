@@ -15,7 +15,7 @@ export class OrderPageComponent {
   products = this.CartService.getProducts();
   totalPrice = this.CartService.totalPrice();
 
-  constructor(private CartService: CartService, private OrderService: OrderService){}
+  constructor(private CartService: CartService, private OrderService: OrderService){ console.log(this.products);}
 
   orderForm = new FormGroup({
     name: new FormControl('', Validators.required),

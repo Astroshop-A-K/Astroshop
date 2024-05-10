@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import { ProductsDTO } from '../products/products.component';
 
 @Injectable({
   providedIn: 'root',
@@ -7,12 +6,21 @@ import { ProductsDTO } from '../products/products.component';
 export class CartService {
   public products: ProductsDTO[] = [];
   countNum = signal(0);
+  amount: number = 0;
 
   constructor() { }
 
   addToCart(product: ProductsDTO){
-    this.products.push(product);
-    this.countNum.update(value => value + 1);
+    const alreadySelectedProduct = this.products.find(p => p.productId === product.productId);
+    if(alreadySelectedProduct){
+      product.amount++;
+      this.countNum.update(value => value + 1);
+    }
+    else{
+      product.amount = 1;
+      this.products.push(product);
+      this.countNum.update(value => value + 1);
+    }
   }
 
   getProducts(){
@@ -34,4 +42,18 @@ export class CartService {
       this.countNum.update(value => value + -1);
     }
   }
+}
+export interface ProductsDTO {
+  productId: number;
+  productName: string;
+  productDescription: string;
+  price: number;
+  productCategory: string;
+  productImage0: string;
+  productImage1: string;
+  productImage2: string;
+  quantity: number;
+  averageStarRating: number;
+  reviewsCount: number;
+  amount: number;
 }

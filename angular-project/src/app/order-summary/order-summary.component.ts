@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, Inject, signal } from '@angular/core';
 import { OrderService } from '../order-page/order.service';
 import { NgFor } from '@angular/common';
-import { ProductsDTO } from '../products/products.component';
+import { ProductsDTO } from '../shopping-cart/cart.service';
 import { CartService } from '../shopping-cart/cart.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -102,8 +102,4 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     this.selectedProducts = [];
     this.orderCompleted = false;
   }
-}
-interface OrderProductsDTO{
-  orderId: number;
-  productId: number;
 }
