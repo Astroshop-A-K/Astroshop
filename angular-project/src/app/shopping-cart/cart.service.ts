@@ -11,9 +11,9 @@ export class CartService {
   constructor() { }
 
   addToCart(product: ProductsDTO){
-    const alreadySelectedProduct = this.products.find(p => p.productId === product.productId);
+    const alreadySelectedProduct = this.products.find(p => p.productName === product.productName);
     if(alreadySelectedProduct){
-      product.amount++;
+      alreadySelectedProduct.amount++;
       this.countNum.update(value => value + 1);
     }
     else{
@@ -30,7 +30,7 @@ export class CartService {
   totalPrice(){
     let totalPrice = 0;
     for (const product of this.products) {
-      totalPrice += product.price;
+      totalPrice += product.price * product.amount;
     }
     return totalPrice;
   }

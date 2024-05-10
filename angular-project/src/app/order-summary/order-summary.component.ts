@@ -70,7 +70,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         () => {
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.orderId = result;
-            console.table(this.orderId);
             for(let i = 0; i < this.selectedProducts.length; i++){
               this.addProductId(this.selectedProducts[i].productId, this.orderId, this.selectedProducts[i].amount).subscribe();
             }
