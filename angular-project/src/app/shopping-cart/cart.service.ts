@@ -37,9 +37,13 @@ export class CartService {
 
   removeProduct(product: ProductsDTO){
     const index = this.products.indexOf(product);
+    let totalAmount = 0;
     if(index !== -1){
       this.products.splice(index, 1);
-      this.countNum.update(value => value + -1);
+      for(let i = 0; i < this.products.length; i++){
+        totalAmount += this.products[i].amount;
+      }
+      this.countNum.set(totalAmount);
     }
   }
 }
