@@ -3,35 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 650px;
+    padding-bottom: 400px;
     padding-top: 30px;
-}
-.product{
-    background-color: white;
-    border: 1px solid #ddd;
-    width: 60vw;
-    margin: 10px;
-    border-radius: 10px;
-    height: auto;
-    display: grid;
-    grid-template-columns: 250px 1fr 100px; /*350px prva column, 1fr druha*/
-    gap: 0px;
-    transition: transform 0.3s ease;
-}
-.product:hover{
-    transform: translateY(-5px);
-}
-.part1, .part2, .part3{
-    padding: 10px;
-}
-.part2, .part3{
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-}
-.part2 h2{
-    font-weight: bold;
 }
 .heading{
     padding-top: 20px;
@@ -51,6 +24,52 @@
 }
 .total-price p{
     margin: 0;
+}
+.total-price{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.order{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.selectedProducts{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.selectedProducts th{
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: left;
+}
+.selectedProducts td{
+    padding: 8px;
+}
+.selectedProducts img{
+    max-width: 100%;
+    height: auto;
+}
+.btn-remove{
+    background-color: transparent;
+    cursor: pointer;
+}
+.btn-remove img{
+    display: block;
+    margin: auto;
+}
+.order-summary{
+    background-color: #f4f4f4;
+    width: 100%;
+    margin-top: 10px;
+}
+.order-summary p{
+    padding: 2px;
 }
 @media (max-width: 1250px){
     .product{
