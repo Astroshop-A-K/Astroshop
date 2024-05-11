@@ -71,6 +71,9 @@
 .order-summary p{
     padding: 2px;
 }
+.submit{
+    margin-top: 20px;
+}
 @media (max-width: 1250px){
     .product{
         width: 80vw;

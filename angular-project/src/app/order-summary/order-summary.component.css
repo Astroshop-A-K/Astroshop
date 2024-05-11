@@ -23,6 +23,7 @@
 }
 .part1, .part2, .part3{
     padding: 10px;
+    width: 80%;
 }
 .part2, .part3{
     flex-direction: column;
@@ -48,4 +49,50 @@ input{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+.selectedProducts{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.selectedProducts th{
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: left;
+}
+.selectedProducts td{
+    padding: 8px;
+}
+.selectedProducts img{
+    max-width: 100%;
+    height: auto;
+}
+.order-summary{
+    background-color: #f4f4f4;
+    width: 100%;
+    margin-top: 10px;
+}
+.order-summary p{
+    padding: 2px;
+}
+.payment-option, .order-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.total-price{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.total-price{
+    margin: 10px;
+}
+.total-price p{
+    margin: 0;
+}
+.submit{
+    margin-top: 20px;
 }

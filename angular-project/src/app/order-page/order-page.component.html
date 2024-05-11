@@ -3,7 +3,7 @@
     <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
     <h1 style="font-weight: bold;">Order</h1><br>
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-        <div class="name_surname">
+        <h2>Delivery address</h2>
             <div class="field">
                 <label>Name</label><br>
                 <input type="text" class="name" placeholder="Peter" formControlName="name">
@@ -13,8 +13,7 @@
                 <label>Surname</label><br>
                 <input type="text" class="surname" placeholder="Parker" formControlName="surname">
             </div>
-        </div>
-        <div class="email_phonenumber">
+
             <div class="field">
                 <label>E-mail</label><br>
                 <input type="email" class="email" placeholder="peter@astroshop.com..." formControlName="email">
@@ -24,8 +23,7 @@
                 <label>Phone number</label><br>
                 <input type="number" class="phoneNumber" placeholder="+421..." formControlName="phoneNumber">
             </div>
-        </div>
-        <div class="address_psc">
+
             <div class="field">
                 <label>Address</label><br>
                 <input type="text" class="address" placeholder="Parker's street 10" formControlName="address">
@@ -35,12 +33,12 @@
                 <label>Postal code</label><br>
                 <input type="text" class="psc" placeholder="02020" formControlName="psc">
             </div>
-        </div>
-        <div class="city">
+
             <div class="field">
                 <label>City</label><br>
                 <input type="text" class="city" placeholder="Peterson" formControlName="city">
             </div>
+
             <div class="field">
                 <label>Country</label><br>
                 <select (change)="onSelectChange($event)">
@@ -48,27 +46,32 @@
                     <option>Slovakia</option>
                     <option>Czech Republic</option>
                 </select>
-            </div> 
-        </div>   
-        <div class="delivery_option">
-            <div class="field">
-                <p>Delivery Option</p>
-                <form [formGroup]="orderForm">
-                    <input type="radio" id="packeta" name="deliveryOption" value="Packeta" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                    <label for="packeta"><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Logo_Packeta_s.r.o..png" height="35" width="110" alt="packeta" title="packeta"></label><br>
+            </div><br>
+
+            <h2>Delivery option</h2>
+            <div class="field-orderForm">
+                <form [formGroup]="orderForm" class="orderForm">
+                    <div class="delivery-option">
+                        <input type="radio" id="packeta" name="deliveryOption" value="Packeta" formControlName="deliveryOption" (change)="onRadioChange($event)">
+                        <label for="packeta"><img src="https://www.turtle3d.hu/storage/site/temp/packeta_logo.png" height="40" width="40" alt="packeta" title="packeta"><span>Delivery to the packet dispenser</span></label>
+                    </div>
+                    <hr>
+
+                    <div class="delivery-option">
+                        <input type="radio" id="posta" name="deliveryOption" value="Posta" formControlName="deliveryOption" (change)="onRadioChange($event)">
+                        <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" height="35" width="35" alt="posta" title="posta"><span>Delivery to your post office</span></label>
+                    </div>
+                    <hr>
                     
-                    <input type="radio" id="posta" name="deliveryOption" value="Posta" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                    <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" height="35" width="35" alt="posta" title="posta"></label><br>
-                    
-                    <input type="radio" id="kurier" name="deliveryOption" value="Kurier" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                    <label for="kurier"><img src="https://cdn-icons-png.flaticon.com/512/7000/7000501.png" height="35" width="35" alt="kurier" title="kurier"></label><br>
+                    <div class="delivery-option">
+                        <input type="radio" id="kurier" name="deliveryOption" value="Kurier" formControlName="deliveryOption" (change)="onRadioChange($event)">
+                        <label for="kurier"><img src="https://cdn-icons-png.flaticon.com/512/7000/7000501.png" height="35" width="35" alt="kurier" title="kurier"><span>Delivery by courier</span></label>
+                    </div>
                 </form>
             </div>
-        </div>
-        <div class="submit">
-            <div class="field">
-                <button class="btn btn-success" [disabled]="!orderForm.valid || products.length === 0" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
+
+            <div class="field-submit">
+                <button class="btn btn-secondary" [disabled]="!orderForm.valid || products.length === 0" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
             </div>
-        </div>
     </form>
 </div>

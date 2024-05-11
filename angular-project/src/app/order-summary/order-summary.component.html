@@ -35,41 +35,50 @@
             </div>
         </div>
         <div class="part2">
-            <div class="selected-products"><br>
-                <h2>Selected products</h2>
-                <div class="product" *ngFor="let product of selectedProducts">
-                    <div class="part1">
-                      <img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
-                    </div>
-                    <div class="part2">
-                        <div class="text">
-                          <h2 style="color: black; text-align: left;">{{product.productName}}</h2>
-                          <p>{{product.price}}€</p>
-                          <p>{{product.amount}}x</p>
-                        </div>
-                    </div>
-                  </div>
-            </div>
-        </div>
-        <div class="part3">
             <form [formGroup]="paymentForm">
                 <div class="coupon-field">
-                    <div class="field">
+                    <div class="field"><br>
+                        <h2>Coupons</h2>
                         <input id="coupon" name="coupon" placeholder="Type your coupon here..." formControlName="coupon">
                         <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="part4">
-            @if(!appliedCoupon){
-                <br><p>Total price: {{CartService.totalPrice()}}€</p>
-            }
-            @else{
-                <br><p>Total price: {{CartService.totalPrice() / 2}}€</p>
-            }
+        <div class="part3">
+            <table class="selectedProducts">
+                <tr>
+                  <th>Item</th>
+                  <th>Product name</th>
+                  <th>Price</th>
+                  <th>Amount</th>
+                </tr>
+                <tr *ngFor="let product of selectedProducts">
+                  <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225"></td>
+                  <td>{{product.productName}}</td>
+                  <td>{{product.price}}€</td>
+                  <td>{{product.amount}}x</td>
+                </tr>   
+              </table>
+              <div class="order-summary">
+                <div class="total-price">
+                  <p style="font-weight: bold;">Total price</p>
+                  @if(!appliedCoupon){
+                    <p>Total price: {{CartService.totalPrice()}}€</p>
+                  }
+                  @else{
+                    <p>Total price: {{CartService.totalPrice() / 2}}€</p>
+                  }
+                  @if(appliedCoupon){
+                    <p>Coupon applied</p>
+                  }
+                  @else{
+                    <p>Coupon not applied</p>
+                  }
+                </div>
+              </div>
         </div>
-        <div class="part5">
+        <div class="part4">
             <div class="submit">
                 <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
             </div>
@@ -80,7 +89,7 @@
     <div class="content">
         <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
         <h1 style="font-weight: bold;">Thank you for your order!</h1><br>
-        <p>Your order is being processed and soon will be send to you!</p><br>
+        <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p><br>
         <button class="btn btn-success" [routerLink]="['/home']">Return home</button>
     </div>
 }

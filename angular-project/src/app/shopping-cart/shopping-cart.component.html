@@ -3,11 +3,6 @@
     <div class="heading">
         <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
         <h1 style="font-weight: bold;">Your cart</h1><br>
-        <div class="clear-total-price">
-            <div class="clear-cart">
-                <button class="btn btn-danger" (click)="clearCart()">Clear cart</button>
-            </div>
-        </div>
     </div>
     <div class="order">
         @if(products.length > 0){
@@ -17,7 +12,7 @@
               <th>Product name</th>
               <th>Price</th>
               <th>Amount</th>
-              <th></th>
+              <th>Remove</th>
             </tr>
             <tr *ngFor="let product of products">
               <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225"></td>
@@ -31,9 +26,12 @@
             <div class="total-price">
               <p style="font-weight: bold;">Total price</p>
               <p>{{CartService.totalPrice()}}€</p>
+              <button class="btn btn-danger" (click)="clearCart()">Clear cart</button>
             </div>
           </div>
-          <button class="btn btn-success" style="margin-top: 10px;" [routerLink]="['/order']">Proceed to checkout</button>
+          <div class="submit">
+            <button class="btn btn-secondary" [routerLink]="['/order']">Proceed to checkout</button>
+          </div>
         }
         @else{
             <h2 style="text-align: center;">Your cart is empty</h2>

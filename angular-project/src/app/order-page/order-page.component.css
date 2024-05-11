@@ -8,46 +8,68 @@
     padding-bottom: 300px;
 }
 .form{
-    width: 50vw;
+    width: 35%;
 }
-.name_surname, .email_phonenumber, .address_psc, .city, .delivery_option, .submit{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.name_surname input{
-    margin: 10px;
-}
-.email_phonenumber input{
-    margin: 10px;
-}
-.address_psc input{
-    margin: 10px;
-}
-.city input, select{
-    margin: 10px;
-}
-.city input{
-    width: 70%;
-}
-.delivery_option{
-    margin: 10px;
-}
-.field label{
+.field label, p{
     margin-left: 10px;
+    margin-top: 10px;
 }
-.field input, select{
+.field input[type="text"], input[type="email"], input[type="number"], select{
     padding: 10px 18px;
     border-radius: 10px;
     border: 1px solid #ccc;
+    width: 100%;
 }
-.delivery_option input[type="radio"]{
-    margin: 10px;
+input[type="radio"]{
+    width: 10%;
+    padding: 10px;
 }
-.submit{
-    padding-top: 20px;
+input[type="radio"] img{
+    margin: 0;
 }
-p{
-    text-align: left;
+.orderForm{
+    width: 100%;
+}
+.orderForm span{
+    margin-left: 10px;
+}
+.field-submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.field-orderForm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.field-orderForm label{
+    padding: 10px;
+}
+.field-orderForm p{
+    width: 50%;
+    text-align: center;
+}
+.delivery-option{
+    display: flex;
+    align-items: center;
+}
+.delivery-option label{
+    display: flex;
+    align-items: center;
+}
+h2{
+    font-weight: bold;
+    color: #dc3545;
+}
+@media (max-width: 1580px ) {
+    .form{
+        width: 50%;
+    }
+}
+@media (max-width: 970px) {
+    .form{
+        width: 70%;
+    }
 }

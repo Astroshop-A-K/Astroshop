@@ -4,7 +4,7 @@ import { NgFor } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { CartService } from '../shopping-cart/cart.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,7 +27,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   totalPrice = this.CartService.totalPrice();
   orderId: number = 0;
 
-  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar){}
+  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router){}
 
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
@@ -96,6 +96,9 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.selectedProducts = this.CartService.products;
+    if(this.selectedProducts.length === 0 || this.OrderService.order == null){
+      this.router.navigate(['/products']);
+    }
   }
   ngOnDestroy(): void{
     this.selectedProducts = [];
