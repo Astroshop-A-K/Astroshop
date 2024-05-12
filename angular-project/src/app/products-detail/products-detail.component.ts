@@ -40,6 +40,7 @@ export class ProductsDetailComponent implements OnInit {
     public reviewsData: ReviewsDTO[] = [];
     reviewCreator: string = '';
     sharingReviewText: string = '';
+    repeatedReviewCreator: boolean = false;
 
     productRating: number = 0;
 
@@ -94,35 +95,41 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     onSubmit(){
-        if(this.reviewForm.valid && this.productRating > 0){
-            const routeParams = this.route.snapshot.paramMap;
-            this.productName = String(routeParams.get('productName'));
-
-            let reviewComment = this.reviewForm.value.reviewComment;
-            let starRating = this.productRating;
-
-            let averageStarRating = 0;
-            let reviewsCount = 0;
-
-            this.createReview(reviewComment, this.reviewCreator, this.productName, starRating, this.currentDate).subscribe(newReview =>{
-                const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
-                this.reviewsData.push(reviewDto);
-
-                if(this.reviewsData.length > 0){
-                    averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
-                    this.averageStarRatingSignal.update(value => averageStarRating);
+        const repeatedReviewCreator = this.reviewsData.find(r => r.reviewCreator === this.reviewCreator);
+        if(!repeatedReviewCreator){
+            if(this.reviewForm.valid && this.productRating > 0){
+                const routeParams = this.route.snapshot.paramMap;
+                this.productName = String(routeParams.get('productName'));
+    
+                let reviewComment = this.reviewForm.value.reviewComment;
+                let starRating = this.productRating;
+    
+                let averageStarRating = 0;
+                let reviewsCount = 0;
+    
+                this.createReview(reviewComment, this.reviewCreator, this.productName, starRating, this.currentDate).subscribe(newReview =>{
+                    const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
+                    this.reviewsData.push(reviewDto);
+    
+                    if(this.reviewsData.length > 0){
+                        averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
+                        this.averageStarRatingSignal.update(value => averageStarRating);
+                    }
+                    reviewsCount = this.reviewsData.length;
+                    this.reviewsCountSignal.update(value => this.reviewsData.length);
+                    this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
+                    this.getReviews(this.productName).subscribe(result => {
+                        this.reviewsData = result;
+                    })
                 }
-                reviewsCount = this.reviewsData.length;
-                this.reviewsCountSignal.update(value => this.reviewsData.length);
-                this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
-                this.getReviews(this.productName).subscribe(result => {
-                    this.reviewsData = result;
-                })
+                );
+    
+                this.reviewForm.reset();
+                this.productRating = 0;
             }
-            );
-
-            this.reviewForm.reset();
-            this.productRating = 0;
+        }
+        else{
+            this.snackBar.open("You already have a review here!", "", { duration: 1500, })
         }
     }
 
