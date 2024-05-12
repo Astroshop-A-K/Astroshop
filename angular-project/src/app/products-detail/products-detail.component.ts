@@ -120,6 +120,7 @@ export class ProductsDetailComponent implements OnInit {
                     this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
                     this.getReviews(this.productName).subscribe(result => {
                         this.reviewsData = result;
+                        this.filterReviews();
                     })
                 }
                 );
@@ -176,6 +177,14 @@ export class ProductsDetailComponent implements OnInit {
         this.productRating = rating;
     }
 
+    filterReviews(){
+        const index = this.reviewsData.findIndex(r => r.reviewCreator === this.reviewCreator);
+        if(index !== -1){
+            const review = this.reviewsData.splice(index, 1)[0];
+            this.reviewsData.unshift(review);
+        }
+    }
+
     createReview(reviewCommentBE: string, reviewCreatorBE: string, reviewdProductBE: string, starRatingBE: number, reviewDateBE: string) {
         const url = `${this.baseUrl}reviews/create-review`;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -213,20 +222,6 @@ export class ProductsDetailComponent implements OnInit {
         const routeParams = this.route.snapshot.paramMap;
         this.productName = String(routeParams.get('productName'));
 
-        if(this.authService.authenticated()){
-            this.authService.getCurrentUser().subscribe(result =>{
-                this.user = result;
-                this.reviewCreator = this.user.userName;
-                this.authService.getRole(this.user.id).subscribe(result => {
-                    this.role = result;
-                    if(this.role != null){
-                        this.roleName = this.role.name;
-                        console.table(this.role);
-                    }
-                })
-            })
-        }
-
         this.getProductInfo(this.productName).subscribe(
             result => {
                 this.productInfo = result;
@@ -237,6 +232,20 @@ export class ProductsDetailComponent implements OnInit {
            result => {
                this.reviewsData = result;
                this.refreshData();
+               if(this.authService.authenticated()){
+                this.authService.getCurrentUser().subscribe(result =>{
+                    this.user = result;
+                    this.reviewCreator = this.user.userName;
+                    this.filterReviews();
+                    this.authService.getRole(this.user.id).subscribe(result => {
+                        this.role = result;
+                        if(this.role != null){
+                            this.roleName = this.role.name;
+                            console.table(this.role);
+                        }
+                    })
+                })
+            }
            },
            error => console.error(error)
         );
