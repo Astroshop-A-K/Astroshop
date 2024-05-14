@@ -23,6 +23,10 @@ export class CartService {
     }
   }
 
+  updateAmount(amount: number){
+    this.countNum.update(value => value + amount);
+  }
+
   getProducts(){
     return this.products;
   }
@@ -39,11 +43,8 @@ export class CartService {
     const index = this.products.indexOf(product);
     let totalAmount = 0;
     if(index !== -1){
+      this.countNum.update(value => value - product.amount);
       this.products.splice(index, 1);
-      for(let i = 0; i < this.products.length; i++){
-        totalAmount += this.products[i].amount;
-      }
-      this.countNum.set(totalAmount);
     }
   }
 }

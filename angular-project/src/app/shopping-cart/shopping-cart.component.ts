@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EmbeddedViewRef, signal } from '@angular/core';
 import { CartService } from './cart.service';
 import { NgFor } from '@angular/common';
 import { ProductsDTO } from './cart.service';
@@ -14,13 +14,14 @@ import { NgModel } from '@angular/forms';
 })
 export class ShoppingCartComponent {
   products = this.CartService.getProducts();
-  amountValue: number;
 
   constructor(public CartService: CartService){}
 
   assignAmount(product: ProductsDTO, event: any){
-    let amount = event.target.value;
-    product.amount = amount;
+    let amount = product.amount;
+    let newAmount = event.target.value;
+    product.amount = newAmount;
+    this.CartService.updateAmount(newAmount - amount);
   }
 
   clearCart(){

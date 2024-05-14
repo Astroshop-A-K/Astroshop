@@ -50,6 +50,7 @@
 }
 .selectedProducts td{
     padding: 8px;
+    text-align: left;
 }
 .selectedProducts img{
     max-width: 100%;
@@ -77,7 +78,7 @@
 input{
     padding: 10px 18px;
     border-radius: 10px;
-    border: none;
+    border: 1px solid #ccc;
     width: 50%;
     margin: 5px 0;
 }
