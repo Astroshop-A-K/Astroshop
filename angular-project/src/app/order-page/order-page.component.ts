@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../shopping-cart/cart.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderService } from './order.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-order-page',
@@ -11,11 +11,11 @@ import { RouterLink } from '@angular/router';
   templateUrl: './order-page.component.html',
   styleUrl: './order-page.component.css'
 })
-export class OrderPageComponent {
+export class OrderPageComponent implements OnInit {
   products = this.CartService.getProducts();
   totalPrice = this.CartService.totalPrice();
 
-  constructor(private CartService: CartService, private OrderService: OrderService){}
+  constructor(private CartService: CartService, private OrderService: OrderService, private router: Router){}
 
   orderForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -59,5 +59,10 @@ export class OrderPageComponent {
         totalPrice: this.totalPrice,
       }
   }
+  }
+  ngOnInit(): void{
+    if(this.products.length === 0){
+      this.router.navigate(['/products']);
+    }
   }
 }

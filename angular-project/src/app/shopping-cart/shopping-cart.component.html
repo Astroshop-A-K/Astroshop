@@ -18,7 +18,7 @@
               <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225"></td>
               <td>{{product.productName}}</td>
               <td>{{product.price}}€</td>
-              <td>{{product.amount}}x</td>
+              <td><input type="number" value="{{product.amount}}" (change)="assignAmount(product, $event)"></td>
               <td><button class="btn btn-coupon" style="display: flex; align-items: center; justify-content: center; padding-bottom: 10px;" (click)="CartService.removeProduct(product)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button></td>
             </tr>   
           </table>
