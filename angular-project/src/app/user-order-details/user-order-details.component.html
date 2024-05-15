@@ -1,0 +1,46 @@
+<title>Order with ID {{orderInfo.orderId}}</title>
+     <div class="content">
+        <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+        <h1 style="font-weight: bold;">Order details</h1><br>
+        <div class="part1">
+            <h2>Delivery data</h2>
+                <address>
+                <ng-container>
+                    <b>Name: </b>{{orderInfo.name}}<br>
+                    <b>Surname: </b>{{orderInfo.surname}}<br>
+                    <b>E-mail: </b>{{orderInfo.email}}<br>
+                    <b>Address: </b>{{orderInfo.address}}<br>
+                    <b>Postal code: </b>{{orderInfo.postalCode}}<br>
+                    <b>Phone number: </b>{{orderInfo.phoneNumber}}<br>
+                    <b>City: </b>{{orderInfo.city}}<br>
+                    <b>Country: </b>{{orderInfo.country}}<br>
+                    <b>Delivery option: </b>{{orderInfo.deliveryOption}}
+                </ng-container>
+                </address>
+        </div>
+        <div class="part2"><br>
+          <h2>Other information</h2>
+          <address>
+            <ng-container>
+                <b>Order ID: </b>{{orderInfo.orderId}}<br>
+                <b>Order Verification Key: </b>{{orderInfo.orderVerificationKey}}
+            </ng-container>
+          </address>
+        </div>
+        <div class="part3"><br>
+           <h2>Selected products</h2>
+           <table class="ordersTable">
+            <tr>
+              <th>Product name</th>
+              <th>Quantity</th>
+            </tr>
+            <tr *ngFor="let product of selectedProducts">
+                <td>{{product.productName}}x</td>
+                <td style="text-align: center;">{{product.quantity}}x</td>
+            </tr>
+          </table>
+        </div>
+        <div class="part4"><br>
+            <p><b>Total price: </b>{{orderInfo.totalPrice}}€</p>
+        </div>
+   </div>

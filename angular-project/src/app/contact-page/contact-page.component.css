@@ -1,5 +1,11 @@
 .content{
   padding-top: 50px;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 400px;
 }
 .form {
     min-width: 150px;
@@ -39,3 +45,21 @@
     text-align: justify;
     max-width: 50%;
   }
+  .problemsTable{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.problemsTable th{
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: left;
+}
+.problemsTable td{
+    padding: 8px;
+    text-align: left;
+}
+.problemsTable img{
+    max-width: 100%;
+    height: auto;
+}

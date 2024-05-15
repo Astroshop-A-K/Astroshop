@@ -1,5 +1,7 @@
 <title>Orders</title>
 <div class="content">
+    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+    <h1 style="font-weight: bold;">Orders</h1><br>
     <div class="orders">
         <table class="ordersTable">
             <tr>
@@ -11,27 +13,13 @@
               <th>Complete</th>
             </tr>
             <tr *ngFor="let order of ordersData">
-              <td>{{order.orderId}}</td>
-              <td>{{order.email}}</td>
-              <td>{{order.orderVerificationKey}}€</td>
-              <td>---</td>
-              <td>{{order.totalPrice}}€</td>
-              <td><button class="btn btn-coupon"><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
-            </tr>   
+                <td class="link" [routerLink]="['/user-orders', order.orderId]">{{order.orderId}}</td>  
+                <td>{{order.email}}</td>
+                <td>{{order.orderVerificationKey}}€</td>
+                <td>---</td>
+                <td>{{order.totalPrice}}€</td>
+                <td><button class="btn btn-coupon"><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
+            </tr>
           </table>
-          <!--
-            <p>{{order.orderId}}</p> 
-            <p>{{order.name}}</p>
-            <p>{{order.surname}}</p>
-            <p>{{order.email}}</p> 
-            <p>{{order.phoneNumber}}</p>
-            <p>{{order.address}}</p>
-            <p>{{order.postalCode}}</p>
-            <p>{{order.city}}</p>
-            <p>{{order.country}}</p> 
-            <p>{{order.deliveryOption}}</p>
-            <p>{{order.payment}}</p>
-            <p>{{order.totalPrice}}</p>
-            <p>{{order.orderVerificationKey}}</p>-->
     </div>
 </div>

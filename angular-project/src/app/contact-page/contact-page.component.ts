@@ -1,18 +1,26 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
+import { NgFor, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-contact-page',
   templateUrl: './contact-page.component.html',
   styleUrls: ['./contact-page.component.css'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgFor, NgForOf],
 })
 
-export class ContactPageComponent {
+export class ContactPageComponent implements OnInit {
+  public problemsData: ProblemsDTO[] = [];
+
+  authService = inject(AuthenticationService);
+  user: UserDTO;
+  role: RoleDTO;
+  roleName: string = '';
 
   constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private router: Router, private _snackBar: MatSnackBar) { }
 
@@ -21,6 +29,7 @@ export class ContactPageComponent {
     email: new FormControl('', [Validators.required, Validators.email, this.emailValidator]),
     problem: new FormControl('', Validators.required),
   });
+
   onSubmit() {
     if (this.contactForm.valid) {
       let nameSurnameBE = this.contactForm.value.nameSurname ?? '';
@@ -30,6 +39,7 @@ export class ContactPageComponent {
       this.createProblem(nameSurnameBE, emailBE, problemBE).subscribe();;
     }
   }
+
   emailValidator(control: any) {
     const email = control.value;
     if (email && email.indexOf('@') === -1 && email.indexOf('.') === -1) {
@@ -37,11 +47,33 @@ export class ContactPageComponent {
     }
     return null;
   }
+
   createProblem(nameSurnameBE: string, emailBE: string, problemBE: string) {
     const url = `${this.baseUrl}contact/create`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(url, { NameSurname: nameSurnameBE, Email: emailBE, Problem: problemBE }, { headers });
   }
+  getProblems(){
+    return this.http.get<ProblemsDTO[]>(this.baseUrl + 'contact');
+  }
+
+  ngOnInit(): void {
+    if(this.authService.authenticated()){
+      this.authService.getCurrentUser().subscribe(result =>{
+          this.user = result;
+          this.authService.getRole(this.user.id).subscribe(result => {
+              this.role = result;
+              if(this.role != null){
+                  this.roleName = this.role.name;
+              }
+          })
+      })
+   }
+
+   this.getProblems().subscribe(result => {
+    this.problemsData = result;
+   })
+ } 
 }
 export interface ProblemsDTO {
   nameSurname: string;

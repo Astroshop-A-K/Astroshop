@@ -1,7 +1,6 @@
 ﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
-using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNetCoreAPI.Controllers
@@ -126,6 +125,82 @@ namespace AspNetCoreAPI.Controllers
                 Surname = dbOrders.Surname,
                 TotalPrice = dbOrders.TotalPrice,
             });
+        }
+        [HttpGet]
+        [Route("getOrderInfo")]
+        public ActionResult<OrdersDTO> getOrderInfo(int orderId)
+        {
+            OrdersModel order = _context.Orders.Where(o => o.OrderId == orderId).FirstOrDefault();
+
+            if(order == null)
+            {
+                return NotFound();
+            }
+
+            var info = new OrdersDTO
+            {
+                OrderId = order.OrderId,
+                OrderVerificationKey = order.OrderVerificationKey,
+                DeliveryOption = order.DeliveryOption,
+                Address = order.Address,
+                City = order.City,
+                Country = order.Country,
+                Email = order.Email,
+                Name = order.Name,
+                Payment = order.Payment,
+                PhoneNumber = order.PhoneNumber,
+                PSC = order.PSC,
+                Surname = order.Surname,
+                TotalPrice = order.TotalPrice,
+            };
+
+            return Ok(info);
+        }
+        [HttpGet]
+        [Route("getOrderProducts")]
+        public ActionResult<List<ProductsDTO>> getOrderProducts([FromQuery] int orderId)
+        {
+            try
+            {
+                List<OrderProductsDTO> products = _context.OrderProducts
+                .Where(p => p.OrderId == orderId)
+                .Select(r => new OrderProductsDTO
+                {
+                    ProductId = r.ProductId,
+                    Quantity = r.Quantity,
+                })
+                .ToList();
+
+
+                if (products.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                List<ProductsDTO> productsInfos = new List<ProductsDTO>();
+
+                foreach (var orderProduct in products)
+                {
+                    ProductsModel product = _context.Products.FirstOrDefault(p => p.ProductId == orderProduct.ProductId);
+
+                    if (product != null)
+                    {
+                        ProductsDTO info = new ProductsDTO
+                        {
+                            ProductName = product.ProductName,
+                            Quantity = orderProduct.Quantity,
+                        };
+
+                        productsInfos.Add(info);
+                    }
+                }
+                return Ok(productsInfos);
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

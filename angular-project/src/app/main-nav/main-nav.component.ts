@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal } fr
 import { Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
-import { AuthenticationService } from '../api-authorization/authentication.service';
+import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
 import { NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -23,11 +23,15 @@ import { CartService } from '../shopping-cart/cart.service';
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
   navbarfixed: boolean = false;
   authService = inject(AuthenticationService);
   private router = inject(Router)
   countNum = this.CartService.countNum;
+
+  user: UserDTO;
+  role: RoleDTO;
+  roleName: string = '';
 
   constructor(private CartService: CartService){}
 
@@ -44,5 +48,19 @@ export class MainNavComponent {
       this.navbarfixed = false;
     }
   }
+
+  ngOnInit(): void {
+    if(this.authService.authenticated()){
+      this.authService.getCurrentUser().subscribe(result =>{
+          this.user = result;
+          this.authService.getRole(this.user.id).subscribe(result => {
+              this.role = result;
+              if(this.role != null){
+                  this.roleName = this.role.name;
+              }
+          })
+      })
+   }
+ } 
 }
 

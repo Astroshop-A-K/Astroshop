@@ -49,5 +49,17 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, new { message = "Mame problem." });
             }
         }
+        [HttpGet]
+        public IEnumerable<ProblemsDTO> GetProblems()
+        {
+            IEnumerable<ProblemsModel> dbProblems = _context.Problems;
+
+            return dbProblems.Select(dbProblems => new ProblemsDTO
+            {
+                NameSurname = dbProblems.NameSurname,
+                Email = dbProblems.Email,
+                Problem = dbProblems.Problem
+            });
+        }
     }
 }

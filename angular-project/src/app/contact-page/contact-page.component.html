@@ -1,26 +1,48 @@
 <title>Contact</title>
 <div class="content">
-  <div class="contact-form">
-  <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-  <h1 style="font-weight: bold;">Contact</h1>
-  <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-    <div class="field">
-      <label>Name & Surname</label><br>
-      <input placeholder="Peter Parker" id="name-surname" formControlName="nameSurname">
+  @if(roleName == 'admin' && authService.authenticated()){
+    <div class="problems">
+      <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+      <h1 style="font-weight: bold;">Contacts</h1><br>
+      <table class="problemsTable">
+        <tr>
+          <th>Name & Surname</th>
+          <th>E-mail</th>
+          <th>Problem</th>
+          <th>Solved</th>
+        </tr>
+        <tr *ngFor="let problem of problemsData">
+          <td>{{problem.nameSurname}}</td>
+          <td>{{problem.email}}</td>
+          <td>{{problem.problem}}</td>
+          <td><button class="btn btn-coupon"><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
+        </tr>
+      </table>
     </div>
-
-    <div class="field">
-      <label>E-mail</label><br>
-      <input placeholder="peter@astroshop.com" id="e-mail" formControlName="email" type="email">
+  }
+  @else{
+    <div class="contact-form">
+      <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+      <h1 style="font-weight: bold;">Contact</h1>
+      <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <label>Name & Surname</label><br>
+          <input placeholder="Peter Parker" id="name-surname" formControlName="nameSurname">
+        </div>
+    
+        <div class="field">
+          <label>E-mail</label><br>
+          <input placeholder="peter@astroshop.com" id="e-mail" formControlName="email" type="email">
+        </div>
+    
+        <div class="field">
+          <label>Your problem</label><br>
+          <textarea placeholder="My product is not working..." id="problem" formControlName="problem"></textarea>
+        </div>
+    
+        <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-secondary" [routerLink]="['/home']">Confirm</button>
+      </form>
     </div>
-
-    <div class="field">
-      <label>Your problem</label><br>
-      <textarea placeholder="My product is not working..." id="problem" formControlName="problem"></textarea>
-    </div>
-
-    <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-secondary" [routerLink]="['/home']">Confirm</button>
-  </form>
-</div>
+  }
 </div>
 

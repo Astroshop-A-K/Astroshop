@@ -241,7 +241,6 @@ export class ProductsDetailComponent implements OnInit {
                         this.role = result;
                         if(this.role != null){
                             this.roleName = this.role.name;
-                            console.table(this.role);
                         }
                     })
                 })
