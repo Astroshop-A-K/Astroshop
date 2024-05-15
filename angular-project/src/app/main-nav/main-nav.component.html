@@ -1,6 +1,7 @@
 <mat-toolbar (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
   <span><a class="title" [routerLink]="['/home']"><img src="../../assets/favicon.ico" height="45" width="45" title="astroshop-icon" alt="astroshop-icon"/>Astroshop</a></span>
   <span class="spacer"></span>
+  <button [routerLink]="['/user-orders']">Orders</button>
   <button [routerLink]="['/home']">Home</button>
   <button [routerLink]="['/products']">Products</button>
   <button [routerLink]="['/contact']">Contact</button>

@@ -105,5 +105,27 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, new { message = "Internal server error" });
             }
         }
+        [HttpGet]
+        public IEnumerable<OrdersDTO> GetOrders()
+        {
+            IEnumerable<OrdersModel> dbOrders = _context.Orders;
+
+            return dbOrders.Select(dbOrders => new OrdersDTO
+            {
+                OrderId = dbOrders.OrderId,
+                OrderVerificationKey = dbOrders.OrderVerificationKey,
+                DeliveryOption = dbOrders.DeliveryOption,
+                Address = dbOrders.Address,
+                City = dbOrders.City,
+                Country = dbOrders.Country,
+                Email = dbOrders.Email,
+                Name = dbOrders.Name,
+                Payment = dbOrders.Payment,
+                PhoneNumber = dbOrders.PhoneNumber,
+                PSC = dbOrders.PSC,
+                Surname = dbOrders.Surname,
+                TotalPrice = dbOrders.TotalPrice,
+            });
+        }
     }
 }

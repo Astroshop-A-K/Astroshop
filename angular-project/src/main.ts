@@ -17,6 +17,7 @@ import { ProductsDetailComponent } from './app/products-detail/products-detail.c
 import { ShoppingCartComponent } from './app/shopping-cart/shopping-cart.component';
 import { OrderPageComponent } from './app/order-page/order-page.component';
 import { OrderSummaryComponent } from './app/order-summary/order-summary.component';
+import { UserOrdersComponent } from './app/user-orders/user-orders.component';
 
 
 export function getBaseUrl() {
@@ -55,7 +56,8 @@ bootstrapApplication(AppComponent, {
         { path: 'home/products/:productName', component: ProductsDetailComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent},
         { path: 'order', component: OrderPageComponent},
-        { path: 'order/order-summary', component: OrderSummaryComponent},
+        { path: 'order/order-summary', component: OrderSummaryComponent},,
+        { path: 'user-orders', component: UserOrdersComponent},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ])
     ]
