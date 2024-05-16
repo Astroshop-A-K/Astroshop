@@ -7,6 +7,7 @@ import { NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CartService } from '../shopping-cart/cart.service';
+import { LoginComponent } from '../api-authorization/login/login.component';
 
 @Component({
   selector: 'app-main-nav',

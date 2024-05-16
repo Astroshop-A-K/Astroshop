@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, Inject, signal } from '@angular/core';
 import { OrderService } from '../order-page/order.service';
-import { NgFor } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { CartService } from '../shopping-cart/cart.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,8 +13,8 @@ import { __values } from 'tslib';
 @Component({
   selector: 'app-order-summary',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, RouterLink],
-  providers: [ShoppingCartComponent, MatSnackBar],
+  imports: [NgFor, ReactiveFormsModule, RouterLink, DatePipe],
+  providers: [ShoppingCartComponent, MatSnackBar, DatePipe],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css'
 })
@@ -27,7 +27,9 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   totalPrice = this.CartService.totalPrice();
   orderId: number = 0;
 
-  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router){}
+  currentDate: string = '';
+
+  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router, private datePipe: DatePipe){}
 
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
@@ -66,7 +68,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
       this.ShoppingCart.clearCart();
 
-      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey).subscribe(
+      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey, this.currentDate).subscribe(
         () => {
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.orderId = result;
@@ -80,10 +82,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       this.orderCompleted = true;
     } 
   }
-  createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string) {
+  createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string) {
     const url = `${this.baseUrl}orders/create-order`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE, OrderVerificationKey: orderVerificationKeyBE }, { headers });
+    return this.http.put(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE, OrderVerificationKey: orderVerificationKeyBE, OrderDate: currentDateBE }, { headers });
   }
   getOrderId(orderVerificationKeyBE: string){
     return this.http.get<number>(this.baseUrl + `orders/${orderVerificationKeyBE}`);
@@ -99,6 +101,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     if(this.selectedProducts.length === 0 || this.OrderService.order == null){
       this.router.navigate(['/products']);
     }
+    this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
   }
   ngOnDestroy(): void{
     this.selectedProducts = [];

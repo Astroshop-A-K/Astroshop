@@ -39,4 +39,5 @@ export interface OrdersDTO{
   payment: string;
   totalPrice: number;
   orderVerificationKey: string;
+  orderDate: string;
 }

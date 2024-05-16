@@ -17,5 +17,6 @@ namespace AspNetCoreAPI.DTO
         public string? Payment { get; set; }
         public double TotalPrice { get; set; }
         public string? OrderVerificationKey { get; set; }
+        public string? OrderDate { get; set; }
     }
 }

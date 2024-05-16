@@ -16,7 +16,7 @@
                 <td class="link" [routerLink]="['/user-orders', order.orderId]">{{order.orderId}}</td>  
                 <td>{{order.email}}</td>
                 <td>{{order.orderVerificationKey}}€</td>
-                <td>---</td>
+                <td>{{order.orderDate}}</td>
                 <td>{{order.totalPrice}}€</td>
                 <td><button class="btn btn-coupon"><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
             </tr>

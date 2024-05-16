@@ -1,7 +1,7 @@
 <mat-toolbar (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
   <span><a class="title" [routerLink]="['/home']"><img src="../../assets/favicon.ico" height="45" width="45" title="astroshop-icon" alt="astroshop-icon"/>Astroshop</a></span>
   <span class="spacer"></span>
-  @if(roleName == 'admin' && authService.authenticated()){
+  @if(roleName == 'admin'){
     <button [routerLink]="['/user-orders']">Orders</button>
   }
   @else{

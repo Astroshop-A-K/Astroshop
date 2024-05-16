@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
   private router = inject(Router);
 
   loginForm: FormGroup;
+  adminAuthenticated: boolean = false;
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           this.authService.storeUserCredentials(response.token, response.username);
           this.router.navigate(['/']);
+          this.adminAuthenticated = true;
         },
         error: (err) => console.log("Oops, something went wrong", err)
       });
