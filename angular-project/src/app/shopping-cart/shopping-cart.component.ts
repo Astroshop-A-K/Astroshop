@@ -22,6 +22,10 @@ export class ShoppingCartComponent {
     let newAmount = event.target.value;
     product.amount = newAmount;
     this.CartService.updateAmount(newAmount - amount);
+
+    if(newAmount == 0){
+      this.CartService.removeProduct(product);
+    }
   }
 
   clearCart(){
