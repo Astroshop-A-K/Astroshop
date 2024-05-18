@@ -32,7 +32,7 @@ export interface OrdersDTO{
   email: string;
   phoneNumber: number;
   address: string;
-  postalCode: number;
+  psc: number;
   city: string;
   country: string;
   deliveryOption: string;

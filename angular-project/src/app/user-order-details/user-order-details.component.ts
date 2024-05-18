@@ -21,7 +21,7 @@ export class UserOrderDetailsComponent implements OnInit {
     email: '',
     phoneNumber: 0,
     address: '',
-    postalCode: 0,
+    psc: 0,
     city: '',
     country: '',
     deliveryOption: '',
