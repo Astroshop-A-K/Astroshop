@@ -38,3 +38,12 @@ h2{
 p{
     text-align: center;
 }
+.red-text{
+    color: red;
+}
+.yellow-text{
+    color: gold;
+}
+.green-text{
+    color: green;
+}

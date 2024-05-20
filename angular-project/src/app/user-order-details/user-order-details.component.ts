@@ -4,12 +4,12 @@ import { OrdersDTO } from '../user-orders/user-orders.component';
 import { ActivatedRoute, Route } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductsDTO } from '../shopping-cart/cart.service';
-import { NgFor, NgForOf } from '@angular/common';
+import { NgClass, NgFor, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-user-order-details',
   standalone: true,
-  imports: [NgFor, NgForOf],
+  imports: [NgFor, NgForOf, NgClass],
   templateUrl: './user-order-details.component.html',
   styleUrl: './user-order-details.component.css'
 })
@@ -28,7 +28,8 @@ export class UserOrderDetailsComponent implements OnInit {
     payment: "",
     totalPrice: 0,
     orderVerificationKey: '',
-    orderDate: ''
+    orderDate: '',
+    orderStatus: ''
   }; 
   public orderId: number = 0;
   public selectedProducts: ProductsDTO[] = [];

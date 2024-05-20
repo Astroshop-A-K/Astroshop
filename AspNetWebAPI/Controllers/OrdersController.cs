@@ -38,7 +38,8 @@ namespace AspNetCoreAPI.Controllers
                         Payment = ordersDTO.Payment,
                         TotalPrice = ordersDTO.TotalPrice,
                         OrderVerificationKey = ordersDTO.OrderVerificationKey,
-                        OrderDate = ordersDTO.OrderDate
+                        OrderDate = ordersDTO.OrderDate,
+                        OrderStatus = ordersDTO.OrderStatus,
                     };
 
                     context.Orders.Add(newOrder);
@@ -59,7 +60,8 @@ namespace AspNetCoreAPI.Controllers
                         Payment = ordersDTO.Payment,
                         TotalPrice = ordersDTO.TotalPrice,
                         OrderVerificationKey = ordersDTO.OrderVerificationKey,
-                        OrderDate = ordersDTO.OrderDate
+                        OrderDate = ordersDTO.OrderDate,
+                        OrderStatus = ordersDTO.OrderStatus
                     };
 
                     return Ok(info);
@@ -126,7 +128,8 @@ namespace AspNetCoreAPI.Controllers
                 PSC = dbOrders.PSC,
                 Surname = dbOrders.Surname,
                 TotalPrice = dbOrders.TotalPrice,
-                OrderDate = dbOrders.OrderDate
+                OrderDate = dbOrders.OrderDate,
+                OrderStatus = dbOrders.OrderStatus,
             });
         }
         [HttpGet]
@@ -155,7 +158,8 @@ namespace AspNetCoreAPI.Controllers
                 PSC = order.PSC,
                 Surname = order.Surname,
                 TotalPrice = order.TotalPrice,
-                OrderDate = order.OrderDate
+                OrderDate = order.OrderDate,
+                OrderStatus = order.OrderStatus,
             };
 
             return Ok(info);

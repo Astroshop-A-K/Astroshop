@@ -31,3 +31,15 @@
 .link:hover{
     cursor: pointer;
 }
+.red-text{
+    color: red;
+    font-weight: bold;
+}
+.yellow-text{
+    color: gold;
+    font-weight: bold;
+}
+.green-text{
+    color: green;
+    font-weight: bold;
+}

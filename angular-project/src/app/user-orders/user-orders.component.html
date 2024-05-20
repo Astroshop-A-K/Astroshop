@@ -10,7 +10,7 @@
               <th>Order Verification Key</th>
               <th>Order Date</th>
               <th>Order Price</th>
-              <th>Complete</th>
+              <th>Order Status</th>
             </tr>
             <tr *ngFor="let order of ordersData">
                 <td class="link" [routerLink]="['/user-orders', order.orderId]">{{order.orderId}}</td>  
@@ -18,7 +18,11 @@
                 <td>{{order.orderVerificationKey}}€</td>
                 <td>{{order.orderDate}}</td>
                 <td>{{order.totalPrice}}€</td>
-                <td><button class="btn btn-coupon"><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
+                <td [ngClass]="{
+                  'red-text': order.orderStatus === 'Pending',
+                  'yellow-text': order.orderStatus === 'Preparing',
+                  'green-text': order.orderStatus === 'Delivered'
+                }" style="text-align: center;">{{order.orderStatus}}</td>
             </tr>
           </table>
     </div>

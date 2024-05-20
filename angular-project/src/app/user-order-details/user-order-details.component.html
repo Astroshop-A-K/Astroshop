@@ -25,6 +25,11 @@
             <ng-container>
                 <b>Order ID: </b>{{orderInfo.orderId}}<br>
                 <b>Order Date: </b>{{orderInfo.orderDate}}<br>
+                <b>Order Status: </b><span [ngClass]="{
+                  'red-text': orderInfo.orderStatus === 'Pending',
+                  'yellow-text': orderInfo.orderStatus === 'Preparing',
+                  'green-text': orderInfo.orderStatus === 'Delivered'
+                }">{{orderInfo.orderStatus}}</span><br>
                 <b>Order Verification Key: </b>{{orderInfo.orderVerificationKey}}
             </ng-container>
           </address>

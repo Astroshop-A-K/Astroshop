@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, Inject } from '@angular/core';
-import { NgFor, NgForOf } from '@angular/common';
+import { NgClass, NgFor, NgForOf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-orders',
   standalone: true,
-  imports: [NgFor, NgForOf, RouterLink],
+  imports: [NgFor, NgForOf, RouterLink, NgClass],
   templateUrl: './user-orders.component.html',
   styleUrl: './user-orders.component.css'
 })
@@ -40,4 +40,5 @@ export interface OrdersDTO{
   totalPrice: number;
   orderVerificationKey: string;
   orderDate: string;
+  orderStatus: string;
 }
