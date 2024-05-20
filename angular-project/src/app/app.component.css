@@ -22,6 +22,7 @@ body{
     font-size: 1.2rem;
     margin-bottom: 10px;
     text-transform: uppercase;
+    font-weight: bold;
   }
   .ending a {
     color: white;
@@ -77,6 +78,12 @@ body{
     white-space: nowrap; 
     animation: slideIn 9s linear infinite;
     font-size: 17px; 
+  }
+  img{
+    filter: grayscale();
+  }
+  img:hover{
+    filter: none;
   }
   @keyframes slideIn {
     0% {

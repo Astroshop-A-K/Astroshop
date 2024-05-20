@@ -5,7 +5,6 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding-bottom: 400px;
 }
 .form {
     min-width: 150px;
@@ -19,7 +18,7 @@
     text-align: left;
   }
   .contact-form{
-      padding-bottom: 400px;
+      padding-bottom: 300px;
       width: 100vw;
       display: flex;
       justify-content: center;
