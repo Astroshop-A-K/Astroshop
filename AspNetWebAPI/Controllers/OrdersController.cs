@@ -210,5 +210,20 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+        [HttpPut("changeOrderStatus")]
+        public ActionResult ChangeOrderStatus([FromBody] ChangeOrderStatusDTO orderStatusDTO)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderStatusDTO.OrderId);
+
+            if(order == null)
+            {
+                return NotFound("Order");
+            }
+
+            order.OrderStatus = orderStatusDTO.OrderStatus;
+            _context.SaveChanges();
+
+            return Ok("Success!");
+        }
     }
 }

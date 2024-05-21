@@ -26,15 +26,24 @@
                 <b>Order ID: </b>{{orderInfo.orderId}}<br>
                 <b>Order Date: </b>{{orderInfo.orderDate}}<br>
                 <b>Order Status: </b><span [ngClass]="{
-                  'red-text': orderInfo.orderStatus === 'Pending',
-                  'yellow-text': orderInfo.orderStatus === 'Preparing',
-                  'green-text': orderInfo.orderStatus === 'Delivered'
-                }">{{orderInfo.orderStatus}}</span><br>
+                  'red-text': orderStatus() === 'Pending',
+                  'yellow-text': orderStatus() === 'Preparing',
+                  'green-text': orderStatus() === 'Delivered'
+                }">{{orderStatus()}}</span><br>
                 <b>Order Verification Key: </b>{{orderInfo.orderVerificationKey}}
             </ng-container>
           </address>
         </div>
-        <div class="part3"><br>
+        <div class="part3">
+          <h2>Change order status</h2>
+          <select (change)="changeStatus($event)" [disabled]="orderInfo.orderStatus === 'Delivered'">
+            <option disabled selected value>Not selected</option>
+            <option>Pending</option>
+            <option>Preparing</option>
+            <option>Delivered</option>
+          </select>
+        </div>
+        <div class="part4"><br>
            <h2>Selected products</h2>
            <table class="ordersTable">
             <tr>
