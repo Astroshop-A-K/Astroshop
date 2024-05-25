@@ -42,12 +42,15 @@ export class MainNavComponent implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event']) onscroll() {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 1) {
       this.navbarfixed = true;
     }
     else {
       this.navbarfixed = false;
     }
+  }
+  isCurrentRoute(route: string): boolean {
+    return this.router.url === route;
   }
 
   ngOnInit(): void {

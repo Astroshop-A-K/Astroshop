@@ -8,16 +8,15 @@
     </div>
   </div>
   <div class="our_products">
-    <h1 style="margin: 20px;font-weight: bold; font-size: 30px;">Our Products</h1>
-    <div class="our_products_content">
-      <h2>Telescopes</h2><br />
+    <div class="our_products_content"><br><br>
       <div class="text">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
-    </div>
+        <h2>Current bestsellers</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+      </div>
       <div class="gallery">
-        <ng-container *ngFor="let product of productData.slice(0, 4)">
+        <ng-container *ngFor="let product of productData.slice(0, 5)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
-            <div *ngIf="product.productCategory === 'TELE'" class="telescope_1">
+            <div class="telescope_1">
               <div class="names">
                 <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
                 <p>{{ product.productName }}</p>
@@ -34,14 +33,14 @@
             </a>
         </ng-container>
       </div>
-      <h2>Tracking mounts</h2><br />
       <div class="text">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
-    </div>
+        <h2>Great for advanced</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+      </div>
       <div class="gallery">
-        <ng-container *ngFor="let product of productData.slice(4, 8)">
+        <ng-container *ngFor="let product of productData.slice(5, 10)">
           <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
-            <div *ngIf="product.productCategory === 'MONT'" class="telescope_1">
+            <div class="telescope_1">
               <div class="names">
                 <img [src]="product.productImage0" alt="Mount + {{product.productId}}" title="{{product.productName}}">
                 <p>{{ product.productName }}</p>
@@ -58,29 +57,13 @@
             </a>
         </ng-container>
       </div>
-      <h2>Other equimpment</h2><br />
       <div class="text">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><br />
+      <h2>New products</h2>
     </div>
-      <div class="gallery">
-        <ng-container *ngFor="let product of productData.slice(8, 12)">
-          <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
-            <div *ngIf="product.productCategory === 'OTHR'" class="telescope_1">
-              <div class="names">
-                <img [src]="product.productImage0" alt="Others + {{product.productId}}" title="{{product.productName}}">
-                <p>{{product.productName }}</p>
-              </div>
-              <div class="star-rating">
-                <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
-                <p style="color: black;">({{product.reviewsCount}})</p>
-              </div>
-              <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
-              </div>
-            </div>
-            </a>
-        </ng-container>
+      <div class="ad-gallery">
+        <img src="https://www.astroshop.eu/CMS/images/slider/Celestron-RASA800_all_en.jpg" alt="ad" height="500">
+        <img src="https://www.astroshop.eu/CMS/images/slider/unistellar-odyssey_all_de.jpg" alt="ad3" height="500">
+        <img src="https://www.astroshop.eu/CMS/images/slider/celestron-origin_all_en.jpg" alt="ad4" height="500">
       </div>
     </div>
   </div>

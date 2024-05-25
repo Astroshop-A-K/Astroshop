@@ -9,13 +9,13 @@
     height: 550px;
     color: white;
     text-align: center;
-    width: 100vw;
+    width: 100%;
   }
   .title h3, h1 {
     margin: 0px;
   }
   .our_products {
-    width: 100vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,15 +30,13 @@
     text-align: center;
     box-sizing: border-box;
   }
-  .our_products_content p{
-    margin-left: 100px;
-    margin-right: 100px;
-    text-align: justify;
-  }
     .our_products_content h2 {
       color: #dc3545;
       font-weight: bold;
-      font-size: 22px;
+      font-size: 25px;
+    }
+    .our_products_content p{
+      font-size: 17px;
     }
   .title1{
     margin: 10px;
@@ -49,7 +47,6 @@
     align-items: flex-start; 
     flex-wrap: wrap; 
     gap: 20px;
-    max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 150px;
     width: 100%;
@@ -76,7 +73,7 @@
     margin: 10px 0;
   }
   .top-brands {
-    width: 100vw; 
+    width: 100%; 
   }
   .gallery1 {
     display: flex;
@@ -125,6 +122,8 @@
   }
   .text{
     max-width: 1300px;
+    width: 100%;
+    text-align: left;
   }
   .star-rating{
     display: flex;
@@ -133,6 +132,20 @@
   }
   .names, .check{
     margin: 0 0.2rem;
+  }
+  .ad-gallery{
+    width: 100%;
+  }
+  .ad-gallery img{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  hr{
+    border-width: 1px;
   }
   @media (max-width: 768px) {
     .title {

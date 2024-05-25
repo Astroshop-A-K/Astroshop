@@ -19,7 +19,7 @@
   }
   .contact-form{
       padding-bottom: 300px;
-      width: 100vw;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
