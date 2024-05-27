@@ -4,7 +4,7 @@
     <div class="nav-content">
       <div class="nav-items">
         @if(roleName == 'admin'){
-          <span><a [routerLink]="['/user-orders']">Orders</a></span>
+          <span><a [routerLink]="['/user-orders']" [ngClass]="{'active': isCurrentRoute('/user-orders')}">Orders</a></span>
         }
         @else{
       

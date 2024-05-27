@@ -8,6 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CartService } from '../shopping-cart/cart.service';
 import { LoginComponent } from '../api-authorization/login/login.component';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-main-nav',
@@ -19,7 +20,8 @@ import { LoginComponent } from '../api-authorization/login/login.component';
     NgIf,
     NgClass,
     MatBadgeModule,
-    MatIconModule
+    MatIconModule,
+    HomeComponent
   ],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
@@ -52,6 +54,9 @@ export class MainNavComponent implements OnInit {
   isCurrentRoute(route: string): boolean {
     return this.router.url === route;
   }
+  alwaysActive(){
+    return true;
+  }
 
   ngOnInit(): void {
     if(this.authService.authenticated()){
@@ -65,6 +70,7 @@ export class MainNavComponent implements OnInit {
           })
       })
    }
+   this.isCurrentRoute('[/home]');
  } 
 }
 
