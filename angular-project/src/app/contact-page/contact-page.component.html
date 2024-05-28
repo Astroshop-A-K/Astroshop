@@ -6,15 +6,17 @@
       <h1 style="font-weight: bold;">Contacts</h1><br>
       <table class="problemsTable">
         <tr>
-          <th>Name & Surname</th>
-          <th>E-mail</th>
-          <th>Problem</th>
+          <th>Problem Date</th>
+          <th>Problem Credentials</th>
+          <th>Problem Email</th>
+          <th>Problem Text</th>
           <th>Solved</th>
         </tr>
         <tr *ngFor="let problem of problemsData">
+          <td>{{problem.problemDate}}</td>
           <td>{{problem.nameSurname}}</td>
           <td>{{problem.email}}</td>
-          <td>{{problem.problem}}</td>
+          <td><p>{{problem.problem}}</p></td>
           <td><button class="btn btn-coupon"><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
         </tr>
       </table>

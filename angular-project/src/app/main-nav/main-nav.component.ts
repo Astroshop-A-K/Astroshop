@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal, Inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
@@ -9,6 +9,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { CartService } from '../shopping-cart/cart.service';
 import { LoginComponent } from '../api-authorization/login/login.component';
 import { HomeComponent } from '../home/home.component';
+import { ProductsDetailComponent } from '../products-detail/products-detail.component';
 
 @Component({
   selector: 'app-main-nav',
@@ -21,7 +22,7 @@ import { HomeComponent } from '../home/home.component';
     NgClass,
     MatBadgeModule,
     MatIconModule,
-    HomeComponent
+    HomeComponent,
   ],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
@@ -36,7 +37,7 @@ export class MainNavComponent implements OnInit {
   role: RoleDTO;
   roleName: string = '';
 
-  constructor(private CartService: CartService){}
+  constructor(private CartService: CartService, private route: ActivatedRoute){}
 
   logout() {
     this.authService.logout();
@@ -54,9 +55,6 @@ export class MainNavComponent implements OnInit {
   isCurrentRoute(route: string): boolean {
     return this.router.url === route;
   }
-  alwaysActive(){
-    return true;
-  }
 
   ngOnInit(): void {
     if(this.authService.authenticated()){
@@ -70,7 +68,6 @@ export class MainNavComponent implements OnInit {
           })
       })
    }
-   this.isCurrentRoute('[/home]');
  } 
 }
 

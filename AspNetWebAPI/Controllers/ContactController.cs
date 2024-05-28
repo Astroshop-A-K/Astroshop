@@ -27,7 +27,8 @@ namespace AspNetCoreAPI.Controllers
                     {
                         NameSurname = problemsDTO.NameSurname,
                         Email = problemsDTO.Email,
-                        Problem = problemsDTO.Problem
+                        Problem = problemsDTO.Problem,
+                        ProblemDate = problemsDTO.ProblemDate
                     };
 
                     context.Problems.Add(newProblem);
@@ -37,7 +38,8 @@ namespace AspNetCoreAPI.Controllers
                     {
                         NameSurname = problemsDTO.NameSurname,
                         Email = problemsDTO.Email,
-                        Problem = problemsDTO.Problem
+                        Problem = problemsDTO.Problem,
+                        ProblemDate = problemsDTO.ProblemDate
                     };
 
                     return Ok(info);
@@ -58,7 +60,8 @@ namespace AspNetCoreAPI.Controllers
             {
                 NameSurname = dbProblems.NameSurname,
                 Email = dbProblems.Email,
-                Problem = dbProblems.Problem
+                Problem = dbProblems.Problem,
+                ProblemDate = dbProblems.ProblemDate
             });
         }
     }

@@ -4,25 +4,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
-import { NgFor, NgForOf } from '@angular/common';
+import { DatePipe, NgFor, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-contact-page',
   templateUrl: './contact-page.component.html',
   styleUrls: ['./contact-page.component.css'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgFor, NgForOf],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgFor, NgForOf, DatePipe],
+  providers: [DatePipe]
 })
 
 export class ContactPageComponent implements OnInit {
   public problemsData: ProblemsDTO[] = [];
+  currentDate: number = 0;
 
   authService = inject(AuthenticationService);
   user: UserDTO;
   role: RoleDTO;
   roleName: string = '';
 
-  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private datePipe: DatePipe) { }
 
   contactForm = new FormGroup({
     nameSurname: new FormControl('', Validators.required),
@@ -36,7 +38,9 @@ export class ContactPageComponent implements OnInit {
       let emailBE = this.contactForm.value.email ?? '';
       let problemBE = this.contactForm.value.problem ?? '';
 
-      this.createProblem(nameSurnameBE, emailBE, problemBE).subscribe();;
+      let problemDateBE = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
+
+      this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe();;
     }
   }
 
@@ -48,10 +52,10 @@ export class ContactPageComponent implements OnInit {
     return null;
   }
 
-  createProblem(nameSurnameBE: string, emailBE: string, problemBE: string) {
+  createProblem(nameSurnameBE: string, emailBE: string, problemBE: string, problemDateBE: string) {
     const url = `${this.baseUrl}contact/create`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { NameSurname: nameSurnameBE, Email: emailBE, Problem: problemBE }, { headers });
+    return this.http.put(url, { NameSurname: nameSurnameBE, Email: emailBE, Problem: problemBE, ProblemDate: problemDateBE }, { headers });
   }
   getProblems(){
     return this.http.get<ProblemsDTO[]>(this.baseUrl + 'contact');
@@ -79,5 +83,6 @@ export interface ProblemsDTO {
   nameSurname: string;
   email: string;
   problem: string;
+  problemDate: string;
 }
 

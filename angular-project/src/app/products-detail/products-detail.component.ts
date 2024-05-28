@@ -9,6 +9,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
 import { ProductsDTO } from '../shopping-cart/cart.service';
+import { MainNavComponent } from '../main-nav/main-nav.component';
 
 @Component({
     selector: 'app-products-detail',
@@ -16,7 +17,7 @@ import { ProductsDTO } from '../shopping-cart/cart.service';
     styleUrls: ['./products-detail.component.css'],
     standalone: true,
     imports: [NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, ReactiveFormsModule, RouterLink, StarRatingComponent, DatePipe],
-    providers: [MatSnackBar, StarRatingComponent, DatePipe]
+    providers: [MatSnackBar, StarRatingComponent, DatePipe, MainNavComponent]
 })
 export class ProductsDetailComponent implements OnInit {
     public productInfo: ProductsDTO = { //namiesto array vytvorim objekt, ktory ma ProductsDTO interface 
@@ -54,7 +55,7 @@ export class ProductsDetailComponent implements OnInit {
 
     currentDate: string = '';
 
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private Router: Router, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),

@@ -26,6 +26,9 @@
       text-align: center;
       flex-direction: column;
   }
+  .problems{
+    padding-bottom: 300px;
+  }
   button {
     padding: 8px 18px;
     margin: 10px;
@@ -45,7 +48,7 @@
     max-width: 50%;
   }
   .problemsTable{
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
     margin-top: 20px;
 }
@@ -61,4 +64,15 @@
 .problemsTable img{
     max-width: 100%;
     height: auto;
+}
+.problems{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+p{
+  width: 500px;
+  overflow: auto;
 }
