@@ -96,6 +96,7 @@
   cursor: pointer;
 }
 .content {
+  padding-top: 70px;
   display: grid;
   grid-template-columns: 350px 1fr; /*350px prva column, 1fr druha*/
   gap: 0px;

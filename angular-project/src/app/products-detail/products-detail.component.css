@@ -22,6 +22,7 @@ p{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding-top: 70px;
 }
 .product-information{
     height: 200px;

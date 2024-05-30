@@ -44,14 +44,6 @@ export class MainNavComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  @HostListener('window:scroll', ['$event']) onscroll() {
-    if (window.scrollY > 1) {
-      this.navbarfixed = true;
-    }
-    else {
-      this.navbarfixed = false;
-    }
-  }
   isCurrentRoute(route: string): boolean {
     return this.router.url === route;
   }

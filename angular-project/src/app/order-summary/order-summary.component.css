@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-top: 50px;
-    padding-bottom: 300px;
+    padding-top: 120px;
+    padding-bottom: 300px;  
 }
 .product{
     background-color: white;

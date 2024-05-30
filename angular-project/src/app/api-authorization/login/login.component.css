@@ -4,6 +4,7 @@ form {
   flex-direction: column;
   align-items: center;
   padding-bottom: 400px;
+  padding-top: 70px;
 }
 
 h1 {
