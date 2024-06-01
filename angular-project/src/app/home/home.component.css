@@ -22,7 +22,7 @@
     align-items: center;
   }
   .our_products_content {
-    margin: 50px;
+    margin: 50px 0px 50px 0px;
     width: auto;
     padding: 20px;
     text-align: center;
@@ -155,13 +155,20 @@
     padding-bottom: 100px;
   }
   .text{
-    width: 70%;
+    width: 100%;
   }
   .image{
     width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .first-section, .second-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
   }
   @media (max-width: 768px) {
     .title {

@@ -26,7 +26,7 @@ body{
   }
   .ending a {
     color: white;
-    font-size: 1rem;
+    font-size: 17px;
     display: block;
     margin-bottom: 5px;
     width: auto;
@@ -39,6 +39,12 @@ body{
   .shop, .brands, .get_help, .contact {
     border-right: 1px solid #ccc;
     padding-right: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0px;
   }
   .contact {
     border-right: none;
@@ -53,6 +59,12 @@ body{
   .first, .second, .third {
     flex: 1;
     text-align: center;
+  }
+  .first{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
   .first p {
       margin: 5px 0;

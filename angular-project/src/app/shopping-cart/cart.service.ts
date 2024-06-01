@@ -36,7 +36,7 @@ export class CartService {
     for (const product of this.products) {
       totalPrice += product.price * product.amount;
     }
-    return totalPrice;
+    return (Math.round(totalPrice * 100) / 100);
   }
 
   removeProduct(product: ProductsDTO){
