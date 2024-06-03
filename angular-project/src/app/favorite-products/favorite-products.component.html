@@ -1,0 +1,10 @@
+<div class="content">
+    <div class="favorite-products">
+        <ng-container *ngFor="let favoriteProduct of favoriteProductsData">
+            <div class="favorite-products">
+                <p>{{favoriteProduct.productName}}</p>
+                <img [src]="favoriteProduct.productImage0">
+            </div>
+        </ng-container>
+    </div>
+</div>

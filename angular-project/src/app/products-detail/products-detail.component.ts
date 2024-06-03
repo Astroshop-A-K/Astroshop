@@ -66,6 +66,11 @@ export class ProductsDetailComponent implements OnInit {
         this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); 
     }
 
+    addToFavorite(){
+        let userId = this.user.id;
+        this.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
+    }
+
     positionLeft(){
         if(this.currentImagePosition > 0){
             this.currentImagePosition -= 1;
@@ -217,6 +222,11 @@ export class ProductsDetailComponent implements OnInit {
         const url = `${this.baseUrl}products/update-rating`;
         const headers = new HttpHeaders({'Content-Type': 'application/json' });
         return this.http.put(url, { ProductName: productNameBE, Rating: ratingBE, ReviewsCount: reviewsCountBE }, { headers });
+    }
+    addFavoriteProduct(productId: number, userId: string){
+        const url = `${this.baseUrl}products/add-favorite-product`;
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.put(url, { ProductId: productId, UserId: userId }, { headers });
     }
 
     ngOnInit(): void {

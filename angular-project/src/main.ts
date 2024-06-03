@@ -19,6 +19,7 @@ import { OrderPageComponent } from './app/order-page/order-page.component';
 import { OrderSummaryComponent } from './app/order-summary/order-summary.component';
 import { UserOrdersComponent } from './app/user-orders/user-orders.component';
 import { UserOrderDetailsComponent } from './app/user-order-details/user-order-details.component';
+import { FavoriteProductsComponent } from './app/favorite-products/favorite-products.component';
 
 
 export function getBaseUrl() {
@@ -60,6 +61,7 @@ bootstrapApplication(AppComponent, {
         { path: 'order/order-summary', component: OrderSummaryComponent},,
         { path: 'user-orders', component: UserOrdersComponent},
         { path: 'user-orders/:orderId', component: UserOrderDetailsComponent },
+        { path: 'favorite-products', component: FavoriteProductsComponent},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ])
     ]

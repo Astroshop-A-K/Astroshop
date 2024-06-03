@@ -82,5 +82,71 @@ namespace AspNetCoreAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPut("add-favorite-product")]
+        public ActionResult<FavoriteProductDTO> AddProductId([FromBody] FavoriteProductDTO favoriteProductDTO)
+        {
+            try
+            {
+                var newRow = new FavoriteProductModel
+                {
+                    ProductId = favoriteProductDTO.ProductId,
+                    UserId = favoriteProductDTO.UserId
+                };
+
+                _context.FavoriteProducts.Add(newRow);
+                _context.SaveChanges();
+
+                return Ok("Success!");
+            }
+            catch 
+            {
+                return Ok("User already has this product in favorites!"); ;
+            }
+        }
+        [HttpGet]
+        [Route("getFavoriteProducts")]
+        public ActionResult<List<ProductsDTO>> getFavoriteProducts([FromQuery] string userId)
+        {
+            try
+            {
+                List<FavoriteProductDTO> products = _context.FavoriteProducts
+                .Where(p => p.UserId == userId)
+                .Select(r => new FavoriteProductDTO
+                {
+                    ProductId = r.ProductId,
+                })
+                .ToList();
+
+
+                if (products.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                List<ProductsDTO> productsInfos = new List<ProductsDTO>();
+
+                foreach (var favoriteProduct in products)
+                {
+                    ProductsModel product = _context.Products.FirstOrDefault(p => p.ProductId == favoriteProduct.ProductId);
+
+                    if (product != null)
+                    {
+                        ProductsDTO info = new ProductsDTO
+                        {
+                            ProductName = product.ProductName,
+                            ProductImage0 = product.ProductImage0,
+                        };
+
+                        productsInfos.Add(info);
+                    }
+                }
+                return Ok(productsInfos);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
