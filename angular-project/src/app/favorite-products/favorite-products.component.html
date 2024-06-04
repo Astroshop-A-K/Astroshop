@@ -1,9 +1,11 @@
 <div class="content">
+    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+    <h1 style="font-weight: bold;">Your favorite products</h1><br>
     <div class="favorite-products">
         <ng-container *ngFor="let favoriteProduct of favoriteProductsData">
-            <div class="favorite-products">
+            <div class="favorite-product" [routerLink]="['/products', favoriteProduct.productName]" [title]="favoriteProduct.productName">
+                <img [src]="favoriteProduct.productImage0" height="300" [alt]="favoriteProduct.productImage0">            
                 <p>{{favoriteProduct.productName}}</p>
-                <img [src]="favoriteProduct.productImage0">
             </div>
         </ng-container>
     </div>

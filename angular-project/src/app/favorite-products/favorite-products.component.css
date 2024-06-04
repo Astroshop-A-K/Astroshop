@@ -1,0 +1,33 @@
+.content{
+    width: 100%;
+    padding-top: 120px;
+    padding-bottom: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.favorite-products{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+}
+.favorite-product{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    border: 2px solid #f4f4f4;
+    text-align: left;
+    width: 100%;
+    border-radius: 20px;
+}
+.favorite-product img, p{
+    padding: 20px;
+    margin: 0;
+}
+.favorite-product:hover{
+    cursor: pointer;
+}

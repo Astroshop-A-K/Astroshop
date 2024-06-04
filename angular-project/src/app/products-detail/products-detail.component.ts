@@ -10,13 +10,16 @@ import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FavoriteProductDTO } from '../favorite-products/favorite-products.component';
 
 @Component({
     selector: 'app-products-detail',
     templateUrl: './products-detail.component.html',
     styleUrls: ['./products-detail.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, ReactiveFormsModule, RouterLink, StarRatingComponent, DatePipe],
+    imports: [NgIf, NgFor, NgClass, NgSwitch, NgSwitchCase, ReactiveFormsModule, RouterLink, StarRatingComponent, DatePipe, FontAwesomeModule],
     providers: [MatSnackBar, StarRatingComponent, DatePipe, MainNavComponent]
 })
 export class ProductsDetailComponent implements OnInit {
@@ -55,7 +58,12 @@ export class ProductsDetailComponent implements OnInit {
 
     currentDate: string = '';
 
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
+    favoriteProductsData: ProductsDTO[] = [];
+    favoriteProductExists: boolean = false;
+    faHeart = faHeart;
+    isClicked: boolean;
+
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
@@ -67,8 +75,28 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     addToFavorite(){
-        let userId = this.user.id;
-        this.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
+        if(this.authService.authenticated()){
+            let userId = this.user.id;
+            if(!this.favoriteProductExists){
+                this.isClicked = true;
+                this.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
+            }
+            else{
+                this.favoriteProductExists = false;
+                this.removeFavoriteProduct(userId, this.productInfo.productId).subscribe();
+            }
+        }
+        else{
+            this.router.navigate(['/login']);
+        }
+    }
+    checkFavoriteProduct() : boolean{
+        if(this.authService.authenticated()){
+            if(this.favoriteProductsData){
+              return this.favoriteProductsData.some(p => p.productName === this.productInfo.productName); //vrati true ak sa najde
+            }
+        }
+        return false;
     }
 
     positionLeft(){
@@ -228,6 +256,18 @@ export class ProductsDetailComponent implements OnInit {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.put(url, { ProductId: productId, UserId: userId }, { headers });
     }
+    getFavoriteProducts(userId: string): Observable<ProductsDTO[]>{
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append("userId", userId);
+        return this.http.get<ProductsDTO[]>(this.baseUrl + 'products/getFavoriteProducts', { params: queryParams });
+    }
+    removeFavoriteProduct(userId: string, productId: number){
+        let queryParams = new HttpParams();
+        queryParams = queryParams.append("userId", userId);
+        queryParams = queryParams.append("productId", productId);
+        const url = `${this.baseUrl}products/remove-favorite-product`;        
+        return this.http.delete(url, { params: queryParams });
+    }
 
     ngOnInit(): void {
         const routeParams = this.route.snapshot.paramMap;
@@ -254,12 +294,20 @@ export class ProductsDetailComponent implements OnInit {
                             this.roleName = this.role.name;
                         }
                     })
+                    this.getFavoriteProducts(this.user.id).subscribe(result => {
+                        this.favoriteProductsData = result;
+                        if(this.checkFavoriteProduct()){
+                            this.favoriteProductExists = true;
+                        }
+                        else{
+                            this.favoriteProductExists = false;
+                        }
+                    })
                 })
             }
            },
            error => console.error(error)
         );
-
         this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
     }
 }

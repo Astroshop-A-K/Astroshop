@@ -17,6 +17,7 @@
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
         <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>
         <p style="color: black;">({{reviewsCountSignal()}})</p>
+        <fa-icon (click)="addToFavorite()" [ngClass]="{'exists': favoriteProductExists, 'no-exists': !favoriteProductExists, 'clicked': isClicked}" [icon]="faHeart"></fa-icon>
       </div>
       <div class="add-to-cart-button">
         @if(productInfo.quantity > 0){
@@ -75,8 +76,5 @@
       </div>
     </div>
   </div>
-  <button (click)="addToFavorite()">
-    Click
-  </button>
   
   

@@ -31,7 +31,7 @@ p{
 .add-to-cart-button img{
     margin-bottom: 14px;
 }
-.available {
+.available p {
     color: green;
 }
 .unavailable {
@@ -169,6 +169,23 @@ input{
 }
 app-star-rating{
     margin-bottom: 13px;
+}
+fa-icon{
+    font-size: 24px;
+    padding-bottom: 12px;
+    transition: color 0.2s ease-in-out;
+}
+fa-icon.clicked{
+    color: red;
+}
+fa-icon.not-clicked{
+    color: black;
+}
+.exists{
+    color: red;
+}
+.no-exists{
+    color: #6c757d;
 }
 @media (max-width: 1700px) {
     .part1, .part2{

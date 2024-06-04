@@ -111,16 +111,16 @@ namespace AspNetCoreAPI.Controllers
             {
                 List<FavoriteProductDTO> products = _context.FavoriteProducts
                 .Where(p => p.UserId == userId)
-                .Select(r => new FavoriteProductDTO
+                .Select(p => new FavoriteProductDTO
                 {
-                    ProductId = r.ProductId,
+                    ProductId = p.ProductId,
                 })
                 .ToList();
 
 
                 if (products.Count == 0)
                 {
-                    return NotFound();
+                    return null;
                 }
 
                 List<ProductsDTO> productsInfos = new List<ProductsDTO>();
@@ -148,5 +148,28 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+        /*[HttpDelete("remove-favorite-product")]
+        public IActionResult RemoveFavoriteProduct([FromQuery] string userId, int productId)
+        {
+            try
+            {
+                var product = _context.FavoriteProducts.FirstOrDefault(p => p.ProductId == productId && p.UserId == userId);
+
+                    if (product == null)
+                    {
+                        return NotFound();
+                    }
+
+                    _context.FavoriteProducts.Remove(product);
+                    _context.SaveChanges();
+
+                    return Ok("removed" + product);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return StatusCode(500);
+            }
+        }*/
     }
 }

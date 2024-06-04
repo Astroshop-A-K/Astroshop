@@ -37,7 +37,7 @@ export class MainNavComponent implements OnInit {
   role: RoleDTO;
   roleName: string = '';
 
-  constructor(private CartService: CartService, private route: ActivatedRoute){}
+  constructor(private CartService: CartService, private router_nav: Router){}
 
   logout() {
     this.authService.logout();
@@ -46,6 +46,15 @@ export class MainNavComponent implements OnInit {
 
   isCurrentRoute(route: string): boolean {
     return this.router.url === route;
+  }
+
+  toFavoriteProducts(){
+    if(this.authService.authenticated()){
+      this.router_nav.navigate(['/favorite-products']);
+    }
+    else{
+      this.router_nav.navigate(['/login']);
+    }
   }
 
   ngOnInit(): void {

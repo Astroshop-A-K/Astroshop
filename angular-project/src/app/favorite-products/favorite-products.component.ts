@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 import { NgFor, NgForOf } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-favorite-products',
   standalone: true,
-  imports: [NgFor, NgForOf],
+  imports: [NgFor, NgForOf, RouterLink],
   templateUrl: './favorite-products.component.html',
   styleUrl: './favorite-products.component.css'
 })
@@ -35,4 +36,8 @@ export class FavoriteProductsComponent implements OnInit {
       })
   }
   }
+}
+export interface FavoriteProductDTO{
+  userId: string;
+  productId: number;
 }
