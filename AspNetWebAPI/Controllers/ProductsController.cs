@@ -135,6 +135,7 @@ namespace AspNetCoreAPI.Controllers
                         {
                             ProductName = product.ProductName,
                             ProductImage0 = product.ProductImage0,
+                            ProductId = product.ProductId,
                         };
 
                         productsInfos.Add(info);
@@ -153,7 +154,7 @@ namespace AspNetCoreAPI.Controllers
         {
             try
             {
-                var product = _context.FavoriteProducts.FirstOrDefault(p => p.ProductId == productId && p.UserId == userId);
+                var product = _context.FavoriteProducts.SingleOrDefault(p => p.UserId == userId && p.ProductId == productId);
 
                     if (product == null)
                     {

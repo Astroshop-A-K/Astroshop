@@ -14,7 +14,7 @@
         <span><a [routerLink]="['/contact']" [ngClass]="{'active': isCurrentRoute('/contact')}">Contact</a></span>
       </div>
       <div class="nav-icons">
-        <a (click)="toFavoriteProducts()" [routerLink]="[]"><mat-icon matBadge="0" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
+        <a (click)="toFavoriteProducts()" [routerLink]="[]"><mat-icon matBadge="{{fav_countNum()}}" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
         <a [routerLink]="['/shopping-cart']"><mat-icon matBadge="{{countNum()}}" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25" alt="shopping-cart" title="shopping-cart"/></mat-icon></a>
       @if (authService.authenticated()) {
         <span><a mat-button (click)="logout()">Logout</a></span>

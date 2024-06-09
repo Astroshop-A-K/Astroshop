@@ -28,7 +28,8 @@ namespace AspNetCoreAPI.Controllers
                         NameSurname = problemsDTO.NameSurname,
                         Email = problemsDTO.Email,
                         Problem = problemsDTO.Problem,
-                        ProblemDate = problemsDTO.ProblemDate
+                        ProblemDate = problemsDTO.ProblemDate,
+                        ProblemStatus = "NotSolved"
                     };
 
                     context.Problems.Add(newProblem);
@@ -39,7 +40,8 @@ namespace AspNetCoreAPI.Controllers
                         NameSurname = problemsDTO.NameSurname,
                         Email = problemsDTO.Email,
                         Problem = problemsDTO.Problem,
-                        ProblemDate = problemsDTO.ProblemDate
+                        ProblemDate = problemsDTO.ProblemDate,
+                        ProblemStatus = "NotSolved"
                     };
 
                     return Ok(info);
@@ -61,8 +63,25 @@ namespace AspNetCoreAPI.Controllers
                 NameSurname = dbProblems.NameSurname,
                 Email = dbProblems.Email,
                 Problem = dbProblems.Problem,
-                ProblemDate = dbProblems.ProblemDate
+                ProblemDate = dbProblems.ProblemDate,
+                ProblemId = dbProblems.ProblemId,
+                ProblemStatus = dbProblems.ProblemStatus
             });
+        }
+        [HttpPut("changeProblemStatus/{problemId}")]
+        public ActionResult<int> ChangeProblemStatus(int problemId)
+        {
+            var problem = _context.Problems.SingleOrDefault(p => p.ProblemId == problemId);
+
+            if (problem == null)
+            {
+                return NotFound("Problem");
+            }
+
+            problem.ProblemStatus = "Solved";
+            _context.SaveChanges();
+
+            return Ok(problem.ProblemStatus);
         }
     }
 }

@@ -24,6 +24,11 @@ export class ContactPageComponent implements OnInit {
   role: RoleDTO;
   roleName: string = '';
 
+  imageUrls: string[] = [
+    "https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png",
+    "https://www.freeiconspng.com/uploads/x-png-22.png"
+  ];
+
   constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private datePipe: DatePipe) { }
 
   contactForm = new FormGroup({
@@ -43,6 +48,9 @@ export class ContactPageComponent implements OnInit {
       this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe();;
     }
   }
+  changeStatus(problemId: number){
+    this.changeProblemStatus(problemId).subscribe();
+  }
 
   emailValidator(control: any) {
     const email = control.value;
@@ -56,6 +64,11 @@ export class ContactPageComponent implements OnInit {
     const url = `${this.baseUrl}contact/create`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(url, { NameSurname: nameSurnameBE, Email: emailBE, Problem: problemBE, ProblemDate: problemDateBE }, { headers });
+  }
+  changeProblemStatus(problemId: number){
+    const url = `${this.baseUrl}contact/changeProblemStatus/${problemId}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(url, { ProblemId: problemId}, { headers });
   }
   getProblems(){
     return this.http.get<ProblemsDTO[]>(this.baseUrl + 'contact');
@@ -76,13 +89,16 @@ export class ContactPageComponent implements OnInit {
 
    this.getProblems().subscribe(result => {
     this.problemsData = result;
+    console.table(this.problemsData);
    })
  } 
 }
 export interface ProblemsDTO {
+  problemId: number;
   nameSurname: string;
   email: string;
   problem: string;
   problemDate: string;
+  problemStatus: string;
 }
 

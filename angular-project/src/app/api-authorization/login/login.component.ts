@@ -6,6 +6,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthenticationService } from '../authentication.service';
 import { AsyncPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { FavoriteProductsService } from 'src/app/favorite-products/favorite-products.service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   adminAuthenticated: boolean = false;
+
+  constructor(){}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

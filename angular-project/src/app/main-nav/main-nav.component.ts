@@ -6,10 +6,11 @@ import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/au
 import { NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
-import { CartService } from '../shopping-cart/cart.service';
+import { CartService, ProductsDTO } from '../shopping-cart/cart.service';
 import { LoginComponent } from '../api-authorization/login/login.component';
 import { HomeComponent } from '../home/home.component';
 import { ProductsDetailComponent } from '../products-detail/products-detail.component';
+import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -32,16 +33,19 @@ export class MainNavComponent implements OnInit {
   authService = inject(AuthenticationService);
   private router = inject(Router)
   countNum = this.CartService.countNum;
+  fav_countNum = this.FProductsService.countNum;
+  favoriteProducts: ProductsDTO[] = [];
 
   user: UserDTO;
   role: RoleDTO;
   roleName: string = '';
 
-  constructor(private CartService: CartService, private router_nav: Router){}
+  constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){}
 
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+    this.FProductsService.countNum.set(0);
   }
 
   isCurrentRoute(route: string): boolean {
@@ -61,6 +65,10 @@ export class MainNavComponent implements OnInit {
     if(this.authService.authenticated()){
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
+          this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
+            this.favoriteProducts = result;
+            this.fav_countNum.set(this.favoriteProducts.length);
+          })
           this.authService.getRole(this.user.id).subscribe(result => {
               this.role = result;
               if(this.role != null){

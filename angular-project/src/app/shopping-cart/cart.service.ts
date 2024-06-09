@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -8,18 +9,25 @@ export class CartService {
   countNum = signal(0);
   amount: number = 0;
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
 
   addToCart(product: ProductsDTO){
     const alreadySelectedProduct = this.products.find(p => p.productName === product.productName);
     if(alreadySelectedProduct){
-      alreadySelectedProduct.amount++;
-      this.countNum.update(value => value + 1);
+      if(alreadySelectedProduct.amount != alreadySelectedProduct.quantity){
+        alreadySelectedProduct.amount++;
+        this.countNum.update(value => value + 1);
+        this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); 
+      }
+      else{
+        this.snackBar.open("You have added all the products to your cart!", "", { duration: 1500, }); 
+      }
     }
     else{
       product.amount = 1;
       this.products.push(product);
       this.countNum.update(value => value + 1);
+      this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); 
     }
   }
 

@@ -74,5 +74,13 @@
 }
 p{
   width: 500px;
-  overflow: auto;
+}
+.problemText{
+  text-align: left;
+  width: 400px;
+  overflow-y: scroll;
+}
+.solvedButton{
+  background-color: transparent;
+  border: none;
 }

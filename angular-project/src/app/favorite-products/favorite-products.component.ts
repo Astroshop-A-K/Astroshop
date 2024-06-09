@@ -5,6 +5,7 @@ import { AuthenticationService, UserDTO } from '../api-authorization/authenticat
 import { NgFor, NgForOf } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { RouterLink } from '@angular/router';
+import { FavoriteProductsService } from './favorite-products.service';
 
 @Component({
   selector: 'app-favorite-products',
@@ -18,23 +19,17 @@ export class FavoriteProductsComponent implements OnInit {
   authService = inject(AuthenticationService);
   user: UserDTO;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
-
-  getFavoriteProducts(userId: string): Observable<ProductsDTO[]>{
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", userId);
-    return this.http.get<ProductsDTO[]>(this.baseUrl + 'products/getFavoriteProducts', { params: queryParams });
-  }
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService){}
 
   ngOnInit(): void {
     if(this.authService.authenticated()){
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
-          this.getFavoriteProducts(this.user.id).subscribe(result => {
+          this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
             this.favoriteProductsData = result;
           });
       })
-  }
+    }
   }
 }
 export interface FavoriteProductDTO{

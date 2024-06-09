@@ -12,7 +12,7 @@ import { ProductsDTO } from '../shopping-cart/cart.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FavoriteProductDTO } from '../favorite-products/favorite-products.component';
+import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
 
 @Component({
     selector: 'app-products-detail',
@@ -63,7 +63,7 @@ export class ProductsDetailComponent implements OnInit {
     faHeart = faHeart;
     isClicked: boolean;
 
-    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
+    constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
@@ -71,7 +71,6 @@ export class ProductsDetailComponent implements OnInit {
     
     addToCart(){
         this.CartService.addToCart(this.productInfo);
-        this.snackBar.open("Your product has been added to the cart!", "", { duration: 1500, }); 
     }
 
     addToFavorite(){
@@ -79,11 +78,11 @@ export class ProductsDetailComponent implements OnInit {
             let userId = this.user.id;
             if(!this.favoriteProductExists){
                 this.isClicked = true;
-                this.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
+                this.FProductsService.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
             }
             else{
                 this.favoriteProductExists = false;
-                this.removeFavoriteProduct(userId, this.productInfo.productId).subscribe();
+                this.FProductsService.removeFavoriteProduct(userId, this.productInfo.productId).subscribe();
             }
         }
         else{
@@ -251,23 +250,6 @@ export class ProductsDetailComponent implements OnInit {
         const headers = new HttpHeaders({'Content-Type': 'application/json' });
         return this.http.put(url, { ProductName: productNameBE, Rating: ratingBE, ReviewsCount: reviewsCountBE }, { headers });
     }
-    addFavoriteProduct(productId: number, userId: string){
-        const url = `${this.baseUrl}products/add-favorite-product`;
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.put(url, { ProductId: productId, UserId: userId }, { headers });
-    }
-    getFavoriteProducts(userId: string): Observable<ProductsDTO[]>{
-        let queryParams = new HttpParams();
-        queryParams = queryParams.append("userId", userId);
-        return this.http.get<ProductsDTO[]>(this.baseUrl + 'products/getFavoriteProducts', { params: queryParams });
-    }
-    removeFavoriteProduct(userId: string, productId: number){
-        let queryParams = new HttpParams();
-        queryParams = queryParams.append("userId", userId);
-        queryParams = queryParams.append("productId", productId);
-        const url = `${this.baseUrl}products/remove-favorite-product`;        
-        return this.http.delete(url, { params: queryParams });
-    }
 
     ngOnInit(): void {
         const routeParams = this.route.snapshot.paramMap;
@@ -294,7 +276,7 @@ export class ProductsDetailComponent implements OnInit {
                             this.roleName = this.role.name;
                         }
                     })
-                    this.getFavoriteProducts(this.user.id).subscribe(result => {
+                    this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
                         this.favoriteProductsData = result;
                         if(this.checkFavoriteProduct()){
                             this.favoriteProductExists = true;
