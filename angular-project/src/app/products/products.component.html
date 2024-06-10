@@ -54,6 +54,7 @@
                   </a>
                 </ng-container>
             </div>
+            <app-pagination [currentPage]="currentPage" [limit]="4" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
         </div>
     </div>
 </div>

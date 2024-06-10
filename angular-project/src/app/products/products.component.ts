@@ -1,26 +1,37 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
 import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent]
+  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent]
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   public productData: ProductsDTO[] = [];
   public ourFilteredProducts: ProductsDTO[] = [];
 
   searchText: any;
+  currentPage: number = 1;
+  totalItems: number = 0;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    this.getData();
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+
+  onPageChange(page: number){
+    this.currentPage = page;
+    this.updateCurrentProducts();
+  }
+  updateCurrentProducts(){
+    const startIndex = (this.currentPage - 1) * 4;
+    const endIndex = startIndex + 4;
+    this.ourFilteredProducts = this.productData.slice(startIndex, endIndex);
   }
 
   filterProducts(category: string) {
@@ -75,7 +86,13 @@ export class ProductsComponent {
     this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productData = result;
       this.filtersProducts();
+      this.totalItems = this.productData.length;
+      this.updateCurrentProducts();
     }, error => console.error(error));
+  }
+
+  ngOnInit(): void {
+    this.getData();
   }
 }
 export interface ProductsDTO {
