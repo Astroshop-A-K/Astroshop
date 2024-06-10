@@ -21,7 +21,7 @@
             <td><button class="solvedButton" disabled><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
           }
           @else{
-            <td><button class="btn btn-coupon" (click)="changeStatus(problem.problemId)"><img src="https://www.freeiconspng.com/uploads/x-png-22.png" height="25" width="25" alt="check"></button></td>
+            <td><button class="btn btn-coupon" (click)="changeStatus(problem.problemId)"><img [src]="imageUrls[currentImageUrlIndex]" height="25" width="25" alt="check"></button></td>
           }
         </tr>
       </table>

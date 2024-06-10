@@ -13,7 +13,7 @@
             <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" height="30" width="30" alt="refractor" /> Refractors</li>
             <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" height="30" width="30" alt="eyepiece" /> Eyepieces</li>
             <li><img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" height="30" width="30" alt="morestuff" /> Telescope accessories</li>
-            <li><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" height="30" width="30" alt="binocular" /> Binoculars</li>
+            <li (click)="filterProducts('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" height="30" width="30" alt="binocular" /> Binoculars</li>
         </ul>
     </div>
     <div class="products">
@@ -54,7 +54,9 @@
                   </a>
                 </ng-container>
             </div>
-            <app-pagination [currentPage]="currentPage" [limit]="4" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+            <div class="paginator">
+            <app-pagination [currentPage]="currentPage" [limit]="8" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+          </div>
         </div>
     </div>
 </div>

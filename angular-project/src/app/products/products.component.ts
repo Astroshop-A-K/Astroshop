@@ -17,6 +17,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 export class ProductsComponent implements OnInit {
   public productData: ProductsDTO[] = [];
   public ourFilteredProducts: ProductsDTO[] = [];
+  public categoryFilteredProducts: ProductsDTO[] = [];
+  public sortedProducts: ProductsDTO[] = [];
 
   searchText: any;
   currentPage: number = 1;
@@ -29,17 +31,33 @@ export class ProductsComponent implements OnInit {
     this.updateCurrentProducts();
   }
   updateCurrentProducts(){
-    const startIndex = (this.currentPage - 1) * 4;
-    const endIndex = startIndex + 4;
-    this.ourFilteredProducts = this.productData.slice(startIndex, endIndex);
+    const startIndex = (this.currentPage - 1) * 8;
+    const endIndex = startIndex + 8;
+    if(this.categoryFilteredProducts.length > 0){
+      this.ourFilteredProducts = this.categoryFilteredProducts.slice(startIndex, endIndex);
+    }
+    else if(this.sortedProducts.length > 0){
+      this.ourFilteredProducts = this.sortedProducts.slice(startIndex, endIndex);
+    }
+    else{
+      this.ourFilteredProducts = this.productData.slice(startIndex, endIndex);
+    }
   }
 
   filterProducts(category: string) {
-    this.ourFilteredProducts = this.productData.filter(product => product.productCategory === category);
+    this.categoryFilteredProducts = this.productData.filter(product => product.productCategory === category);
+    this.totalItems = this.categoryFilteredProducts.length;
+    this.currentPage = 1;
+    this.ourFilteredProducts = this.categoryFilteredProducts;
+    this.updateCurrentProducts();
   }
 
   showAllProducts() {
-    this.ourFilteredProducts = this.productData;
+    this.categoryFilteredProducts = [];
+    this.sortedProducts = this.productData;
+    this.currentPage = 1;
+    this.totalItems = this.productData.length;
+    this.updateCurrentProducts();
   }
 
   filtersProducts() {
@@ -68,18 +86,23 @@ export class ProductsComponent implements OnInit {
   }
 
   private sortData(order: string) {
+    let productsToSort = this.categoryFilteredProducts.length > 0 ? this.categoryFilteredProducts : this.productData;
+
     if (order === 'lexp') {
-      this.ourFilteredProducts.sort((a, b) => a.price - b.price);
+      this.sortedProducts = productsToSort.sort((a, b) => a.price - b.price);
     } else if (order === 'mexp') {
-      this.ourFilteredProducts.sort((a, b) => b.price - a.price);
+      this.sortedProducts = productsToSort.sort((a, b) => b.price - a.price);
     } else if (order === 'isa') {
-      this.ourFilteredProducts = this.ourFilteredProducts.filter(product => product.quantity > 0);
+      this.sortedProducts = productsToSort.filter(product => product.quantity > 0);
     } else if (order === 'asa') {
       this.showAllProducts();
     } else if(order === 'rew') {
-      this.ourFilteredProducts = this.ourFilteredProducts.filter(product => product.averageStarRating >= 4);
-      this.ourFilteredProducts.sort((a, b) => b.averageStarRating - a.averageStarRating);
+      this.sortedProducts = productsToSort.filter(product => product.averageStarRating >= 4)
+      .sort((a, b) => b.averageStarRating - a.averageStarRating);
     }
+    this.totalItems = this.sortedProducts.length;
+    this.currentPage = 1;
+    this.updateCurrentProducts();
   }
 
   getData() {

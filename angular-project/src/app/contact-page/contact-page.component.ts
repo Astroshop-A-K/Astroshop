@@ -29,6 +29,8 @@ export class ContactPageComponent implements OnInit {
     "https://www.freeiconspng.com/uploads/x-png-22.png"
   ];
 
+  currentImageUrlIndex: number = 1;
+
   constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private datePipe: DatePipe) { }
 
   contactForm = new FormGroup({
@@ -50,6 +52,7 @@ export class ContactPageComponent implements OnInit {
   }
   changeStatus(problemId: number){
     this.changeProblemStatus(problemId).subscribe();
+    this.currentImageUrlIndex = 0;
   }
 
   emailValidator(control: any) {

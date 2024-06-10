@@ -1,0 +1,15 @@
+.page-item.active .page-link{
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+.page-link{
+    color:  black;
+    padding: 10px 20px;
+}
+.pagination{
+    background-color: white;
+}
+.page-link:hover{
+    cursor: pointer;
+}
