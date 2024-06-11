@@ -55,7 +55,6 @@ bootstrapApplication(AppComponent, {
         { path: 'products', component: ProductsComponent },
         { path: 'contact', component: ContactPageComponent },
         { path: 'products/:productName', component: ProductsDetailComponent },
-        { path: 'home/products/:productName', component: ProductsDetailComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent},
         { path: 'order', component: OrderPageComponent},
         { path: 'order/order-summary', component: OrderSummaryComponent},,

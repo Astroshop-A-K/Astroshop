@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal, Inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
@@ -35,12 +35,15 @@ export class MainNavComponent implements OnInit {
   countNum = this.CartService.countNum;
   fav_countNum = this.FProductsService.countNum;
   favoriteProducts: ProductsDTO[] = [];
+  currentRoute: string = "";
 
   user: UserDTO;
   role: RoleDTO;
   roleName: string = '';
 
-  constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){}
+  constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){
+    this.currentRoute = this.router_nav.url;
+  }
 
   logout() {
     this.authService.logout();
@@ -49,7 +52,7 @@ export class MainNavComponent implements OnInit {
   }
 
   isCurrentRoute(route: string): boolean {
-    return this.router.url === route;
+    return this.currentRoute.startsWith(route);
   }
 
   toFavoriteProducts(){
@@ -77,6 +80,11 @@ export class MainNavComponent implements OnInit {
           })
       })
    }
+   this.router.events.subscribe(event => { //zapne sa vzdy ked sa udeje novy event ktory je emitovany Observable
+    if(event instanceof NavigationEnd){ //navigacia prebehla uspesne
+      this.currentRoute = event.urlAfterRedirects;
+    }
+   })
  } 
 }
 

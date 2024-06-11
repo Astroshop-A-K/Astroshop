@@ -2,17 +2,17 @@
   <h1>You're currently logged in.</h1>
 } @else {
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" required>
-    </mat-form-field>
+    <div>
+      <label>Email</label>
+      <input formControlName="email" required>
+    </div>
 
-    <mat-form-field>
-      <mat-label>Enter your password</mat-label>
-      <input matInput [type]="'password'" formControlName="password">
-    </mat-form-field>
+    <div>
+      <label>Enter your password</label>
+      <input [type]="'password'" formControlName="password">
+    </div>
 
-    <button mat-raised-button color="primary" type="submit">Login</button>
+    <button color="primary" type="submit">Login</button>
   </form>
   <a [routerLink]="['/register']">Click</a>
 }

@@ -15,7 +15,7 @@
             <tr *ngFor="let order of ordersData">
                 <td class="link" [routerLink]="['/user-orders', order.orderId]">{{order.orderId}}</td>  
                 <td>{{order.email}}</td>
-                <td>{{order.orderVerificationKey}}€</td>
+                <td>{{order.orderVerificationKey}}</td>
                 <td>{{order.orderDate}}</td>
                 <td>{{order.totalPrice}}€</td>
                 <td [ngClass]="{

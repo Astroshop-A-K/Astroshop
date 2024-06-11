@@ -94,11 +94,13 @@ export class ProductsComponent implements OnInit {
       this.sortedProducts = productsToSort.sort((a, b) => b.price - a.price);
     } else if (order === 'isa') {
       this.sortedProducts = productsToSort.filter(product => product.quantity > 0);
+      this.categoryFilteredProducts = [];
     } else if (order === 'asa') {
       this.showAllProducts();
     } else if(order === 'rew') {
       this.sortedProducts = productsToSort.filter(product => product.averageStarRating >= 4)
       .sort((a, b) => b.averageStarRating - a.averageStarRating);
+      this.categoryFilteredProducts = [];
     }
     this.totalItems = this.sortedProducts.length;
     this.currentPage = 1;

@@ -161,7 +161,7 @@ namespace AspNetCoreAPI.Controllers
                         return NotFound();
                     }
 
-                    _context.FavoriteProducts.Remove(product);
+                    _context.FavoriteProducts.Remove(product      );
                     _context.SaveChanges();
 
                     return Ok("removed" + product);

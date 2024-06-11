@@ -15,7 +15,7 @@
       </div>
       <div class="gallery">
         <ng-container *ngFor="let product of productData.slice(0, 5)">
-          <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
+          <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
             <div class="telescope_1">
               <div class="names">
                 <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
@@ -40,7 +40,7 @@
       </div>
       <div class="gallery">
         <ng-container *ngFor="let product of productData.slice(5, 10)">
-          <a [routerLink]="['/home/products', product.productName]" style="color: black; text-decoration:none;">
+          <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
             <div class="telescope_1">
               <div class="names">
                 <img [src]="product.productImage0" alt="Mount + {{product.productId}}" title="{{product.productName}}">
