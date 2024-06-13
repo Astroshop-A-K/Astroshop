@@ -149,7 +149,7 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        /*[HttpDelete("remove-favorite-product")]
+        [HttpDelete("remove-favorite-product")]
         public IActionResult RemoveFavoriteProduct([FromQuery] string userId, int productId)
         {
             try
@@ -171,6 +171,6 @@ namespace AspNetCoreAPI.Controllers
                 Console.WriteLine("Error: " + ex.Message);
                 return StatusCode(500);
             }
-        }*/
+        }
     }
 }
