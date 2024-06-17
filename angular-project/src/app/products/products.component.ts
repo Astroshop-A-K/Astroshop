@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit {
   searchText: any;
   currentPage: number = 1;
   totalItems: number = 0;
+  limit: number = 8;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 
@@ -31,8 +32,8 @@ export class ProductsComponent implements OnInit {
     this.updateCurrentProducts();
   }
   updateCurrentProducts(){
-    const startIndex = (this.currentPage - 1) * 8;
-    const endIndex = startIndex + 8;
+    const startIndex = (this.currentPage - 1) * this.limit;
+    const endIndex = startIndex + this.limit;
     if(this.categoryFilteredProducts.length > 0){
       this.ourFilteredProducts = this.categoryFilteredProducts.slice(startIndex, endIndex);
     }
@@ -94,13 +95,10 @@ export class ProductsComponent implements OnInit {
       this.sortedProducts = productsToSort.sort((a, b) => b.price - a.price);
     } else if (order === 'isa') {
       this.sortedProducts = productsToSort.filter(product => product.quantity > 0);
-      this.categoryFilteredProducts = [];
     } else if (order === 'asa') {
       this.showAllProducts();
     } else if(order === 'rew') {
-      this.sortedProducts = productsToSort.filter(product => product.averageStarRating >= 4)
-      .sort((a, b) => b.averageStarRating - a.averageStarRating);
-      this.categoryFilteredProducts = [];
+      this.sortedProducts = productsToSort.sort((a, b) => b.averageStarRating - a.averageStarRating);
     }
     this.totalItems = this.sortedProducts.length;
     this.currentPage = 1;

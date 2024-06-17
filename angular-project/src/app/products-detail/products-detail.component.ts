@@ -79,8 +79,10 @@ export class ProductsDetailComponent implements OnInit {
             if(!this.favoriteProductExists){
                 this.isClicked = true;
                 this.FProductsService.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
+                this.favoriteProductExists = true;
             }
             else{
+                this.isClicked = false;
                 this.favoriteProductExists = false;
                 this.FProductsService.removeFavoriteProduct(userId, this.productInfo.productId).subscribe();
             }

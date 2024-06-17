@@ -1,18 +1,27 @@
+<div class="content">
 @if (authService.authenticated()) {
   <h1>You're currently logged in.</h1>
 } @else {
+  <div class="login-form">
+  <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+  <h1 style="font-weight: bold;">Login</h1>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <div>
-      <label>Email</label>
-      <input formControlName="email" required>
+    <div class="field">
+      <label>Enter your e-mail:</label><br>
+      <input formControlName="email" required placeholder="peter@astroshop.com">
     </div>
 
-    <div>
-      <label>Enter your password</label>
-      <input [type]="'password'" formControlName="password">
+    <div class="field">
+      <label>Enter your password:</label><br>
+      <input [type]="'password'" formControlName="password" placeholder="parker123">
     </div>
 
-    <button color="primary" type="submit">Login</button>
+    <div class="field" style="text-align: center;">
+      <label>Don't have an account? Register <a [routerLink]="['/register']">here</a></label>
+    </div><br>
+
+    <button class="btn btn-secondary" type="submit">Login</button>
   </form>
-  <a [routerLink]="['/register']">Click</a>
+</div>
 }
+</div>
