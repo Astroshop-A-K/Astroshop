@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, signal, Query } from '@angular/core';
 import { OrderService } from '../order-page/order.service';
 import { DatePipe, NgFor } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
@@ -94,6 +94,11 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     const url = `${this.baseUrl}orders/add-productId`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(url, { ProductId: productId, OrderId: orderId, Quantity: amountBE }, { headers });
+  }
+  changeProductQuantity(productId: number, quantity: number){
+    const url = `${this.baseUrl}orders/changeProductQuantity`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(url, { ProductId: productId, Quantity: quantity}, { headers });
   }
 
   ngOnInit(): void {

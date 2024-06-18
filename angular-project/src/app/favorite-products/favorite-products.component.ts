@@ -6,11 +6,13 @@ import { ProductsDTO } from '../shopping-cart/cart.service';
 import { RouterLink } from '@angular/router';
 import { FavoriteProductsService } from './favorite-products.service';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { ProductsComponent } from '../products/products.component';
 
 @Component({
   selector: 'app-favorite-products',
   standalone: true,
   imports: [NgFor, NgForOf, RouterLink, PaginationComponent],
+  providers: [ProductsComponent],
   templateUrl: './favorite-products.component.html',
   styleUrl: './favorite-products.component.css'
 })

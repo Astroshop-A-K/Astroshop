@@ -27,7 +27,7 @@
               </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
                 <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
               </div>
             </div>
             </a>
@@ -52,7 +52,7 @@
               </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
                 <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Nie je na sklade' }}</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
               </div>
             </div>
             </a>

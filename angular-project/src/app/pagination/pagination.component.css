@@ -10,6 +10,15 @@
 .pagination{
     background-color: white;
 }
+.arrow-left img{
+    transform: rotate(180deg);
+}
+.arrow-left, .arrow-right{
+    padding: 10px;
+}
 .page-link:hover{
+    cursor: pointer;
+}
+.arrow-left:hover, .arrow-right:hover{
     cursor: pointer;
 }

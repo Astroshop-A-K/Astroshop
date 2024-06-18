@@ -90,6 +90,8 @@ namespace AspNetCoreAPI.Controllers
         {
             try
             {
+                var product = _context.Products.FirstOrDefault(p => p.ProductId == orderProductsDTO.ProductId);
+
                 var newRow = new OrderProductsModel
                 {
                     ProductId = orderProductsDTO.ProductId,
@@ -97,6 +99,7 @@ namespace AspNetCoreAPI.Controllers
                     Quantity = orderProductsDTO.Quantity
                 };
 
+                product.Quantity -= orderProductsDTO.Quantity;
                 _context.OrderProducts.Add(newRow);
                 _context.SaveChanges();
 

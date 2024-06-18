@@ -6,13 +6,14 @@ import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { FavoriteProductsComponent } from '../favorite-products/favorite-products.component';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent]
+  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent],
 })
 export class ProductsComponent implements OnInit {
   public productData: ProductsDTO[] = [];
@@ -68,6 +69,12 @@ export class ProductsComponent implements OnInit {
       this.ourFilteredProducts = this.productData.filter(product =>
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
       );
+      
+      this.totalItems = this.ourFilteredProducts.length;
+      this.currentPage = 1;
+      this.updateCurrentProducts();
+
+      console.log(this.ourFilteredProducts)
     }
   }
 
