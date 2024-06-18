@@ -20,12 +20,7 @@
         <fa-icon (click)="addToFavorite()" [ngClass]="{'exists': favoriteProductExists, 'no-exists': !favoriteProductExists, 'clicked': isClicked}" [icon]="faHeart"></fa-icon>
       </div>
       <div class="add-to-cart-button">
-        @if(productInfo.quantity > 0){
           <button class="btn btn-success" (click)="addToCart()">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
-        }
-        @else{
-          <button class="btn btn-success">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
-        }
       </div>
     </div>
   </div>
@@ -42,7 +37,7 @@
             <div class="star-rating-set">
                 <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
             </div>
-            <button class="btn btn-success" type="button" (click)="onSubmit()" [disabled]="!reviewForm.valid || productRating === 0 || !authService.authenticated()">Send</button>
+            <button class="btn btn-success" type="button" (click)="onSubmit()" [disabled]="!reviewForm.valid || productRating === 0">Send</button>
           </div>
         </form>
       </div><br>

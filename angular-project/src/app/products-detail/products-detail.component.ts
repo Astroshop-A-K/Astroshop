@@ -70,7 +70,12 @@ export class ProductsDetailComponent implements OnInit {
     });
     
     addToCart(){
-        this.CartService.addToCart(this.productInfo);
+        if(this.productInfo.quantity > 0){
+            this.CartService.addToCart(this.productInfo);
+        }
+        else{
+            this.snackBar.open("This product is not avaiable!", "", { duration: 1500, }); 
+        }
     }
 
     addToFavorite(){
@@ -104,10 +109,16 @@ export class ProductsDetailComponent implements OnInit {
         if(this.currentImagePosition > 0){
             this.currentImagePosition -= 1;
         }
+        else{
+            this.currentImagePosition = 2;
+        }
     }
     positionRight(){
         if(this.currentImagePosition < 2){
             this.currentImagePosition += 1;
+        }
+        else{
+            this.currentImagePosition = 0;
         }
     }
 
@@ -130,7 +141,8 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     onSubmit(){
-        const repeatedReviewCreator = this.reviewsData.find(r => r.reviewCreator === this.reviewCreator);
+        if(this.authService.authenticated()){
+            const repeatedReviewCreator = this.reviewsData.find(r => r.reviewCreator === this.reviewCreator);
         if(!repeatedReviewCreator){
             if(this.reviewForm.valid && this.productRating > 0){
                 const routeParams = this.route.snapshot.paramMap;
@@ -166,6 +178,10 @@ export class ProductsDetailComponent implements OnInit {
         }
         else{
             this.snackBar.open("You already have a review here!", "", { duration: 1500, })
+        }
+        }
+        else{
+            this.router.navigate(['/login']);
         }
     }
 
