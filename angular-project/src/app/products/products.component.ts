@@ -35,30 +35,22 @@ export class ProductsComponent implements OnInit {
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
-    if(this.categoryFilteredProducts.length > 0){
-      this.ourFilteredProducts = this.categoryFilteredProducts.slice(startIndex, endIndex);
-    }
-    else if(this.sortedProducts.length > 0){
-      this.ourFilteredProducts = this.sortedProducts.slice(startIndex, endIndex);
-    }
-    else{
-      this.ourFilteredProducts = this.productData.slice(startIndex, endIndex);
-    }
+    this.ourFilteredProducts = this.sortedProducts.slice(startIndex, endIndex);
   }
 
   filterProducts(category: string) {
     this.categoryFilteredProducts = this.productData.filter(product => product.productCategory === category);
-    this.totalItems = this.categoryFilteredProducts.length;
+    this.sortedProducts = this.categoryFilteredProducts.slice();
+    this.totalItems = this.sortedProducts.length;
     this.currentPage = 1;
-    this.ourFilteredProducts = this.categoryFilteredProducts;
     this.updateCurrentProducts();
   }
 
   showAllProducts() {
     this.categoryFilteredProducts = [];
-    this.sortedProducts = this.productData;
+    this.sortedProducts = this.productData.slice();
     this.currentPage = 1;
-    this.totalItems = this.productData.length;
+    this.totalItems = this.sortedProducts.length;
     this.updateCurrentProducts();
   }
 
@@ -69,12 +61,6 @@ export class ProductsComponent implements OnInit {
       this.ourFilteredProducts = this.productData.filter(product =>
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
       );
-      
-      this.totalItems = this.ourFilteredProducts.length;
-      this.currentPage = 1;
-      this.updateCurrentProducts();
-
-      console.log(this.ourFilteredProducts)
     }
   }
 
@@ -94,7 +80,7 @@ export class ProductsComponent implements OnInit {
   }
 
   private sortData(order: string) {
-    let productsToSort = this.categoryFilteredProducts.length > 0 ? this.categoryFilteredProducts : this.productData;
+    let productsToSort = this.sortedProducts.length > 0 ? this.sortedProducts : this.productData; //kontroluje ci ma produkty a ak hej tak assigne to tej novej array ak ak je sortedProducts prazdne tak to da productData
 
     if (order === 'lexp') {
       this.sortedProducts = productsToSort.sort((a, b) => a.price - b.price);
@@ -102,6 +88,7 @@ export class ProductsComponent implements OnInit {
       this.sortedProducts = productsToSort.sort((a, b) => b.price - a.price);
     } else if (order === 'isa') {
       this.sortedProducts = productsToSort.filter(product => product.quantity > 0);
+      console.log(this.sortedProducts);
     } else if (order === 'asa') {
       this.showAllProducts();
     } else if(order === 'rew') {
@@ -115,6 +102,7 @@ export class ProductsComponent implements OnInit {
   getData() {
     this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productData = result;
+      this.sortedProducts = this.productData;
       this.filtersProducts();
       this.totalItems = this.productData.length;
       this.updateCurrentProducts();
