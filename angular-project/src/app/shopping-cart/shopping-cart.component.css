@@ -82,6 +82,9 @@ input{
     width: 50%;
     margin: 5px 0;
 }
+.i_number{
+    width: 80px;
+}
 @media (max-width: 1250px){
     .product{
         width: 80vw;

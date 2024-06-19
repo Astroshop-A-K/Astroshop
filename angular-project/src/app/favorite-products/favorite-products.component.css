@@ -22,7 +22,8 @@
     border: 2px solid #f4f4f4;
     text-align: left;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 .favorite-product img, p{
     padding: 20px;
@@ -30,4 +31,5 @@
 }
 .favorite-product:hover{
     cursor: pointer;
+    transform: translateY(-5px);
 }

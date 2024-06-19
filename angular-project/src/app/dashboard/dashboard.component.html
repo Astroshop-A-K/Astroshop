@@ -1,12 +1,32 @@
-<div>
-  <h2>Hello! You can only see this if you're logged in!</h2>
-  <table mat-table *ngIf="dataSource" [dataSource]="dataSource">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let member"> {{ member }} </td>
-
-      <tr mat-header-row *matHeaderRowDef="['name',]"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['name'];"></tr>
-    </ng-container>
-  </table>
+<div class="content">
+  <div class="dashboard">
+    <div class="title">
+     <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+     <h1 style="font-weight: bold;">User dashboard</h1><br>
+    </div>
+    <div class="info">
+      <label>Username:</label>
+      <span>{{user.userName}}</span>
+    </div>
+    <div class="info">
+      <label>Email:</label>
+      <span>{{user.email}}</span>
+    </div>
+    <div class="info">
+      <label>Email Confirmed:</label>
+      <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed}}</span>
+    </div>
+    <div class="info">
+      <label>Two Factor Enabled:</label>
+      <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled}}</span>
+    </div>
+    <div class="info">
+      <label>Access Failed Count:</label>
+      <span>{{user.accessFailedCount}}</span>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+      <button class="btn btn-danger">Remove account</button>
+    </div>
+  </div>
 </div>

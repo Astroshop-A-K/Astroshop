@@ -44,7 +44,13 @@
     
         <div class="field">
           <label>Your problem</label><br>
-          <textarea placeholder="My product is not working..." id="problem" formControlName="problem"></textarea>
+          <textarea placeholder="My product is not working..." id="problem" formControlName="problem" maxlength="250" [(ngModel)]="userMessage" (input)="update()"></textarea><!--(input) robi ze vzdy ked sa nieco napise tak spravi update-->
+          @if(userMessage.length > 0){
+            <div class="char-count">{{ charactersCount }} / 250 characters</div>
+          }
+          @else{
+            
+          }
         </div>
     
         <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-secondary" [routerLink]="['/home']">Confirm</button>

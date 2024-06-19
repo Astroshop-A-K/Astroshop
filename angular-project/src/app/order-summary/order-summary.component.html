@@ -80,7 +80,7 @@
         </div>
         <div class="part4">
             <div class="submit">
-                <button class="btn btn-success" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
+                <button class="btn btn-secondary" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
             </div>
         </div>
     </div>
@@ -90,6 +90,6 @@
         <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
         <h1 style="font-weight: bold;">Thank you for your order!</h1><br>
         <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p><br>
-        <button class="btn btn-success" [routerLink]="['/home']">Return home</button>
+        <button class="btn btn-secondary" [routerLink]="['/home']">Return home</button>
     </div>
 }

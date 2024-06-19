@@ -1,8 +1,55 @@
-div {
-  h2 {
-    padding-top: 1rem;
-  }
-
-  margin: auto;
-  width: 50%;
+.content{
+  padding-top: 120px;
+  width: 100%;
+  height: auto;
+  padding-bottom: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dashboard {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 800px;
+  border: 2px solid #f4f4f4;
+}
+.dashboard h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.dashboard .info {
+  margin-bottom: 15px;
+}
+.dashboard .info label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+.dashboard .info span {
+  display: block;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.dashboard .info span.false {
+  color: #e74c3c;
+}
+.dashboard .info span.true {
+  color: #2ecc71;
+}
+.title{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }

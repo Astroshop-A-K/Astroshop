@@ -37,7 +37,7 @@
             <div class="star-rating-set">
                 <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
             </div>
-            <button class="btn btn-success" type="button" (click)="onSubmit()" [disabled]="!reviewForm.valid || productRating === 0">Send</button>
+            <button class="btn btn-secondary" type="button" (click)="onSubmit()" [disabled]="!reviewForm.valid || productRating === 0">Send</button>
           </div>
         </form>
       </div><br>

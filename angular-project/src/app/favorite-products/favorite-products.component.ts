@@ -27,7 +27,7 @@ export class FavoriteProductsComponent implements OnInit {
   limit: number = 3;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService){}
-
+  
   onPageChange(page: number){
     this.currentPage = page;
     this.updateCurrentProducts();

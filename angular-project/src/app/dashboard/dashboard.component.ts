@@ -1,9 +1,11 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { TestService } from '../test.service';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, CommonModule, NgForOf, NgIf } from '@angular/common';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableDataSource } from '@angular/material/table';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,20 +25,37 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatRowDef,
     MatHeaderRowDef,
     MatHeaderRow,
-    MatRow
+    MatRow,
+    CommonModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  private testService = inject(TestService);
-  private destroyRef = inject(DestroyRef)
+  authService = inject(AuthenticationService);
+  user: UserDTO;
+  role: RoleDTO;
+  roleName: string = '';
 
-  dataSource: MatTableDataSource<string>;
+  constructor(private router: Router){}
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit(): void {
-    this.testService.getNames()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(names => this.dataSource = new MatTableDataSource(names));
+    if(this.authService.authenticated()){
+      this.authService.getCurrentUser().subscribe(result =>{
+          this.user = result;
+          console.table(this.user);
+          this.authService.getRole(this.user.id).subscribe(result => {
+              this.role = result;
+              if(this.role != null){
+                  this.roleName = this.role.name;
+              }
+          })
+      })
+   }
   }
 }

@@ -30,8 +30,14 @@ export class ContactPageComponent implements OnInit {
   ];
 
   currentImageUrlIndex: number = 1;
+  userMessage: string = '';
+  charactersCount: number = 0;
 
   constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private datePipe: DatePipe) { }
+
+  update(){
+    this.charactersCount = this.userMessage.length;
+  }
 
   contactForm = new FormGroup({
     nameSurname: new FormControl('', Validators.required),
