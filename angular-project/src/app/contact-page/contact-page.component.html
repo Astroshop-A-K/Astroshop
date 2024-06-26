@@ -1,9 +1,9 @@
-<title>Contact</title>
 <div class="content">
   @if(roleName == 'admin' && authService.authenticated()){
+    <title>Problems</title>
     <div class="problems">
       <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-      <h1 style="font-weight: bold;">Contacts</h1><br>
+      <h1 style="font-weight: bold;">Problems</h1><br>
       <table class="problemsTable">
         <tr>
           <th>Problem Date</th>
@@ -21,13 +21,14 @@
             <td><button class="solvedButton" disabled><img src="https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png" height="25" width="25" alt="check"></button></td>
           }
           @else{
-            <td><button class="btn btn-coupon" (click)="changeStatus(problem.problemId)"><img [src]="imageUrls[currentImageUrlIndex]" height="25" width="25" alt="check"></button></td>
+            <td><button class="btn btn-coupon" (click)="changeStatus(problem.problemId)"><img [src]="imageUrls[problem.currentImageUrlIndex]" height="25" width="25" alt="check"></button></td>
           }
         </tr>
       </table>
     </div>
   }
   @else{
+    <title>Contact</title>
     <div class="contact-form">
       <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
       <h1 style="font-weight: bold;">Contact</h1>

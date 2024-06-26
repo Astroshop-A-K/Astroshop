@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/rout
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
-import { NgClass, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CartService, ProductsDTO } from '../shopping-cart/cart.service';
@@ -24,6 +24,7 @@ import { FavoriteProductsService } from '../favorite-products/favorite-products.
     MatBadgeModule,
     MatIconModule,
     HomeComponent,
+    CommonModule
   ],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
@@ -37,12 +38,15 @@ export class MainNavComponent implements OnInit {
   favoriteProducts: ProductsDTO[] = [];
   currentRoute: string = "";
 
+  products: ProductsDTO[] = [];
+
   user: UserDTO;
   role: RoleDTO;
   roleName: string = '';
 
   constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){
     this.currentRoute = this.router_nav.url;
+    this.products = this.CartService.getProducts();
   }
 
   logout() {

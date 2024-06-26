@@ -15,6 +15,9 @@
   .title h3, h1 {
     margin: 0px;
   }
+  .title img{
+    margin-bottom: 6px;
+  }
   .our_products {
     width: 100%;
     display: flex;
@@ -22,8 +25,8 @@
     align-items: center;
   }
   .our_products_content {
-    margin: 50px 0px 50px 0px;
-    width: auto;
+    margin: 40px 0px 0px 0px;
+    width: 100%;
     padding: 20px;
     text-align: center;
   }
@@ -43,13 +46,15 @@
     margin: 10px;
   }
   .gallery {
+    padding-top: 5px;
     display: flex;
     justify-content: center;
-    align-items: flex-start; 
-    flex-wrap: wrap; 
+    align-items: center;
     gap: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
   .telescope_1 {
     border: 1px solid #ddd;
@@ -59,6 +64,9 @@
     height: 410px;
     border-radius: 10px;
     text-align: left;
+    display: inline-block;
+    white-space: normal;
+    box-sizing: border-box;
   }
   .telescope_1:hover {
     transform: translateY(-5px);
@@ -92,20 +100,14 @@
     color: black;
   }
   .gallery1 img {
-    filter:grayscale();
     width: 200px;
     height: auto;
     margin-bottom: 10px;
-  }
-  .gallery1 img:hover{
-      filter: none;
-      cursor: pointer;
   }
   .check {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 150px;
   }
   .available {
     color: green;
@@ -130,11 +132,12 @@
     align-items: center;
     justify-content: space-between;
   }
-  .names, .check{
-    margin: 0 0.2rem;
-  }
   .ad-gallery{
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
   .ad-gallery img{
     width: 100%;
@@ -143,6 +146,8 @@
     justify-content: center;
     flex-direction: column;
     margin-bottom: 20px;
+    max-width: 80%;
+    height: auto;
   }
   hr{
     border-width: 1px;
@@ -169,22 +174,68 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    padding-bottom: 50px;
+  }
+  .third-section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 50px 0 50px;
+  }
+  .content{
+    width: 100%;
+  }
+  .title_content h1{
+    font-size: 56px;
+  }
+  @media (max-width: 880px){
+    .gallery1 img{
+      max-width: 20%;
+    }
   }
   @media (max-width: 768px) {
     .title {
       height: 500px; 
     }
-    .telescope_1 {
-      width: 100%; 
-      max-width: 300px; 
-    }
     .our_products_content p {
-      margin-left: 10px;
-      margin-right: 10px;
       text-align: left;
     }
     .gallery1 {
       justify-content: space-around;
+    }
+    .ad-gallery{
+      padding: 0;
+    }
+    .ad-gallery img{
+      max-width: 100%;
+    }
+    .gallery1 img{
+      width: 50%;
+    }
+    .telescope_1{
+      height: 330px;
+      width: 190px;
+    }
+    .telescope_1 p{
+      font-size: 13px;
+    }
+    .telescope_1 img {
+      height: 160px;
+    }
+    .title_content h1{
+      font-size: 40px;
+    }
+    .title_content h3{
+      font-size: 15px
+    }
+    .title_content img{
+      height: 65px;
+      width: 65px;
+    }
+    h2 {
+      font-size: 22px;
     }
   }
   @media (max-width: 576px) {
@@ -192,4 +243,19 @@
       height: 500px; 
     }
   }
-  
+  @media (max-width: 1385px){
+    .gallery{
+      overflow-x: auto;
+      overflow-y: hidden;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+    .ad-gallery img{
+      max-width: 100%;
+    }
+  }
+  @media (max-width: 700px){
+    .gallery1 img{
+      max-width: 30%;
+    }
+  }

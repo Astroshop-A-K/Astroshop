@@ -13,6 +13,37 @@ nav{
   transition: 0.5s linear;
   top: 0;
 }
+.shopping-cart{
+  position: relative;
+}
+.cart-dropdown-menu{
+  visibility: hidden;
+  display: none;
+  z-index: 9999;
+  position: absolute;
+  background-color: white;
+  width: 200px;
+  height: auto;
+  top: 100%;
+  left: -210%;
+  margin-top: 19px;
+  box-shadow: 0 .35rem .85rem rgba(0, 0, 0, .05);
+  color: black;
+  font-size: 8px;
+}
+.nav-icons .shopping-cart:hover{
+  .cart-dropdown-menu{
+    display: block;
+    visibility: visible;
+  }
+}
+.products{
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
 .nav-content span a{
   padding: 5px 10px;
   color: black;
@@ -65,8 +96,18 @@ nav{
   font-size: larger;
   font-weight: bold;
 }
-button:hover{
-  cursor: pointer;
+img{
+  margin: 2px;
+}
+.empty-cart{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  font-size: 10px;
+}
+.empty-cart p{
+  margin-top: 6px;
 }
 @media (min-width: 768px) {
   html {

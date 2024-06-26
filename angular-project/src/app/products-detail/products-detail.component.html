@@ -32,7 +32,7 @@
         <form [formGroup]="reviewForm">
           <div class="field">
             <div class="reviewComment">
-              <input type="text" placeholder="Type your review here..."  name="reviewComment" formControlName="reviewComment">
+              <input type="text" placeholder="Type your review here..."  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()">
             </div>
             <div class="star-rating-set">
                 <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
@@ -40,7 +40,13 @@
             <button class="btn btn-secondary" type="button" (click)="onSubmit()" [disabled]="!reviewForm.valid || productRating === 0">Send</button>
           </div>
         </form>
-      </div><br>
+        @if(userMessage.length > 0){
+          <div class="char-count">{{ charactersCount }} / 150 characters</div>
+        }
+        @else{
+          <div class="char-count" style="visibility: hidden;">a</div>
+        }
+      </div>
       <div class="review" *ngFor="let review of reviewsData">
         <div class="title">
           <div class="title-part1">

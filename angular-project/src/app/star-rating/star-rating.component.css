@@ -21,3 +21,15 @@ fa-icon{
 .readOnly{
     padding: 0;
 }
+@media (max-width: 768px) {
+    fa-icon{
+        font-size: 18px;
+        margin: 2px;
+    }
+}
+@media (max-width: 1250px){
+    fa-icon{
+        font-size: 18px;
+        margin: 2px;
+    }
+}

@@ -4,6 +4,7 @@ import { NgFor } from '@angular/common';
 import { ProductsDTO } from './cart.service';
 import { RouterLink } from '@angular/router';
 import { NgModel } from '@angular/forms';
+import { MainNavComponent } from '../main-nav/main-nav.component';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -30,7 +31,6 @@ export class ShoppingCartComponent {
 
   clearCart(){
     this.products = [];
-    this.CartService.products = [];
-    this.CartService.countNum.update(value => 0);
+    this.CartService.clearCart();
   }
 }

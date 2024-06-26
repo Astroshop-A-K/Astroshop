@@ -55,9 +55,6 @@ h2{
 .arrow-left img{
     transform: rotate(180deg);
 } 
-.arrow-left:hover, .arrow-right:hover{
-    transform: translateY(-1px);
-}
 .gallery{
     margin-right: 10px;
     display: flex;
@@ -186,6 +183,12 @@ fa-icon.not-clicked{
 }
 .no-exists{
     color: #6c757d;
+}
+.char-count{
+    font-size: 14px;
+    overflow: auto;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 @media (max-width: 1700px) {
     .part1, .part2{

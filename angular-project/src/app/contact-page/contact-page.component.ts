@@ -4,14 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
-import { DatePipe, NgFor, NgForOf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-contact-page',
   templateUrl: './contact-page.component.html',
   styleUrls: ['./contact-page.component.css'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgFor, NgForOf, DatePipe],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, NgFor, NgForOf, DatePipe, CommonModule],
   providers: [DatePipe]
 })
 
@@ -25,8 +25,8 @@ export class ContactPageComponent implements OnInit {
   roleName: string = '';
 
   imageUrls: string[] = [
-    "https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png",
-    "https://www.freeiconspng.com/uploads/x-png-22.png"
+    "https://www.freeiconspng.com/uploads/x-png-22.png",
+    "https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png"
   ];
 
   currentImageUrlIndex: number = 1;
@@ -58,7 +58,8 @@ export class ContactPageComponent implements OnInit {
   }
   changeStatus(problemId: number){
     this.changeProblemStatus(problemId).subscribe();
-    this.currentImageUrlIndex = 0;
+    const problem = this.problemsData.find(p => p.problemId === problemId);
+    problem.currentImageUrlIndex = 1;
   }
 
   emailValidator(control: any) {
@@ -97,8 +98,11 @@ export class ContactPageComponent implements OnInit {
    }
 
    this.getProblems().subscribe(result => {
-    this.problemsData = result;
-    console.table(this.problemsData);
+    this.problemsData = result.map(problem => ({
+      ...problem, //arrow function
+      currentImageUrlIndex: problem.currentImageUrlIndex ?? 0 //vrati nulu ak je null / undefined to dava tomu povodnemu objektu
+    })
+    )
    })
  } 
 }
@@ -109,5 +113,6 @@ export interface ProblemsDTO {
   problem: string;
   problemDate: string;
   problemStatus: string;
+  currentImageUrlIndex: number;
 }
 

@@ -55,6 +55,11 @@ export class CartService {
       this.products.splice(index, 1);
     }
   }
+
+  clearCart(){
+    this.products.length = 0;
+    this.countNum.update(value => 0);
+  }
 }
 export interface ProductsDTO {
   productId: number;

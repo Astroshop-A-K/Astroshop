@@ -63,11 +63,18 @@ export class ProductsDetailComponent implements OnInit {
     faHeart = faHeart;
     isClicked: boolean;
 
+    charactersCount: number = 0;
+    userMessage: string = '';
+
     constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
     });
+
+    update(){
+        this.charactersCount = this.userMessage.length;
+    }
     
     addToCart(){
         if(this.productInfo.quantity > 0){
@@ -174,6 +181,7 @@ export class ProductsDetailComponent implements OnInit {
     
                 this.reviewForm.reset();
                 this.productRating = 0;
+                this.userMessage = '';
             }
         }
         else{

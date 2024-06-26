@@ -106,8 +106,9 @@ body{
     }
   }
   @media (max-width: 768px) {
-    .terms > div {
-      flex: 1 0 100%;
+    .terms > div, .payments_end > div {
+      flex: 1 1 120%;
+      max-width: 100%;
       margin-bottom: 10px;
     }
   
@@ -116,6 +117,12 @@ body{
       padding-right: 0;
       margin-bottom: 10px;
     }
+
+    .ending a{
+      font-size: 16px;
+    }
+    .ending h2{
+      font-size: 18px;
+    }
   }
-  
   
