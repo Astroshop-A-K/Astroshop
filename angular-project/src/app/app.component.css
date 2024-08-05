@@ -74,7 +74,7 @@ body{
       max-width: 100%;
       height: auto; 
     }
-  .ad {
+  /*.ad {
     width: 100%;
     height: 50px;
     background-color: #262626;
@@ -90,20 +90,77 @@ body{
     white-space: nowrap; 
     animation: slideIn 9s linear infinite;
     font-size: 17px; 
-  }
-  img{
+  }*/
+  .ending img{
     filter: grayscale();
   }
-  img:hover{
+  .ending img:hover{
     filter: none;
   }
-  @keyframes slideIn {
+  /*@keyframes slideIn {
     0% {
       transform: translateX(0); 
     }
     100% {
       transform: translateX(100vw);
     }
+  }*/
+  .info_menu{
+    background-color: #0d6efd;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 6px 40px 6px 40px;
+  }
+  .search-bar{
+    background-color: transparent;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .search-bar input{
+    border: 1px solid white;
+    border-radius: 8px;
+    width: 80%;
+    padding: 5px 15px;
+    float: right;
+    color: white;
+  }
+  .search-bar input::placeholder{
+    color: white;
+    font-size: medium;
+  }
+  .search-bar img{
+    height: 30px;
+    width: 30px;
+  }
+  .social-media{
+    width: 100%;
+    margin-left: 50px;
+  }
+  .gallery img{
+    width: 30px;
+    height: 30px;
+    filter: grayscale(100%);
+    margin: 5px;
+  }
+  .gallery img:hover{
+    cursor: pointer;
+  }
+  .title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 22px !important; /*tejto property davame vacsiu prioritu prave pomocou !important*/
   }
   @media (max-width: 768px) {
     .terms > div, .payments_end > div {

@@ -1,22 +1,24 @@
 <div class="content">
   <nav>
-    <span><a class="title"><img src="../../assets/favicon.ico" height="45" width="45" alt="astroshop-icon"/>Astroshop</a></span>
     <div class="nav-content">
-      <div class="nav-items">
-        @if(roleName == 'admin'){
-          <span><a [routerLink]="['/user-orders']" [ngClass]="{'active': isCurrentRoute('/user-orders')}">Orders</a></span>
-        }
-        @else{
-      
-        }
-        <span><a [routerLink]="['/home']" [ngClass]="{'active': isCurrentRoute('/home')}">Home</a></span>
-        <span><a [routerLink]="['/products']" [ngClass]="{'active': isCurrentRoute('/products') || isCurrentRoute('/products')}">Products</a></span>
-        <span><a [routerLink]="['/contact']" [ngClass]="{'active': isCurrentRoute('/contact')}">Contact</a></span>
+      <div class="products_categories">
+        <span class="categories-text"><img src="../../assets/Images/menu_categories_icon.png">Categories</span>
       </div>
       <div class="nav-icons">
-        <a (click)="toFavoriteProducts()" [routerLink]="[]"><mat-icon matBadge="{{fav_countNum()}}" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
+        <div class="nav-items">
+          @if(roleName == 'admin'){
+            <span><a [routerLink]="['/user-orders']" [ngClass]="{'active': isCurrentRoute('/user-orders')}">Orders</a></span>
+          }
+          @else{
+        
+          }
+          <span><a [routerLink]="['/home']" [ngClass]="{'active': isCurrentRoute('/home')}">Home</a></span>
+          <span><a [routerLink]="['/products']" [ngClass]="{'active': isCurrentRoute('/products') || isCurrentRoute('/products')}">Products</a></span>
+          <span><a [routerLink]="['/contact']" [ngClass]="{'active': isCurrentRoute('/contact')}">Contact</a></span>
+        </div>
+        <a (click)="toFavoriteProducts()" [routerLink]="[]"><mat-icon matBadge="{{fav_countNum()}}" aria-hidden="false" matBadgeClass="custom-badge"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
         <div class="shopping-cart">
-        <a [routerLink]="['/shopping-cart']"><mat-icon matBadge="{{countNum()}}" aria-hidden="false" matBadgeColor="warn"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25" alt="shopping-cart" title="shopping-cart"/></mat-icon></a>
+        <a [routerLink]="['/shopping-cart']"><mat-icon matBadge="{{countNum()}}" aria-hidden="false" matBadgeClass="custom-badge"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25" alt="shopping-cart" title="shopping-cart"/></mat-icon></a>
         <div class="cart-dropdown-menu">
           @if(products.length > 0){
             <div *ngFor="let product of products" class="products">

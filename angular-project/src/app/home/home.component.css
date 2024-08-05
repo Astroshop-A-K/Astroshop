@@ -1,5 +1,5 @@
 .title {
-    background-image: url(https://cdn.shopify.com/s/files/1/1594/4815/files/California-Nebula-Raptor_OPT_2048x2048.jpg?v=1601317167);
+    background-image: url(https://static.vecteezy.com/system/resources/previews/005/117/235/original/minimalist-dark-gradient-wave-background-simple-design-for-your-website-vector.jpg);
     background-size:cover;
     background-repeat: no-repeat;
     background-position:right;
@@ -10,13 +10,31 @@
     color: white;
     text-align: center;
     width: 100%;
-    padding-top: 55px;
   }
-  .title h3, h1 {
-    margin: 0px;
+  .title_content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 20px;
   }
-  .title img{
-    margin-bottom: 6px;
+  .title_content h1{
+    font-size: 35px;
+    text-align: left;
+    font-weight: bold;
+  }
+  .title_content{
+    text-shadow: 5px 5px 5px black;
+  }
+  .image_content img{
+    filter: brightness(95%);
+    margin-bottom: 20px;
+  }
+  .text_content{
+    width: 75%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
   }
   .our_products {
     width: 100%;
@@ -117,7 +135,11 @@
   }
   button {
     padding: 8px 18px;
-    margin: 10px;
+    box-shadow: 5px 5px 5px black;
+    transition: 0.4s scale;
+  }
+  button:hover{
+    scale: 1.025;
   }
   p{
     font-size: 17px;
@@ -187,18 +209,35 @@
   .content{
     width: 100%;
   }
-  .title_content h1{
-    font-size: 56px;
-  }
   @media (max-width: 880px){
     .gallery1 img{
       max-width: 20%;
     }
   }
   @media (max-width: 768px) {
-    .title {
-      height: 500px; 
+    .title{
+      height: auto;
     }
+    .title_content{
+      flex-direction: column;
+    }
+    .image_content{
+      order: -1; /*znamena ze bude prve*/;
+      margin: 30px 0 20px 0;
+    }
+    .text_content{
+      width: 100%;
+      text-align: left;
+      line-height: 10px;
+      order: 1; /*znamena ze bude druhe*/;
+      margin: 0 0 60px 0;
+    }
+    .image_content img{
+      height: 310px;
+      width: 230px;
+      margin: 0;
+    }
+
     .our_products_content p {
       text-align: left;
     }
@@ -224,23 +263,13 @@
     .telescope_1 img {
       height: 160px;
     }
-    .title_content h1{
-      font-size: 40px;
-    }
-    .title_content h3{
-      font-size: 15px
-    }
-    .title_content img{
-      height: 65px;
-      width: 65px;
-    }
     h2 {
       font-size: 22px;
     }
   }
   @media (max-width: 576px) {
-    .title {
-      height: 500px; 
+    .text-content{
+      width: 50%;
     }
   }
   @media (max-width: 1385px){
