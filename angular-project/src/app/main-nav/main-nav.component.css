@@ -78,7 +78,7 @@ nav{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 40px 0 40px;
+  margin: 0 80px 0 80px;
 }
 .nav-icons{
   width: auto;
@@ -118,10 +118,6 @@ img{
   float: left;
   color: black;
   font-size: medium;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
 }
 .products_categories:hover{
   cursor: pointer;
@@ -131,8 +127,17 @@ img{
   width: 40px;
   margin: 0 10px 0 10px;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
+.categories-text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+@media (max-width: 768px) {
+  .categories-link{
+    display: none;
+  }
+  .nav-content{
+    margin: 0 40px 0 40px;
   }
 }

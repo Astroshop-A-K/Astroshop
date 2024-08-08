@@ -1,5 +1,5 @@
 .title {
-    background-image: url(https://static.vecteezy.com/system/resources/previews/005/117/235/original/minimalist-dark-gradient-wave-background-simple-design-for-your-website-vector.jpg);
+    background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
     background-size:cover;
     background-repeat: no-repeat;
     background-position:right;
@@ -24,7 +24,7 @@
     font-weight: bold;
   }
   .title_content{
-    text-shadow: 5px 5px 5px black;
+    text-shadow: 2px 2px 2px gray;
   }
   .image_content img{
     filter: brightness(95%);
@@ -36,6 +36,17 @@
     align-items: flex-start;
     flex-direction: column;
   }
+  #shop_now_button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  #shop_now_button img{
+    margin-left: 8px;
+  }
+
+
   .our_products {
     width: 100%;
     display: flex;
@@ -135,7 +146,7 @@
   }
   button {
     padding: 8px 18px;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 2px 2px 2px gray;
     transition: 0.4s scale;
   }
   button:hover{

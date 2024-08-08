@@ -113,7 +113,7 @@ body{
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    padding: 6px 40px 6px 40px;
+    padding: 6px 80px 6px 80px;
   }
   .search-bar{
     background-color: transparent;
@@ -121,11 +121,12 @@ body{
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin: 0 0 0 5px;
   }
   .search-bar input{
     border: 1px solid white;
     border-radius: 8px;
-    width: 80%;
+    width: 90%;
     padding: 5px 15px;
     float: right;
     color: white;
@@ -138,29 +139,39 @@ body{
     height: 30px;
     width: 30px;
   }
-  .social-media{
-    width: 100%;
-    margin-left: 50px;
+  .store-info{
+    width: 90%;
+    margin-left: 20px;
   }
-  .gallery img{
-    width: 30px;
-    height: 30px;
-    filter: grayscale(100%);
-    margin: 5px;
+  .store-info span{
+    margin-left: 10px;
   }
-  .gallery img:hover{
-    cursor: pointer;
+  .store-info a{
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
   }
   .title{
+    color: white;
+    text-decoration: none;
+    cursor: default;
+    font-size: 22px !important; /*tejto property davame vacsiu prioritu prave pomocou !important*/
+    font-weight: bold;
+  }
+  .logo{
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: default;
     padding: 5px 10px;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 22px !important; /*tejto property davame vacsiu prioritu prave pomocou !important*/
+  }
+  @media (max-width: 1000px){
+    .store-info-text{
+      display: none;
+    }
+    .store-info{
+      width: 30%;
+    }
   }
   @media (max-width: 768px) {
     .terms > div, .payments_end > div {
@@ -168,18 +179,25 @@ body{
       max-width: 100%;
       margin-bottom: 10px;
     }
-  
     .shop, .brands, .get_help, .contact {
       border-right: none;
       padding-right: 0;
       margin-bottom: 10px;
     }
-
     .ending a{
       font-size: 16px;
     }
     .ending h2{
       font-size: 18px;
+    }
+    .title{
+      display: none;
+    }
+    .search-bar input{
+      width: 80%;
+    }
+    .info_menu{
+      padding: 6px 40px 6px 40px;
     }
   }
   
