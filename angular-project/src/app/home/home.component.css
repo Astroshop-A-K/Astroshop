@@ -1,301 +1,301 @@
 .title {
-    background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
-    background-size:cover;
-    background-repeat: no-repeat;
-    background-position:right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 600px;
-    color: white;
-    text-align: center;
-    width: 100%;
+  background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+.title_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
+}
+.title_content h1 {
+  font-size: 35px;
+  text-align: left;
+  font-weight: bold;
+}
+.title_content {
+  text-shadow: 2px 2px 2px gray;
+}
+.image_content img {
+  filter: brightness(95%);
+  margin-bottom: 20px;
+}
+.text_content {
+  width: 75%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+#shop_now_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+#shop_now_button img {
+  margin-left: 8px;
+}
+
+.our_products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.our_products_content {
+  margin: 40px 0px 0px 0px;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+}
+.our_products_content h3 {
+  text-align: center;
+  box-sizing: border-box;
+}
+h2 {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 25px;
+}
+.our_products_content p {
+  font-size: 17px;
+}
+.title1 {
+  margin: 10px;
+}
+.gallery {
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.telescope_1 {
+  border: 1px solid #ddd;
+  padding: 15px;
+  transition: transform 0.3s ease;
+  width: 250px;
+  height: 410px;
+  border-radius: 10px;
+  text-align: left;
+  display: inline-block;
+  white-space: normal;
+  box-sizing: border-box;
+}
+.telescope_1:hover {
+  transform: translateY(-5px);
+  /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); som nasiel na nete je to celkom fajne*/
+}
+.telescope_1 img {
+  max-width: 100%;
+  height: 200px;
+  border-bottom: 1px solid #ddd;
+}
+.telescope_1 p {
+  margin: 10px 0;
+}
+.top-brands {
+  width: 100%;
+}
+.gallery1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.top-brands h2 {
+  font-size: 20px;
+  text-align: center;
+  margin-left: 10px;
+  font-weight: bold;
+  color: black;
+}
+.gallery1 img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 10px;
+}
+.check {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.available {
+  color: green;
+}
+.unavailable {
+  color: red;
+}
+button {
+  padding: 8px 18px;
+  box-shadow: 2px 2px 2px gray;
+  transition: 0.4s scale;
+}
+button:hover {
+  scale: 1.025;
+}
+p {
+  font-size: 17px;
+}
+.text {
+  max-width: 1300px;
+  width: 100%;
+  text-align: left;
+}
+.star-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ad-gallery {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.ad-gallery img {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+  max-width: 80%;
+  height: auto;
+}
+hr {
+  border-width: 1px;
+}
+.about-us {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
+.text {
+  width: 100%;
+}
+.image {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.first-section,
+.second-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 50px;
+}
+.third-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 50px 0 50px;
+}
+.content {
+  width: 100%;
+}
+@media (max-width: 880px) {
+  .gallery1 img {
+    max-width: 20%;
   }
-  .title_content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 20px;
+}
+@media (max-width: 768px) {
+  .title {
+    height: auto;
   }
-  .title_content h1{
-    font-size: 35px;
-    text-align: left;
-    font-weight: bold;
-  }
-  .title_content{
-    text-shadow: 2px 2px 2px gray;
-  }
-  .image_content img{
-    filter: brightness(95%);
-    margin-bottom: 20px;
-  }
-  .text_content{
-    width: 75%;
-    display: flex;
-    align-items: flex-start;
+  .title_content {
     flex-direction: column;
   }
-  #shop_now_button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+  .image_content {
+    order: -1; /*znamena ze bude prve*/
+    margin: 30px 0 20px 0;
   }
-  #shop_now_button img{
-    margin-left: 8px;
-  }
-
-
-  .our_products {
+  .text_content {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .our_products_content {
-    margin: 40px 0px 0px 0px;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-  }
-  .our_products_content h3{
-    text-align: center;
-    box-sizing: border-box;
-  }
-    h2 {
-      color: #dc3545;
-      font-weight: bold;
-      font-size: 25px;
-    }
-    .our_products_content p{
-      font-size: 17px;
-    }
-  .title1{
-    margin: 10px;
-  }
-  .gallery {
-    padding-top: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 20px;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  .telescope_1 {
-    border: 1px solid #ddd;
-    padding: 15px;
-    transition: transform 0.3s ease;
-    width: 250px; 
-    height: 410px;
-    border-radius: 10px;
     text-align: left;
-    display: inline-block;
-    white-space: normal;
-    box-sizing: border-box;
+    line-height: 10px;
+    order: 1; /*znamena ze bude druhe*/
+    padding: 0px 25px 60px 25px;
   }
-  .telescope_1:hover {
-    transform: translateY(-5px);
-    /*box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); som nasiel na nete je to celkom fajne*/
+  .image_content img {
+    height: 310px;
+    width: 230px;
+    margin: 0;
   }
-  .telescope_1 img {
-    max-width: 100%;
-    height: 200px;
-    border-bottom: 1px solid #ddd;
-  }
-  .telescope_1 p {
-    margin: 10px 0;
-  }
-  .top-brands {
-    width: 100%; 
+
+  .our_products_content p {
+    text-align: left;
   }
   .gallery1 {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: space-around;
   }
-  .top-brands h2 {
-    font-size: 20px;
-    text-align: center;
-    margin-left: 10px;
-    font-weight: bold;
-    color: black;
+  .ad-gallery {
+    padding: 0;
+  }
+  .ad-gallery img {
+    max-width: 100%;
   }
   .gallery1 img {
-    width: 200px;
-    height: auto;
-    margin-bottom: 10px;
+    width: 50%;
   }
-  .check {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .telescope_1 {
+    height: 330px;
+    width: 190px;
   }
-  .available {
-    color: green;
+  .telescope_1 p {
+    font-size: 13px;
   }
-  .unavailable {
-    color: red;
+  .telescope_1 img {
+    height: 160px;
   }
-  button {
-    padding: 8px 18px;
-    box-shadow: 2px 2px 2px gray;
-    transition: 0.4s scale;
+  h2 {
+    font-size: 22px;
   }
-  button:hover{
-    scale: 1.025;
+}
+@media (max-width: 576px) {
+  .text-content {
+    width: 50%;
   }
-  p{
-    font-size: 17px;
+}
+@media (max-width: 1385px) {
+  .gallery {
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
-  .text{
-    max-width: 1300px;
-    width: 100%;
-    text-align: left;
+  .ad-gallery img {
+    max-width: 100%;
   }
-  .star-rating{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+}
+@media (max-width: 700px) {
+  .gallery1 img {
+    max-width: 30%;
   }
-  .ad-gallery{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .ad-gallery img{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 20px;
-    max-width: 80%;
-    height: auto;
-  }
-  hr{
-    border-width: 1px;
-  }
-  .about-us{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 100px;
-  }
-  .text{
-    width: 100%;
-  }
-  .image{
-    width: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .first-section, .second-section{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    padding-bottom: 50px;
-  }
-  .third-section{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    margin: 50px 0 50px;
-  }
-  .content{
-    width: 100%;
-  }
-  @media (max-width: 880px){
-    .gallery1 img{
-      max-width: 20%;
-    }
-  }
-  @media (max-width: 768px) {
-    .title{
-      height: auto;
-    }
-    .title_content{
-      flex-direction: column;
-    }
-    .image_content{
-      order: -1; /*znamena ze bude prve*/;
-      margin: 30px 0 20px 0;
-    }
-    .text_content{
-      width: 100%;
-      text-align: left;
-      line-height: 10px;
-      order: 1; /*znamena ze bude druhe*/;
-      margin: 0 0 60px 0;
-    }
-    .image_content img{
-      height: 310px;
-      width: 230px;
-      margin: 0;
-    }
-
-    .our_products_content p {
-      text-align: left;
-    }
-    .gallery1 {
-      justify-content: space-around;
-    }
-    .ad-gallery{
-      padding: 0;
-    }
-    .ad-gallery img{
-      max-width: 100%;
-    }
-    .gallery1 img{
-      width: 50%;
-    }
-    .telescope_1{
-      height: 330px;
-      width: 190px;
-    }
-    .telescope_1 p{
-      font-size: 13px;
-    }
-    .telescope_1 img {
-      height: 160px;
-    }
-    h2 {
-      font-size: 22px;
-    }
-  }
-  @media (max-width: 576px) {
-    .text-content{
-      width: 50%;
-    }
-  }
-  @media (max-width: 1385px){
-    .gallery{
-      overflow-x: auto;
-      overflow-y: hidden;
-      justify-content: flex-start;
-      align-items: flex-start;
-    }
-    .ad-gallery img{
-      max-width: 100%;
-    }
-  }
-  @media (max-width: 700px){
-    .gallery1 img{
-      max-width: 30%;
-    }
-  }
+}

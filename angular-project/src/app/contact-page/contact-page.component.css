@@ -1,91 +1,150 @@
-.content{
-  padding-top: 120px;
+.content {
+  padding: 60px 20px 150px 20px;
   display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.contact-form {
+  padding: 20px 40px 0 40px;
+  width: 100%;
+  max-width: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 .form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  .field {
-    width: 100%;
-    text-align: left;
-  }
-  .contact-form{
-      padding-bottom: 300px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      flex-direction: column;
-  }
-  .problems{
-    padding-bottom: 300px;
-  }
-  button {
-    padding: 8px 18px;
-    margin: 10px;
-  }
-  input, textarea{
-    padding: 10px 18px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    width: 100%;
-    margin: 5px 0;
-  }
-  p, label{
-    font-size: 17px;
-  }
-  p{
-    text-align: justify;
-    max-width: 50%;
-  }
-  .problemsTable{
-    width: 80%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
 }
-.problemsTable th{
-    background-color: #f4f4f4;
-    padding: 10px;
-    text-align: left;
+.field {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 15px;
 }
-.problemsTable td{
-    padding: 8px;
-    text-align: left;
+button {
+  padding: 8px 18px;
+  margin: 10px;
 }
-.problemsTable img{
-    max-width: 100%;
-    height: auto;
+input,
+textarea {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin: 5px 0;
+  background-color: #f4f4f4;
+  min-width: 0;
+  box-sizing: border-box;
 }
-.problems{
+p,
+label {
+  font-size: 17px;
+}
+label{
+  font-weight: bold;
+}
+p {
+  text-align: justify;
+  max-width: 100%;
+}
+h1{
+  font-weight: bold;
+}
+.char-count {
+  text-align: right;
+  font-size: 0.9em;
+  color: black;
+}
+
+
+.problems {
+  padding-bottom: 300px;
+}
+.problemsTable {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.problemsTable th {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: left;
+}
+.problemsTable td {
+  padding: 8px;
+  text-align: left;
+}
+.problemsTable img {
+  max-width: 100%;
+  height: auto;
+}
+.problems {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-p{
+p {
   width: 500px;
 }
-.problemText{
+.problemText {
   text-align: left;
   width: 400px;
   overflow-y: scroll;
 }
-.solvedButton{
+.solvedButton {
   background-color: transparent;
   border: none;
 }
-.char-count {
-  text-align: right;
-  font-size: 0.9em;
-  color: #666;
+@media (max-width: 768px) {
+  .content {
+    padding: 40px 10px 100px 10px;
+  }
+  .form {
+    padding: 15px;
+  }
+  p {
+    width: 100%;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .field {
+    margin-bottom: 10px;
+  }
+
+  .char-count {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 20px 5px 50px 5px;
+  }
+  .form{
+    padding: 10px;
+  }
+  p,
+  label,
+  button,
+  input::placeholder {
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
+  .char-count {
+    font-size: 0.7em;
+  }
 }

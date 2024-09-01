@@ -44,6 +44,8 @@ export class MainNavComponent implements OnInit {
   role: RoleDTO;
   roleName: string = '';
 
+  isActive: boolean = false;
+
   constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){
     this.currentRoute = this.router_nav.url;
     this.products = this.CartService.getProducts();
@@ -65,6 +67,22 @@ export class MainNavComponent implements OnInit {
     }
     else{
       this.router_nav.navigate(['/login']);
+    }
+  }
+
+  toggleSideBar(){
+    this.isActive = !this.isActive;
+  }
+
+  @HostListener('window:scroll', []) //zatvorka [] empty array na dalsie argumenty
+  onWindowScroll(){ //tato metoda sa aktivuje vzdy ked sa scrolluje preto je hostlistener hned nad nou
+    const offset = window.pageYOffset;
+
+    if(offset > 1){
+      this.isActive = false;
+    }
+    else{
+      this.isActive = false;
     }
   }
 

@@ -3,7 +3,7 @@
     <title>Problems</title>
     <div class="problems">
       <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-      <h1 style="font-weight: bold;">Problems</h1><br>
+      <h1>Problems</h1><br>
       <table class="problemsTable">
         <tr>
           <th>Problem Date</th>
@@ -31,21 +31,21 @@
     <title>Contact</title>
     <div class="contact-form">
       <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-      <h1 style="font-weight: bold;">Contact</h1>
+      <h1>Contact</h1>
       <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
         <div class="field">
           <label>Name & Surname</label><br>
-          <input placeholder="Peter Parker" id="name-surname" formControlName="nameSurname">
+          <input placeholder="Your full name" id="name-surname" formControlName="nameSurname">
         </div>
     
         <div class="field">
           <label>E-mail</label><br>
-          <input placeholder="peter@astroshop.com" id="e-mail" formControlName="email" type="email">
+          <input placeholder="Your e-mail address" id="e-mail" formControlName="email" type="email">
         </div>
     
         <div class="field">
           <label>Your problem</label><br>
-          <textarea placeholder="My product is not working..." id="problem" formControlName="problem" maxlength="250" [(ngModel)]="userMessage" (input)="update()"></textarea><!--(input) robi ze vzdy ked sa nieco napise tak spravi update-->
+          <textarea placeholder="Your problem" id="problem" formControlName="problem" maxlength="250" [(ngModel)]="userMessage" (input)="update()"></textarea><!--(input) robi ze vzdy ked sa nieco napise tak spravi update-->
           @if(userMessage.length > 0){
             <div class="char-count">{{ charactersCount }} / 250 characters</div>
           }
@@ -54,7 +54,7 @@
           }
         </div>
     
-        <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-secondary" [routerLink]="['/home']">Confirm</button>
+        <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-primary" [routerLink]="['/home']">Confirm</button>
       </form>
     </div>
   }
