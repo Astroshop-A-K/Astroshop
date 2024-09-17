@@ -23,13 +23,13 @@ fa-icon{
 }
 @media (max-width: 768px) {
     fa-icon{
-        font-size: 18px;
+        font-size: 20px;
         margin: 2px;
     }
 }
 @media (max-width: 1250px){
     fa-icon{
-        font-size: 18px;
+        font-size: 20px;
         margin: 2px;
     }
 }
