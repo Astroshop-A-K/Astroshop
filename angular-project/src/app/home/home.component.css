@@ -112,27 +112,23 @@ h2 {
 
 .top-brands {
   width: 100%;
+  padding: 40px 0 20px 0;
 }
-.gallery1 {
+.brand-gallery {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px 0 20px;
 }
-.top-brands h2 {
-  font-size: 20px;
-  text-align: center;
-  margin-left: 10px;
-  font-weight: bold;
-  color: black;
-}
-.gallery1 img {
+.brand-gallery img {
   width: 200px;
   height: auto;
   margin-bottom: 10px;
+  object-fit: cover;
 }
 .check {
   display: flex;
@@ -216,7 +212,7 @@ hr {
 .content {
   width: 100%;
 }
-@media (max-width: 1370px) {
+@media (max-width: 1400px) {
   .gallery {
     overflow-x: auto;
     overflow-y: hidden;
@@ -229,7 +225,7 @@ hr {
   }
 }
 @media (max-width: 880px) {
-  .gallery1 img {
+  .brand-gallery img {
     max-width: 20%;
   }
 }
@@ -260,26 +256,25 @@ hr {
     text-align: left;
   }
   h2 {
-    font-size: 22px;
+    font-size: 24px;
   }
   .gallery {
     margin: 5px 0 0 0;
   }
   .telescope_1 {
-    height: 380px;
-    width: 225px;
+    height: 390px;
+    width: 235px;
   }
   .telescope_1 p {
-    font-size: 15px;
+    font-size: 16px;
   }
   .telescope_1 img {
-    height: 190px;
+    height: 200px;
   }
-
-  .gallery1 {
+  .brand-gallery {
     justify-content: space-around;
   }
-  .gallery1 img {
+  .brand-gallery img {
     width: 50%;
   }
 }
@@ -292,14 +287,4 @@ hr {
   .text-content {
     width: 50%;
   }
-  /*.telescope_1 {
-    height: 330px;
-    width: 190px;
-  }
-  .telescope_1 p {
-    font-size: 13px;
-  }
-  .telescope_1 img {
-    height: 160px;
-  }*/
 }
