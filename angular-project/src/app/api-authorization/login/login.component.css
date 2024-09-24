@@ -1,49 +1,90 @@
-.content{
-  padding-top: 120px;
+.content {
+  padding: 150px 20px 200px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
+  background-position: center;
+  background-size: cover;
 }
-.login-form{
-  padding-bottom: 300px;
-  width: 350px;
+.login-form {
+  padding: 20px 40px 0 40px;
+  width: 100%;
+  max-width: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 form {
-  min-width: 150px;
-  max-width: 500px;
   width: 100%;
-  padding: 20px;
+  padding: 20px 10px 20px 10px;
   border-radius: 10px;
 }
 .field {
   width: 100%;
   text-align: left;
+  margin-bottom: 15px;
 }
 button {
   padding: 8px 18px;
   margin: 10px;
 }
-input, textarea{
+input {
   padding: 10px 18px;
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 100%;
   margin: 5px 0;
+  background-color: #f4f4f4;
+  min-width: 0;
+  box-sizing: border-box;
 }
-p, label{
+p,
+label,
+input,
+input::placeholder {
   font-size: 17px;
 }
-p{
-  text-align: justify;
-  max-width: 50%;
+label,
+h1 {
+  font-weight: bold;
 }
-a{
+a {
   color: black;
+}
+@media (max-width: 768px) {
+  .content {
+    padding: 120px 10px 160px 10px;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+  .field {
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .content {
+    padding: 50px 15px 50px 15px;
+  }
+  form {
+    padding: 20px 0px 20px 0;
+  }
+  p,
+  label,
+  button,
+  input,
+  input::placeholder {
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
 }

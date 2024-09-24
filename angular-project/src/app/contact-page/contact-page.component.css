@@ -1,10 +1,13 @@
 .content {
-  padding: 60px 20px 150px 20px;
+  padding: 120px 20px 200px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
+  background-position: center;
+  background-size: cover;
 }
 .contact-form {
   padding: 20px 40px 0 40px;
@@ -21,7 +24,7 @@
 }
 .form {
   width: 100%;
-  padding: 20px;
+  padding: 20px 10px 20px 10px;
   border-radius: 10px;
 }
 .field {
@@ -48,15 +51,12 @@ p,
 label {
   font-size: 17px;
 }
-label{
+label, h1{
   font-weight: bold;
 }
 p {
   text-align: justify;
   max-width: 100%;
-}
-h1{
-  font-weight: bold;
 }
 .char-count {
   text-align: right;
@@ -107,7 +107,7 @@ p {
 }
 @media (max-width: 768px) {
   .content {
-    padding: 40px 10px 100px 10px;
+    padding: 90px 10px 160px 10px;
   }
   .form {
     padding: 15px;
@@ -118,7 +118,6 @@ p {
   h1 {
     font-size: 1.5em;
   }
-
   .field {
     margin-bottom: 10px;
   }
@@ -130,7 +129,7 @@ p {
 
 @media (max-width: 480px) {
   .content {
-    padding: 20px 5px 50px 5px;
+    padding: 50px 15px 110px 15px;
   }
   .form{
     padding: 10px;
@@ -138,6 +137,7 @@ p {
   p,
   label,
   button,
+  input,
   input::placeholder {
     font-size: 16px;
   }
