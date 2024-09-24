@@ -6,8 +6,11 @@ body {
   height: auto;
   width: 100%;
 }
-.terms, .payments_end{
-  padding: 30px 0 30px 0;
+.terms{
+  padding: 40px 0 15px 0;
+}
+.payments_end{
+  padding: 15px 0 40px 0; 
 }
 .terms {
   display: flex;
@@ -211,6 +214,9 @@ h2 {
   .store-info-text {
     display: none;
   }
+  .shop, .brands{
+    border-right: none;
+  }
   .store-info {
     width: 30%;
   }
@@ -239,9 +245,14 @@ h2 {
   .shop,
   .brands,
   .get_help{
-    border-right: none;
     padding-right: 0;
     margin-bottom: 10px;
+  }
+  .payments_end{
+    padding: 0 0 40px 0;
+  }
+  .terms{
+    padding: 40px 0 0 0;
   }
   .title {
     display: none;
