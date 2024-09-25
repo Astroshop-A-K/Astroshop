@@ -17,8 +17,8 @@
           <span><img src="../assets/Images/white_phone_icon.png" height="25" width="25" alt="contact-phone"><a href="" class="store-info-text">+060 (800) 801-582</a></span>
         </div>
         <div class="search-bar">
-          <input class="search-bar" type="search" placeholder="Search product">
-          <button class="btn btn-coupon"><img src="../assets/Images/search_icon.png" title="Click to search"></button>
+          <input class="search-bar" type="search" placeholder="Search product" [(ngModel)]="searchText">
+          <button class="btn btn-coupon" (click)="onSearch()"><img src="../assets/Images/search_icon.png" title="Click to search"></button>
         </div>
     </div>
 <app-main-nav></app-main-nav>

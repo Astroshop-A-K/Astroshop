@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
 import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
   totalItems: number = 0;
   limit: number = 8;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute) {}
 
   onPageChange(page: number){
     this.currentPage = page;
@@ -110,7 +110,15 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.searchText = '';
+    
+    this.route.queryParams.subscribe(params => {
+      this.searchText = params['search'] || '';
+      this.filtersProducts();
+    });
+
     this.getData();
+    this.filtersProducts();
   }
 }
 export interface ProductsDTO {
