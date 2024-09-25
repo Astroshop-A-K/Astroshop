@@ -3,22 +3,21 @@
     <div class="left-panel">
       <div class="panel-heading">
         <!--<button class="menu-icon"><img src="https://assets.stickpng.com/thumbs/6002fc1f51c2ec00048c6c7c.png" height="30" width="30" alt="menu-icon" /></button> TOTO BUDE BUTTON NA ZOBRAZENIE-->
-        <h1 style="margin: 10px; font-weight: bold; font-size: 30px;">Categories</h1><br />
+        <h1>Categories</h1><br />
       </div>
         <ul class="category-list">
             <li (click)="showAllProducts()" style="font-size: 20px; font-weight: bold;"> All products</li>
-            <li (click)="filterProducts('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991566.png" height="30" width="30" alt="telescope" /> Telescopes</li>
-            <li (click)="filterProducts('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" height="30" width="30" alt="mount" /> Mounts</li>
-            <li><img src="https://www.freeiconspng.com/thumbs/filter-icon/filter-icon-30.png" height="30" width="30" alt="filter"/> Filters</li>
-            <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" height="30" width="30" alt="refractor" /> Refractors</li>
-            <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" height="30" width="30" alt="eyepiece" /> Eyepieces</li>
-            <li><img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" height="30" width="30" alt="morestuff" /> Telescope accessories</li>
-            <li (click)="filterProducts('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" height="30" width="30" alt="binocular" /> Binoculars</li>
+            <li (click)="filterProducts('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Telescopes</li>
+            <li (click)="filterProducts('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Mounts</li>
+            <li (click)="filterProducts('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binoculars</li>
+            <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" alt="refractor" /> Refractors</li>
+            <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Eyepieces</li>
+            <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="morestuff" /> Filters</li>
         </ul>
     </div>
     <div class="products">
-        <div class="product-side"><br />
-            <h1 style="text-align: center; font-size: 30px; font-weight: bold;">Products</h1><br />
+        <div class="product-side">
+            <h1>Products</h1>
             <div class="search-triedicka">
               <div class="search">
                 <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Search product">
@@ -33,7 +32,7 @@
                     <option value="isAvailable">Are available</option>
                   </select>
                 </div>
-            </div><br />
+            </div>
             <div class="gallery">
                 <ng-container *ngFor="let product of ourFilteredProducts | search: searchText">
                   <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">

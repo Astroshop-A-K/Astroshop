@@ -1,3 +1,45 @@
+.content {
+  display: grid;
+  grid-template-columns: 350px 1fr; /*350px prva column, 1fr druha*/
+  gap: 0px;
+}
+.left-panel {
+  background-color: #f4f4f4;
+  width: 110%;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+}
+.left-panel img {
+  filter: grayscale();
+}
+.category-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.category-list li {
+  margin: 10px;
+  display: flex;
+  align-items: center;
+}
+.category-list li {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.category-list li:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+.category-list img{
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+}
 .gallery {
   display: flex;
   justify-content: center;
@@ -27,28 +69,36 @@
 .telescope_1 p {
   margin: 10px 0;
 }
-.products{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.product-side h1{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 0 0 10px 0;
 }
-.gallery{
-    width: 70vw;
-    padding-bottom: 50px;
+.products {
+  padding: 30px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.search-triedicka{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.gallery {
+  width: 70vw;
+  padding-bottom: 50px;
 }
-.search-bar{
-    padding: 6px 40px;
-    border-radius: 10px;
+.search-triedicka {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 20px 0;
+}
+.search-bar {
+  padding: 6px 40px;
+  border-radius: 10px;
 }
 .search {
   margin-right: 20px;
 }
-.select{
+.select {
   margin-right: 20px;
 }
 .sort {
@@ -56,141 +106,91 @@
   padding: 6px 30px;
   border-radius: 10px;
 }
-.sort option{
-    padding: 6px 30px;
+.sort option {
+  padding: 6px 30px;
 }
 .available {
-  color: green; 
+  color: green;
 }
 .unavailable {
-  color: red; 
+  color: red;
 }
-.check{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0.2rem;
-}
-.left-panel {
-  background-color: #f4f4f4;
-  width: 110%;
-  padding: 20px;
-  box-sizing: border-box;
-  height: 100%;
-}
-.left-panel img{
-  filter: grayscale();
-}
-.category-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-.category-list li {
-  margin: 10px;
-}
-.category-list li {
-  text-decoration: none;
-  color: #333;
-  display: block;
-  padding: 8px 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-.category-list li:hover {
-  background-color: #ddd;
-  cursor: pointer;
-}
-.content {
-  padding-top: 70px;
-  display: grid;
-  grid-template-columns: 350px 1fr; /*350px prva column, 1fr druha*/
-  gap: 0px;
-}
-.menu-icon{
-    margin-top: 5px;
-    border: none;
-    background-color: transparent;
-}
-.panel-heading{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.category-list li{
+.check {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0.2rem;
+}
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
-.category-list img{
-  margin: 5px;
+.panel-heading h1{
+  font-weight: bold;
+  font-size: 30px;
+  margin: 10px;
 }
-p{
-  font-size: 17px;
-}
-.star-rating{
+.star-rating {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.names{
+.names {
   margin: 0 0.2rem;
 }
-.paginator{
+.paginator {
   width: 100%;
   align-items: center;
   justify-content: center;
   display: flex;
   flex-direction: row;
-  padding-bottom: 150px;
+  padding-bottom: 100px;
+}
+p {
+  font-size: 17px;
 }
 @media screen and (max-width: 1250px) {
   .left-panel {
     display: none;
   }
   .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .search-triedicka{
-    justify-content: center;
-    flex-direction: column;
-  }
-  .select{
-    margin-top: 5px;
-  }
-  .telescope_1{
-    height: 330px;
-    width: 190px;
-  }
-  .telescope_1 p{
-    font-size: 13px;
-  }
-  .telescope_1 img {
-    height: 160px;
+    display: grid;
+    grid-template-columns: auto;
   }
   .gallery{
-    width: 70%;
+    display: grid;
+    grid-template-columns: auto auto auto;
   }
-  .product-side{
-    width: 100%;
+  .search-triedicka {
+    justify-content: center;
+    flex-direction: row;
   }
-  .search{
+  .search {
     margin: 0;
   }
+}
+@media (max-width: 830px) {
+  .gallery{
+    grid-template-columns: auto auto;
+  }
+  .search-triedicka{
+    flex-direction: column;
+  }
+  .search{
+    margin: 0 0 5px 0;
+    width: 100%
+  }
   .search input{
-    width: 500px;
+    width: 100%;
+  }
+  .select, .sort{
+    width: 98%;
+  }
+  .sort{
+    margin: 0 0 0 15px;
   }
 }
-@media (max-width: 768px) {
-  .telescope_1{
-    height: 330px;
-    width: 190px;
-  }
-  .telescope_1 p{
-    font-size: 13px;
-  }
-  .telescope_1 img {
-    height: 160px;
-  }
+@media (max-width: 576px) {
+  
 }

@@ -46,7 +46,6 @@ input {
   min-width: 0;
   box-sizing: border-box;
 }
-p,
 label,
 input,
 input::placeholder {
@@ -77,7 +76,6 @@ a {
   form {
     padding: 20px 0px 20px 0;
   }
-  p,
   label,
   button,
   input,

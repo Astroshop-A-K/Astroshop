@@ -12,7 +12,7 @@
 .contact-form {
   padding: 20px 40px 0 40px;
   width: 100%;
-  max-width: 550px;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,10 +48,14 @@ textarea {
   box-sizing: border-box;
 }
 p,
-label {
+label,
+input,
+input::placeholder,
+textarea {
   font-size: 17px;
 }
-label, h1{
+label,
+h1 {
   font-weight: bold;
 }
 p {
@@ -65,6 +69,7 @@ p {
 }
 
 
+/*TODO*/
 .problems {
   padding-bottom: 300px;
 }

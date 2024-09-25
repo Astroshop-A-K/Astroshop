@@ -5,28 +5,28 @@
 } @else {
   <div class="register-form">
   <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-  <h1 style="font-weight: bold;">Register</h1>
+  <h1>Register</h1>
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="field">
       <label>Enter your e-mail:</label>
-      <input formControlName="email" required placeholder="peter@astroshop.com">
+      <input formControlName="email" required placeholder="Your e-mail address">
     </div>
 
     <div class="field">
       <label>Enter your password:</label>
-      <input [type]="'password'" formControlName="password" placeholder="Peter123">
+      <input [type]="'password'" formControlName="password" placeholder="Your password">
     </div>
 
     <div class="field">
       <label>Enter your password again:</label>
-      <input [type]="'password'" formControlName="confirmPassword" placeholder="Peter123">
+      <input [type]="'password'" formControlName="confirmPassword" placeholder="Your password again">
     </div>
 
     <div class="field" style="text-align: center;">
       <label>Already have an account? Click <a [routerLink]="['/login']">here</a></label>
-    </div><br>
+    </div>
 
-    <button class="btn btn-secondary" type="submit">Register</button>
+    <button class="btn btn-primary" type="submit">Register</button>
   </form>
 </div>
 }
