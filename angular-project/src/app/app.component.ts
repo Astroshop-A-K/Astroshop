@@ -15,11 +15,14 @@ export class AppComponent {
   title = 'angular-project';
   searchText: string = '';
 
-  constructor(private router: Router){}
+  constructor(private router: Router){
+    this.searchText = '';
+  }
 
   onSearch(){
     if(this.searchText){
-      this.router.navigate(['/products'], { queryParams: { search: this.searchText }});
+      localStorage.setItem('searchText', this.searchText);
+      this.router.navigate(['/products']);
     }else{
       this.router.navigate(['/products']);
     }

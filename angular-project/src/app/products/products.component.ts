@@ -25,6 +25,7 @@ export class ProductsComponent implements OnInit {
   currentPage: number = 1;
   totalItems: number = 0;
   limit: number = 8;
+  selectedCategory: string = '';
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute) {}
 
@@ -44,6 +45,7 @@ export class ProductsComponent implements OnInit {
     this.totalItems = this.sortedProducts.length;
     this.currentPage = 1;
     this.updateCurrentProducts();
+    this.selectedCategory = category;
   }
 
   showAllProducts() {
@@ -52,6 +54,7 @@ export class ProductsComponent implements OnInit {
     this.currentPage = 1;
     this.totalItems = this.sortedProducts.length;
     this.updateCurrentProducts();
+    this.selectedCategory = '';
   }
 
   filtersProducts() {
@@ -110,11 +113,15 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchText = '';
+    this.searchText = localStorage.getItem('searchText') || '';
+    this.filtersProducts();
+    localStorage.removeItem('searchText');
+    
     
     this.route.queryParams.subscribe(params => {
-      this.searchText = params['search'] || '';
-      this.filtersProducts();
+      let category = '';
+      category = params['category'] || '';
+      this.filterProducts(category);
     });
 
     this.getData();

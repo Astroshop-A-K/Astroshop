@@ -6,10 +6,10 @@
         <h1>Categories</h1><br />
       </div>
         <ul class="category-list">
-            <li (click)="showAllProducts()" style="font-size: 20px; font-weight: bold;"> All products</li>
-            <li (click)="filterProducts('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Telescopes</li>
-            <li (click)="filterProducts('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Mounts</li>
-            <li (click)="filterProducts('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binoculars</li>
+            <li (click)="showAllProducts()" class="first-li"> All products</li>
+            <li (click)="filterProducts('TELE')" [ngClass]="{'active-category': selectedCategory === 'TELE'}"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Telescopes</li>
+            <li (click)="filterProducts('MONT')" [ngClass]="{'active-category': selectedCategory === 'MONT'}"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Mounts</li>
+            <li (click)="filterProducts('BINO')" [ngClass]="{'active-category': selectedCategory === 'BINO'}"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binoculars</li>
             <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" alt="refractor" /> Refractors</li>
             <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Eyepieces</li>
             <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="morestuff" /> Filters</li>
@@ -33,7 +33,7 @@
                   </select>
                 </div>
             </div>
-            <div class="gallery">
+              <div class="gallery">
                 <ng-container *ngFor="let product of ourFilteredProducts | search: searchText">
                   <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
                     <div class="telescope_1">

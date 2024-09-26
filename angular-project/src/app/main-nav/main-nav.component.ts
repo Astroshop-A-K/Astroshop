@@ -45,6 +45,7 @@ export class MainNavComponent implements OnInit {
   roleName: string = '';
 
   isActive: boolean = false;
+  isActive_category: boolean = false;
 
   constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){
     this.currentRoute = this.router_nav.url;
@@ -72,6 +73,17 @@ export class MainNavComponent implements OnInit {
 
   toggleSideBar(){
     this.isActive = !this.isActive;
+  }
+  toggleSideCategories(){
+    this.isActive_category = !this.isActive_category;
+  }
+
+  onFilter(category: string){
+    if(category){
+      this.router.navigate(['/products'], {queryParams: {category: category}});
+    }else{
+      this.router.navigate(['/products']);
+    }
   }
 
   @HostListener('window:scroll', []) //zatvorka [] empty array na dalsie argumenty
