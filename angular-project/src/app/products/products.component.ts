@@ -27,7 +27,13 @@ export class ProductsComponent implements OnInit {
   limit: number = 8;
   selectedCategory: string = '';
 
+  isActive: boolean = false;
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute) {}
+
+  toggleSidebar(){
+    this.isActive = !this.isActive;
+  }
 
   onPageChange(page: number){
     this.currentPage = page;

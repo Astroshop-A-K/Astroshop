@@ -184,9 +184,6 @@ p {
   max-width: 80%;
   height: auto;
 }
-hr {
-  border-width: 1px;
-}
 .about-us {
   display: flex;
   width: 100%;
@@ -197,12 +194,6 @@ hr {
 .text {
   width: 100%;
 }
-.image {
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .first-section,
 .second-section {
   display: flex;
@@ -211,14 +202,6 @@ hr {
   flex-direction: column;
   width: 100%;
   padding-bottom: 50px;
-}
-.third-section {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 50px 0 50px;
 }
 .content {
   width: 100%;
