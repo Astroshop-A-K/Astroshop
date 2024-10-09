@@ -2,7 +2,7 @@
 <div class="content">
     <div class="left-panel" [ngClass]="{'active': isActive}">
       <div class="panel-heading">
-        <h1>Categories</h1><br />
+        <h1>Categories</h1> <a (click)="toggleSidebar()"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a><br />
       </div>
         <ul class="category-list">
             <li (click)="showAllProducts()" class="first-li"> All products</li>
@@ -17,11 +17,14 @@
     <div class="products">
         <div class="product-side">
           <div class="product-heading">
-            <div class="menu-icon" [ngClass]="{'icon-active': !isActive}">
-              <h2>Open menu</h2>
-              <a (click)="toggleSidebar()"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
+            <div class="container">
+              <div class="menu-icon" [ngClass]="{'icon-active': !isActive}">
+                <a (click)="toggleSidebar()"><span>Categories<img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
+              </div>
             </div>
-            <h1>Products</h1>
+            <div class="product-title">
+              <h1>Products</h1>
+            </div>
           </div>
             <div class="search-triedicka">
               <div class="search">

@@ -138,6 +138,15 @@
   font-size: 30px;
   margin: 10px;
 }
+.panel-heading a{
+  display: none;
+}
+.panel-heading a:hover{
+  cursor: pointer;
+}
+.panel-heading img{
+  transform: rotate(180deg);
+}
 .star-rating {
   display: flex;
   align-items: center;
@@ -159,19 +168,25 @@ p {
 }
 .product-heading{
   width: 100%;
+  text-align: center;
+}
+.container{
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  z-index: 9998;
+  position: fixed;
+  top: 170px;
 }
 .menu-icon{
   display: none;
   margin: 0 0 25px 0;
 }
-.menu-icon h2{
-  margin: 0;
-  padding: 0 0 2px 0;
-  font-weight: bold;
+.menu-icon img, .panel-heading img{
+  filter: brightness(0%);
+}
+.menu-icon a:hover{
+  cursor: pointer;
 }
 @media screen and (max-width: 1250px) {
   .content{
@@ -190,7 +205,7 @@ p {
     margin: 142px 0 0 0;
   }
   .active{
-    width: 30%;
+    width: 300px;
     opacity: 1;
   }
   .content {
@@ -214,10 +229,31 @@ p {
     align-items: center;
     flex-direction: row;
   }
+  .panel-heading a{
+    display: block;
+  }
+}
+@media (max-width: 850px) {
+  .left-panel{
+    margin: 170px 0 0 0;
+  }
+  .container{
+    top: 195px
+  }
 }
 @media (max-width: 830px) {
   .gallery{
     grid-template-columns: auto auto;
+  }
+  .telescope_1 {
+    height: 390px;
+    width: 235px;
+  }
+  .telescope_1 p {
+    font-size: 16px;
+  }
+  .telescope_1 img {
+    height: 200px;
   }
   .search-triedicka{
     flex-direction: column;
@@ -235,7 +271,4 @@ p {
   .sort{
     margin: 0 0 0 15px;
   }
-}
-@media (max-width: 576px) {
-  
 }
