@@ -148,6 +148,18 @@ img{
   background-color: #fff;
   margin-top: 97px;
 }
+.categories-sidebar{
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  background-color: #fff;
+  margin-top: 97px;
+}
 .sidebar a{
   padding: 10px 15px;
   text-decoration: none;
@@ -165,7 +177,7 @@ img{
   cursor: pointer;
   color: #e6e6e6;
 }
-.sidebar-content{
+.sidebar-content, .categories-sidebar-content{
   width: 100%;
   height: 100%;
   display: flex;
@@ -175,6 +187,10 @@ img{
   flex-direction: column;
   gap: 0;
   margin-top: 10px;
+}
+.categories-sidebar-content{
+  text-align: left;
+  color: black;
 }
 .close-btn{
   margin-left: 25px;
@@ -187,6 +203,9 @@ img{
 }
 .active{
   width: 220px;
+}
+.active-categories{
+  width: 200px;
 }
 .sidebar-active{
   border-bottom: 2px solid #0d6efd;

@@ -67,8 +67,6 @@ h2 {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  overflow-x: hidden;
-  z-index: 9999;
 }
 .title-part1 {
   width: 90%;
@@ -81,7 +79,6 @@ h2 {
   display: flex;
   justify-content: right;
   margin-right: 20px;
-  z-index: 9999;
 }
 .title h3,
 img {
@@ -90,7 +87,7 @@ img {
 .description {
   margin: 0 20px 20px 20px;
   padding-bottom: 10px;
-  z-index: -1;
+  padding-top: 14px;
 }
 .images img {
   border-bottom: 1px solid #ddd;
@@ -117,11 +114,6 @@ input {
   background-color: #ebebeb;
   border-radius: 10px;
 }
-.title {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-}
 .title h3,
 img {
   margin: 10px;
@@ -138,6 +130,7 @@ img {
   display: none;
   position: absolute;
   transition: transform 0.3s ease;
+  overflow: hidden;
 }
 .dropdown:hover .dropdown-content {
   display: block;

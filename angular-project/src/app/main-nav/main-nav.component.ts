@@ -81,6 +81,7 @@ export class MainNavComponent implements OnInit {
   onFilter(category: string){
     if(category){
       this.router.navigate(['/products'], {queryParams: {category: category}});
+      this.isActive_category = false;
     }else{
       this.router.navigate(['/products']);
     }

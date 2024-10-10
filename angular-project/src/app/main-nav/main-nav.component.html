@@ -1,8 +1,18 @@
 <div class="content">
+  <nav class="categories-sidebar" [ngClass]="{'active-categories': isActive_category}">
+    <div class="categories-sidebar-content">
+      <li (click)="onFilter('TELE')">Telescopes</li>
+      <li (click)="onFilter('MONT')">Mounts</li>
+      <li (click)="onFilter('BINO')">Binoculars</li>
+      <li>Refractors</li>
+      <li>Eyepieces</li>
+      <li>Filters</li>
+    </div>
+  </nav>
   <nav>
     <div class="nav-content">
       <div class="products_categories">
-        <span class="categories-text" (click)="toggleSideCategories"><img src="../../assets/Images/menu_categories_icon.png"><a href="" class="categories-link">Categories</a></span>
+        <span class="categories-text" (click)="toggleSideCategories()"><img src="../../assets/Images/menu_categories_icon.png"><a class="categories-link">Categories</a></span>
       </div>
       <div class="nav-icons">
         <div class="nav-items">

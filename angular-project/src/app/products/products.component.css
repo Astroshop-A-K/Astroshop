@@ -177,6 +177,7 @@ p {
   z-index: 9998;
   position: absolute;
   top: 170px;
+  left: 5px;
 }
 .menu-icon{
   display: none;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
@@ -116,6 +116,18 @@ export class ProductsComponent implements OnInit {
       this.totalItems = this.productData.length;
       this.updateCurrentProducts();
     }, error => console.error(error));
+  }
+
+  @HostListener('window:scroll', []) 
+  onWindowScroll(){ 
+    const offset = window.pageYOffset;
+
+    if(offset > 1){
+      this.isActive = false;
+    }
+    else{
+      this.isActive = false;
+    }
   }
 
   ngOnInit(): void {
