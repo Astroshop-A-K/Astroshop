@@ -175,7 +175,7 @@ p {
   align-items: center;
   justify-content: flex-start;
   z-index: 9998;
-  position: fixed;
+  position: absolute;
   top: 170px;
 }
 .menu-icon{
