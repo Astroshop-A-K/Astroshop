@@ -40,7 +40,7 @@ bootstrapApplication(AppComponent, {
       importProvidersFrom(BrowserModule, JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          allowedDomains: ['https://localhost:7189'],
+          allowedDomains: ['https://localhost:7186/', 'https://astroshop.bsite.net/api/'],
           disallowedRoutes: [],
         },
       })),

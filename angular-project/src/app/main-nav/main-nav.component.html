@@ -1,12 +1,17 @@
 <div class="content">
   <nav class="categories-sidebar" [ngClass]="{'active-categories': isActive_category}">
     <div class="categories-sidebar-content">
-      <li (click)="onFilter('TELE')">Telescopes</li>
-      <li (click)="onFilter('MONT')">Mounts</li>
-      <li (click)="onFilter('BINO')">Binoculars</li>
-      <li>Refractors</li>
-      <li>Eyepieces</li>
-      <li>Filters</li>
+      <ul class="categories-list">
+        <div class="close-btn-c">
+          <li (click)="onFilter('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" />Telescopes</li>
+        <a (click)="toggleSideCategories()"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
+        </div>
+        <li (click)="onFilter('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" />Mounts</li>
+        <li (click)="onFilter('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" />Binoculars</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" alt="refractor" />Refractors</li>
+        <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" />Eyepieces</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="morestuff" />Filters</li>
+      </ul>
     </div>
   </nav>
   <nav>
@@ -49,7 +54,7 @@
       </div>
       <div class="user">
       @if (authService.authenticated()) {
-        <a [routerLink]="['/dashboard']"><img src="https://toppng.com/uploads/preview/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png" alt="user" height="40" width="40" /></a>
+        <a [routerLink]="['/dashboard']"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user" height="40" width="40" /></a>
       } @else {
         <a [routerLink]="['/login']"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user" height="40" width="40" /></a>
       }

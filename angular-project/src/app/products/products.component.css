@@ -10,9 +10,6 @@
   box-sizing: border-box;
   height: 100%;
 }
-.left-panel img {
-  filter: grayscale();
-}
 .category-list {
   list-style-type: none;
   padding: 0;
@@ -46,6 +43,7 @@
   height: 30px;
   width: 30px;
   margin: 5px;
+  filter: grayscale();
 }
 .gallery {
   display: flex;
