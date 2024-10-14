@@ -45,7 +45,8 @@ export class MainNavComponent implements OnInit {
   roleName: string = '';
 
   isActive: boolean = false;
-  isActive_category: boolean = false;
+  isActive_category: boolean = false;i
+  isNavFixed: boolean = false;
 
   constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){
     this.currentRoute = this.router_nav.url;
@@ -90,12 +91,23 @@ export class MainNavComponent implements OnInit {
   @HostListener('window:scroll', []) //zatvorka [] empty array na dalsie argumenty
   onWindowScroll(){ //tato metoda sa aktivuje vzdy ked sa scrolluje preto je hostlistener hned nad nou
     const offset = window.pageYOffset;
+    const windowWidth = window.innerWidth;
+    let sidebar = document.getElementsByClassName('sidebar')[0] as HTMLElement;
+    let categoriesSidebar = document.getElementsByClassName('categories-sidebar')[0] as HTMLElement;
 
-    if(offset > 1){
-      this.isActive = false;
+    if(offset > 30){
+      this.isNavFixed = true;
+      sidebar.style.marginTop = '0px';
+      categoriesSidebar.style.marginTop = '0px'
     }
     else{
-      this.isActive = false;
+      this.isNavFixed = false;
+      sidebar.style.marginTop = '97px';
+      if(windowWidth > 850){
+        categoriesSidebar.style.marginTop = '72.5px';
+      }else{
+        categoriesSidebar.style.marginTop = '97px';
+      }
     }
   }
 

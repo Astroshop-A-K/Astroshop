@@ -1,10 +1,10 @@
-<div class="content">
+<div class="content" [ngClass]="{'nav-fixed': isNavFixed}">
   <nav class="categories-sidebar" [ngClass]="{'active-categories': isActive_category}">
     <div class="categories-sidebar-content">
       <ul class="categories-list">
         <div class="close-btn-c">
           <li (click)="onFilter('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" />Telescopes</li>
-        <a (click)="toggleSideCategories()"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
+          <a (click)="toggleSideCategories()"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
         </div>
         <li (click)="onFilter('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" />Mounts</li>
         <li (click)="onFilter('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" />Binoculars</li>
