@@ -11,6 +11,7 @@ import { LoginComponent } from '../api-authorization/login/login.component';
 import { HomeComponent } from '../home/home.component';
 import { ProductsDetailComponent } from '../products-detail/products-detail.component';
 import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
+import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-main-nav',
@@ -81,7 +82,7 @@ export class MainNavComponent implements OnInit {
 
   onFilter(category: string){
     if(category){
-      this.router.navigate(['/products'], {queryParams: {category: category}});
+      this.router.navigate(['/products'], {queryParams: { category }});
       this.isActive_category = false;
     }else{
       this.router.navigate(['/products']);

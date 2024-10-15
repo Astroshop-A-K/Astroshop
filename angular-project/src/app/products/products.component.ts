@@ -115,6 +115,15 @@ export class ProductsComponent implements OnInit {
       this.filtersProducts();
       this.totalItems = this.productData.length;
       this.updateCurrentProducts();
+      this.route.queryParams.subscribe(params => {
+        let tempCategory = params['category'];
+        if(tempCategory){
+          this.filterProducts(tempCategory);
+          console.log(this.ourFilteredProducts);
+        }else{
+          this.showAllProducts();
+        }
+      })
     }, error => console.error(error));
   }
 
@@ -132,18 +141,12 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchText = localStorage.getItem('searchText') || '';
-    this.filtersProducts();
-    localStorage.removeItem('searchText');
-    
-    
-    this.route.queryParams.subscribe(params => {
-      let category = '';
-      category = params['category'] || '';
-      this.filterProducts(category);
-    });
 
     this.getData();
+
     this.filtersProducts();
+
+    localStorage.removeItem('searchText');
   }
 }
 export interface ProductsDTO {
