@@ -1,21 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { Router, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ProductsDTO } from './shopping-cart/cart.service';
+import { map, Observable, startWith } from 'rxjs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [MainNavComponent, RouterOutlet, CommonModule, FormsModule],
+  imports: [MainNavComponent, RouterOutlet, CommonModule, FormsModule, FormsModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, RouterLink],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'angular-project';
   searchText: string = '';
 
-  constructor(private router: Router){
+  productsData: ProductsDTO[] = [];
+  searchBar = new FormControl('');
+  filteredProducts: Observable<ProductsDTO[]>;
+
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){
     this.searchText = '';
   }
 
@@ -26,5 +34,27 @@ export class AppComponent {
     }else{
       this.router.navigate(['/products']);
     }
+  }
+  private filterProducts(value: string): ProductsDTO[]{
+    const filteredValue = this.normalizeValue(value);
+    return this.productsData.filter(product => this.normalizeValue(product.productName).includes(filteredValue));
+  }
+  private normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
+
+  getData(){
+    this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
+      this.productsData = result;
+    })
+  }
+
+  ngOnInit(): void {
+    this.getData();
+
+    this.filteredProducts = this.searchBar.valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterProducts(value || '')),
+    );
   }
 }

@@ -210,6 +210,9 @@ h2 {
   text-decoration: underline;
   cursor: pointer;
 }
+.search-bar a{
+  text-decoration: none !important;
+}
 @media (max-width: 1000px) {
   .store-info-text {
     display: none;
