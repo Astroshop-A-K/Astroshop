@@ -71,6 +71,10 @@ export class ProductsComponent implements OnInit {
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
+
+    this.totalItems = this.ourFilteredProducts.length;
+    this.currentPage = 1;
+    this.updateCurrentProducts();
   }
 
   onSortChange(event: any) {

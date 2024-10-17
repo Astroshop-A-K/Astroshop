@@ -43,6 +43,11 @@ export class AppComponent implements OnInit{
     return value.toLowerCase().replace(/\s/g, '');
   }
 
+  onProductSelected(product: ProductsDTO){
+    this.searchBar.setValue(product.productName);
+    this.router.navigate(['/products', product.productName]);
+  }
+
   getData(){
     this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productsData = result;
