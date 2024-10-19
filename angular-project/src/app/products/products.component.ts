@@ -6,14 +6,14 @@ import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { FavoriteProductsComponent } from '../favorite-products/favorite-products.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent],
+  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent, MatProgressSpinnerModule],
 })
 export class ProductsComponent implements OnInit {
   public productData: ProductsDTO[] = [];
@@ -28,6 +28,7 @@ export class ProductsComponent implements OnInit {
   selectedCategory: string = '';
 
   isActive: boolean = false;
+  isLoading: boolean = true;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute) {}
 
@@ -115,6 +116,7 @@ export class ProductsComponent implements OnInit {
   getData() {
     this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productData = result;
+      this.isLoading = false;
       this.sortedProducts = this.productData;
       this.filtersProducts();
       this.totalItems = this.productData.length;
@@ -123,7 +125,6 @@ export class ProductsComponent implements OnInit {
         let tempCategory = params['category'];
         if(tempCategory){
           this.filterProducts(tempCategory);
-          console.log(this.ourFilteredProducts);
         }else{
           this.showAllProducts();
         }

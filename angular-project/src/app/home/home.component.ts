@@ -21,11 +21,14 @@ export class HomeComponent implements OnInit {
   authService = inject(AuthenticationService);
   user: UserDTO;
 
+  isLoading: boolean = true;
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService) {}
 
   getData() {
     this.http.get<HomeProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productData = result;
+      this.isLoading = false;
     }, error => console.error(error));
   }
 

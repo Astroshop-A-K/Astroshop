@@ -9,7 +9,6 @@ import { LoginComponent } from './app/api-authorization/login/login.component';
 import { DashboardComponent } from './app/dashboard/dashboard.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { errorHandlerInterceptor } from './app/api-authorization/error-handler.interceptor';
-import { authGuard } from './app/api-authorization/auth.guard';
 import { jwtInterceptor } from './app/api-authorization/jwt.interceptor';
 import { HomeComponent } from './app/home/home.component';import { ProductsComponent } from './app/products/products.component';
 import { ContactPageComponent } from './app/contact-page/contact-page.component';
