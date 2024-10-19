@@ -41,44 +41,44 @@
                   </select>
                 </div>
             </div>
+            @if(isLoading){
+              <div class="spinner-container">
+                <div class="spinner">
+                </div>
+                Loading
+              </div>
+            }
+            @else{
               <div class="gallery">
-                @if(isLoading){
-                  <div class="spinner-container">
-                    <div class="spinner">
-                    </div>
-                    Loading
+                @if((ourFilteredProducts | search: searchText).length > 0){ <!--| pipe operator ktory pasuje value z lava do prava, toto dovoluje transformaciu predtym ako su nacitane v template-->
+                  <ng-container *ngFor="let product of ourFilteredProducts | search: searchText">
+                    <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
+                      <div class="telescope_1">
+                        <div class="names">
+                          <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
+                          <p>{{ product.productName }}</p>
+                        </div>
+                        <div class="star-rating">
+                          <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+                          <p style="color: black;">({{product.reviewsCount}})</p>
+                        </div>
+                        <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
+                          <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
+                          <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
+                        </div>
+                      </div>
+                    </a>
+                  </ng-container>
+                }@else{
+                  <div class="no-products">
+                    <p>No products found<img src="https://cdn-icons-png.freepik.com/512/7465/7465679.png" alt="no-products-found"></p>
                   </div>
                 }
-                @else{
-                  @if((ourFilteredProducts | search: searchText).length > 0){ <!--| pipe operator ktory pasuje value z lava do prava, toto dovoluje transformaciu predtym ako su nacitane v template-->
-                    <ng-container *ngFor="let product of ourFilteredProducts | search: searchText">
-                      <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
-                        <div class="telescope_1">
-                          <div class="names">
-                            <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
-                            <p>{{ product.productName }}</p>
-                          </div>
-                          <div class="star-rating">
-                            <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
-                            <p style="color: black;">({{product.reviewsCount}})</p>
-                          </div>
-                          <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                            <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                            <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
-                          </div>
-                        </div>
-                      </a>
-                    </ng-container>
-                  }@else{
-                    <div class="no-products">
-                      <p>No products found<img src="https://cdn-icons-png.freepik.com/512/7465/7465679.png" alt="no-products-found"></p>
-                    </div>
-                  }
-                }
-            </div>
-            <div class="paginator">
-            <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
-            </div>
+              </div>
+              <div class="paginator">
+                <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+              </div>
+            }
         </div>
     </div>
 </div>
