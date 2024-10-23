@@ -1,43 +1,44 @@
 <title>Your order</title>
 <div class="content">
-    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-    <h1 style="font-weight: bold;">Order information</h1><br>
-    <h1>THIS IS NOT A REAL E-COMMERCE WEBSITE DO NOT ENTER YOUR REAL CREDENTIALS</h1>
     <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <div class="title">
+            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+            <h1 style="font-weight: bold;">Order information</h1>
+        </div>
         <h2>Delivery address</h2>
             <div class="field">
                 <label>Name</label><br>
-                <input type="text" class="name" placeholder="Peter" formControlName="name">
+                <input type="text" class="name" placeholder="Your name" formControlName="name">
             </div>
             
             <div class="field">
                 <label>Surname</label><br>
-                <input type="text" class="surname" placeholder="Parker" formControlName="surname">
+                <input type="text" class="surname" placeholder="Your surname" formControlName="surname">
             </div>
 
             <div class="field">
                 <label>E-mail</label><br>
-                <input type="email" class="email" placeholder="peter@astroshop.com..." formControlName="email">
+                <input type="email" class="email" placeholder="Your e-mail address" formControlName="email">
             </div>
             
             <div class="field">
                 <label>Phone number</label><br>
-                <input type="number" class="phoneNumber" placeholder="+421..." formControlName="phoneNumber">
+                <input type="number" class="phoneNumber" placeholder="Your phone number" formControlName="phoneNumber">
             </div>
 
             <div class="field">
                 <label>Address</label><br>
-                <input type="text" class="address" placeholder="Parker's street 10" formControlName="address">
+                <input type="text" class="address" placeholder="Your address" formControlName="address">
             </div>
     
             <div class="field">
                 <label>Postal code</label><br>
-                <input type="text" class="psc" placeholder="02020" formControlName="psc">
+                <input type="text" class="psc" placeholder="Your postal code" formControlName="psc">
             </div>
 
             <div class="field">
                 <label>City</label><br>
-                <input type="text" class="city" placeholder="Peterson" formControlName="city">
+                <input type="text" class="city" placeholder="Your city" formControlName="city">
             </div>
 
             <div class="field">

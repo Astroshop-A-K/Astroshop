@@ -4,12 +4,24 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding-top: 120px;
+    padding-top: 60px;
     padding-bottom: 300px;
-    z-index: 9999;
+    background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
+    background-position: center;
+    background-size: cover;
 }
 .form{
     width: 35%;
+    background-color: white;
+    padding: 20px 40px 20px 40px;
+    border-radius: 10px;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
 }
 .field label, p{
     margin-left: 10px;
@@ -62,7 +74,7 @@ input[type="radio"] img{
 }
 h2{
     font-weight: bold;
-    color: #dc3545;
+    color: #0d6efd;
 }
 @media (max-width: 1580px ) {
     .form{

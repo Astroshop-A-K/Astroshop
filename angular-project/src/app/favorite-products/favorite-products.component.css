@@ -1,35 +1,82 @@
-.content{
-    width: 100%;
-    padding-top: 120px;
-    padding-bottom: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.content {
+  width: 100%;
+  padding-top: 60px;
+  padding-bottom: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
+  background-position: center;
+  background-size: cover;
 }
-.favorite-products{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-direction: column;
+.favorite-products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  gap: 15px;
+  border-radius: 10px;
+  padding: 20px 40px 0 40px;
 }
-.favorite-product{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: flex-start;
-    border: 2px solid #f4f4f4;
-    text-align: left;
-    width: 100%;
-    border-radius: 10px;
-    transition: transform 0.3s ease;
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.favorite-product img, p{
-    padding: 20px;
-    margin: 0;
+.favorite-product {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: 2px solid #f4f4f4;
+  text-align: left;
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
 }
-.favorite-product:hover{
-    cursor: pointer;
-    transform: translateY(-5px);
+.favorite-product img,
+p {
+  padding: 20px;
+  margin: 0;
+}
+.favorite-product:hover {
+  cursor: pointer;
+  transform: translateY(-5px);
+}
+.no-fproducts {
+  padding: 20px;
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 150px;
+}
+.spinner {
+  border: 8px solid white;
+  border-top: 8px solid #0d6efd;
+  border-right: 8px solid #0d6efd;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite; /*spin je animacia a keyframes ju aplikuje na nu pri 0% ako bude a pri 100 a to sa opakuje do nekonecna*/
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+h1 {
+  font-weight: bold;
 }

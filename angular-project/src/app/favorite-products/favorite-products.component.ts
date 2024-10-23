@@ -26,6 +26,8 @@ export class FavoriteProductsComponent implements OnInit {
   totalItems: number = 0;
   limit: number = 3;
 
+  isLoading: boolean = true;
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService){}
   
   onPageChange(page: number){
@@ -47,6 +49,7 @@ export class FavoriteProductsComponent implements OnInit {
             this.paginatedFavoriteProducts = this.favoriteProductsData;
             this.totalItems = this.paginatedFavoriteProducts.length;
             this.updateCurrentProducts();
+            this.isLoading = false;
           });
       })
     }

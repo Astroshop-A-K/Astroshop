@@ -1,21 +1,34 @@
 <title>Your favorite products</title>
 <div class="content">
-    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-    <h1 style="font-weight: bold;">Your favorite products</h1><br>
     <div class="favorite-products">
-        @if(favoriteProductsData.length > 0){
-            <ng-container *ngFor="let favoriteProduct of paginatedFavoriteProducts">
-                <div class="favorite-product" [routerLink]="['/products', favoriteProduct.productName]" [title]="favoriteProduct.productName">
-                    <img [src]="favoriteProduct.productImage0" height="300" [alt]="favoriteProduct.productImage0">            
-                    <p>{{favoriteProduct.productName}}</p>
+        <div class="title">
+            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+            <h1>Your favorite products</h1>
+        </div>
+        @if(isLoading){
+            <div class="spinner-container">
+                <div class="spinner">
                 </div>
-            </ng-container>
-            <div class="paginator">
-                <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+                Loading
             </div>
         }
         @else{
-            <h2 style="text-align: center;">You don't have any favorite products</h2> 
+            @if(favoriteProductsData.length > 0){
+                <ng-container *ngFor="let favoriteProduct of paginatedFavoriteProducts">
+                    <div class="favorite-product" [routerLink]="['/products', favoriteProduct.productName]" [title]="favoriteProduct.productName">
+                        <img [src]="favoriteProduct.productImage0" height="300" [alt]="favoriteProduct.productImage0">            
+                        <p>{{favoriteProduct.productName}}</p>
+                    </div>
+                </ng-container>
+                <div class="paginator">
+                    <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+                </div>
+            }
+            @else{
+                <div class="no-fproducts">
+                    <h2 style="text-align: center;">You don't have any favorite products</h2> 
+                </div>
+            }
         }
     </div>
 </div>

@@ -3,9 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-bottom: 300px;
+  padding-top: 60px;
+  padding-bottom: 200px;
+  background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
+  background-position: center;
+  background-size: cover;
 }
-
 .heading {
   padding-top: 20px;
   width: 100%;
@@ -44,6 +47,9 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 40px 40px 40px;
 }
 
 .selectedProducts {
