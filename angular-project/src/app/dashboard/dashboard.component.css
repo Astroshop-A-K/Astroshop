@@ -28,7 +28,7 @@
 .dashboard .info label {
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 5px; 
 }
 .dashboard .info span {
   display: block;
