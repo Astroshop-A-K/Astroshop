@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        working-directory: ./angular-project
+      - working-directory: ./angular-project
+
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
