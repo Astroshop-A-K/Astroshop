@@ -67,6 +67,7 @@ export class ProductsComponent implements OnInit {
   filtersProducts() {
     if (!this.searchText || this.searchText.trim() === '') {
       this.sortedProducts = this.productData;
+      this.selectedCategory = '';
     } else {
       this.sortedProducts = this.productData.filter(product =>
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
