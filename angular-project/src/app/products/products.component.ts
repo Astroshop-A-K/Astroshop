@@ -65,15 +65,15 @@ export class ProductsComponent implements OnInit {
   }
 
   filtersProducts() {
-    if (!this.searchText) {
-      this.ourFilteredProducts = this.productData;
+    if (!this.searchText || this.searchText.trim() === '') {
+      this.sortedProducts = this.productData;
     } else {
-      this.ourFilteredProducts = this.productData.filter(product =>
+      this.sortedProducts = this.productData.filter(product =>
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
 
-    this.totalItems = this.ourFilteredProducts.length;
+    this.totalItems = this.sortedProducts.length;
     this.currentPage = 1;
     this.updateCurrentProducts();
   }

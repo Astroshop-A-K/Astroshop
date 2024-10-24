@@ -28,7 +28,7 @@
           </div>
             <div class="search-triedicka">
               <div class="search">
-                <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Search product">
+                <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Search product" (ngModelChange)="filtersProducts()">
               </div>
                 <div class="select">
                   <select class="sort" (change)="onSortChange($event)">
