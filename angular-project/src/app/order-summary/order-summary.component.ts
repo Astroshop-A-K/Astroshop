@@ -72,19 +72,16 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         orderVerificationKey += characters[randomIndex];
       }
 
-      this.ShoppingCart.clearCart();
-
       this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey, this.currentDate, "Pending").subscribe(
         () => {
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.orderId = result;
-            for(let i = 0; i < this.selectedProducts.length; i++){
-              this.addProductId(this.selectedProducts[i].productId, this.orderId, this.selectedProducts[i].amount).subscribe();
-            }
+            this.selectedProducts.forEach((product) => {
+              this.addProductId(product.productId, this.orderId, product.amount).subscribe();
+            })
           });
         }
       );
-
       this.orderCompleted = true;
     } 
   }
@@ -117,5 +114,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void{
     this.selectedProducts = [];
     this.orderCompleted = false;
+    this.ShoppingCart.clearCart();
   }
 }
