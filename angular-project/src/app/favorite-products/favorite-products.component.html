@@ -16,9 +16,12 @@
             @if(favoriteProductsData.length > 0){
                 <div class="favorite-products">
                     <ng-container *ngFor="let favoriteProduct of paginatedFavoriteProducts">
-                        <div class="favorite-product" [routerLink]="['/products', favoriteProduct.productName]" [title]="favoriteProduct.productName">
-                            <img [src]="favoriteProduct.productImage0" height="250" [alt]="favoriteProduct.productImage0">            
-                            <p>{{favoriteProduct.productName}}</p>
+                        <div class="favorite-product">
+                            <a class="remove-fav-product" (click)="test()">
+                                <img src="../../assets/Images/remove-icon.png" alt="Remove Favorite" width="20" height="20">
+                            </a>
+                            <img [src]="favoriteProduct.productImage0" height="250" [alt]="favoriteProduct.productImage0" class="product-image"  [routerLink]="['/products', favoriteProduct.productName]">            
+                            <a [routerLink]="['/products', favoriteProduct.productName]" class="link">{{favoriteProduct.productName}}</a>
                         </div>
                     </ng-container>
                     <div class="paginator">

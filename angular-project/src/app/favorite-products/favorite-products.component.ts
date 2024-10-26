@@ -29,7 +29,7 @@ export class FavoriteProductsComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService, private router: Router){}
+  constructor(public FavProductsService: FavoriteProductsService, private router: Router){}
   
   onPageChange(page: number){
     this.currentPage = page;
@@ -40,12 +40,15 @@ export class FavoriteProductsComponent implements OnInit {
     const endIndex = startIndex + this.limit;
     this.paginatedFavoriteProducts = this.favoriteProductsData.slice(startIndex, endIndex);
   }
+  test(){
+    alert("Hi!")
+  }
   
   ngOnInit(): void {
     if(this.authService.authenticated()){
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
-          this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
+          this.FavProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
             this.favoriteProductsData = result;
             this.totalItems = this.favoriteProductsData.length;
             this.updateCurrentProducts();

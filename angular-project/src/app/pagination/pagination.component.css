@@ -14,7 +14,7 @@
     transform: rotate(180deg);
 }
 .arrow-left, .arrow-right{
-    padding: 10px;
+    padding: 9px;
 }
 .page-link:hover{
     cursor: pointer;
@@ -24,7 +24,7 @@
 }
 @media (max-width: 580px) {
     .page-link{
-        padding: 5px 15px;
+        padding: 6px 15px;
     }
     .arrow-left, .arrow-right{
         padding: 4.5px;
