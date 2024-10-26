@@ -3,7 +3,7 @@ import { Component, Inject, OnInit, inject } from '@angular/core';
 import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 import { NgFor, NgForOf } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FavoriteProductsService } from './favorite-products.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ProductsComponent } from '../products/products.component';
@@ -19,6 +19,7 @@ import { ProductsComponent } from '../products/products.component';
 export class FavoriteProductsComponent implements OnInit {
   favoriteProductsData: ProductsDTO[] = [];
   paginatedFavoriteProducts: ProductsDTO[] = [];
+
   authService = inject(AuthenticationService);
   user: UserDTO;
 
@@ -28,7 +29,7 @@ export class FavoriteProductsComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService){}
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService, private router: Router){}
   
   onPageChange(page: number){
     this.currentPage = page;
@@ -46,12 +47,13 @@ export class FavoriteProductsComponent implements OnInit {
           this.user = result;
           this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
             this.favoriteProductsData = result;
-            this.paginatedFavoriteProducts = this.favoriteProductsData;
-            this.totalItems = this.paginatedFavoriteProducts.length;
+            this.totalItems = this.favoriteProductsData.length;
             this.updateCurrentProducts();
             this.isLoading = false;
           });
       })
+    }else{
+      this.router.navigate(['/login']);
     }
   }
 }

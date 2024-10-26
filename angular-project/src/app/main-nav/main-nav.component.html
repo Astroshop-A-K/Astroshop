@@ -67,7 +67,7 @@
         @if (authService.authenticated()) {
           <div class="login-cancel">
           <a [routerLink]="['/dashboard']"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user" height="40" width="40" class="login-link"/></a>
-          <span class="close-btn"><img src="https://static-00.iconduck.com/assets.00/cancel-icon-2048x2048-milcunum.png" height="10" width="10"></span>
+          <span class="close-btn" (click)="toggleSideBar()"><img src="https://static-00.iconduck.com/assets.00/cancel-icon-2048x2048-milcunum.png" height="10" width="10"></span>
           </div>
         } @else {
           <div class="login-cancel">

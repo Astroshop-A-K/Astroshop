@@ -1,8 +1,8 @@
 <title>Your favorite products</title>
 <div class="content">
-    <div class="favorite-products">
+    <div class="container">
         <div class="title">
-            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon">
             <h1>Your favorite products</h1>
         </div>
         @if(isLoading){
@@ -14,19 +14,21 @@
         }
         @else{
             @if(favoriteProductsData.length > 0){
-                <ng-container *ngFor="let favoriteProduct of paginatedFavoriteProducts">
-                    <div class="favorite-product" [routerLink]="['/products', favoriteProduct.productName]" [title]="favoriteProduct.productName">
-                        <img [src]="favoriteProduct.productImage0" height="300" [alt]="favoriteProduct.productImage0">            
-                        <p>{{favoriteProduct.productName}}</p>
+                <div class="favorite-products">
+                    <ng-container *ngFor="let favoriteProduct of paginatedFavoriteProducts">
+                        <div class="favorite-product" [routerLink]="['/products', favoriteProduct.productName]" [title]="favoriteProduct.productName">
+                            <img [src]="favoriteProduct.productImage0" height="250" [alt]="favoriteProduct.productImage0">            
+                            <p>{{favoriteProduct.productName}}</p>
+                        </div>
+                    </ng-container>
+                    <div class="paginator">
+                        <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
                     </div>
-                </ng-container>
-                <div class="paginator">
-                    <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
                 </div>
             }
             @else{
                 <div class="no-fproducts">
-                    <h2 style="text-align: center;">You don't have any favorite products</h2> 
+                    <h2>You don't have any favorite products</h2> 
                 </div>
             }
         }

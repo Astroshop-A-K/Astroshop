@@ -22,3 +22,11 @@
 .arrow-left:hover, .arrow-right:hover{
     cursor: pointer;
 }
+@media (max-width: 580px) {
+    .page-link{
+        padding: 5px 15px;
+    }
+    .arrow-left, .arrow-right{
+        padding: 4.5px;
+    }
+}

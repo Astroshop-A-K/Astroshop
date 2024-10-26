@@ -18,12 +18,8 @@ export class PaginationComponent implements OnInit {
   @Output() changePage = new EventEmitter<number>();
 
   pages: number[] = [];
-  currentPPage: number = 1;
-  p_page: ProductsComponent;
 
-  constructor(private products: ProductsComponent){
-    this.p_page = products;
-  }
+  constructor(){}
 
   range(start: number, end: number): number[]{
     return [...Array(end).keys()].map(el => el + start);
@@ -33,21 +29,14 @@ export class PaginationComponent implements OnInit {
     this.pages = this.range(1, pagesCount);
   }
   changePages(direction: string){
-    if(direction == 'right'){
-      if(this.p_page.currentPage < this.pages.length){
-        this.p_page.currentPage++;
-        this.p_page.updateCurrentProducts();
-      } 
-      else{
-      }
+    let newPage = this.currentPage;
+    if(direction === 'right' && this.currentPage < this.pages.length){
+      newPage++;
+    }else if(direction === 'left' && this.currentPage > 1){
+      newPage--;
     }
-    else{
-      if(this.p_page.currentPage > 1){
-        this.p_page.currentPage--;
-        this.p_page.updateCurrentProducts();
-      } 
-      else{
-      }
+    if(newPage != this.currentPage){
+      this.changePage.emit(newPage);
     }
   }
 
