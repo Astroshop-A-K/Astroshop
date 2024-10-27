@@ -285,3 +285,8 @@ h2 {
     width: 35px;
   }
 }
+@media (max-width: 580px){
+  .ending a{
+    font-size: 0.8rem;
+  }
+}
