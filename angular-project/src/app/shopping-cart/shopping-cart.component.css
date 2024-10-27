@@ -110,6 +110,13 @@ input {
   width: 80px;
 }
 
+.empty-cart img{
+  height: 42.5px;
+  width: 42.5px;
+  filter: grayscale(100%);
+  margin: 0 0 0 5px;
+}
+
 @media (max-width: 1250px) {
   .product {
     width: 80vw;
