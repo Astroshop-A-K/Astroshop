@@ -38,10 +38,25 @@ export class FavoriteProductsComponent implements OnInit {
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
-    this.paginatedFavoriteProducts = this.favoriteProductsData.slice(startIndex, endIndex);
+    if(this.favoriteProductsData.length > 0){
+      this.paginatedFavoriteProducts = this.favoriteProductsData.slice(startIndex, endIndex);
+    }else{
+      this.paginatedFavoriteProducts = [];
+    }
+
+    if (this.currentPage > Math.ceil(this.favoriteProductsData.length / this.limit)) {
+      this.currentPage = Math.max(Math.ceil(this.favoriteProductsData.length / this.limit), 1);
+    }
   }
-  test(){
-    alert("Hi!")
+  removeFavoriteProduct(userId: string, productId: number){
+    const index = this.paginatedFavoriteProducts.findIndex(product => product.productId === productId);
+    if(index !== -1){
+      this.favoriteProductsData.splice(index, 1); // ak je index kladny zaciname mazat od zaciatku a ak je zaporny tak od konca
+      this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe(() => {
+        this.totalItems = this.favoriteProductsData.length;
+        this.updateCurrentProducts();
+      });
+    }
   }
   
   ngOnInit(): void {

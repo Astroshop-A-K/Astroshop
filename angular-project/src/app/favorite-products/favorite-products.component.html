@@ -17,7 +17,7 @@
                 <div class="favorite-products">
                     <ng-container *ngFor="let favoriteProduct of paginatedFavoriteProducts">
                         <div class="favorite-product">
-                            <a class="remove-fav-product" (click)="test()">
+                            <a class="remove-fav-product" (click)="removeFavoriteProduct(user.id, favoriteProduct.productId)">
                                 <img src="../../assets/Images/remove-icon.png" alt="Remove Favorite" width="20" height="20">
                             </a>
                             <img [src]="favoriteProduct.productImage0" height="250" [alt]="favoriteProduct.productImage0" class="product-image"  [routerLink]="['/products', favoriteProduct.productName]">            

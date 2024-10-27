@@ -29,4 +29,8 @@
     .arrow-left, .arrow-right{
         padding: 4.5px;
     }
+    img{
+        height: 17px;
+        width: 17px;
+    }
 }
