@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
-import { NgFor, NgForOf } from '@angular/common';
+import { CommonModule, NgFor, NgForOf } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { Router, RouterLink } from '@angular/router';
 import { FavoriteProductsService } from './favorite-products.service';
@@ -11,7 +11,7 @@ import { ProductsComponent } from '../products/products.component';
 @Component({
   selector: 'app-favorite-products',
   standalone: true,
-  imports: [NgFor, NgForOf, RouterLink, PaginationComponent],
+  imports: [NgFor, NgForOf, RouterLink, PaginationComponent, CommonModule],
   providers: [ProductsComponent],
   templateUrl: './favorite-products.component.html',
   styleUrl: './favorite-products.component.css'

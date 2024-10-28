@@ -1,6 +1,6 @@
 <title>Your favorite products</title>
 <div class="content">
-    <div class="container">
+    <div class="container" [ngClass]="{'isLoading': isLoading}">
         <div class="title">
             <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon">
             <h1>Your favorite products</h1>

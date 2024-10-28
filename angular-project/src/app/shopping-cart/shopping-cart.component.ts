@@ -1,6 +1,6 @@
 import { Component, EmbeddedViewRef, signal } from '@angular/core';
 import { CartService } from './cart.service';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { ProductsDTO } from './cart.service';
 import { RouterLink } from '@angular/router';
 import { NgModel } from '@angular/forms';
@@ -11,7 +11,7 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css'],
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor, RouterLink, CommonModule],
 })
 export class ShoppingCartComponent {
   products = this.CartService.getProducts();
