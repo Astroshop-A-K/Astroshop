@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, inject } from '@angular/core';
 import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 import { CommonModule, NgFor, NgForOf } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
@@ -17,8 +17,8 @@ import { ProductsComponent } from '../products/products.component';
   styleUrl: './favorite-products.component.css'
 })
 export class FavoriteProductsComponent implements OnInit {
-  favoriteProductsData: ProductsDTO[] = [];
-  paginatedFavoriteProducts: ProductsDTO[] = [];
+  sortedFavoriteProducts: ProductsDTO[] = [];
+  favoriteProducts: ProductsDTO[] = [];
 
   authService = inject(AuthenticationService);
   user: UserDTO;
@@ -29,7 +29,7 @@ export class FavoriteProductsComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  constructor(public FavProductsService: FavoriteProductsService, private router: Router){}
+  constructor(public FavProductsService: FavoriteProductsService, private router: Router, private cdr: ChangeDetectorRef){}
   
   onPageChange(page: number){
     this.currentPage = page;
@@ -38,22 +38,15 @@ export class FavoriteProductsComponent implements OnInit {
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
-    if(this.favoriteProductsData.length > 0){
-      this.paginatedFavoriteProducts = this.favoriteProductsData.slice(startIndex, endIndex);
-    }else{
-      this.paginatedFavoriteProducts = [];
-    }
-
-    if (this.currentPage > Math.ceil(this.favoriteProductsData.length / this.limit)) {
-      this.currentPage = Math.max(Math.ceil(this.favoriteProductsData.length / this.limit), 1);
-    }
+    this.sortedFavoriteProducts = this.favoriteProducts;
+    this.sortedFavoriteProducts = this.sortedFavoriteProducts.slice(startIndex, endIndex);
   }
   removeFavoriteProduct(userId: string, productId: number){
-    const index = this.paginatedFavoriteProducts.findIndex(product => product.productId === productId);
+    const index = this.sortedFavoriteProducts.findIndex(product => product.productId === productId);
     if(index !== -1){
-      this.favoriteProductsData.splice(index, 1); // ak je index kladny zaciname mazat od zaciatku a ak je zaporny tak od konca
       this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe(() => {
-        this.totalItems = this.favoriteProductsData.length;
+        this.sortedFavoriteProducts.splice(index, 1); // ak je index kladny zaciname mazat od zaciatku a ak je zaporny tak od konca
+        this.totalItems = this.sortedFavoriteProducts.length;
         this.updateCurrentProducts();
       });
     }
@@ -64,8 +57,9 @@ export class FavoriteProductsComponent implements OnInit {
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
           this.FavProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
-            this.favoriteProductsData = result;
-            this.totalItems = this.favoriteProductsData.length;
+            this.sortedFavoriteProducts = result;
+            this.favoriteProducts = result;
+            this.totalItems = this.sortedFavoriteProducts.length;
             this.updateCurrentProducts();
             this.isLoading = false;
           });

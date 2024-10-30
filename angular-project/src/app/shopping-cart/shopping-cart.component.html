@@ -3,11 +3,12 @@
   <div class="shopping-cart" [ngClass]="{'empty-cart': products.length === 0}">
   <div class="heading">
     <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-    <h1 style="font-weight: bold;">Your cart</h1>
+    <h1 style="font-weight: bold;">Shopping cart</h1>
+    <hr>
   </div>
   @if(products.length > 0){
     <table class="selectedProducts">
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of products" class="product">
         <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
         </td>
         <td>{{product.productName}}</td>

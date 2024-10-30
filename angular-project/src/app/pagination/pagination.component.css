@@ -1,46 +1,54 @@
-.page-item.active .page-link{
-    background-color: #0d6efd;
-    color: white;
-    border: none;
+.page-item.active .page-link {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
 }
-.page-link{
-    color:  black;
-    padding: 10px 20px;
-    border: 2px solid #f4f4f4;
+.page-link {
+  color: black;
+  padding: 10px 20px;
+  border: 2px solid #f4f4f4;
 }
-.pagination{
-    background-color: white;
+.pagination {
+  background-color: white;
 }
-.arrow-left img{
-    transform: rotate(180deg);
-    margin: 0 5px 1.5px 0;
+.arrow-left img {
+  transform: rotate(180deg);
+  margin: 0 5px 1.5px 0;
 }
-.arrow-left, .arrow-right{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    padding: 9px;
-    width: 120px;
-    border: 2px solid #f4f4f4;
+.arrow-left,
+.arrow-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 9px;
+  width: 120px;
+  border: 2px solid #f4f4f4;
 }
-.arrow-right img{
-    margin: 0 0 1px 5px;
+.arrow-right img {
+  margin: 0 0 1px 5px;
 }
-.arrow-left:hover, .arrow-right:hover, .page-link:hover{
-    cursor: pointer;
+.arrow-left:hover,
+.arrow-right:hover,
+.page-link:hover {
+  cursor: pointer;
+}
+.not-visible{
+    visibility: collapse;
+    display: none;
 }
 @media (max-width: 580px) {
-    .page-link{
-        padding: 8px 15px;
-        font-size: 0.8rem;
-    }
-    .arrow-left, .arrow-right{
-        padding: 5.5px;
-        font-size: 0.8rem;
-    }
-    img{
-        height: 17px;
-        width: 17px;
-    }
+  .page-link {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+  .arrow-left,
+  .arrow-right {
+    padding: 5.5px;
+    font-size: 0.8rem;
+  }
+  img {
+    height: 17px;
+    width: 17px;
+  }
 }
