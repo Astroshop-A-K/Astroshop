@@ -44,10 +44,12 @@ export class FavoriteProductsComponent implements OnInit {
   removeFavoriteProduct(userId: string, productId: number){
     const index = this.sortedFavoriteProducts.findIndex(product => product.productId === productId);
     if(index !== -1){
+      this.sortedFavoriteProducts.splice(index, 1); // ak je index kladny zaciname mazat od zaciatku a ak je zaporny tak od konca
       this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe(() => {
-        this.sortedFavoriteProducts.splice(index, 1); // ak je index kladny zaciname mazat od zaciatku a ak je zaporny tak od konca
-        this.totalItems = this.sortedFavoriteProducts.length;
+        console.log("HI")
+        this.totalItems = this.favoriteProducts.length;
         this.updateCurrentProducts();
+        console.log("HI2")
       });
     }
   }

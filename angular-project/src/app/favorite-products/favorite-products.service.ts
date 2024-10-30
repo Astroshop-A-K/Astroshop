@@ -24,9 +24,7 @@ export class FavoriteProductsService {
   }
   removeFavoriteProduct(userId: string, productId: number){
     this.countNum.update(value => value - 1);
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", userId);
-    queryParams = queryParams.append("productId", productId);
+    let queryParams = new HttpParams().set("userId", userId).set("productId", productId);
     const url = `${this.baseUrl}products/remove-favorite-product`;        
     return this.http.delete(url, { params: queryParams });
   }
