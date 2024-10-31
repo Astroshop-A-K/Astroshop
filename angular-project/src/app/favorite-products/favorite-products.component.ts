@@ -38,18 +38,21 @@ export class FavoriteProductsComponent implements OnInit {
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
-    this.sortedFavoriteProducts = this.favoriteProducts;
-    this.sortedFavoriteProducts = this.sortedFavoriteProducts.slice(startIndex, endIndex);
+    this.sortedFavoriteProducts = this.favoriteProducts.slice(startIndex, endIndex);
   }
   removeFavoriteProduct(userId: string, productId: number){
     const index = this.sortedFavoriteProducts.findIndex(product => product.productId === productId);
     if(index !== -1){
       this.sortedFavoriteProducts.splice(index, 1); // ak je index kladny zaciname mazat od zaciatku a ak je zaporny tak od konca
-      this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe(() => {
-        console.log("HI")
-        this.totalItems = this.favoriteProducts.length;
-        this.updateCurrentProducts();
-        console.log("HI2")
+      this.favoriteProducts = this.favoriteProducts.filter(product => product.productId !== productId);
+
+      this.totalItems = this.favoriteProducts.length;
+      if(this.sortedFavoriteProducts.length === 0 && this.currentPage > 0){
+        this.currentPage--;
+      }
+      this.updateCurrentProducts();
+      this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe((error) => {
+        console.error(error);
       });
     }
   }

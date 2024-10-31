@@ -9,7 +9,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-order-summary',
@@ -29,7 +28,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   orderId: number = 0;
 
   currentDate: string = '';
-  encryptionKey: string = 'astroshop123&';
 
   constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router, private datePipe: DatePipe){}
 
@@ -54,10 +52,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     }
   }
 
-  enCryptData(data: any): string {
-    return CryptoJS.AES.encrypt(JSON.stringify(data), this.encryptionKey).toString();
-  }
-  
   onSubmit(){
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let orderVerificationKey: string = '';

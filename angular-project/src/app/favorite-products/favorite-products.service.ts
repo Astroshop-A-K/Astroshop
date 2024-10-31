@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductsDTO } from '../shopping-cart/cart.service';
+import { FavoriteProductDTO } from './favorite-products.component';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class FavoriteProductsService {
     queryParams = queryParams.append("userId", userId);
     return this.http.get<ProductsDTO[]>(this.baseUrl + 'products/getFavoriteProducts', { params: queryParams });
   }
-  removeFavoriteProduct(userId: string, productId: number){
+  removeFavoriteProduct(userId: string, productId: number): Observable<any>{
     this.countNum.update(value => value - 1);
     let queryParams = new HttpParams().set("userId", userId).set("productId", productId);
     const url = `${this.baseUrl}products/remove-favorite-product`;        
