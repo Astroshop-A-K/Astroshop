@@ -2,31 +2,37 @@
 <div class="content">
   <div class="shopping-cart" [ngClass]="{'empty-cart': products.length === 0}">
   <div class="heading">
-    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-    <h1 style="font-weight: bold;">Shopping cart</h1>
-    <hr>
+    <h1>Shopping cart</h1>
+    <a (click)="clearCart()">Clear cart</a>
   </div>
   @if(products.length > 0){
     <table class="selectedProducts">
       <tr *ngFor="let product of products" class="product">
         <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
         </td>
-        <td>{{product.productName}}</td>
-        <td>{{product.price}}€</td>
-        <td><input class="i_number" type="number" value="{{product.amount}}" (change)="assignAmount(product, $event)"
-            [max]="product.quantity" min="0"></td>
-        <td><button class="btn btn-coupon"
-            style="display: flex; align-items: center; justify-content: center; padding-bottom: 10px; margin-left: 12px;"
-            (click)="CartService.removeProduct(product)"><img
-              src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="24px" width="20px" alt="bin"></button>
+        <td class="product-name">{{product.productName}}<br>
+          @if(product.quantity > 0){
+            <span class="available">Na sklade</span>
+          }
+        </td>
+        <td class="amount-control">
+          <button type="button" (click)="decrease(product)"><img src="https://www.svgrepo.com/show/103355/minus-sign-of-a-line-in-horizontal-position.svg" alt="plus-icon"></button>
+          <span>{{product.amount}}</span>
+          <button type="button" (click)="increase(product)"><img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" alt="minus-icon"></button>
+        </td>
+
+        <td>
+          <div class="remove-container">
+            <span>{{product.price}}€</span>
+            <a (click)="CartService.removeProduct(product)" class="remove-product">Remove</a>
+          </div>
         </td>
       </tr>
     </table>
     <div class="order-summary">
       <div class="total-price">
-        <p style="font-weight: bold;">Total price</p>
+        <p>Total price</p>
         <p>{{CartService.totalPrice()}}€</p>
-        <button class="btn btn-danger" (click)="clearCart()">Clear cart</button>
       </div>
     </div>
     <div class="submit">
@@ -35,8 +41,7 @@
   }
   @else{
   <div class="empty-cart-text">
-    <h2>Your cart is empty<img src="https://cdn-icons-png.flaticon.com/512/11329/11329060.png" alt="empty-cart-icon">
-    </h2>
+    <p>Your shopping cart is empty</p>
   </div>
   }
  </div>

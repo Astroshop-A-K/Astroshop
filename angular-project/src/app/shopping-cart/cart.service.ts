@@ -49,10 +49,10 @@ export class CartService {
 
   removeProduct(product: ProductsDTO){
     const index = this.products.indexOf(product);
-    let totalAmount = 0;
     if(index !== -1){
       this.countNum.update(value => value - product.amount);
       this.products.splice(index, 1);
+      this.snackBar.open("Removed the product!", "", { duration: 1500, });
     }
   }
 

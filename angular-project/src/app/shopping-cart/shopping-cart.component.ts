@@ -5,6 +5,7 @@ import { ProductsDTO } from './cart.service';
 import { RouterLink } from '@angular/router';
 import { NgModel } from '@angular/forms';
 import { MainNavComponent } from '../main-nav/main-nav.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -16,21 +17,35 @@ import { MainNavComponent } from '../main-nav/main-nav.component';
 export class ShoppingCartComponent {
   products = this.CartService.getProducts();
 
-  constructor(public CartService: CartService){}
+  constructor(public CartService: CartService, private snackBar: MatSnackBar){}
 
-  assignAmount(product: ProductsDTO, event: any){
-    let amount = product.amount;
-    let newAmount = event.target.value;
-    product.amount = newAmount;
-    this.CartService.updateAmount(newAmount - amount);
-
-    if(newAmount == 0){
-      this.CartService.removeProduct(product);
+  increase(product: ProductsDTO){
+    if(product.amount !== product.quantity){
+      let defAmount = product.amount;
+      product.amount++;
+      this.CartService.updateAmount(product.amount - defAmount);
+    }else{
+      this.snackBar.open("You've added all the products!", "", { duration: 1500, });
     }
+  }
+  decrease(product: ProductsDTO){
+      if(product.amount > 1){
+        let defAmount = product.amount;
+        product.amount--;
+        this.CartService.updateAmount(product.amount - defAmount);
+      }else{
+        this.CartService.removeProduct(product);
+        this.snackBar.open("Removed the product!", "", { duration: 1500, });
+      }
   }
 
   clearCart(){
-    this.products = [];
-    this.CartService.clearCart();
+    if(this.products.length > 0){
+      this.products = [];
+      this.CartService.clearCart();
+      this.snackBar.open("Cleared the cart!", "", { duration: 1500, });
+    }else{
+      this.snackBar.open("The cart is already empty!", "", { duration: 1500, })
+    }
   }
 }
