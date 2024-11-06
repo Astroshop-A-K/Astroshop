@@ -13,6 +13,7 @@
 }
 .shopping-cart {
   width: 80%;
+  max-width: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +32,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
   margin: 0 0 10px 0;
 }
 .heading a, .remove-product{
@@ -53,11 +53,19 @@
   color: green;
   font-weight: normal !important;
 }
+.amount-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
 .amount-control button{
   border: none;
   margin: 0 15px 0 15px;
   padding: 0;
   border-radius: 5px;
+  cursor: pointer;
 }
 .amount-control img{
   margin: 10px;
@@ -68,9 +76,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
-}
-.total-price {
   margin: 10px;
 }
 .total-price p:first-child{
@@ -88,79 +93,84 @@
 .remove-container span{
   font-weight: bold;
 }
-
 .selectedProducts {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
-
-.selectedProducts th {
-  background-color: #f4f4f4;
-  padding: 10px;
-  text-align: left;
-}
-
 .selectedProducts td {
   padding: 8px;
   text-align: left;
+  vertical-align: middle;
 }
-
-.selectedProducts img {
-  max-width: 100%;
-  height: auto;
+.selectedProducts .product-image-cell {
+  width: 20%;
 }
-
-.btn-remove {
-  background-color: transparent;
-  cursor: pointer;
+.selectedProducts .product-image {
+  width: 225px;
+  height: 225px;
 }
-
-.btn-remove img {
-  display: block;
-  margin: auto;
-}
-
 .order-summary {
   border-top: 1px solid #ccc;
   width: 100%;
   margin-top: 10px;
 }
-
 .order-summary p {
   padding: 2px;
 }
-
 .submit {
   margin-top: 20px;
-}
-
-input {
-  padding: 10px 18px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  width: 50%;
-  margin: 5px 0;
-}
-
-.i_number {
-  width: 80px;
 }
 .empty-cart-text{
   width: 100%;
   margin: 50px 0 0 0;
   text-align: left;
 }
-
-
-@media (max-width: 1250px) {
-  .product {
-    width: 80vw;
+@media (max-width: 1250px) { 
+  .selectedProducts .product-image {
+    width: 200px;
+    height: 200px;
+  }
+  .shopping-cart {
+    width: 80%;
   }
 }
-
+@media (max-width: 900px){
+  .selectedProducts .product-image{
+    width: 175px;
+    height: 175px;
+  }
+  .amount-control {
+    flex-direction: column-reverse;
+  }
+  .shopping-cart{
+    width: 90%;
+  }
+}
 @media (max-width: 750px) {
   .product {
-    width: 90vw;
+    width: 100%;
+  }
+  .content {
+    padding: 40px 0 100px;
+  }
+  .amount-control button {
+    margin: 0 5px;
+  }
+  .submit button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+  }
+  .empty-cart-text {
+    font-size: 1em;
+  }
+  td, .empty-cart-text, .heading a{
+    font-size: 17px;
+  }
+}
+@media (max-width: 670px) {
+  .selectedProducts .product-image-cell{
+    display: none;
   }
 }
