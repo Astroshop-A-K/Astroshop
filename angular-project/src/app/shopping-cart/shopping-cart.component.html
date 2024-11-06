@@ -8,19 +8,20 @@
   @if(products.length > 0){
     <table class="selectedProducts">
       <tr *ngFor="let product of products" class="product">
-        <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225">
+        <td class="product-image-cell"><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225" class="product-image">
         </td>
         <td class="product-name">{{product.productName}}<br>
           @if(product.quantity > 0){
             <span class="available">Na sklade</span>
           }
         </td>
-        <td class="amount-control">
-          <button type="button" (click)="decrease(product)"><img src="https://www.svgrepo.com/show/103355/minus-sign-of-a-line-in-horizontal-position.svg" alt="plus-icon"></button>
-          <span>{{product.amount}}</span>
-          <button type="button" (click)="increase(product)"><img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" alt="minus-icon"></button>
+        <td>
+          <div class="amount-control">
+            <button type="button" (click)="decrease(product)"><img src="https://www.svgrepo.com/show/103355/minus-sign-of-a-line-in-horizontal-position.svg" alt="plus-icon"></button>
+            <span>{{product.amount}}</span>
+            <button type="button" (click)="increase(product)"><img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" alt="minus-icon"></button>
+          </div>
         </td>
-
         <td>
           <div class="remove-container">
             <span>{{product.price}}€</span>
