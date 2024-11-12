@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject, signal, Query } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject, signal, Query, ViewChild, ElementRef } from '@angular/core';
 import { OrderService } from '../order-page/order.service';
 import { DatePipe, NgFor } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
@@ -9,7 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
-
+import { jsPDF } from 'jspdf'
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-order-summary',
   standalone: true,
@@ -28,6 +29,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   orderId: number = 0;
 
   currentDate: string = '';
+  @ViewChild('table', { static: false }) table!: ElementRef;
 
   constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router, private datePipe: DatePipe){}
 
@@ -78,6 +80,19 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       );
       this.orderCompleted = true;
     } 
+  }
+  generatePDF(){
+    const table = document.getElementById('table-pdf')
+
+    html2canvas(table, {scale: 2}).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * pageWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 10, imgWidth, imgHeight)
+      pdf.save(`faktura_${this.orderId}.pdf`);
+    })
   }
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string) {
     const url = `${this.baseUrl}orders/create-order`;

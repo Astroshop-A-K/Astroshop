@@ -7,6 +7,7 @@
             <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
             <h1 style="font-weight: bold;">Order summary</h1>
           </div>
+          <div id="table-pdf">
             <div class="order-info">
                 <h2>Your delivery data</h2>
                 <address>
@@ -58,6 +59,7 @@
                     }
                   </div>
                 </div>
+              </div>
           </div>
             <div class="payment-option"><br>
                 <h2>Payment method</h2>
@@ -86,7 +88,7 @@
         </div>
         <div class="part4">
             <div class="submit">
-                <button class="btn btn-secondary" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
+                <button class="btn btn-secondary" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="generatePDF()" type="button">Finish order</button>
             </div>
         </div>
       </div>
