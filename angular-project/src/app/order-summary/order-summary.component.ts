@@ -74,9 +74,11 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.orderId = result;
             this.generateInvoice();
+            this.sendEmail('renonan.boss@gmail.com', 'AHOJ', 'AHOJ').subscribe();
             this.selectedProducts.forEach((product) => {
               this.addProductId(product.productId, this.orderId, product.amount).subscribe();
             })
+            this.CartService.clearCart();
           });
         }
       );
@@ -146,6 +148,11 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     doc.text(`Celkovo: ${this.totalPrice.toFixed(2)}€`, 160, cursorY);
 
     doc.save(`Faktura_č${this.orderId}.pdf`);
+  }
+  sendEmail(to: string, subject: string, body: string){
+    const url = `${this.baseUrl}email/send-email`;
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.put(url, { To: to, Subject: subject, Body: body }, { headers });
   }
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string) {
     const url = `${this.baseUrl}orders/create-order`;
