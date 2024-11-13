@@ -10,7 +10,8 @@ import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
 import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas';
+import 'jspdf-autotable';
+
 @Component({
   selector: 'app-order-summary',
   standalone: true,
@@ -72,6 +73,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         () => {
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.orderId = result;
+            this.generateInvoice();
             this.selectedProducts.forEach((product) => {
               this.addProductId(product.productId, this.orderId, product.amount).subscribe();
             })
@@ -81,18 +83,69 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       this.orderCompleted = true;
     } 
   }
-  generatePDF(){
-    const table = document.getElementById('table-pdf')
+  generateInvoice() {
+    const doc = new jsPDF();
+    const marginLeft = 10;
+    let cursorY = 20; //budeme mat miesto na vrchu page
 
-    html2canvas(table, {scale: 2}).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const imgWidth = pageWidth;
-      const imgHeight = (canvas.height * pageWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 0, 10, imgWidth, imgHeight)
-      pdf.save(`faktura_${this.orderId}.pdf`);
-    })
+    doc.setFontSize(19);
+    doc.text('Faktura', 105, cursorY, { align: 'center' });
+
+    cursorY += 10;
+    doc.setFontSize(12);
+    doc.text(`Fakturacne cislo: ${this.orderId}`, marginLeft, cursorY);
+    doc.text(`Dátum: ${this.currentDate.toString()}`, 142, cursorY);
+
+    cursorY += 10;
+    doc.setFontSize(10);
+    doc.text(`Od: Astroshop.sk`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`123 Universe Rd, Suite 120`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`Las Vegas, BS 54321`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`Tel.c.: +060 (800) 801-582`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`Emailova adresa: astroshop.sk@gmail.com`, marginLeft, cursorY);
+
+    cursorY += 10;
+    doc.text(`Sprava pre: ${this.OrderService.order.name} ${this.OrderService.order.surname}`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`${this.OrderService.order.address}`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`${this.OrderService.order.city}, ${this.OrderService.order.country}`, marginLeft, cursorY);
+    cursorY += 5;
+    doc.text(`Email: ${this.OrderService.order.email}`, marginLeft, cursorY);
+
+    const products = this.selectedProducts.map(product => [ //kazdy produkt sa zmapuje do riadkov ktore budu mat 4 stlpce
+      product.productName,
+      `${product.amount.toString()}`,
+      `${product.price.toFixed(2)}€`,
+      `${(product.amount * product.price).toFixed(2)}`
+    ]);
+
+    cursorY += 10;
+    (doc as any).autoTable({ //doc as any znamena ze to bude typu ANY aby sme mohli aplikovat autoTable funkciu
+      startX: cursorY,
+      startY: cursorY,
+      head: [['Popis', 'Mnozstvo', 'Cena', 'Celkovo']],
+      body: products,
+      theme: 'grid',
+      headStyles: { fillColor: [13, 110, 253]},
+      styles: { fontSize: 10, cellPadding: 2},
+      columnStyles: {
+        0: { cellWidth: 70, fontSize: 8},
+        1: { cellWidth: 30, halign: 'left'},
+        2: { cellWidth: 30, halign: 'left'},
+        3: { cellWidth: 30, halign: 'left'}
+      }
+    });
+
+    cursorY = (doc as any).lastAutoTable.finalY + 10;
+    doc.setFontSize(12);
+    doc.text(`Celkovo: ${this.totalPrice.toFixed(2)}€`, 160, cursorY);
+
+    doc.save(`Faktura_č${this.orderId}.pdf`);
   }
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string) {
     const url = `${this.baseUrl}orders/create-order`;
