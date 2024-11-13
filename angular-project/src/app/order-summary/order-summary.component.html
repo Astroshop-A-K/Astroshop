@@ -88,7 +88,7 @@
         </div>
         <div class="part4">
             <div class="submit">
-                <button class="btn btn-secondary" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="generatePDF()" type="button">Finish order</button>
+                <button class="btn btn-secondary" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
             </div>
         </div>
       </div>
