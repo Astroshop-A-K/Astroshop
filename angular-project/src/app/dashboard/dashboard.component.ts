@@ -6,6 +6,8 @@ import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, Mat
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
 import { Router } from '@angular/router';
+import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
+import { FavoriteProductsComponent } from '../favorite-products/favorite-products.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +39,9 @@ export class DashboardComponent implements OnInit {
   role: RoleDTO;
   roleName: string = '';
 
-  constructor(private router: Router){}
+  isLoading: boolean = true;
+
+  constructor(private router: Router, private favoriteProductsService: FavoriteProductsService){}
 
   logout() {
     this.authService.logout();
@@ -48,13 +52,13 @@ export class DashboardComponent implements OnInit {
     if(this.authService.authenticated()){
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
-          console.table(this.user);
           this.authService.getRole(this.user.id).subscribe(result => {
               this.role = result;
+              this.isLoading = false;
               if(this.role != null){
                   this.roleName = this.role.name;
               }
-          })
+          });
       })
    }
   }

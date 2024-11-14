@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegistrationResponse, UserLogin, UserLoginResponse, UserRegistration } from './user-registration';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthenticationService {
 
   authenticated = signal(this.isAuthenticated());
 
-  constructor(@Inject('BASE_URL') private baseUrl: string) {  }
+  constructor(@Inject('BASE_URL') private baseUrl: string, private favoriteProductsService: FavoriteProductsService) {  }
 
   registerUser(userData: UserRegistration): Observable<RegistrationResponse> {
     return this.httpClient.post<RegistrationResponse>(this.baseUrl + 'user/register', userData);
@@ -26,6 +27,7 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem("token");
     this.authenticated.set(false);
+    this.favoriteProductsService.countNum.set(0);
   }
 
   storeUserCredentials(token: string, username: string) {

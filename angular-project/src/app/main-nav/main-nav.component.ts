@@ -54,12 +54,6 @@ export class MainNavComponent implements OnInit {
     this.products = this.CartService.getProducts();
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
-    this.FProductsService.countNum.set(0);
-  }
-
   isCurrentRoute(route: string): boolean {
     return this.currentRoute.startsWith(route);
   }

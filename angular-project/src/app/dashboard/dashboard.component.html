@@ -1,29 +1,37 @@
 <title>Welcome {{user.userName}}!</title>
 <div class="content">
   <div class="dashboard">
-    <div class="title">
-     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-     <h1 style="font-weight: bold;">{{user.userName}}</h1><br>
-    </div>
-    <div class="info">
-      <label>Email:</label>
-      <span>{{user.email}}</span>
-    </div>
-    <div class="info">
-      <label>Email Confirmed:</label>
-      <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed}}</span>
-    </div>
-    <div class="info">
-      <label>Two Factor Enabled:</label>
-      <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled}}</span>
-    </div>
-    <div class="info">
-      <label>Access Failed Count:</label>
-      <span>{{user.accessFailedCount}}</span>
-    </div>
-    <div class="buttons">
-      <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
-      <button class="btn btn-danger">Remove account</button>
-    </div>
+    @if(isLoading){
+      <div class="spinner-container">
+        <div class="spinner">
+        </div>
+        Loading
+      </div>
+    }@else{
+      <div class="title">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+        <h1 style="font-weight: bold;">{{user.userName}}</h1><br>
+       </div>
+       <div class="info">
+         <label>Email:</label>
+         <span>{{user.email}}</span>
+       </div>
+       <div class="info">
+         <label>Email Confirmed:</label>
+         <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed}}</span>
+       </div>
+       <div class="info">
+         <label>Two Factor Enabled:</label>
+         <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled}}</span>
+       </div>
+       <div class="info">
+         <label>Access Failed Count:</label>
+         <span>{{user.accessFailedCount}}</span>
+       </div>
+       <div class="buttons">
+         <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+         <button class="btn btn-danger">Remove account</button>
+       </div>
+    }
   </div>
 </div>
