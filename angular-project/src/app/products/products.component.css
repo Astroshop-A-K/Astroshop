@@ -166,7 +166,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  z-index: 9998;
+  z-index: 1;
   position: absolute;
   top: 170px;
   left: 5px;
@@ -227,6 +227,8 @@ p {
   .content{
     padding: 0 80px 0 80px;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: auto;
   }
   .left-panel {
     opacity: 0;
@@ -243,13 +245,12 @@ p {
     width: 300px;
     opacity: 1;
   }
-  .content {
-    display: grid;
-    grid-template-columns: auto;
+  .icon-active{
+    display: none;
   }
   .gallery{
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, auto);
   }
   .search-triedicka {
     justify-content: center;
@@ -259,10 +260,7 @@ p {
     margin: 0;
   }
   .menu-icon {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
+    display: block;
   }
   .panel-heading a{
     display: block;
@@ -281,11 +279,7 @@ p {
 }
 @media (max-width: 830px) {
   .gallery{
-    grid-template-columns: auto auto;
-  }
-  .telescope_1 {
-    height: 390px;
-    width: 235px;
+    grid-template-columns: repeat(2, auto)
   }
   .telescope_1 p {
     font-size: 17px;
@@ -317,7 +311,7 @@ p {
     padding: 0 20px 0 20px;
   }
 }
-@media (max-width: 605px){
+@media (max-width: 600px){
   .search-triedicka{
     flex-direction: column;
   }
@@ -330,5 +324,24 @@ p {
   .telescope_1 img {
     max-width: 100%;
     height: 200px;
+  }
+}
+@media (max-width: 530px){
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+  }
+  .telescope_1 {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+  }
+  .telescope_1 img {
+    max-width: 100%;
+    height: 300px;
   }
 }
