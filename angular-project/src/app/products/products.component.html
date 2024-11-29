@@ -25,6 +25,9 @@
             <div class="product-title">
               <h1>Products</h1>
             </div>
+            <div class="a">
+
+            </div>
           </div>
             <div class="search-triedicka">
               <div class="search">
@@ -52,7 +55,7 @@
               <div class="gallery">
                 @if((ourFilteredProducts | search: searchText).length > 0){ <!--| pipe operator ktory pasuje value z lava do prava, toto dovoluje transformaciu predtym ako su nacitane v template-->
                   <ng-container *ngFor="let product of ourFilteredProducts | search: searchText">
-                    <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
+                    <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none; display: flex; align-items: center; justify-content: center;">
                       <div class="telescope_1">
                         <div class="names">
                           <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
