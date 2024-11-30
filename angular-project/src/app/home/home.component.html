@@ -26,24 +26,27 @@
           <h2>Current bestsellers</h2>
         </div>
         <div class="gallery">
-          <ng-container *ngFor="let product of productData.slice(0, 5)">
-            <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
-              <div class="telescope_1">
-                <div class="names">
-                  <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
-                  <p>{{ product.productName }}</p>
+          <div *ngFor="let product of productData.slice(0, 5); let i = index" class="product-card">
+            <a [routerLink]="['/products', product.productName]">
+              @if(i < 5){
+                <div class="product-tag">
+                  -10% off
                 </div>
-                <div class="star-rating">
-                  <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
-                  <p style="color: black;">({{product.reviewsCount}})</p>
-                </div>
-                <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                  <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                  <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
-                </div>
+              }
+              <div class="image-container">
+                <img [src]="product.productImage0" alt="{{ product.productName }}" class="product-image" />
+              </div>
+              <h3>{{ product.productName }}</h3>
+              <div class="star-rating">
+                <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+                <p class="reviews-count">({{product.reviewsCount}})</p>
+              </div>
+              <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="price-quantity">
+                <p class="price">{{ product.price }}€</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
               </div>
               </a>
-          </ng-container>
+            </div>
         </div>
       </div>
       <div class="second-section">
@@ -51,24 +54,22 @@
           <h2>Great for advanced</h2>
         </div>
         <div class="gallery">
-          <ng-container *ngFor="let product of productData.slice(5, 10)">
-            <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none;">
-              <div class="telescope_1">
-                <div class="names">
-                  <img [src]="product.productImage0" alt="Mount + {{product.productId}}" title="{{product.productName}}">
-                  <p>{{ product.productName }}</p>
-                </div>
-                <div class="star-rating">
-                  <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
-                  <p style="color: black;">({{product.reviewsCount}})</p>
-                </div>
-                <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                  <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                  <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
-                </div>
+          <div *ngFor="let product of productData.slice(5, 10)" class="product-card">
+            <a [routerLink]="['/products', product.productName]">
+              <div class="image-container">
+                <img [src]="product.productImage0" alt="{{ product.productName }}" class="product-image" />
+              </div>
+              <h3>{{ product.productName }}</h3>
+              <div class="star-rating">
+                <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+                <p class="reviews-count">({{product.reviewsCount}})</p>
+              </div>
+              <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="price-quantity">
+                <p class="price">{{ product.price }}€</p>
+                <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
               </div>
               </a>
-          </ng-container>
+          </div>
         </div>
       </div>
     }

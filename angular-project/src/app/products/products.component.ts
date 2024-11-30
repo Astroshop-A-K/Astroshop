@@ -39,11 +39,18 @@ export class ProductsComponent implements OnInit {
   onPageChange(page: number){
     this.currentPage = page;
     this.updateCurrentProducts();
+    this.scrollToTop();
   }
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
     this.ourFilteredProducts = this.sortedProducts.slice(startIndex, endIndex);
+  }
+  scrollToTop(){
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   }
 
   filterProducts(category: string) {
