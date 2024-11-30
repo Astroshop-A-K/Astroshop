@@ -1,87 +1,56 @@
 <title>Products</title>
 <div class="content">
-    <div class="left-panel" [ngClass]="{'active': isActive}">
-      <div class="panel-heading">
-        <h1>Categories</h1> <a (click)="toggleSidebar()"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a><br />
-      </div>
-        <ul class="category-list">
-            <li (click)="showAllProducts()" class="first-li"> All products</li>
-            <li (click)="filterProducts('TELE')" [ngClass]="{'active-category': selectedCategory === 'TELE'}"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Telescopes</li>
-            <li (click)="filterProducts('MONT')" [ngClass]="{'active-category': selectedCategory === 'MONT'}"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Mounts</li>
-            <li (click)="filterProducts('BINO')" [ngClass]="{'active-category': selectedCategory === 'BINO'}"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binoculars</li>
-            <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" alt="refractor" /> Refractors</li>
-            <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Eyepieces</li>
-            <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="morestuff" /> Filters</li>
-        </ul>
+  <div class="sidebar" [ngClass]="{'active': isActive}">
+    <div class="sidebar-heading">
+      <h1>Categories</h1>
+      <a (click)="toggleSidebar()" class="close-btn"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
     </div>
-      <div class="products">
-        <div class="product-side">
-          <div class="product-heading">
-            <div class="container">
-              <div class="menu-icon" [ngClass]="{'icon-active': !isActive}">
-                <a (click)="toggleSidebar()"><span>Categories<img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
-              </div>
-            </div>
-            <div class="product-title">
-              <h1>Products</h1>
-            </div>
-            <div class="a">
-
-            </div>
+    <ul class="category-list">
+      <li (click)="showAllProducts()"> All products</li>
+      <li (click)="filterProducts('TELE')" [ngClass]="{'active-category': selectedCategory === 'TELE'}"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Telescopes</li>
+      <li (click)="filterProducts('MONT')" [ngClass]="{'active-category': selectedCategory === 'MONT'}"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Mounts</li>
+      <li (click)="filterProducts('BINO')" [ngClass]="{'active-category': selectedCategory === 'BINO'}"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binoculars</li>
+      <li><img src="https://cdn-icons-png.flaticon.com/512/2972/2972087.png" alt="refractor" /> Refractors</li>
+      <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Eyepieces</li>
+      <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="morestuff" /> Filters</li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="product-header">
+      <h1>Products</h1>
+      <button class="toggle-sidebar" (click)="toggleSidebar()">☰ Categories</button>
+    </div>
+    <div class="filters">
+      <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Search product" (ngModelChange)="filtersProducts()">
+      <select (change)="onSortChange($event)">
+        <option disabled selected value>Not selected</option>
+        <option value="all">All products</option>
+        <option value="top">By top rated</option>
+        <option value="mostExpensive">From the most expensive</option>
+        <option value="leastExpensive">From the least expensive</option>
+        <option value="isAvailable">Are available</option>
+      </select>
+    </div>
+    <div class="gallery">
+      <div *ngFor="let product of ourFilteredProducts" class="product-card">
+        <a [routerLink]="['/products', product.productName]">
+          <div class="image-container">
+            <img [src]="product.productImage0" alt="{{ product.productName }}" class="product-image" />
           </div>
-            <div class="search-triedicka">
-              <div class="search">
-                <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Search product" (ngModelChange)="filtersProducts()">
-              </div>
-                <div class="select">
-                  <select class="sort" (change)="onSortChange($event)">
-                    <option disabled selected value>Not selected</option>
-                    <option value="all">All products</option>
-                    <option value="top">By top rated</option>
-                    <option value="mostExpensive">From the most expensive</option>
-                    <option value="leastExpensive">From the least expensive</option>
-                    <option value="isAvailable">Are available</option>
-                  </select>
-                </div>
-            </div>
-            @if(isLoading){
-              <div class="spinner-container">
-                <div class="spinner">
-                </div>
-                Loading
-              </div>
-            }
-            @else{
-              <div class="gallery">
-                @if((ourFilteredProducts | search: searchText).length > 0){ <!--| pipe operator ktory pasuje value z lava do prava, toto dovoluje transformaciu predtym ako su nacitane v template-->
-                  <ng-container *ngFor="let product of ourFilteredProducts | search: searchText">
-                    <a [routerLink]="['/products', product.productName]" style="color: black; text-decoration:none; display: flex; align-items: center; justify-content: center;">
-                      <div class="telescope_1">
-                        <div class="names">
-                          <img [src]="product.productImage0" alt="Telescope + {{product.productId}}" title="{{product.productName}}">
-                          <p>{{ product.productName }}</p>
-                        </div>
-                        <div class="star-rating">
-                          <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
-                          <p style="color: black;">({{product.reviewsCount}})</p>
-                        </div>
-                        <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="check">
-                          <p style="color: black; font-weight: bold;">{{ product.price }}€</p>
-                          <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
-                        </div>
-                      </div>
-                    </a>
-                  </ng-container>
-                }@else{
-                  <div class="no-products">
-                    <p>No products found<img src="https://cdn-icons-png.freepik.com/512/7465/7465679.png" alt="no-products-found"></p>
-                  </div>
-                }
-              </div>
-              <div class="paginator">
-                <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
-              </div>
-            }
-        </div>
+          <h3>{{ product.productName }}</h3>
+          <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="price-quantity">
+            <p class="price">{{ product.price }}€</p>
+            <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
+          </div>
+          <div class="star-rating">
+            <app-star-rating [rating]="product.averageStarRating" [readOnly]="true"></app-star-rating>
+            <p class="reviews-count">({{product.reviewsCount}})</p>
+          </div>
+        </a>
+      </div>
     </div>
+    <!--<div class="paginator">
+      <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+    </div>-->
+  </div>
 </div>
