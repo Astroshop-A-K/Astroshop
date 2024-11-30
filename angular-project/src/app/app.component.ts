@@ -46,6 +46,11 @@ export class AppComponent implements OnInit{
   onProductSelected(product: ProductsDTO){
     this.searchBar.setValue(product.productName);
     this.router.navigate(['/products', product.productName]);
+
+    this.filteredProducts = this.searchBar.valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterProducts(value || ''))
+    );
   }
 
   getData(){
@@ -59,7 +64,13 @@ export class AppComponent implements OnInit{
 
     this.filteredProducts = this.searchBar.valueChanges.pipe(
       startWith(''),
-      map(value => this.filterProducts(value || '')),
+      map(value => {
+        if(!value){
+          return [];
+        }else{
+          return this.filterProducts(value || '');
+        }
+      }),
     );
   }
 }
