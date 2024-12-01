@@ -2,25 +2,25 @@
   <div class="part1">
     <title>{{productInfo.productName}}</title>
     <div class="gallery">
-      <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50" (click)="positionLeft()"></button>
+      <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" (click)="positionLeft()"></button>
      <div [ngSwitch]="currentImagePosition" class="images">
       <img [src]="productInfo.productImage0" [title]="productInfo.productName" [alt]="productInfo.productName + 1" height="300" *ngSwitchCase="0"/>
       <img [src]="productInfo.productImage1" [title]="productInfo.productName" [alt]="productInfo.productName + 2" height="300" *ngSwitchCase="1"/>
       <img [src]="productInfo.productImage2" [title]="productInfo.productName" [alt]="productInfo.productName + 3" height="300" *ngSwitchCase="2"/>
     </div>
-      <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" height="50" width="50" (click)="positionRight()"></button>
+      <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" (click)="positionRight()"></button>
     </div>
     <div class="product-information">
       <h1>{{productInfo.productName}}</h1>
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
-        <p style="color: black; font-weight: bold;">{{ productInfo.price }}€</p>
+        <p class="price">{{ productInfo.price }}€</p>
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
         <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>
-        <p style="color: black;">({{reviewsCountSignal()}})</p>
+        <p class="reviewsCount">({{reviewsCountSignal()}})</p>
         <fa-icon (click)="addToFavorite()" [ngClass]="{'exists': favoriteProductExists, 'no-exists': !favoriteProductExists, 'clicked': isClicked}" [icon]="faHeart"></fa-icon>
       </div>
       <div class="add-to-cart-button">
-          <button class="btn btn-success" (click)="addToCart()">Add to cart<img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25"></button>
+          <button class="btn btn-success" (click)="addToCart()">Add to cart<img src="https://pngimg.com/d/shopping_cart_PNG64.png"></button>
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@
           <div class="char-count">{{ charactersCount }} / 150 characters</div>
         }
         @else{
-          <div class="char-count" style="visibility: hidden;">a</div>
+          <div class="char-count" style="visibility: hidden; display: none;">a</div>
         }
       </div>
       <div class="review" *ngFor="let review of reviewsData">

@@ -50,7 +50,7 @@
   flex-shrink: 0;
   flex-direction: column;
 }
-.sidebar h1, .price, .category-list > li:first-child, .main-content h1{ /*tato sipka > vyberie len prvy child*/
+.sidebar h1, .category-list > li:first-child, .main-content h1{ /*tato sipka > vyberie len prvy child*/
   font-weight: bold;
 }
 .category-list > li:first-child {
@@ -139,6 +139,7 @@ a{
 }
 .product-card h3{
   font-size: 0.18in;
+  font-weight: bold;
 }
 .product-card:hover{
   transform: translateY(-5px);
@@ -158,6 +159,7 @@ a{
 }
 .price{
   color: black;
+  font-weight: normal;
 }
 .star-rating, .price-quantity {
   display: flex;
@@ -172,9 +174,11 @@ a{
 }
 .available {
   color: green;
+  font-weight: bolder;
 }
 .unavailable {
   color: red;
+  font-weight: bolder;
 }
 .product-tag{
   border: none;

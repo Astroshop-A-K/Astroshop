@@ -63,7 +63,7 @@ export class AppComponent implements OnInit{
     this.getData();
 
     this.filteredProducts = this.searchBar.valueChanges.pipe(
-      startWith(''),
+      startWith(''), //ma zacinat ako empty string ked zacina ten input cez pipe prichadzat
       map(value => {
         if(!value){
           return [];
