@@ -44,6 +44,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  font-weight: bold;
 }
 #shop_now_button img {
   margin-left: 8px;
@@ -191,7 +192,7 @@ a {
 button {
   padding: 8px 18px;
   box-shadow: 2px 2px 2px gray;
-  transition: 0.4s scale;
+  transition: 0.3s scale, 0.2s background-color;
 }
 button:hover {
   scale: 1.025;

@@ -21,6 +21,7 @@
   background-color: white;
   border-radius: 10px;
   padding: 20px 40px 40px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .empty-cart{
   width: 45%;
@@ -51,7 +52,7 @@
 }
 .available{
   color: green;
-  font-weight: normal !important;
+  font-weight: bold !important;
 }
 .amount-control {
   display: flex;
@@ -89,9 +90,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-.remove-container span{
-  font-weight: bold;
 }
 .selectedProducts {
   width: 100%;

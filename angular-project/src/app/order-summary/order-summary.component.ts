@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
 import { jsPDF } from 'jspdf'
 import 'jspdf-autotable';
+import emailjs from 'emailjs-com';
 
 @Component({
   selector: 'app-order-summary',
@@ -74,7 +75,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.orderId = result;
             this.generateInvoice();
-            this.sendEmail('renonan.boss@gmail.com', 'AHOJ', 'AHOJ').subscribe();
             this.selectedProducts.forEach((product) => {
               this.addProductId(product.productId, this.orderId, product.amount).subscribe();
             })
@@ -143,16 +143,30 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       }
     });
 
+    const emailParams = {
+      customer_name: `${this.OrderService.order.name} ${this.OrderService.order.surname}`,
+      customer_email: this.OrderService.order.email,
+      customer_address: this.OrderService.order.address,
+      customer_city: this.OrderService.order.city,
+      customer_country: this.OrderService.order.country,
+      order_id: this.orderId,
+      order_date: this.currentDate,
+      products_table: this.selectedProducts.map(product => {
+        const total = (product.amount * product.price).toFixed(2);
+        return `${product.productName} | ${product.amount} | ${product.price.toFixed(2)}€ | ${total}€`;
+      }).join('\n'), //zmapujeme kazdy product v array a to sa tam akoby ulozi pre kazdy prvok ta value co sa vracia a join('\n') spoji vsetky prvky array do jedneho stringu a tie prvky su oddelene novym riadkom aby to tam nebolo prepchate preto to '\n'
+      total_price: this.totalPrice.toFixed(2),
+      subject: 'Order Information'
+    };
+
+    emailjs.init('vvvXsO3WEU729fqbQ');
+    emailjs.send('service_cleravy', 'template_5nu9fji', emailParams);
+
     cursorY = (doc as any).lastAutoTable.finalY + 10;
     doc.setFontSize(12);
     doc.text(`Celkovo: ${this.totalPrice.toFixed(2)}€`, 160, cursorY);
 
     doc.save(`Faktura_č${this.orderId}.pdf`);
-  }
-  sendEmail(to: string, subject: string, body: string){
-    const url = `${this.baseUrl}email/send-email`;
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.put(url, { To: to, Subject: subject, Body: body }, { headers });
   }
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string) {
     const url = `${this.baseUrl}orders/create-order`;

@@ -4,42 +4,57 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 300px;
-    padding-top: 120px;
+    padding-top: 60px;
+}
+.orders {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 .ordersTable{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-}
-.ordersTable th{
-    background-color: #f4f4f4;
-    padding: 10px;
-    text-align: left;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
 }
 .ordersTable td{
-    padding: 8px;
+    padding: 10px;
     text-align: left;
+    font-size: 1rem;
+    color: #555;
+    border-bottom: 1px solid #f4f4f4;
 }
-.ordersTable img{
-    max-width: 100%;
-    height: auto;
+.ordersTable th {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+.ordersTable tr:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
 }
 .link{
     text-decoration: underline;
-    color: black;
 }
 .link:hover{
     cursor: pointer;
 }
 .red-text{
-    color: red;
+    color: rgb(255, 43, 43) !important;
     font-weight: bold;
 }
 .yellow-text{
-    color: gold;
+    color: rgb(255, 227, 69) !important;
     font-weight: bold;
 }
 .green-text{
-    color: green;
+    color: rgb(0, 174, 0) !important;
     font-weight: bold;
 }
