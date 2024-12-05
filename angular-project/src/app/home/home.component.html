@@ -42,7 +42,12 @@
                 <p class="reviews-count">({{product.reviewsCount}})</p>
               </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="price-quantity">
-                <p class="price">{{ product.price }}€</p>
+                <div class="product-prices">
+                  @if(product.productDiscount > 0){
+                    <p class="price"><del>{{ product.price }}€</del></p>
+                    <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(0) }}€</p>
+                  }
+                </div>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
               </div>
               </a>
@@ -65,7 +70,12 @@
                 <p class="reviews-count">({{product.reviewsCount}})</p>
               </div>
               <div [ngClass]="{'available': product.quantity > 0, 'unavailable': product.quantity <= 0}" class="price-quantity">
-                <p class="price">{{ product.price }}€</p>
+                <div class="product-prices">
+                  @if(product.productDiscount > 0){
+                    <p class="price"><del>{{ product.price }}€</del></p>
+                    <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(0) }}€</p>
+                  }
+                </div>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
               </div>
               </a>

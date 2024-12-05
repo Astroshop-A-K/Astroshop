@@ -120,15 +120,21 @@ a {
   margin: 0 0 15px 0;
   border-bottom: 1px solid #ddd;
 }
-.price {
+.price, .new-price {
   color: black;
   font-weight: normal;
+}
+.new-price {
+  font-weight: bold;
 }
 .star-rating,
 .price-quantity {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.price-quantity p{
+  margin: 0;
 }
 .reviews-count {
   margin-top: 15px;
@@ -151,6 +157,13 @@ a {
   width: auto;
   top: -10px;
   left: -10px;
+}
+.product-prices{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  gap: 5px;
 }
 .top-brands {
   width: 100%;
