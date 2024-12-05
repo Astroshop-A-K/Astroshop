@@ -16,5 +16,6 @@ namespace AspNetCoreAPI.Models
         public int Quantity { get; set; }
         public int AverageStarRating { get; set; }
         public int ReviewsCount { get; set; }
+        public int ProductDiscount { get; set; }
     }
 }

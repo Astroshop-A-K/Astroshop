@@ -52,11 +52,14 @@ input::placeholder {
   font-size: 17px;
 }
 label,
-h1 {
+h1{
   font-weight: bold;
 }
 a {
   color: black;
+}
+.no-acc-label{
+  font-weight: normal !important;
 }
 @media (max-width: 768px) {
   .content {

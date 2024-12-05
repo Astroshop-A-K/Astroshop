@@ -58,6 +58,9 @@ h1 {
 a {
   color: black;
 }
+.acc-label{
+  font-weight: normal !important;
+}
 @media (max-width: 768px) {
   .content {
     padding: 120px 10px 160px 10px;

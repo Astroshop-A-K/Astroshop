@@ -30,7 +30,7 @@
             <a [routerLink]="['/products', product.productName]">
               @if(i < 5){
                 <div class="product-tag">
-                  -10% off
+                  -{{product.productDiscount}}% off
                 </div>
               }
               <div class="image-container">

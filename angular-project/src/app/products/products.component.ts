@@ -174,4 +174,5 @@ export interface ProductsDTO {
   quantity: number;
   averageStarRating: number;
   reviewsCount: number;
+  productDiscount: number;
 }

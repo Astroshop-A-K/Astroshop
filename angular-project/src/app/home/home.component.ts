@@ -57,4 +57,5 @@ interface HomeProductsDTO {
   quantity: number;
   averageStarRating: number;
   reviewsCount: number;
+  productDiscount: number;
 }

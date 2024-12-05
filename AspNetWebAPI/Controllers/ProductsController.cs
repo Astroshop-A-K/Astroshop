@@ -34,6 +34,7 @@ namespace AspNetCoreAPI.Controllers
                 Quantity = dbProducts.Quantity,
                 AverageStarRating = dbProducts.AverageStarRating,
                 ReviewsCount = dbProducts.ReviewsCount,
+                ProductDiscount = dbProducts.ProductDiscount
             });
         }
         [HttpGet]
@@ -54,7 +55,8 @@ namespace AspNetCoreAPI.Controllers
                 ProductImage2 = product.ProductImage2,
                 Quantity = product.Quantity,
                 AverageStarRating = product.AverageStarRating,
-                ReviewsCount = product.ReviewsCount
+                ReviewsCount = product.ReviewsCount,
+                ProductDiscount = product.ProductDiscount
             };
 
             return info;

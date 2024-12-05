@@ -48,9 +48,9 @@
       <div class="gallery">
         <div *ngFor="let product of ourFilteredProducts; let i = index" class="product-card">
           <a [routerLink]="['/products', product.productName]">
-            @if(i < 5){
+            @if(i < 5 && product.productDiscount > 0){
               <div class="product-tag">
-                -10% off
+                -{{product.productDiscount}}% off
               </div>
             }
             <div class="image-container">
