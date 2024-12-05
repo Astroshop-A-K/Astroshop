@@ -2,6 +2,11 @@
     <!--<div class="ad">
       <span class="adText">50% off with code BESTSHOP until the end of 2024 + <mark style="background-color: #dc3545; color: white;">NEW PRODUCTS ARE AVAILABLE!</mark></span>
     </div>-->
+    <div class="cookie-popup" [ngClass]="isHidden ? 'hidden' : 'not-hidden'">
+      <p>This website uses cookies to store user data and enhance user experience</p>
+      <button class="accept-cookies btn btn-primary" (click)="acceptCookies()">Accept</button>
+      <button class="decline-cookies btn btn-secondary" (click)="declineCookies()">Decline</button>
+    </div>
     <div class="responsive-info-menu">
       <div class="responsive-store-info">
         <span><img src="../assets/Images/white_location_icon.png" height="25" width="25" alt="store-location"><a href="" class="responsive-store-info-text">Store location</a></span>

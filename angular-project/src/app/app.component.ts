@@ -23,8 +23,19 @@ export class AppComponent implements OnInit{
   searchBar = new FormControl('');
   filteredProducts: Observable<ProductsDTO[]>;
 
+  isHidden: boolean = false;
+
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){
     this.searchText = '';
+  }
+
+  acceptCookies(){
+    localStorage.setItem('cookiesAccepted', 'true');
+    this.isHidden = true;
+  }
+  declineCookies(){
+    localStorage.setItem('cookiesAccepted', 'false');
+    this.isHidden = true;
   }
 
   onSearch(){
@@ -60,6 +71,11 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    let cookiesAccepted = JSON.parse(localStorage.getItem('cookiesAccepted'));
+    if(cookiesAccepted){
+      this.isHidden = true;
+    }
+    
     this.getData();
 
     this.filteredProducts = this.searchBar.valueChanges.pipe(

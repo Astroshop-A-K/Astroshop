@@ -213,6 +213,28 @@ h2 {
 .search-bar a{
   text-decoration: none !important;
 }
+.cookie-popup {
+  position: fixed;
+  z-index: 9999;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 350px;
+  margin-left: 20px;
+}
+.accept-cookies,
+.decline-cookies {
+  margin: 5px;
+}
+.hidden {
+  display: none;
+}
+.not-hidden {
+  display: block;
+}
 @media (max-width: 1000px) {
   .store-info-text {
     display: none;
