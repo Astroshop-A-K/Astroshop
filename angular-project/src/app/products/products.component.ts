@@ -140,18 +140,6 @@ export class ProductsComponent implements OnInit {
     }, error => console.error(error));
   }
 
-  @HostListener('window:scroll', []) 
-  onWindowScroll(){ 
-    const offset = window.pageYOffset;
-
-    if(offset > 1){
-      this.isActive = false;
-    }
-    else{
-      this.isActive = false;
-    }
-  }
-
   ngOnInit(): void {
     this.searchText = localStorage.getItem('searchText') || '';
 

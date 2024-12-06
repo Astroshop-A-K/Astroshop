@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductsDetailComponent } from '../products-detail/products-detail.component';
-import { ProductsComponent } from '../products/products.component';
-import { FavoriteProductsComponent } from '../favorite-products/favorite-products.component';
 
 @Component({
   selector: 'app-pagination',
@@ -11,7 +8,7 @@ import { FavoriteProductsComponent } from '../favorite-products/favorite-product
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit { /*TODO*/
   @Input() currentPage: number = 1;
   @Input() total: number = 0;
   @Input() limit: number = 4;
