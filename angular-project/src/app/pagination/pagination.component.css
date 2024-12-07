@@ -1,3 +1,12 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 10px 0;
+  background-color: white;
+  border-radius: 10px;
+}
 .page-item.active .page-link {
   background-color: #0d6efd;
   color: white;
@@ -7,9 +16,9 @@
   color: black;
   padding: 10px 20px;
   border: 2px solid #f4f4f4;
-}
-.pagination {
-  background-color: white;
+  border-radius: 5px;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 .arrow-left img {
   transform: rotate(180deg);
@@ -21,9 +30,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  padding: 9px;
+  padding: 10px 20px;
   width: 120px;
   border: 2px solid #f4f4f4;
+  height: 100%;
+  transition: all 0.3s ease;
+  border-radius: 5px;
 }
 .arrow-right img {
   margin: 0 0 1px 5px;
@@ -32,23 +44,10 @@
 .arrow-right:hover,
 .page-link:hover {
   cursor: pointer;
+  background-color: #e9f5ff;
+  transform: translateY(-2px);
 }
 .not-visible{
     visibility: collapse;
     display: none;
-}
-@media (max-width: 580px) {
-  .page-link {
-    padding: 8px 15px;
-    font-size: 0.8rem;
-  }
-  .arrow-left,
-  .arrow-right {
-    padding: 5.5px;
-    font-size: 0.8rem;
-  }
-  img {
-    height: 17px;
-    width: 17px;
-  }
 }

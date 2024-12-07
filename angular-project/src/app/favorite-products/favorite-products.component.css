@@ -69,6 +69,12 @@ h1 {
 .favorite-product:hover {
   transform: translateY(-5px);
 }
+.name-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
 .no-fproducts {
   padding: 20px;
   text-align: center;
@@ -161,6 +167,11 @@ h1 {
   }
 }
 @media (max-width: 580px) {
+  .name-image {
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-end;
+  }
   .content {
     padding-bottom: 100px;
   }
@@ -169,20 +180,6 @@ h1 {
   }
   .isLoading{
     width: 70%;
-  }
-  .product-image {
-    width: 145px;
-    padding: 10px;
-  }
-  .link, .spinner-container {
-    font-size: 0.8rem;
-  }
-  .remove-fav-product{
-    margin: 0 0 0 10px;
-  }
-  .remove-fav-product img{
-    height: 15px;
-    width: 15px;
   }
   h1 {
     font-size: 1.1rem;
