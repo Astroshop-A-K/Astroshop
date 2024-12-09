@@ -22,7 +22,7 @@ import { FavoriteProductsComponent } from './app/favorite-products/favorite-prod
 
 
 export function getBaseUrl() {
-  return 'https://astroshop.bsite.net/api/';
+  return 'https://astroshop.bsite.net/';
 }
 
 export function tokenGetter() {
