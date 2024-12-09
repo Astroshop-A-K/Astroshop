@@ -44,8 +44,8 @@
 .arrow-right:hover,
 .page-link:hover {
   cursor: pointer;
-  background-color: #e9f5ff;
   transform: translateY(-2px);
+  background-color: #f4f4f4dc;
 }
 .not-visible{
     visibility: collapse;

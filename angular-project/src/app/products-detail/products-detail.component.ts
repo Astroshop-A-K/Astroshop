@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, inject, signal} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, DatePipe } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgSwitch, NgSwitchCase, DatePipe, ViewportScroller } from '@angular/common';
 import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -66,11 +66,15 @@ export class ProductsDetailComponent implements OnInit {
     charactersCount: number = 0;
     userMessage: string = '';
 
-    constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe) {}
+    constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
     });
+
+    scrollToRating(){
+        this.viewportScroller.scrollToAnchor('review-form-id'); //mimo hash navigacii co funguje pri vanilla HTML a JS tak tu nas nepresmeruje na home page kedze nemame akoby default trasu a Angular pouziva to tak ze do URL da ten hash a to nas da na home page kedze nemame ziadnu defaultnu trasu nastavenu, t.j. puzijeme tento import on angularu viewportScroller a tak sa scrollneme dole.
+    }
 
     update(){
         this.charactersCount = this.userMessage.length;

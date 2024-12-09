@@ -15,7 +15,9 @@
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
         <p class="price">{{ productInfo.price }}€</p>
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
-        <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>
+        <a (click)="scrollToRating()" style="margin-bottom: 14px; padding: 0;">
+          <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>
+        </a>
         <p class="reviewsCount">({{reviewsCountSignal()}})</p>
         <fa-icon (click)="addToFavorite()" [ngClass]="{'exists': favoriteProductExists, 'no-exists': !favoriteProductExists, 'clicked': isClicked}" [icon]="faHeart"></fa-icon>
       </div>
@@ -24,7 +26,7 @@
       </div>
     </div>
   </div>
-    <div class="part2">
+    <div class="part2" id="review-form-id"> <!--Tu redirect-->
       <h2>Description</h2>
       <p style="padding-bottom: 40px;">{{productInfo.productDescription}}</p>
       <h2>Reviews</h2>

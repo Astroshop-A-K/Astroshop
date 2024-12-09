@@ -1,3 +1,6 @@
+html{
+  scroll-behavior: smooth;
+}
 .content {
   margin: 30px auto 80px auto; /*TOP A BOTTOM ; LEFT A RIGHT*/
   padding: 40px;
