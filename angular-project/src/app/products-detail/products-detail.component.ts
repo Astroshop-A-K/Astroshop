@@ -35,7 +35,8 @@ export class ProductsDetailComponent implements OnInit {
         quantity: 0,
         averageStarRating: 0,
         reviewsCount: 0,
-        amount: 0
+        amount: 0,
+        productDiscount: 0
     }; 
     public productName: string = '';
     public currentImagePosition: number = 0;

@@ -74,4 +74,5 @@ export interface ProductsDTO {
   averageStarRating: number;
   reviewsCount: number;
   amount: number;
+  productDiscount: number;
 }

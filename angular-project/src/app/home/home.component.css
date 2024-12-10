@@ -120,7 +120,7 @@ a {
   margin: 0 0 15px 0;
   border-bottom: 1px solid #ddd;
 }
-.price, .new-price {
+.price, .new-price, .no-discount-price {
   color: black;
   font-weight: normal;
 }
@@ -132,6 +132,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.price-quantity{
+  text-wrap: nowrap;
 }
 .price-quantity p{
   margin: 0;

@@ -13,7 +13,12 @@
     <div class="product-information">
       <h1>{{productInfo.productName}}</h1>
       <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
-        <p class="price">{{ productInfo.price }}€</p>
+        @if(productInfo.productDiscount > 0){
+          <p class="price"><del>{{ productInfo.price }}€</del></p>
+          <p class="new-price">{{ (productInfo.price - ((productInfo.price / 100)) * productInfo.productDiscount).toFixed(0) }}€</p>
+        }@else{
+          <p class="no-discount-price">{{ productInfo.price }}€</p>
+        }
         <p>{{ productInfo.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>
         <a (click)="scrollToRating()" style="margin-bottom: 14px; padding: 0;">
           <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>

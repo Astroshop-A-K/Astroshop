@@ -65,6 +65,9 @@ a {
   .content {
     padding: 120px 10px 160px 10px;
   }
+  .register-form{
+    padding: 25px 25px 0 25px;
+  }
   h1 {
     font-size: 1.5em;
   }
@@ -75,9 +78,6 @@ a {
 @media (max-width: 480px) {
   .content {
     padding: 50px 15px 50px 15px;
-  }
-  form {
-    padding: 20px 0px 20px 0;
   }
   label,
   button,

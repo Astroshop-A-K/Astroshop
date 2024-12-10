@@ -114,6 +114,9 @@ p {
   .content {
     padding: 90px 10px 160px 10px;
   }
+  .contact-form{
+    padding: 25px 25px 0 25px;
+  }
   .form {
     padding: 15px;
   }

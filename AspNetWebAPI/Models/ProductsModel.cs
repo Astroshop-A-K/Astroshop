@@ -18,10 +18,8 @@ namespace AspNetCoreAPI.Models
         [Url(ErrorMessage = "Url must be valid")]
         public string? ProductImage0 { get; set; }
         [Url(ErrorMessage = "Url must be valid")]
-
         public string? ProductImage1 { get; set; }
         [Url(ErrorMessage = "Url must be valid")]
-
         public string? ProductImage2 { get; set; }
         [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Quantity can't be negative")]

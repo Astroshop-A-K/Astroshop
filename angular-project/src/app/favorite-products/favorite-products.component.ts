@@ -34,12 +34,20 @@ export class FavoriteProductsComponent implements OnInit {
   onPageChange(page: number){
     this.currentPage = page;
     this.updateCurrentProducts();
+    this.scrollToTop();
   }
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
     this.sortedFavoriteProducts = this.favoriteProducts.slice(startIndex, endIndex);
   }
+  scrollToTop(){
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   removeFavoriteProduct(userId: string, productId: number){
     const index = this.sortedFavoriteProducts.findIndex(product => product.productId === productId);
     if(index !== -1){

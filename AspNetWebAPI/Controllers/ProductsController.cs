@@ -2,6 +2,8 @@
 using AspNetCoreAPI.Data;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.DTO;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -42,6 +44,8 @@ namespace AspNetCoreAPI.Controllers
         public ProductsDTO getProductInfo(string productName)
         {
             ProductsModel product = _context.Products.Where(p => p.ProductName == productName).FirstOrDefault();
+
+            
 
             var info = new ProductsDTO
             {
