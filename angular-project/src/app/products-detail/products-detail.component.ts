@@ -133,6 +133,9 @@ export class ProductsDetailComponent implements OnInit {
             this.currentImagePosition = 0;
         }
     }
+    setImagePosition(position: number){
+        this.currentImagePosition = position;
+    }
 
     shareReview(reviewCreator: string, reviewComment: string, reviewDate: string){
         this.sharingReviewText = `<${reviewCreator}> wrote: <${reviewComment}> on <${reviewDate}>`;

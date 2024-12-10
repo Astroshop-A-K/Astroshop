@@ -46,9 +46,9 @@
     @else{
       @if((ourFilteredProducts | search: searchText).length > 0){
       <div class="gallery">
-        <div *ngFor="let product of ourFilteredProducts; let i = index" class="product-card">
+        <div *ngFor="let product of ourFilteredProducts" class="product-card">
           <a [routerLink]="['/products', product.productName]" class="link">
-            @if(i < 5 && product.productDiscount > 0){
+            @if(product.productDiscount > 0){
               <div class="product-tag">
                 -{{product.productDiscount}}% off
               </div>

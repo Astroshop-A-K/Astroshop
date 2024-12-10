@@ -1,13 +1,25 @@
 <div class="content" *ngIf="productInfo">
+  @if(productInfo.productDiscount > 0){
+    <div class="product-tag">
+      -{{productInfo.productDiscount}}% off
+    </div>
+  }
   <div class="part1">
     <title>{{productInfo.productName}}</title>
-    <div class="gallery">
+    <div class="gallery-container">
       <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" (click)="positionLeft()"></button>
-     <div [ngSwitch]="currentImagePosition" class="images">
-      <img [src]="productInfo.productImage0" [title]="productInfo.productName" [alt]="productInfo.productName + 1" height="300" *ngSwitchCase="0"/>
-      <img [src]="productInfo.productImage1" [title]="productInfo.productName" [alt]="productInfo.productName + 2" height="300" *ngSwitchCase="1"/>
-      <img [src]="productInfo.productImage2" [title]="productInfo.productName" [alt]="productInfo.productName + 3" height="300" *ngSwitchCase="2"/>
-    </div>
+      <div class="gallery">
+       <div [ngSwitch]="currentImagePosition" class="images">
+        <img [src]="productInfo.productImage0" [title]="productInfo.productName" [alt]="productInfo.productName + 1" height="260" *ngSwitchCase="0"/>
+        <img [src]="productInfo.productImage1" [title]="productInfo.productName" [alt]="productInfo.productName + 2" height="260" *ngSwitchCase="1"/>
+        <img [src]="productInfo.productImage2" [title]="productInfo.productName" [alt]="productInfo.productName + 3" height="260" *ngSwitchCase="2"/>
+       </div>
+       <div class="thumbnail-gallery">
+        <img [src]="productInfo.productImage0" [title]="productInfo.productName" [alt]="productInfo.productName + ' 1'" height="75" (click)="setImagePosition(0)" [class.selected]="currentImagePosition === 0"/>
+        <img [src]="productInfo.productImage1" [title]="productInfo.productName" [alt]="productInfo.productName + ' 2'" height="75" (click)="setImagePosition(1)" [class.selected]="currentImagePosition === 1"/>
+        <img [src]="productInfo.productImage2" [title]="productInfo.productName" [alt]="productInfo.productName + ' 3'" height="75" (click)="setImagePosition(2)" [class.selected]="currentImagePosition === 2"/>
+       </div>
+      </div>
       <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" (click)="positionRight()"></button>
     </div>
     <div class="product-information">
