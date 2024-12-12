@@ -8,6 +8,14 @@
   @if(products.length > 0){
     <table class="selectedProducts">
       <tr *ngFor="let product of products" class="product">
+        @if(product.productDiscount > 0){
+          <div class="product-tag">
+            -{{product.productDiscount}}% off
+          </div>
+        }
+        @else{
+          <div class="product-tag-hidden"></div>
+        }
         <td class="product-image-cell"><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225" class="product-image">
         </td>
         <td class="product-name">{{product.productName}}<br>
@@ -24,7 +32,14 @@
         </td>
         <td>
           <div class="remove-container">
-            <span>{{product.price}}€</span>
+            <div class="product-prices">
+              @if(product.productDiscount > 0){
+                <p class="price"><del>{{ product.price }}€</del></p>
+                <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }}€</p>
+              }@else{
+                <p class="no-discount-price">{{ product.price }}€</p>
+              }
+            </div>
             <a (click)="CartService.removeProduct(product)" class="remove-product">Remove</a>
           </div>
         </td>

@@ -37,6 +37,7 @@
 .close-btn{
   display: none;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .sidebar-heading img{
   transform: rotate(180deg);

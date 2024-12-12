@@ -42,9 +42,9 @@ export class CartService {
   totalPrice(){
     let totalPrice = 0;
     for (const product of this.products) {
-      totalPrice += product.price * product.amount;
+      totalPrice += product.productDiscount > 0 ? ((product.price - ((product.price / 100)) * product.productDiscount)) * product.amount : product.price * product.amount;
     }
-    return (Math.round(totalPrice * 100) / 100);
+    return parseFloat(totalPrice.toFixed(2));
   }
 
   removeProduct(product: ProductsDTO){
