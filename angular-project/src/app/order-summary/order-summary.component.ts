@@ -9,9 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { __values } from 'tslib';
-import { jsPDF } from 'jspdf'
-import 'jspdf-autotable';
 import emailjs from 'emailjs-com';
+import * as html2pdf from 'html2pdf.js'; 
 
 @Component({
   selector: 'app-order-summary',
@@ -86,62 +85,83 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     } 
   }
   generateInvoice() {
-    const doc = new jsPDF();
-    const marginLeft = 10;
-    let cursorY = 20; //budeme mat miesto na vrchu page
-
-    doc.setFontSize(19);
-    doc.text('Faktura', 105, cursorY, { align: 'center' });
-
-    cursorY += 10;
-    doc.setFontSize(12);
-    doc.text(`Fakturacne cislo: ${this.orderId}`, marginLeft, cursorY);
-    doc.text(`Dátum: ${this.currentDate.toString()}`, 142, cursorY);
-
-    cursorY += 10;
-    doc.setFontSize(10);
-    doc.text(`Od: Astroshop.sk`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`123 Universe Rd, Suite 120`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`Las Vegas, BS 54321`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`Tel.c.: +060 (800) 801-582`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`Emailova adresa: astroshop.sk@gmail.com`, marginLeft, cursorY);
-
-    cursorY += 10;
-    doc.text(`Sprava pre: ${this.OrderService.order.name} ${this.OrderService.order.surname}`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`${this.OrderService.order.address}`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`${this.OrderService.order.city}, ${this.OrderService.order.country}`, marginLeft, cursorY);
-    cursorY += 5;
-    doc.text(`Email: ${this.OrderService.order.email}`, marginLeft, cursorY);
-
-    const products = this.selectedProducts.map(product => [ //kazdy produkt sa zmapuje do riadkov ktore budu mat 4 stlpce
-      product.productName,
-      `${product.amount.toString()}`,
-      `${product.price.toFixed(2)}€`,
-      `${(product.amount * product.price).toFixed(2)}`
-    ]);
-
-    cursorY += 10;
-    (doc as any).autoTable({ //doc as any znamena ze to bude typu ANY aby sme mohli aplikovat autoTable funkciu
-      startX: cursorY,
-      startY: cursorY,
-      head: [['Popis', 'Mnozstvo', 'Cena', 'Celkovo']],
-      body: products,
-      theme: 'grid',
-      headStyles: { fillColor: [13, 110, 253]},
-      styles: { fontSize: 10, cellPadding: 2},
-      columnStyles: {
-        0: { cellWidth: 70, fontSize: 8},
-        1: { cellWidth: 30, halign: 'left'},
-        2: { cellWidth: 30, halign: 'left'},
-        3: { cellWidth: 30, halign: 'left'}
-      }
-    });
+    const invoiceHTML = `
+    <div style="width: 100%;box-sizing: border-box; padding: 50px">
+      <div class="title-element" style="font-family: Arial, Helvetica, sans-serif; text-align: center;">
+        <h2>Číslo objednávky: <strong>${this.orderId}</strong></h2>
+      </div>
+      <div class="first-table">
+        <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Dátum</th>
+            <td style="padding: 8px;">${this.currentDate}</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Hmotnosť objednávky</th>
+            <td style="padding: 8px;">0 kg</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Celkový počet produktov</th>
+            <td style="padding: 8px;">${this.selectedProducts.reduce((sum, product) => sum + product.amount, 0)}</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">IP adresa</th>
+            <td style="padding: 8px;">192.168.10.1</td>
+          </tr>
+        </table>
+      </div>
+      <div class="second-table" style="margin-top: 10px">
+        <h3>Objednané produkty</h3>
+        <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
+          <tr style="background-color: #f9f9f9;">
+            <th style="padding: 10px;">Číslo produktu</th>
+            <th style="padding: 10px;">Cena/ks</th>
+            <th style="padding: 10px;">Ks</th>
+            <th style="padding: 10px;">Celkom</th>
+          </tr>
+          ${this.selectedProducts.map(item => `
+            <tr>
+              <td style="padding: 8px;">${item.productId}</td>
+              <td style="padding: 8px;">${item.price} €</td>
+              <td style="padding: 8px;">${item.amount}</td>
+              <td style="padding: 8px;">${(item.amount * item.price).toFixed(2)} €</td>
+            </tr>
+          `).join('')}
+          <tr>
+            <td style="font-weight: bold;">CELKOM:</td>
+            <td></td>
+            <td></td>
+            <td style="font-weight: bold;">${this.totalPrice.toFixed(2)}€</td>
+          </tr>
+        </table>
+      </div>
+      <div class="third-table" style="margin-top: 10px">
+        <h3>Objednávateľ</h3>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #ccc;">
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Meno</th>
+            <td style="padding: 8px;">${this.OrderService.order.name} ${this.OrderService.order.surname}</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Adresa</th>
+            <td style="padding: 8px;">${this.OrderService.order.address}, ${this.OrderService.order.city}, ${this.OrderService.order.postalCode}</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">E-mail</th>
+            <td style="padding: 8px;">${this.OrderService.order.email}</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Tel.č.</th>
+            <td style="padding: 8px;">${this.OrderService.order.phoneNumber}</td>
+          </tr>
+          <tr>
+            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Štát</th>
+            <td style="padding: 8px;">${this.OrderService.order.country}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  `;
 
     const emailParams = {
       customer_name: `${this.OrderService.order.name} ${this.OrderService.order.surname}`,
@@ -162,11 +182,11 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     emailjs.init('vvvXsO3WEU729fqbQ');
     emailjs.send('service_cleravy', 'template_5nu9fji', emailParams);
 
-    cursorY = (doc as any).lastAutoTable.finalY + 10;
-    doc.setFontSize(12);
-    doc.text(`Celkovo: ${this.totalPrice.toFixed(2)}€`, 160, cursorY);
-
-    doc.save(`Faktura_č${this.orderId}.pdf`);
+    const element = document.createElement('div');
+    element.innerHTML = invoiceHTML;
+    html2pdf().from(element).toPdf().get('pdf').then((pdf)=>{
+      pdf.save(`Faktura_č${this.orderId}.pdf`);
+    })
   }
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string) {
     const url = `${this.baseUrl}orders/create-order`;
