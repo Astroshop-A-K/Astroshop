@@ -324,7 +324,7 @@ export class ProductsDetailComponent implements OnInit {
            },
            error => console.error(error)
         );
-        this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
+        this.currentDate = this.datePipe.transform(new Date(), 'dd.MM.yyyy');
     }
 }
 export interface ReviewsDTO{
