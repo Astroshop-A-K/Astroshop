@@ -2,7 +2,6 @@ fa-icon{
     cursor: pointer;
     color: gray;
     font-size: 24px;
-    margin: 2px;
 
     &.rated{
         color: orange;
@@ -20,9 +19,4 @@ fa-icon{
 }
 .readOnly{
     padding: 0;
-}
-@media (max-width: 830px){
-    fa-icon{
-        font-size: 24px;
-    }
 }

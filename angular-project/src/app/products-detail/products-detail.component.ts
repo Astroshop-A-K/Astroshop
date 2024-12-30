@@ -67,6 +67,8 @@ export class ProductsDetailComponent implements OnInit {
     charactersCount: number = 0;
     userMessage: string = '';
 
+    isLoading: boolean = true;
+
     constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
 
     reviewForm = new FormGroup({
@@ -183,7 +185,8 @@ export class ProductsDetailComponent implements OnInit {
                     this.getReviews(this.productName).subscribe(result => {
                         this.reviewsData = result;
                         this.filterReviews();
-                    })
+                    });
+                    this.snackBar.open("Your review was successfully created!", "", { duration: 1500, }); 
                 }
                 );
     
@@ -215,6 +218,9 @@ export class ProductsDetailComponent implements OnInit {
                         averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
                         this.averageStarRatingSignal.update(value => averageStarRating);
                     }
+
+                    this.snackBar.open("Your review was successfully removed!", "", { duration: 1500, }); 
+
                     reviewsCount = this.reviewsData.length;
                     this.reviewsCountSignal.update(value => this.reviewsData.length);
                     this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
@@ -292,6 +298,7 @@ export class ProductsDetailComponent implements OnInit {
         this.getProductInfo(this.productName).subscribe(
             result => {
                 this.productInfo = result;
+                this.isLoading = false;
             },
             error => console.error(error)
         );
@@ -324,7 +331,7 @@ export class ProductsDetailComponent implements OnInit {
            },
            error => console.error(error)
         );
-        this.currentDate = this.datePipe.transform(new Date(), 'dd.MM.yyyy');
+        this.currentDate = this.datePipe.transform(new Date(), 'MMM d, y, h:mm a');
     }
 }
 export interface ReviewsDTO{

@@ -102,7 +102,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
           </tr>
           <tr>
             <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Celkový počet produktov</th>
-            <td style="padding: 8px;">${this.selectedProducts.reduce((sum, product) => sum + product.amount, 0)}</td>
+            <td style="padding: 8px;">${this.selectedProducts.reduce((sum, product) => sum + product.amount, 0)} ks</td>
           </tr>
           <tr>
             <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">IP adresa</th>
@@ -114,24 +114,24 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         <h3>Objednané produkty</h3>
         <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
           <tr style="background-color: #f9f9f9;">
-            <th style="padding: 10px;">Číslo produktu</th>
-            <th style="padding: 10px;">Cena/ks</th>
-            <th style="padding: 10px;">Ks</th>
-            <th style="padding: 10px;">Celkom</th>
+            <th style="padding: 8px;">Číslo produktu</th>
+            <th style="padding: 8px;">Cena/ks</th>
+            <th style="padding: 8px;">Ks</th>
+            <th style="padding: 8px;">Celkom</th>
           </tr>
           ${this.selectedProducts.map(item => `
             <tr>
               <td style="padding: 8px;">${item.productId}</td>
-              <td style="padding: 8px;">${item.price} €</td>
+              <td style="padding: 8px;">${(item.price - ((item.price / 100)) * item.productDiscount).toFixed(2) }€ (-${item.productDiscount}%)</td>
               <td style="padding: 8px;">${item.amount}</td>
-              <td style="padding: 8px;">${(item.amount * item.price).toFixed(2)} €</td>
+              <td style="padding: 8px;">${(item.amount * (item.price - (item.price / 100) * item.productDiscount)).toFixed(2)}€</td>
             </tr>
           `).join('')}
           <tr>
-            <td style="font-weight: bold;">CELKOM:</td>
-            <td></td>
-            <td></td>
-            <td style="font-weight: bold;">${this.totalPrice.toFixed(2)}€</td>
+            <td style="font-weight: bold; padding: 8px;">CELKOM:</td>
+            <td style="padding: 8px;"></td>
+            <td style="padding: 8px;"></td>
+            <td style="font-weight: bold; padding: 8px">${this.totalPrice.toFixed(2)}€</td>
           </tr>
         </table>
       </div>

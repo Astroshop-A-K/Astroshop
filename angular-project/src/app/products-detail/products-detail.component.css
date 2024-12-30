@@ -37,6 +37,17 @@ html{
   flex-direction: column;
   gap: 0;
 }
+.images{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.images img {
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  height: 260px;
+}
 .thumbnail-gallery{
   display: flex;
   align-items: center;
@@ -98,6 +109,7 @@ html{
   transform: rotate(360deg);
   height: 25px;
   width: 25px;
+  margin-left: 8px;
 }
 .add-to-cart-button button:hover {
   background-color: #218838;
@@ -148,7 +160,7 @@ html{
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 .review-form input {
@@ -164,36 +176,60 @@ html{
   padding-bottom: 5px;
   padding-top: 5px;
 }
-.review {
-  width: 100%;
-  height: auto;
-  background-color: #ebebeb;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
-.title {
-  width: 100%;
+.review {
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  background: #f9f9f9;
+}
+.title{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
-.title img {
-  margin-right: 10px;
+.title-part1{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
-.description{
-  font-size: 17px;
+.star-rating, .review-creator, .review-date{
+  margin: 0;
+}
+.review-creator{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.review-date{
+  color: #666;
+  font-size: 14px;
+}
+.title-part2 {
+  display: flex;
+  align-items: center;
 }
 .dropdown {
   position: relative;
-  display: inline-block;
   border-radius: 15px;
+  cursor: pointer;
+  padding: 5px;
 }
 .dropdown-content {
   display: none;
   position: absolute;
+  right: 0;
   transition: transform 0.3s ease;
-  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-top: 5px;
 }
 .dropdown:hover .dropdown-content {
   display: block;
@@ -211,58 +247,10 @@ html{
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px;
 }
-.title-part1 {
-  width: 90%;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  flex-wrap: wrap;
-}
-.star-rating-date{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.title-part2 {
-  width: 10%;
-  display: flex;
-  justify-content: right;
-  margin-right: 20px;
-}
-.title h3,
-img {
-  margin: 10px;
-}
-.description {
-  margin: 0 20px 20px 20px;
-  padding-bottom: 10px;
-  padding-top: 14px;
-}
-.images{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.images img {
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-  height: 260px;
-}
-.field {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 0px;
-}
-.star-rating {
-  margin-top: 20px;
-}
-app-star-rating {
-  margin-bottom: 13px;
+.description p{
+  margin: 0;
 }
 fa-icon {
   font-size: 24px;
@@ -330,9 +318,6 @@ fa-icon.not-clicked {
   }
 }
 @media (max-width: 480px){
-  .review-form input{
-    font-size: 12px;
-  }
   .images img{
     height: 225px;
   }
