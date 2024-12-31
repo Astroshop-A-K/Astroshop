@@ -15,6 +15,7 @@ export class OrderService {
     country: '',
     deliveryOption: '',
     payment: '',
+    orderNote: '',
     totalPrice: 0,
   }
 
@@ -31,5 +32,6 @@ export interface OrdersDTO{
   country?: string;
   deliveryOption?: string;
   payment?: string;
+  orderNote?: string;
   totalPrice?: number;
 }

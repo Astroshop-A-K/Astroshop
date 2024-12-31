@@ -29,7 +29,8 @@ export class UserOrderDetailsComponent implements OnInit {
     totalPrice: 0,
     orderVerificationKey: '',
     orderDate: '',
-    orderStatus: ''
+    orderStatus: '',
+    orderNote: ''
   }; 
   public orderId: number = 0;
   public selectedProducts: ProductsDTO[] = [];

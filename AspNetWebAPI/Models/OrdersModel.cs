@@ -23,5 +23,6 @@ namespace AspNetCoreAPI.Models
         public string? OrderVerificationKey { get; set; }
         public string? OrderDate { get; set; }
         public string? OrderStatus { get; set; }
+        public string? OrderNote { get; set; }
     }
 }

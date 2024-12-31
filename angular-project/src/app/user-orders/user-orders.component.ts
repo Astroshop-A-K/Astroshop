@@ -41,4 +41,5 @@ export interface OrdersDTO{
   orderVerificationKey: string;
   orderDate: string;
   orderStatus: string;
+  orderNote: string;
 }

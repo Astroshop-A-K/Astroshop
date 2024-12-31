@@ -1,4 +1,5 @@
 ﻿using AspNetCoreAPI.Models;
+using System.Runtime.InteropServices;
 
 namespace AspNetCoreAPI.DTO
 {
@@ -19,5 +20,6 @@ namespace AspNetCoreAPI.DTO
         public string? OrderVerificationKey { get; set; }
         public string? OrderDate { get; set; }
         public string? OrderStatus { get; set;}
+        public string? OrderNote { get; set; }
     }
 }

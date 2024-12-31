@@ -78,6 +78,7 @@ export class OrderPageComponent implements OnInit {
         country: this.orderForm.value.country,
         deliveryOption: this.orderForm.value.deliveryOption,          
         totalPrice: this.totalPrice,
+        orderNote: this.orderForm.value.note
       }
       this.router.navigate(['/order/order-summary'])
   }else{
