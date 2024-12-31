@@ -76,6 +76,15 @@ export class ProductsDetailComponent implements OnInit {
         reviewComment: new FormControl('', Validators.required),
     });
 
+    validateAllFormFields(formGroup: FormGroup){
+        Object.keys(formGroup.controls).forEach(field => {
+          const control = formGroup.get(field);
+          if(control?.invalid){
+            control.markAsTouched(); 
+          }
+        })
+    }
+
     toggleDropdown(){
         this.isActive = !this.isActive;
     }
@@ -165,8 +174,8 @@ export class ProductsDetailComponent implements OnInit {
     onSubmit(){
         if(this.authService.authenticated()){
             const repeatedReviewCreator = this.reviewsData.find(r => r.reviewCreator === this.reviewCreator);
-        if(!repeatedReviewCreator){
             if(this.reviewForm.valid && this.productRating > 0){
+              if(!repeatedReviewCreator){
                 const routeParams = this.route.snapshot.paramMap;
                 this.productName = String(routeParams.get('productName'));
     
@@ -198,11 +207,12 @@ export class ProductsDetailComponent implements OnInit {
                 this.reviewForm.reset();
                 this.productRating = 0;
                 this.userMessage = '';
+            }else{
+                this.snackBar.open("You already have a review here!", "", { duration: 1500, })
+            }}else{
+                this.validateAllFormFields(this.reviewForm);
+                this.snackBar.open("Field for review description wasn't filled or star rating wasn't selected!", "", { duration: 1500, })
             }
-        }
-        else{
-            this.snackBar.open("You already have a review here!", "", { duration: 1500, })
-        }
         }
         else{
             this.router.navigate(['/login']);

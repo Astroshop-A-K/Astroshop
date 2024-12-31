@@ -62,12 +62,12 @@
           <form [formGroup]="reviewForm">
             <div class="field">
               <div class="reviewComment">
-                <input type="text" placeholder="Type your review here..."  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()">
+                <input type="text" class="form-control" placeholder="Type your review here..."  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': reviewForm.get('reviewComment').invalid && reviewForm.get('reviewComment').touched}">
               </div>
               <div class="star-rating-form">
                   <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
               </div>
-              <button class="btn btn-secondary" type="button" (click)="onSubmit()" [disabled]="!reviewForm.valid || productRating === 0">Send</button>
+              <button class="btn btn-secondary" type="button" (click)="onSubmit()">Send</button>
             </div>
           </form>
           @if(userMessage.length > 0){

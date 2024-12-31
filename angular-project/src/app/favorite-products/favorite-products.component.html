@@ -17,6 +17,14 @@
                 <div class="favorite-products">
                     <ng-container *ngFor="let favoriteProduct of sortedFavoriteProducts">
                         <div class="favorite-product">
+                            @if(favoriteProduct.productDiscount > 0){
+                                <div class="product-tag">
+                                  -{{favoriteProduct.productDiscount}}% off
+                                </div>
+                            }
+                            @else{
+                                <div class="product-tag-hidden"></div>
+                            }
                             <a class="remove-fav-product" (click)="removeFavoriteProduct(user.id, favoriteProduct.productId)">
                                 <img src="../../assets/Images/remove-icon.png" alt="Remove Favorite" width="20" height="20">
                             </a>

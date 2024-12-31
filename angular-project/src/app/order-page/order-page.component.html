@@ -1,79 +1,86 @@
 <title>Your order</title>
 <div class="content">
-    <form class="form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <form class="order-form" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
         <div class="title">
-            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+            <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon">
             <h1 style="font-weight: bold;">Order information</h1>
         </div>
-        <h2>Delivery address</h2>
-            <div class="field">
-                <label>Name</label><br>
-                <input type="text" class="name" placeholder="Your name" formControlName="name">
+        <div class="order-form-content">
+            <h2 class="delivery-address-title">Delivery address</h2>
+            <div class="full-name-field">
+                <div class="field">
+                    <label class="form-label">First name*</label><br>
+                    <input type="text" class="form-control" placeholder="Your first name" formControlName="firstName" [ngClass]="{'is-invalid': orderForm.get('firstName').invalid && orderForm.get('firstName').touched}">
+                </div>
+                <div class="field">
+                    <label class="form-label">Last name*</label><br>
+                    <input type="text" class="form-control" placeholder="Your last name" formControlName="lastName" [ngClass]="{'is-invalid': orderForm.get('lastName').invalid && orderForm.get('lastName').touched}">
+                </div>
             </div>
-            
             <div class="field">
-                <label>Surname</label><br>
-                <input type="text" class="surname" placeholder="Your surname" formControlName="surname">
+                <label class="form-label">Address*</label><br>
+                <input type="text" class="form-control" placeholder="Your address" formControlName="address" [ngClass]="{'is-invalid': orderForm.get('address').invalid && orderForm.get('address').touched}">
             </div>
-
-            <div class="field">
-                <label>E-mail</label><br>
-                <input type="email" class="email" placeholder="Your e-mail address" formControlName="email">
+            <div class="postal-code-city-field">
+                <div class="field">
+                    <label class="form-label">Postal code*</label><br>
+                    <input type="text" class="form-control" placeholder="Your postal code" formControlName="postalCode" [ngClass]="{'is-invalid': orderForm.get('postalCode').invalid && orderForm.get('postalCode').touched}">
+                </div>
+                <div class="field">
+                    <label class="form-label">City*</label><br>
+                    <input type="text" class="form-control" placeholder="Your city" formControlName="city" [ngClass]="{'is-invalid': orderForm.get('city').invalid && orderForm.get('city').touched}">
+                </div>
             </div>
-            
             <div class="field">
-                <label>Phone number</label><br>
-                <input type="number" class="phoneNumber" placeholder="Your phone number" formControlName="phoneNumber">
+                <label class="form-label">E-mail*</label><br>
+                <input type="email" class="form-control" placeholder="Your e-mail address" formControlName="email" [ngClass]="{'is-invalid': orderForm.get('email').invalid && orderForm.get('email').touched}">
             </div>
-
-            <div class="field">
-                <label>Address</label><br>
-                <input type="text" class="address" placeholder="Your address" formControlName="address">
+            <div class="phone-number-country-field">
+                <div class="field">
+                    <label class="form-label">Phone number*</label><br>
+                    <input type="number" class="form-control" placeholder="Your phone number" formControlName="phoneNumber" [ngClass]="{'is-invalid': orderForm.get('phoneNumber').invalid && orderForm.get('phoneNumber').touched}">
+                </div>
+                <div class="field">
+                    <label class="form-label">Country*</label><br>
+                    <select class="form-control" (change)="onSelectChange($event)" [ngClass]="{'is-invalid': orderForm.get('country').invalid && orderForm.get('country').touched}">
+                        <option disabled selected value>Not selected</option>
+                        <option>Slovakia</option>
+                        <option>Czech Republic</option>
+                    </select>
+                </div>
             </div>
-    
-            <div class="field">
-                <label>Postal code</label><br>
-                <input type="text" class="psc" placeholder="Your postal code" formControlName="psc">
-            </div>
-
-            <div class="field">
-                <label>City</label><br>
-                <input type="text" class="city" placeholder="Your city" formControlName="city">
-            </div>
-
-            <div class="field">
-                <label>Country</label><br>
-                <select (change)="onSelectChange($event)">
-                    <option disabled selected value>Not selected</option>
-                    <option>Slovakia</option>
-                    <option>Czech Republic</option>
-                </select>
-            </div><br>
-
-            <h2>Delivery option</h2>
-            <div class="field-orderForm">
-                <form [formGroup]="orderForm" class="orderForm">
+            <h2 class="delivery-option-title">Delivery option</h2>
+            <div class="order-form-delivery-field">
+                <form [formGroup]="orderForm" class="order-form-delivery">
                     <div class="delivery-option">
-                        <input type="radio" id="packeta" name="deliveryOption" value="Packeta" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                        <label for="packeta"><img src="https://www.turtle3d.hu/storage/site/temp/packeta_logo.png" height="40" width="40" alt="packeta" title="packeta"><span>Delivery to the packet dispenser</span></label>
+                        <input type="radio" name="deliveryOption" value="Packeta" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
+                        <label for="packeta"><img src="https://www.turtle3d.hu/storage/site/temp/packeta_logo.png" alt="packeta" title="packeta"><span>Delivery to the packet dispenser</span></label>
                     </div>
                     <hr>
-
                     <div class="delivery-option">
-                        <input type="radio" id="posta" name="deliveryOption" value="Posta" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                        <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" height="35" width="35" alt="posta" title="posta"><span>Delivery to your post office</span></label>
+                        <input type="radio" name="deliveryOption" value="Posta" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
+                        <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" alt="posta" title="posta"><span>Delivery to your post office</span></label>
                     </div>
                     <hr>
-                    
                     <div class="delivery-option">
-                        <input type="radio" id="kurier" name="deliveryOption" value="Kurier" formControlName="deliveryOption" (change)="onRadioChange($event)">
-                        <label for="kurier"><img src="https://www.jobkontakt.sk/files/images/logo/qcpZCL4VUvhRfMeOlYJ7fNldCp5cZ7OX_901.png" height="35" width="35" alt="kurier" title="kurier"><span>Delivery by SPS</span></label>
+                        <input type="radio" name="deliveryOption" value="Kurier" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
+                        <label for="kurier"><img src="https://www.jobkontakt.sk/files/images/logo/qcpZCL4VUvhRfMeOlYJ7fNldCp5cZ7OX_901.png" alt="kurier" title="kurier"><span>Delivery by SPS</span></label>
                     </div>
                 </form>
             </div>
-
-            <div class="field-submit">
-                <button class="btn btn-secondary" [disabled]="!orderForm.valid || products.length === 0" (click)="onSubmit()" type="button" [routerLink]="['/order/order-summary']">Continue</button>
+            <div class="field">
+                <label for="note" class="form-label">Note</label>
+                <textarea class="form-control" placeholder="Write a note" minlength="0" maxlength="250" [(ngModel)]="userMessage" (input)="update()" formControlName="note"></textarea>
+                @if(userMessage.length > 0){
+                    <div class="char-count">{{ charactersCount }} / 250 characters</div>
+                }
+                @else{
+                    
+                }
             </div>
+            <div class="field-submit">
+                <button class="btn btn-secondary" (click)="onSubmit()" type="button">Continue</button>
+            </div>
+        </div>
     </form>
 </div>

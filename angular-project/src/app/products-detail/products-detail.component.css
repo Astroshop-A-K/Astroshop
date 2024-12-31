@@ -104,6 +104,7 @@ html{
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  padding: 10px;
 }
 .add-to-cart-button img{
   transform: rotate(360deg);
@@ -225,7 +226,7 @@ html{
 .dropdown-content {
   display: none;
   position: absolute;
-  right: -3px;
+  right: -3.5px;
   transition: transform 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
@@ -267,6 +268,12 @@ fa-icon.not-clicked {
 }
 .no-exists {
   color: #6c757d;
+}
+.form-control.is-invalid {
+  border-color: red !important;
+}
+.form-control.ng-invalid.ng-touched{
+  border-color: red;
 }
 @media (max-width: 1200px) {
   .part1 {

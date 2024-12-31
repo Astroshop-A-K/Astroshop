@@ -142,6 +142,7 @@ namespace AspNetCoreAPI.Controllers
                             ProductName = product.ProductName,
                             ProductImage0 = product.ProductImage0,
                             ProductId = product.ProductId,
+                            ProductDiscount = product.ProductDiscount
                         };
 
                         productsInfos.Add(info);

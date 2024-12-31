@@ -8,19 +8,16 @@
   <h1>Login</h1>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="field">
-      <label>Enter your e-mail:</label><br>
-      <input formControlName="email" required placeholder="Your e-mail address">
+      <label class="form-label">E-mail*</label><br>
+      <input type="email" class="form-control" formControlName="email" required placeholder="Your e-mail address">
     </div>
-
     <div class="field">
-      <label>Enter your password:</label><br>
+      <label class="form-label">Password*</label><br>
       <input [type]="'password'" formControlName="password" placeholder="Your password">
     </div>
-
     <div class="field" style="text-align: center;">
       <label class="no-acc-label">Don't have an account? Register <a [routerLink]="['/register']">here</a></label>
     </div>
-
     <button class="btn btn-primary" type="submit" (click)="login()">Login</button>
   </form>
 </div>

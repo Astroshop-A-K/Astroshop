@@ -30,7 +30,7 @@
 .field {
   width: 100%;
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 button {
   padding: 8px 18px;
@@ -42,10 +42,7 @@ textarea {
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 100%;
-  margin: 5px 0;
-  background-color: #f4f4f4;
-  min-width: 0;
-  box-sizing: border-box;
+  background-color: #f9f9f9;
 }
 p,
 label,
@@ -56,6 +53,7 @@ textarea {
 }
 h1 {
   font-weight: bold;
+  margin: 0;
 }
 p {
   text-align: justify;

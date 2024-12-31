@@ -48,6 +48,18 @@
   width: 100%;
   border-radius: 10px;
   transition: transform 0.3s ease;
+  position: relative;
+}
+.product-tag{
+  border: none;
+  border-radius: 10px;
+  position: absolute;
+  background-color: #ff4d4d;
+  color: white;
+  padding: 5px;
+  width: auto;
+  top: -10px;
+  left: -10px;
 }
 .favorite-product a{
   color: black;

@@ -215,8 +215,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
   }
   ngOnDestroy(): void{
-    this.selectedProducts = [];
-    this.orderCompleted = false;
-    this.ShoppingCart.clearCart();
+    if(this.orderCompleted){
+      this.selectedProducts = [];
+      this.orderCompleted = false;
+      this.ShoppingCart.clearCart();
+    }
   }
 }
