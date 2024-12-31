@@ -184,7 +184,7 @@ html{
 }
 .review {
   border-radius: 8px;
-  padding: 16px;
+  padding: 20px;
   margin: 16px 0;
   background: #f9f9f9;
 }
@@ -225,22 +225,21 @@ html{
 .dropdown-content {
   display: none;
   position: absolute;
-  right: 0;
+  right: -3px;
   transition: transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   margin-top: 5px;
 }
 .dropdown:hover .dropdown-content {
   display: block;
-  background-color: #ebebeb;
   border-radius: 15px;
 }
 .dropdown:hover {
-  background-color: #bfbfbf;
+  background-color: #e1e1e1;
 }
 .dropdown-content a:hover {
-  background-color: #bfbfbf;
+  background-color: #e1e1e1;
   border-radius: 15px;
 }
 .dropdown-content a {

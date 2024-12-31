@@ -33,7 +33,7 @@ export class ContactPageComponent implements OnInit {
   userMessage: string = '';
   charactersCount: number = 0;
 
-  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private datePipe: DatePipe) { }
+  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private datePipe: DatePipe, private snackBar: MatSnackBar, private router: Router) { }
 
   update(){
     this.charactersCount = this.userMessage.length;
@@ -45,6 +45,15 @@ export class ContactPageComponent implements OnInit {
     problem: new FormControl('', Validators.required),
   });
 
+  validateAllFormFields(formGroup: FormGroup){
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if(control?.invalid){
+        control.markAsTouched(); 
+      }
+    })
+  }
+
   onSubmit() {
     if (this.contactForm.valid) {
       let nameSurnameBE = this.contactForm.value.nameSurname ?? '';
@@ -53,7 +62,13 @@ export class ContactPageComponent implements OnInit {
 
       let problemDateBE = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
 
-      this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe();;
+      this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe();
+      this.router.navigate(['/home']);
+
+      this.snackBar.open('Your message has been sent successfully!', '', {duration: 1000});
+    }else{
+      this.validateAllFormFields(this.contactForm);
+      this.snackBar.open('Entered values are incorrect or fields with a star were skipped!', '', {duration: 1000});
     }
   }
   changeStatus(problemId: number){
@@ -64,7 +79,9 @@ export class ContactPageComponent implements OnInit {
 
   emailValidator(control: any) {
     const email = control.value;
-    if (email && email.indexOf('@') === -1 && email.indexOf('.') === -1) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //nastroj na overenie ci email splna zakladne poziadavky
+
+    if (email && !emailRegex.test(email)) {
       return { invalidEmail: true };
     }
     return null;

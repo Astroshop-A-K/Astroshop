@@ -34,18 +34,18 @@
       <h1>Contact</h1>
       <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
         <div class="field">
-          <label>Name & Surname</label><br>
-          <input placeholder="Your full name" id="name-surname" formControlName="nameSurname">
+          <label>Name & Surname*</label><br>
+          <input type="text" class="form-control" placeholder="Your full name" id="name-surname" formControlName="nameSurname" [ngClass]="{'is-invalid': contactForm.get('nameSurname').invalid && contactForm.get('nameSurname').touched}">
         </div>
     
         <div class="field">
-          <label>E-mail</label><br>
-          <input placeholder="Your e-mail address" id="e-mail" formControlName="email" type="email">
+          <label>E-mail*</label><br>
+          <input type="email" class="form-control" placeholder="Your e-mail address" id="e-mail" formControlName="email" type="email" [ngClass]="{'is-invalid': contactForm.get('email').invalid && contactForm.get('email').touched}">
         </div>
     
         <div class="field">
-          <label>Your problem</label><br>
-          <textarea placeholder="Your problem" id="problem" formControlName="problem" maxlength="250" [(ngModel)]="userMessage" (input)="update()"></textarea><!--(input) robi ze vzdy ked sa nieco napise tak spravi update-->
+          <label>Your problem*</label><br>
+          <textarea class="form-control" placeholder="Your problem" id="problem" formControlName="problem" maxlength="250" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': contactForm.get('problem').invalid && contactForm.get('problem').touched}"></textarea><!--(input) robi ze vzdy ked sa nieco napise tak spravi update-->
           @if(userMessage.length > 0){
             <div class="char-count">{{ charactersCount }} / 250 characters</div>
           }
@@ -54,7 +54,7 @@
           }
         </div>
     
-        <button type="button" (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-primary" [routerLink]="['/home']">Confirm</button>
+        <button type="button" (click)="onSubmit()" class="btn btn-primary">Confirm</button>
       </form>
     </div>
   }

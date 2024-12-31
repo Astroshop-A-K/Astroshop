@@ -68,12 +68,17 @@ export class ProductsDetailComponent implements OnInit {
     userMessage: string = '';
 
     isLoading: boolean = true;
+    isActive: boolean = false;
 
     constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
     });
+
+    toggleDropdown(){
+        this.isActive = !this.isActive;
+    }
 
     scrollToRating(){
         this.viewportScroller.scrollToAnchor('review-form-id'); //mimo hash navigacii co funguje pri vanilla HTML a JS tak tu nas nepresmeruje na home page kedze nemame akoby default trasu a Angular pouziva to tak ze do URL da ten hash a to nas da na home page kedze nemame ziadnu defaultnu trasu nastavenu, t.j. puzijeme tento import on angularu viewportScroller a tak sa scrollneme dole.
