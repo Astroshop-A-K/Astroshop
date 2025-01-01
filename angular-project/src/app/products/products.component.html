@@ -2,7 +2,7 @@
 <div class="content">
   <div class="sidebar" [ngClass]="{'active': isActive}">
     <div class="sidebar-heading">
-      <h1>Categories</h1>
+      <h1 class="sidebar-h1">Categories</h1>
       <a (click)="toggleSidebar()" class="close-btn"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
     </div>
     <ul class="category-list">
@@ -23,7 +23,7 @@
   <div class="main-content">
     <div class="product-header">
       <h1>Products</h1>
-      <button class="toggle-sidebar" (click)="toggleSidebar()">☰ Categories</button>
+      <button class="toggle-sidebar" (click)="toggleSidebar()">☰ <span>Categories</span></button>
     </div>
     <div class="filters">
       <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Click here to search your products" (ngModelChange)="filtersProducts()">
