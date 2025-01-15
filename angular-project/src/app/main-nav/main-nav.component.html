@@ -32,7 +32,7 @@
           @else{
         
           }
-          <span><a [routerLink]="['/home']" [ngClass]="{'active': isCurrentRoute('/home')}">Home</a></span>
+          <span><a [routerLink]="['/home']" [ngClass]="{'active': isCurrentRoute('/home', '/')}">Home</a></span>
           <span><a [routerLink]="['/products']" [ngClass]="{'active': isCurrentRoute('/products') || isCurrentRoute('/products')}">Products</a></span>
           <span><a [routerLink]="['/contact']" [ngClass]="{'active': isCurrentRoute('/contact')}">Contact</a></span>
         </div>

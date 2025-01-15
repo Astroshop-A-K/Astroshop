@@ -23,6 +23,9 @@
     flex-direction: column;
     gap: 0;
 }
+.title h1{
+    font-weight: bold;
+}
 .title img{
     height: 50px;
     width: 50px;

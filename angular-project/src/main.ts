@@ -19,6 +19,7 @@ import { OrderSummaryComponent } from './app/order-summary/order-summary.compone
 import { UserOrdersComponent } from './app/user-orders/user-orders.component';
 import { UserOrderDetailsComponent } from './app/user-order-details/user-order-details.component';
 import { FavoriteProductsComponent } from './app/favorite-products/favorite-products.component';
+import { authGuard } from './app/api-authorization/auth.guard';
 
 
 export function getBaseUrl() {
@@ -49,17 +50,17 @@ bootstrapApplication(AppComponent, {
         { path: '', component: HomeComponent},
         { path: 'login', component: LoginComponent},
         { path: 'register', component: RegistrationComponent},
-        { path: 'dashboard', component: DashboardComponent},
+        { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
         { path: 'home', component: HomeComponent },
         { path: 'products', component: ProductsComponent },
         { path: 'contact', component: ContactPageComponent },
         { path: 'products/:productName', component: ProductsDetailComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent},
         { path: 'order', component: OrderPageComponent},
-        { path: 'order/order-summary', component: OrderSummaryComponent},,
-        { path: 'user-orders', component: UserOrdersComponent},
-        { path: 'user-orders/:orderId', component: UserOrderDetailsComponent },
-        { path: 'favorite-products', component: FavoriteProductsComponent},
+        { path: 'order/order-summary', component: OrderSummaryComponent},
+        { path: 'user-orders', component: UserOrdersComponent, canActivate: [authGuard]},
+        { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [authGuard]},
+        { path: 'favorite-products', component: FavoriteProductsComponent, canActivate: [authGuard]},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ])
     ]

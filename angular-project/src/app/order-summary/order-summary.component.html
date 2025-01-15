@@ -4,12 +4,51 @@
       <div class="container">
         <div class="part1">
           <div class="title">
-            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-            <h1 style="font-weight: bold;">Order summary</h1>
+            <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon">
+            <h1>Order summary</h1>
           </div>
-          <div id="table-pdf">
-            <div class="order-info">
-                <h2>Your delivery data</h2>
+          <div class="selected-products">
+            <div class="sub-title">
+              <h2>Your selected products</h2>
+            </div>
+            <table class="selectedProducts">
+              <tr *ngFor="let product of selectedProducts" class="product">
+                @if(product.productDiscount > 0){
+                  <div class="product-tag">
+                    -{{product.productDiscount}}% off
+                  </div>
+                }
+                @else{
+                  <div class="product-tag-hidden"></div>
+                }
+                <td class="product-image-cell"><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225" class="product-image"></td>
+                <td class="product-name" style="padding: 0">{{product.productName}}<br>
+                  @if(product.quantity > 0){
+                    <span class="available">Na sklade</span>
+                  }
+                </td>
+                <td>{{product.amount}}x</td>
+                <td>
+                  <div class="remove-container">
+                    <div class="product-prices">
+                      @if(product.productDiscount > 0){
+                        <p class="price"><del>{{ product.price }}€</del></p>
+                        <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }}€</p>
+                      }@else{
+                        <p class="no-discount-price">{{ product.price }}€</p>
+                      }
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="order-info">
+            <div class="sub-title">
+              <h2>Your delivery data and payment option</h2>
+            </div>
+            <div class="delivery-data-payment-form">
+              <div class="delivery-data">
                 <address>
                 <div class="table">
                   <div class="co-1">
@@ -26,80 +65,61 @@
                   </div>
                 </div>
                 </address>
-            </div>
-          <div class="part3">
-              <table class="selectedProducts">
-                  <tr>
-                    <th>Item</th>
-                    <th>Product name</th>
-                    <th>Price</th>
-                    <th>Amount</th>
-                  </tr>
-                  <tr *ngFor="let product of selectedProducts">
-                    <td><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="225"></td>
-                    <td>{{product.productName}}</td>
-                    <td>{{product.price}}€</td>
-                    <td>{{product.amount}}x</td>
-                  </tr>   
-                </table>
-                <div class="order-summary">
-                  <div class="total-price">
-                    <p style="font-weight: bold;">Total price</p>
-                    @if(!appliedCoupon){
-                      <p>Total price: {{CartService.totalPrice()}}€</p>
-                    }
-                    @else{
-                      <p>Total price: {{CartService.totalPrice() / 2}}€</p>
-                    }
-                    @if(appliedCoupon){
-                      <p>Coupon applied</p>
-                    }
-                    @else{
-                      <p>Coupon not applied</p>
-                    }
-                  </div>
-                </div>
               </div>
-          </div>
-            <div class="payment-option"><br>
-                <h2>Payment method</h2>
+              <div class="payment-form">
                 <form [formGroup]="paymentForm">
-                    <input type="radio" id="p1" name="paymentMethod" value="paymentOnDelivery" formControlName="paymentMethod" (change)="onRadioChange($event)">
+                  <div class="field">
+                    <input type="radio" id="p1" name="paymentMethod" value="paymentOnDelivery" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
                     <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" height="40" width="40" alt="paymentOnDelivery">Payment on delivery</label><br>
-                        
-                    <input type="radio" id="p2" name="paymentMethod" value="cardPaymentUponCollection" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                    <label for="p2"><img src="https://cdn4.iconfinder.com/data/icons/sales-and-online-shop-3-line/100/sales_online_shop_giving_credit_card-512.png" height="40" width="40" alt="cardPaymentUponCollection">Payment by card upon collection</label><br>
-                        
-                    <input type="radio" id="p3" name="paymentMethod" value="cardPayment" formControlName="paymentMethod" (change)="onRadioChange($event)">
-                    <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment">Online card payment</label><br>
-                </form>
-            </div>
-            <div class="part2">
-              <form [formGroup]="paymentForm">
-                  <div class="coupon-field">
-                      <div class="field"><br>
-                          <h2>Coupons</h2>
-                          <input id="coupon" name="coupon" placeholder="Type your coupon here..." formControlName="coupon">
-                          <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
-                      </div>
                   </div>
-              </form>
+                  <div class="field">
+                    <input type="radio" id="p2" name="paymentMethod" value="cardPaymentUponCollection" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                    <label for="p2"><img src="https://cdn4.iconfinder.com/data/icons/sales-and-online-shop-3-line/100/sales_online_shop_giving_credit_card-512.png" height="40" width="40" alt="cardPaymentUponCollection">Payment by card upon collection</label><br>
+                  </div>
+                  <div class="field">
+                    <input type="radio" id="p3" name="paymentMethod" value="cardPayment" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                    <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" height="40" width="40" alt="cardPayment">Online card payment</label><br>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="order-summary">
+            <div class="coupon">
+              <form [formGroup]="paymentForm">
+                <div class="coupon-field">
+                    <div class="field">
+                        <input type="text" id="coupon" class="form-control" name="coupon" placeholder="Type your coupon here..." formControlName="coupon" [ngClass]="{'is-invalid': paymentForm.get('coupon').invalid}">
+                        <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="total-price">
+              <p>Total price</p>
+              @if(!appliedCoupon){
+                <p>Total price: {{CartService.totalPrice()}}€</p>
+              }
+              @else{
+                <p>Total price: {{CartService.totalPrice() / 2}}€</p>
+              }
+            </div>
+          </div>
+          <div class="submit">
+            <button class="btn btn-secondary" (click)="onSubmit()" type="button">Finish order</button>
+          </div>
+          </div>
           </div>
         </div>
-        <div class="part4">
-            <div class="submit">
-                <button class="btn btn-secondary" [disabled]="!paymentForm.valid || selectedProducts.length === 0 || OrderService.order === null" (click)="onSubmit()" type="button">Finish order</button>
-            </div>
-        </div>
-      </div>
-    </div>
 }
 @else{
-  <div class="content-2">
-    <div class="thanku-order">
-      <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-      <h1 style="font-weight: bold;">Thank you for your order!</h1><br>
-      <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p><br>
+  <div class="content">
+    <div class="order-finished">
+      <div class="title">
+        <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon">
+        <h1>Thank you for your order!</h1>
+      </div>
+      <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p>
       <button class="btn btn-secondary" [routerLink]="['/home']">Return home</button>
     </div>
   </div>

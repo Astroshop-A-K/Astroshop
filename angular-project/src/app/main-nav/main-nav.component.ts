@@ -8,7 +8,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CartService, ProductsDTO } from '../shopping-cart/cart.service';
 import { LoginComponent } from '../api-authorization/login/login.component';
-import { HomeComponent } from '../home/home.component';
 import { ProductsDetailComponent } from '../products-detail/products-detail.component';
 import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
 import { query } from '@angular/animations';
@@ -16,17 +15,7 @@ import { query } from '@angular/animations';
 @Component({
   selector: 'app-main-nav',
   standalone: true,
-  imports: [
-    RouterLink,
-    MatToolbar,
-    MatButton,
-    NgIf,
-    NgClass,
-    MatBadgeModule,
-    MatIconModule,
-    HomeComponent,
-    CommonModule
-  ],
+  imports: [RouterLink, MatToolbar, MatButton, NgIf, NgClass, MatBadgeModule, MatIconModule, CommonModule],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
 })
@@ -54,8 +43,9 @@ export class MainNavComponent implements OnInit {
     this.products = this.CartService.getProducts();
   }
 
-  isCurrentRoute(route: string): boolean {
-    return this.currentRoute.startsWith(route);
+  isCurrentRoute(...routes: string[]): boolean {
+    const currentRoute = this.router.url;
+    return routes.includes(currentRoute);
   }
 
   toFavoriteProducts(){
