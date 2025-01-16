@@ -98,10 +98,10 @@
             <div class="total-price">
               <p>Total price</p>
               @if(!appliedCoupon){
-                <p>Total price: {{CartService.totalPrice()}}€</p>
+                <p>{{CartService.totalPrice()}}€</p>
               }
               @else{
-                <p>Total price: {{CartService.totalPrice() / 2}}€</p>
+                <p>{{CartService.totalPrice() / 2}}€</p>
               }
             </div>
           </div>

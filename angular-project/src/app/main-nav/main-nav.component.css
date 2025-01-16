@@ -297,6 +297,9 @@ img{
   .menu-icon{
     display: block;
   }
+  .cart-dropdown-menu{
+    left: -335%;
+  }
 }
 @media (min-width: 768px){
   .sidebar{

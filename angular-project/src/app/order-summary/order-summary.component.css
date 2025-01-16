@@ -40,8 +40,6 @@
   text-align: left;
   width: 100%;
   margin-top: 10px;
-}
-.selected-products {
   margin-bottom: 10px;
 }
 .delivery-data-payment-form {
@@ -107,7 +105,6 @@
 .selectedProducts {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 .selectedProducts td {
   padding: 8px;
@@ -219,17 +216,17 @@ input[type="text"] {
   background-color: white;
   border-radius: 10px;
   padding: 25px 40px 25px 40px;
-  margin: 50px 0 0 0;
+  margin: 50px 10px 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.order-finished button{
-  margin-top: 10px;
+.order-finished p{
+  margin: 10px 0 20px 0;
 }
-.form-check-input.is-invalid {
+.form-check-input.is-invalid, .is-invalid {
   border-color: red !important;
 }
 .form-check-input.ng-invalid.ng-touched{
@@ -250,7 +247,7 @@ input[type="text"] {
     height: 175px;
   }
   .content {
-    padding: 40px 0 200px 0;
+    padding: 60px 0 200px 0;
   }
   .delivery-data-payment-form {
     flex-direction: column;
@@ -271,11 +268,14 @@ input[type="text"] {
     width: 100%;
   }
   .content {
-    padding: 40px 0 150px 0;
+    padding: 60px 0 150px 0;
   }
   .table {
     flex-direction: column;
     gap: 15px;
+  }
+  .container {
+    width: 95%;
   }
 }
 @media (max-width: 670px) {
@@ -300,7 +300,7 @@ input[type="text"] {
 }
 @media (max-width: 500px) {
   .content {
-    padding: 40px 0 100px 0;
+    padding: 60px 0 100px 0;
   }
   .title h1 {
     font-size: 1.5rem;
@@ -319,9 +319,6 @@ input[type="text"] {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
-  }
-  .order-finished {
-    padding: 20px;
   }
 }
 @media (max-width: 400px) {

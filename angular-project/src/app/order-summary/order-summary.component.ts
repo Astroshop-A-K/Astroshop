@@ -38,29 +38,23 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     coupon: new FormControl(''),
   });
 
-  validateAllFormFields(formGroup: FormGroup){
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if(control?.invalid){
-        control.markAsTouched(); 
-      }
-    })
-  }
-
   onRadioChange(event: any){
     this.paymentForm.get('paymentMethod')?.setValue(event.target.value);
   }
 
   applyCoupon(){
+    const couponControl = this.paymentForm.get('coupon');
     if(this.paymentForm.value.coupon == "BESTSHOP"){
       this.appliedCoupon = true;
       this.couponButtonText = "Applied";
       
       this.totalPrice /= 2; 
+      couponControl.setErrors(null);
+      couponControl.disable();
     }
     else{
       this.snackBar.open("Invalid coupon", "", { duration: 1500, });
-      this.validateAllFormFields(this.paymentForm);
+      couponControl.setErrors({invalidCoupon: true});
     }
   }
 
@@ -93,7 +87,8 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       this.orderCompleted = true;
     }else{
       this.snackBar.open("You forgot to choose payment option!", "", { duration: 1500, });
-      this.validateAllFormFields(this.paymentForm);
+      const paymentControl = this.paymentForm.get('paymentMethod');
+      paymentControl.markAsTouched();
     } 
   }
   generateInvoice() {
@@ -105,27 +100,23 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       <div class="first-table">
         <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Dátum</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Dátum</th>
             <td style="padding: 8px;">${this.currentDate}</td>
           </tr>
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Hmotnosť objednávky</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Hmotnosť objednávky</th>
             <td style="padding: 8px;">0 kg</td>
           </tr>
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Celkový počet produktov</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Celkový počet produktov</th>
             <td style="padding: 8px;">${this.selectedProducts.reduce((sum, product) => sum + product.amount, 0)} ks</td>
-          </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">IP adresa</th>
-            <td style="padding: 8px;">192.168.10.1</td>
           </tr>
         </table>
       </div>
       <div class="second-table" style="margin-top: 10px">
         <h3>Objednané produkty</h3>
         <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
-          <tr style="background-color: #f9f9f9;">
+          <tr style="background-color: #0d6efd; color: white;">
             <th style="padding: 8px;">Číslo produktu</th>
             <th style="padding: 8px;">Cena/ks</th>
             <th style="padding: 8px;">Ks</th>
@@ -151,23 +142,23 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         <h3>Objednávateľ</h3>
         <table style="width: 100%; border-collapse: collapse; border: 1px solid #ccc;">
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Meno</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Meno</th>
             <td style="padding: 8px;">${this.OrderService.order.name} ${this.OrderService.order.surname}</td>
           </tr>
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Adresa</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Adresa</th>
             <td style="padding: 8px;">${this.OrderService.order.address}, ${this.OrderService.order.city}, ${this.OrderService.order.postalCode}</td>
           </tr>
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">E-mail</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">E-mail</th>
             <td style="padding: 8px;">${this.OrderService.order.email}</td>
           </tr>
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Tel.č.</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Tel.č.</th>
             <td style="padding: 8px;">${this.OrderService.order.phoneNumber}</td>
           </tr>
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #f9f9f9;">Štát</th>
+            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Štát</th>
             <td style="padding: 8px;">${this.OrderService.order.country}</td>
           </tr>
         </table>
