@@ -108,6 +108,9 @@
           <div class="submit">
             <button class="btn btn-secondary" (click)="onSubmit()" type="button">Finish order</button>
           </div>
+          <div class="re-captcha-container">
+            <re-captcha (resolved)="resolved($event)" siteKey="6Lf2McAqAAAAABgfm-2i732qCGpO4z3QPwhv10ZZ"></re-captcha>
+          </div>
           </div>
           </div>
         </div>

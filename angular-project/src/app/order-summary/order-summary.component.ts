@@ -8,6 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RecaptchaModule } from 'ng-recaptcha';
 import { __values } from 'tslib';
 import emailjs from 'emailjs-com';
 import * as html2pdf from 'html2pdf.js'; 
@@ -15,7 +16,7 @@ import * as html2pdf from 'html2pdf.js';
 @Component({
   selector: 'app-order-summary',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, RouterLink, DatePipe, CommonModule],
+  imports: [NgFor, ReactiveFormsModule, RouterLink, DatePipe, CommonModule, RecaptchaModule],
   providers: [ShoppingCartComponent, MatSnackBar, DatePipe],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css'
@@ -31,12 +32,22 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
   currentDate: string = '';
 
-  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router, private datePipe: DatePipe){}
+  captcha: string = '';
+  recaptchaDone: boolean = false;
+
+  constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router, private datePipe: DatePipe){
+    this.captcha = '';
+  }
 
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
     coupon: new FormControl(''),
   });
+
+  resolved(captchaResponse: string){
+    this.captcha = captchaResponse;
+    this.recaptchaDone = !!captchaResponse;
+  }
 
   onRadioChange(event: any){
     this.paymentForm.get('paymentMethod')?.setValue(event.target.value);
@@ -61,7 +72,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   onSubmit(){
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let orderVerificationKey: string = '';
-    if(this.paymentForm.valid && this.selectedProducts.length > 0 && this.OrderService.order != null){
+    if(this.paymentForm.valid && this.selectedProducts.length > 0 && this.OrderService.order != null && this.recaptchaDone){
       let payment = this.paymentForm.value.paymentMethod;
       let {name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, orderNote} = this.OrderService.order;
 
@@ -85,7 +96,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         }
       );
       this.orderCompleted = true;
-    }else{
+    }else if(!this.recaptchaDone){
+      this.snackBar.open("You forgot to complete re-captcha!", "", { duration: 1500, });
+    }
+    else{
       this.snackBar.open("You forgot to choose payment option!", "", { duration: 1500, });
       const paymentControl = this.paymentForm.get('paymentMethod');
       paymentControl.markAsTouched();
