@@ -10,10 +10,12 @@ namespace AspNetCoreAPI.Controllers
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpPut("create-order")]

@@ -95,6 +95,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 .total-price p:first-child {
   font-weight: bold;
@@ -224,7 +225,16 @@ input[type="text"] {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .order-finished p{
-  margin: 10px 0 20px 0;
+  margin: 15px 0 20px 0;
+}
+.re-captcha-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.re-captcha{
+  margin-top: 15px;
 }
 .form-check-input.is-invalid, .is-invalid {
   border-color: red !important;
@@ -289,21 +299,16 @@ input[type="text"] {
     flex-direction: column;
     gap: 15px;
   }
-  .total-price {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
+  .total-price{
+    gap: 15px;
   }
-  .total-price p:nth-child(even) {
-    text-align: left;
+  .re-captcha-container{
+    flex-direction: column;
   }
 }
 @media (max-width: 500px) {
   .content {
     padding: 60px 0 100px 0;
-  }
-  .title h1 {
-    font-size: 1.5rem;
   }
   .field {
     align-items: center;
@@ -311,20 +316,39 @@ input[type="text"] {
   input[type="text"] {
     width: 100%;
   }
+  .coupon{
+    margin: 10px 0px 10px 0px;
+    width: 100%;
+  }
+  .coupon button{
+    margin: 0;
+    width: 30%;
+  }
   .coupon-field {
     width: 100%;
     gap: 10px;
+  }
+  .field{
+    width: 100%;
+    align-items: center;
   }
   .order-summary {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
   }
+  .total-price {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    margin: 10px 0px 10px 0px;
+  }
+  .total-price p:nth-child(even) {
+    text-align: right;
+  }
 }
 @media (max-width: 400px) {
-  .title h1 {
-    font-size: 1.2rem;
-  }
   .total-price {
     flex-direction: column;
     align-items: flex-start;
