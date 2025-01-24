@@ -37,6 +37,7 @@ builder.Services.AddScoped<JwtHandler>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {

@@ -118,12 +118,20 @@
 @else{
   <div class="content">
     <div class="order-finished">
-      <div class="title">
-        <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon">
-        <h1>Thank you for your order!</h1>
-      </div>
-      <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p>
-      <button class="btn btn-secondary" [routerLink]="['/home']">Return home</button>
+      @if(isLoading){
+        <div class="spinner-container">
+          <div class="spinner">
+          </div>
+          Loading...
+        </div>
+      }@else{
+        <div class="title">
+          <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon">
+          <h1>Thank you for your order!</h1>
+        </div>
+        <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p>
+        <button class="btn btn-secondary" [routerLink]="['/home']">Return home</button>
+      }
     </div>
   </div>
 }

@@ -35,6 +35,8 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   captcha: string = '';
   recaptchaDone: boolean = false;
 
+  isLoading: boolean = true;
+
   constructor(public OrderService: OrderService, public CartService: CartService, @Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private ShoppingCart: ShoppingCartComponent, private snackBar: MatSnackBar, private router: Router, private datePipe: DatePipe){
     this.captcha = '';
   }
@@ -86,6 +88,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey, this.currentDate, "Pending", orderNote).subscribe(
         () => {
           this.getOrderId(orderVerificationKey).subscribe(result => {
+            this.isLoading = false;
             this.orderId = result;
             this.generateInvoice();
             this.selectedProducts.forEach((product) => {
@@ -96,14 +99,13 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         }
       );
       this.orderCompleted = true;
-    }else if(!this.recaptchaDone){
-      this.snackBar.open("You forgot to complete re-captcha!", "", { duration: 1500, });
-    }
-    else{
+    }else if(this.paymentForm.invalid){
       this.snackBar.open("You forgot to choose payment option!", "", { duration: 1500, });
       const paymentControl = this.paymentForm.get('paymentMethod');
       paymentControl.markAsTouched();
-    } 
+    }else if(!this.recaptchaDone){
+      this.snackBar.open("You forgot to complete re-captcha!", "", { duration: 1500, });
+    }
   }
   generateInvoice() {
     const invoiceHTML = `

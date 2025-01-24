@@ -34,4 +34,5 @@ export interface OrdersDTO{
   payment?: string;
   orderNote?: string;
   totalPrice?: number;
+  recaptchaResponse?: string;
 }

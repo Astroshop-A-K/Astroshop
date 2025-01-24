@@ -2,6 +2,7 @@
 using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -10,11 +11,13 @@ namespace AspNetCoreAPI.Controllers
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
 
         public OrdersController(ApplicationDbContext context, IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _configuration = configuration;
             _httpClientFactory = httpClientFactory;
         }
 
@@ -23,53 +26,30 @@ namespace AspNetCoreAPI.Controllers
         {
             try
             {
-                using (var context = _context)
+                var newOrder = new OrdersModel
                 {
-                    var newOrder = new OrdersModel
-                    {
-                        OrderId = ordersDTO.OrderId,
-                        Name = ordersDTO.Name,
-                        Surname = ordersDTO.Surname,
-                        Email = ordersDTO.Email,
-                        PhoneNumber = ordersDTO.PhoneNumber,
-                        Address = ordersDTO.Address,
-                        PSC = ordersDTO.PSC,
-                        City = ordersDTO.City,
-                        Country = ordersDTO.Country,
-                        DeliveryOption = ordersDTO.DeliveryOption,
-                        Payment = ordersDTO.Payment,
-                        TotalPrice = ordersDTO.TotalPrice,
-                        OrderVerificationKey = ordersDTO.OrderVerificationKey,
-                        OrderDate = ordersDTO.OrderDate,
-                        OrderStatus = ordersDTO.OrderStatus,
-                        OrderNote = ordersDTO.OrderNote
-                    };
+                    OrderId = ordersDTO.OrderId,
+                    Name = ordersDTO.Name,
+                    Surname = ordersDTO.Surname,
+                    Email = ordersDTO.Email,
+                    PhoneNumber = ordersDTO.PhoneNumber,
+                    Address = ordersDTO.Address,
+                    PSC = ordersDTO.PSC,
+                    City = ordersDTO.City,
+                    Country = ordersDTO.Country,
+                    DeliveryOption = ordersDTO.DeliveryOption,
+                    Payment = ordersDTO.Payment,
+                    TotalPrice = ordersDTO.TotalPrice,
+                    OrderVerificationKey = ordersDTO.OrderVerificationKey,
+                    OrderDate = ordersDTO.OrderDate,
+                    OrderStatus = ordersDTO.OrderStatus,
+                    OrderNote = ordersDTO.OrderNote
+                };
 
-                    context.Orders.Add(newOrder);
-                    context.SaveChanges();
+                _context.Orders.Add(newOrder);
+                _context.SaveChanges();
 
-                    var info = new OrdersDTO
-                    {
-                        OrderId = ordersDTO.OrderId,
-                        Name = ordersDTO.Name,
-                        Surname = ordersDTO.Surname,
-                        Email = ordersDTO.Email,
-                        PhoneNumber = ordersDTO.PhoneNumber,
-                        Address = ordersDTO.Address,
-                        PSC = ordersDTO.PSC,
-                        City = ordersDTO.City,
-                        Country = ordersDTO.Country,
-                        DeliveryOption = ordersDTO.DeliveryOption,
-                        Payment = ordersDTO.Payment,
-                        TotalPrice = ordersDTO.TotalPrice,
-                        OrderVerificationKey = ordersDTO.OrderVerificationKey,
-                        OrderDate = ordersDTO.OrderDate,
-                        OrderStatus = ordersDTO.OrderStatus,
-                        OrderNote = ordersDTO.OrderNote
-                    };
-
-                    return Ok(info);
-                }
+                return Ok(newOrder);
             }
             catch (Exception ex)
             {

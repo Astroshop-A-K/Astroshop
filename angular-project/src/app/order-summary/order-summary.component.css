@@ -223,6 +223,7 @@ input[type="text"] {
   justify-content: center;
   flex-direction: column;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
 }
 .order-finished p{
   margin: 15px 0 20px 0;
@@ -235,6 +236,10 @@ input[type="text"] {
 }
 .re-captcha{
   margin-top: 15px;
+}
+.spinner-container{
+  height: 156px;
+  width: 250px;
 }
 .form-check-input.is-invalid, .is-invalid {
   border-color: red !important;
@@ -346,16 +351,5 @@ input[type="text"] {
   }
   .total-price p:nth-child(even) {
     text-align: right;
-  }
-}
-@media (max-width: 400px) {
-  .total-price {
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 0;
-  }
-  .total-price p {
-    width: auto;
-    text-align: left;
   }
 }
