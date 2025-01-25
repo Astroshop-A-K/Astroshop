@@ -115,7 +115,7 @@ p {
 }
 @media (max-width: 768px) {
   .content {
-    padding: 90px 10px 160px 10px;
+    padding: 90px 15px 160px 15px;
   }
   .contact-form{
     padding: 25px 25px 0 25px;
