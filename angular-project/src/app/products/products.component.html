@@ -26,8 +26,8 @@
       <button class="toggle-sidebar" (click)="toggleSidebar()">☰ <span>Categories</span></button>
     </div>
     <div class="filters">
-      <input class="search-bar" [(ngModel)]="searchText" type="search" placeholder="Click here to search your products" (ngModelChange)="filtersProducts()">
-      <select (change)="onSortChange($event)">
+      <input class="search-bar form-control" [(ngModel)]="searchText" type="search" placeholder="Click here to search your products" (ngModelChange)="filtersProducts()">
+      <select class="form-control" (change)="onSortChange($event)">
         <option disabled selected value>Not selected</option>
         <option value="all">All products</option>
         <option value="top">By top rated</option>
@@ -78,7 +78,7 @@
       }
       @else{
         <div class="no-products">
-          <p>No products found<img src="https://cdn-icons-png.freepik.com/512/7465/7465679.png" alt="no-products-found"></p>
+          <p>No items with specified name were found!</p>
         </div>
       }
     <div class="paginator">

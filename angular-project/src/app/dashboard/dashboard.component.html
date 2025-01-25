@@ -1,4 +1,4 @@
-<title>Welcome {{user.userName}}!</title>
+<title>{{isLoading ? 'Loading...' : user.userName}}</title>
 <div class="content">
   <div class="dashboard">
     @if(isLoading){
@@ -13,15 +13,15 @@
       </div>
       <div class="icon-bar">
         <div class="icon" [ngClass]="{'active': activeTab === 'info'}" (click)="selectTab('info')">
-          <span>ℹ️</span>
+          <span><img src="https://www.iconpacks.net/icons/1/free-information-icon-348-thumb.png"></span>
           <p>Account information</p>
         </div>
         <div class="icon" [ngClass]="{'active': activeTab === 'orders'}" (click)="selectTab('orders')">
-          <span>🛒</span>
+          <span><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png"></span>
           <p>Your orders</p>
         </div>
         <div class="icon" [ngClass]="{'active': activeTab === 'settings'}" (click)="selectTab('settings')">
-          <span>⚙️</span>
+          <span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDgp53HKq4fyclYtZdD-0wHVV2YC2rZ0tmGg&s"></span>
           <p>Account settings</p>
         </div>
       </div>
@@ -57,15 +57,16 @@
               <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled}}</span>
             </div>
           </div>
+          <div class="buttons">
+            <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+            <button class="btn btn-danger">Remove account</button>
+          </div>
         </div>
         <div *ngSwitchCase="'orders'" class="orders-section">
           <p>You don't have any orders yet.</p>
         </div>
         <div *ngSwitchCase="'settings'" class="settings-section">
-          <div class="buttons">
-            <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
-            <button class="btn btn-danger">Remove account</button>
-          </div>
+          <p>This tab is not working yet.</p>
         </div>
       </ng-container>
     }

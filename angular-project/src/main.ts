@@ -23,7 +23,7 @@ import { authGuard } from './app/api-authorization/auth.guard';
 
 
 export function getBaseUrl() {
-  return 'https://astroshop.bsite.net/api/';
+  return 'https://localhost:7186/api/';
 }
 
 export function tokenGetter() {
