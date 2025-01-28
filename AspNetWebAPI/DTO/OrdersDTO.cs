@@ -21,5 +21,6 @@ namespace AspNetCoreAPI.DTO
         public string? OrderDate { get; set; }
         public string? OrderStatus { get; set;}
         public string? OrderNote { get; set; }
+        public string RecaptchaResponse { get; set; }
     }
 }

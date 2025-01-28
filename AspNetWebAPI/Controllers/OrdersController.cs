@@ -1,6 +1,7 @@
 ﻿using AspNetCoreAPI.Data;
 using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
+using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -11,21 +12,26 @@ namespace AspNetCoreAPI.Controllers
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly RecaptchaService _recaptchaService;
 
-        public OrdersController(ApplicationDbContext context, IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public OrdersController(ApplicationDbContext context, RecaptchaService recaptchaService)
         {
             _context = context;
-            _configuration = configuration;
-            _httpClientFactory = httpClientFactory;
+            _recaptchaService = recaptchaService;
         }
 
         [HttpPut("create-order")]
-        public ActionResult<OrdersDTO> CreateOrder([FromBody] OrdersDTO ordersDTO)
+        public async Task<IActionResult> CreateOrder([FromBody] OrdersDTO ordersDTO)
         {
             try
             {
+                var isRecaptchaValid = await _recaptchaService.VerifyCaptcha(ordersDTO.RecaptchaResponse);
+
+                if (!isRecaptchaValid)
+                {
+                    return BadRequest(new { message = "An error occurred while trying to verify recaptcha." });
+                }
+
                 var newOrder = new OrdersModel
                 {
                     OrderId = ordersDTO.OrderId,
@@ -53,8 +59,7 @@ namespace AspNetCoreAPI.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error");
-                return StatusCode(500, new { message = "Mame problem." });
+                return StatusCode(500, new { message = "An error occurred." });
             }
         }
         [HttpGet("{orderVerificationKey}")]

@@ -2,6 +2,7 @@
 using AspNetCoreAPI.Data;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration;
+using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -34,6 +35,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 builder.Services.AddScoped<JwtHandler>();
+builder.Services.AddScoped<RecaptchaService, RecaptchaService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
