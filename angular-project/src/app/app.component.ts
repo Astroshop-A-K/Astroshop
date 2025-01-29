@@ -25,9 +25,7 @@ export class AppComponent implements OnInit{
 
   isHidden: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){
-    this.searchText = '';
-  }
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
 
   acceptCookies(){
     localStorage.setItem('cookiesAccepted', 'true');
@@ -39,10 +37,8 @@ export class AppComponent implements OnInit{
   }
 
   onSearch(){
-    if(this.searchText){
+    if(this.searchText.trim()){
       localStorage.setItem('searchText', this.searchText);
-      this.router.navigate(['/products']);
-    }else{
       this.router.navigate(['/products']);
     }
   }
@@ -56,11 +52,14 @@ export class AppComponent implements OnInit{
 
   onProductSelected(product: ProductsDTO){
     this.searchBar.setValue(product.productName);
-    this.router.navigate(['/products', product.productName]);
+
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => { //celkovo metoda spravi ze vynuti reloadnutie stranky v Angular aj ked sme na rovnakom komponente ale davame do URL adresy ine parametre a skipLocationChange: true, zabezpeci ze sa ta URL nezmeni a "/" je jako medziciel nech spravime Angular mysliet ze sme opustili stranku celkovo tento trik resetuje routing.
+      this.router.navigate(['/products', product.productName]);
+    })
 
     this.filteredProducts = this.searchBar.valueChanges.pipe(
       startWith(''),
-      map(value => this.filterProducts(value || ''))
+      map(value => value ? this.filterProducts(value) : [])
     );
   }
 
@@ -75,6 +74,8 @@ export class AppComponent implements OnInit{
     if(cookiesAccepted){
       this.isHidden = true;
     }
+
+    this.searchText = '';
     
     this.getData();
 

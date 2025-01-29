@@ -126,7 +126,6 @@ export class ProductsComponent implements OnInit {
       this.productData = result;
       this.isLoading = false;
       this.sortedProducts = this.productData;
-      this.filtersProducts();
       this.totalItems = this.productData.length;
       this.updateCurrentProducts();
       this.route.queryParams.subscribe(params => {
@@ -136,18 +135,26 @@ export class ProductsComponent implements OnInit {
         }else{
           this.showAllProducts();
         }
+
+        if (this.searchText) {
+          this.filtersProducts();
+        }
       })
     }, error => console.error(error));
   }
 
   ngOnInit(): void {
-    this.searchText = localStorage.getItem('searchText') || '';
-
     this.getData();
 
-    this.filtersProducts();
-
-    localStorage.removeItem('searchText');
+    this.route.queryParams.subscribe(() => {
+      const storedSearch = localStorage.getItem('searchText');
+  
+      if (storedSearch) {
+        this.searchText = storedSearch;
+        this.filtersProducts();
+        localStorage.removeItem('searchText');
+      }
+    });
   }
 }
 export interface ProductsDTO {
