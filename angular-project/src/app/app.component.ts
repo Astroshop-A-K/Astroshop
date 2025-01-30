@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductsDTO } from './shopping-cart/cart.service';
 import { map, Observable, startWith } from 'rxjs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit{
 
   isHidden: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private snackBar: MatSnackBar){}
 
   acceptCookies(){
     localStorage.setItem('cookiesAccepted', 'true');
@@ -40,6 +41,8 @@ export class AppComponent implements OnInit{
     if(this.searchText.trim()){
       localStorage.setItem('searchText', this.searchText);
       this.router.navigate(['/products']);
+    }else{
+      this.snackBar.open("Please enter a value!", "", { duration: 1500, }); 
     }
   }
   private filterProducts(value: string): ProductsDTO[]{
