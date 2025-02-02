@@ -40,26 +40,25 @@
           <div class="phone-number-verification">
             <div class="info">
               <label>Phone number</label>
-              <span>{{user.phoneNumber ? user.phoneNumber : 'Blank'}}</span>
+              <span>{{user.phoneNumber ? user.phoneNumber : 'Not entered'}}</span>
             </div>
             <div class="info">
               <label>Phone number confirmed</label>
-              <span [ngClass]="{'true': user.phoneNumberConfirmed, 'false': !user.phoneNumberConfirmed}">{{user.phoneNumberConfirmed}}</span>
+              <span [ngClass]="{'true': user.phoneNumberConfirmed, 'false': !user.phoneNumberConfirmed}">{{user.phoneNumberConfirmed ? 'Verified' : 'Not verified'}}</span>
             </div>
           </div>
           <div class="email-twofactor-verification">
             <div class="info">
               <label>Email Confirmed</label>
-              <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed}}</span>
+              <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed ? 'Verified' : 'Not verified'}}</span>
             </div>
             <div class="info">
               <label>Two Factor Enabled</label>
-              <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled}}</span>
+              <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled ? 'Verified' : 'Not verified'}}</span>
             </div>
           </div>
           <div class="buttons">
-            <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
-            <button class="btn btn-danger">Remove account</button>
+            <button class="btn btn-primary" (click)="logout()">Logout</button>
           </div>
         </div>
         <div *ngSwitchCase="'orders'" class="orders-section">

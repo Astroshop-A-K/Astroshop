@@ -38,9 +38,17 @@ export class AppComponent implements OnInit{
   }
 
   onSearch(){
+    console.log(this.searchText);
     if(this.searchText.trim()){
       localStorage.setItem('searchText', this.searchText);
-      this.router.navigate(['/products']);
+      if(this.router.url === '/products'){
+        window.location.reload();
+      }else{
+        this.router.navigate(['/products'], {
+          queryParams: {searchText: this.searchText},
+        });
+      }
+      this.searchText = '';
     }else{
       this.snackBar.open("Please enter a value!", "", { duration: 1500, }); 
     }

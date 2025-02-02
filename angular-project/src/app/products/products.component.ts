@@ -1,6 +1,6 @@
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
 import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
   isActive: boolean = false;
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private router: Router) {}
 
   toggleSidebar(){
     this.isActive = !this.isActive;
@@ -153,6 +153,10 @@ export class ProductsComponent implements OnInit {
         this.searchText = storedSearch;
         this.filtersProducts();
         localStorage.removeItem('searchText');
+
+        this.router.navigate([], {
+          queryParams: { searchText: null },
+        });
       }
     });
   }

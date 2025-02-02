@@ -33,8 +33,9 @@
   margin: 10px 0;
 }
 .icon p{
-  transition: font-weight 0.1s;
+  transition: font-weight 0.1s, border-bottom 0.1s;
   font-weight: 400;
+  margin: 0;
 }
 .icon:hover p{
   color: black;
@@ -47,7 +48,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .title h1{
   font-weight: bold;
@@ -85,17 +86,11 @@
   text-align: center;
 }
 .buttons{
-  margin: 16px 0 0 0;
+  margin: 10px 0 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
-}
-.info-section .info span.false {
-  color: #e74c3c;
-}
-.info-section .info span.true {
-  color: #2ecc71;
 }
 .icon.active p{
   font-weight: bold;

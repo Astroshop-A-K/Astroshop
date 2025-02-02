@@ -1,3 +1,4 @@
+<title>{{isLoading ? 'Loading...' : productInfo.productName}}</title>
 <div class="content" *ngIf="productInfo">
   @if(productInfo.productDiscount > 0 && !isLoading){
     <div class="product-tag">
@@ -12,7 +13,6 @@
     </div>
   }@else{
     <div class="part1">
-      <title>{{productInfo.productName}}</title>
       <div class="gallery-container">
         <button class="arrow-left"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" (click)="positionLeft()"></button>
         <div class="gallery">

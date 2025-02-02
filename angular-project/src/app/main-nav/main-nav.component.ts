@@ -57,11 +57,18 @@ export class MainNavComponent implements OnInit {
     }
   }
 
-  toggleSideBar(){
-    this.isActive = !this.isActive;
-  }
-  toggleSideCategories(){
-    this.isActive_category = !this.isActive_category;
+  toggleSideBar(type: 'main' | 'category'){
+    if(type === 'main'){
+      this.isActive = !this.isActive;
+      if(this.isActive){
+        this.isActive_category = false;
+      }
+    }else{
+      this.isActive_category = !this.isActive_category;
+      if(this.isActive_category){
+        this.isActive = false;
+      }
+    }
   }
 
   onFilter(category: string){
