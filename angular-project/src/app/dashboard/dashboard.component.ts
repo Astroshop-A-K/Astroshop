@@ -35,9 +35,9 @@ export class DashboardComponent implements OnInit {
     if(this.authService.authenticated()){
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
-          this.isLoading = false;
           this.authService.getRole(this.user.id).subscribe(result => {
               this.role = result;
+              this.isLoading = false;
               if(this.role != null){
                   this.roleName = this.role.name;
               }

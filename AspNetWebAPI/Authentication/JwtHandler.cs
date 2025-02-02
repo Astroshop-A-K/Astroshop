@@ -35,7 +35,7 @@ namespace AspNetCoreAPI.Registration
                 issuer: _jwtSettings["validIssuer"],
                 audience: _jwtSettings["validAudience"],
                 claims: claims,
-                expires: DateTime.MaxValue,
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtSettings["expiryInMinutes"])),
                 signingCredentials: signingCredentials);
             return tokenOptions;
         }
