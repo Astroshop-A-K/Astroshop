@@ -7,10 +7,7 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CartService, ProductsDTO } from '../shopping-cart/cart.service';
-import { LoginComponent } from '../api-authorization/login/login.component';
-import { ProductsDetailComponent } from '../products-detail/products-detail.component';
 import { FavoriteProductsService } from '../favorite-products/favorite-products.service';
-import { query } from '@angular/animations';
 
 @Component({
   selector: 'app-main-nav',
