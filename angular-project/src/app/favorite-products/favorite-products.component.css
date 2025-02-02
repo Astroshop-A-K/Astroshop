@@ -163,6 +163,13 @@ h1 {
     text-align: center;
     justify-content: flex-end;
   }
+  .remove-fav-product{
+    order: 1;
+    margin: 0 20px 0 0;
+  }
+  .name-image{
+    order: -1;
+  }
   .isLoading{
     width: 70%;
   }

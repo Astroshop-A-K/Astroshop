@@ -83,6 +83,12 @@
         <span><a [routerLink]="['/home']" [ngClass]="{'sidebar-active': isCurrentRoute('/home')}">Home</a></span>
         <span><a [routerLink]="['/products']" [ngClass]="{'sidebar-active': isCurrentRoute('/products') || isCurrentRoute('/products')}">Products</a></span>
         <span><a [routerLink]="['/contact']" [ngClass]="{'sidebar-active': isCurrentRoute('/contact')}">Contact</a></span>
+        @if(roleName == 'admin'){
+          <span><a [routerLink]="['/user-orders']" [ngClass]="{'sidebar-active': isCurrentRoute('/user-orders')}">Orders</a></span>
+        }
+        @else{
+      
+        }
     </div>
   </nav>
 </div>
