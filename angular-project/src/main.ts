@@ -53,6 +53,7 @@ bootstrapApplication(AppComponent, {
         { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
         { path: 'home', component: HomeComponent },
         { path: 'products', component: ProductsComponent },
+        { path: 'favorite-products', component: FavoriteProductsComponent, canActivate: [authGuard]},
         { path: 'contact', component: ContactPageComponent },
         { path: 'products/:productName', component: ProductsDetailComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent},
@@ -60,7 +61,6 @@ bootstrapApplication(AppComponent, {
         { path: 'order/order-summary', component: OrderSummaryComponent},
         { path: 'user-orders', component: UserOrdersComponent, canActivate: [authGuard]},
         { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [authGuard]},
-        { path: 'favorite-products', component: FavoriteProductsComponent, canActivate: [authGuard]},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ])
     ]
