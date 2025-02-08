@@ -60,6 +60,7 @@ export class ProductsComponent implements OnInit {
     this.currentPage = 1;
     this.updateCurrentProducts();
     this.selectedCategory = category;
+    this.searchText = '';
   }
 
   showAllProducts() {
@@ -69,14 +70,17 @@ export class ProductsComponent implements OnInit {
     this.totalItems = this.sortedProducts.length;
     this.updateCurrentProducts();
     this.selectedCategory = '';
+    this.searchText = '';
   }
 
   filtersProducts() {
     if (!this.searchText || this.searchText.trim() === '') {
-      this.sortedProducts = this.productData;
+      this.sortedProducts = this.selectedCategory ? this.categoryFilteredProducts : this.productData;
       this.selectedCategory = '';
     } else {
-      this.sortedProducts = this.productData.filter(product =>
+      let productsToSearch = this.selectedCategory ? this.categoryFilteredProducts : this.productData;
+
+      this.sortedProducts = productsToSearch.filter(product =>
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }
@@ -133,9 +137,8 @@ export class ProductsComponent implements OnInit {
         if(tempCategory){
           this.filterProducts(tempCategory);
         }else{
-          this.showAllProducts();
+          
         }
-
         if (this.searchText) {
           this.filtersProducts();
         }

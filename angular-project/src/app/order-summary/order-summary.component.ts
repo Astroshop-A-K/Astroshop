@@ -228,9 +228,9 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.selectedProducts = this.CartService.products;
-    if(this.selectedProducts.length === 0 || this.OrderService.order == null){
-      this.router.navigate(['/products']);
-    }
+    // if(this.selectedProducts.length === 0 || this.OrderService.order == null){
+    //   this.router.navigate(['/products']);
+    // }
     this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
   }
   ngOnDestroy(): void{

@@ -35,11 +35,7 @@ export class AuthenticationService {
     localStorage.setItem('username', username);
     this.authenticated.set(true);
   }
-
-  getCurrentUsername(): string {
-    return this.isAuthenticated() ? localStorage.getItem('username') : null;
-  }
-
+  
   getCurrentUser(){
     return this.httpClient.get<UserDTO>(this.baseUrl + 'user');
   }

@@ -42,17 +42,25 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.delivery-data-payment-form {
+.delivery-payment-data-container {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  gap: 45px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 .delivery-data {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  flex: 1.25;
+}
+.payment-form{
+  flex: 1;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+.payment-form img{
+  height: 35px;
+  width: 35px;
 }
 .delivery-data h2,
 .payment-form h2 {
@@ -135,17 +143,19 @@
 }
 .table {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: row;
   gap: 35px;
   margin: 0;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 .part1 {
   width: 100%;
 }
 input[type="radio"]{
-  margin: 0 10px;
+  margin: 0 10px 0 0;
 }
 h2 {
   font-weight: bold;
@@ -264,17 +274,9 @@ input[type="text"] {
   .content {
     padding: 60px 0 200px 0;
   }
-  .delivery-data-payment-form {
-    flex-direction: column;
-    gap: 20px;
-  }
-  .delivery-data {
-    flex-direction: column;
-    align-items: flex-start;
-  }
   .delivery-data h2,
   .payment-form h2 {
-    text-align: center;
+    text-align: left;
     width: 100%;
   }
 }
@@ -285,10 +287,6 @@ input[type="text"] {
   .content {
     padding: 60px 0 150px 0;
   }
-  .table {
-    flex-direction: column;
-    gap: 15px;
-  }
   .container {
     width: 95%;
   }
@@ -297,18 +295,23 @@ input[type="text"] {
   .selectedProducts .product-image-cell{
     display: none;
   }
-  .product-tag{
+  .product-tag, .product-tag-hidden{
     display: none;
-  }
-  .delivery-data-payment-form {
-    flex-direction: column;
-    gap: 15px;
   }
   .total-price{
     gap: 15px;
   }
   .re-captcha-container{
     flex-direction: column;
+  }
+}
+@media (max-width: 600px) {
+  .table{
+    flex-direction: column;
+  }
+  .co-1, .co-2{
+    text-align: left;
+    width: 100%;
   }
 }
 @media (max-width: 500px) {

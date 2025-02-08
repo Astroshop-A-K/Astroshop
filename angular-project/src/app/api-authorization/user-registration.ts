@@ -7,6 +7,8 @@ export interface UserRegistration {
 export interface RegistrationResponse {
   isSuccessfulRegistration: boolean;
   errors: string[];
+  token: string;
+  username: string;
 }
 
 export interface UserLogin {

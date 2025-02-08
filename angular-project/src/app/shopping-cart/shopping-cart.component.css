@@ -201,7 +201,7 @@
   .selectedProducts .product-image-cell{
     display: none;
   }
-  .product-tag{
+  .product-tag, .product-tag-hidden{
     display: none;
   }
 }
