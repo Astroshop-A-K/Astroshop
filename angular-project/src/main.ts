@@ -20,6 +20,8 @@ import { UserOrdersComponent } from './app/user-orders/user-orders.component';
 import { UserOrderDetailsComponent } from './app/user-order-details/user-order-details.component';
 import { FavoriteProductsComponent } from './app/favorite-products/favorite-products.component';
 import { authGuard } from './app/api-authorization/auth.guard';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 
 
 export function getBaseUrl() {
@@ -62,7 +64,7 @@ bootstrapApplication(AppComponent, {
         { path: 'user-orders', component: UserOrdersComponent, canActivate: [authGuard]},
         { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [authGuard]},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
-      ])
+      ]), provideFirebaseApp(() => initializeApp({"projectId":"astroshopsoc","appId":"1:856605368007:web:0a261edcfb9baacf03e8e2","storageBucket":"astroshopsoc.firebasestorage.app","apiKey":"AIzaSyDx3F1BMXOwJwr96wwmk65eAImd9TsPkpc","authDomain":"astroshopsoc.firebaseapp.com","messagingSenderId":"856605368007","measurementId":"G-PXMJCTGV77"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService
     ]
 })
   .catch(err => console.error(err));

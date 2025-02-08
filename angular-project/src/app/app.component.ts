@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -8,6 +8,8 @@ import { ProductsDTO } from './shopping-cart/cart.service';
 import { map, Observable, startWith } from 'rxjs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Analytics, getAnalytics, logEvent, setAnalyticsCollectionEnabled } from '@angular/fire/analytics';
+import { initializeApp } from '@angular/fire/app';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit{
 
   isHidden: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private snackBar: MatSnackBar){}
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private snackBar: MatSnackBar, private analytics: Analytics){}
 
   acceptCookies(){
     localStorage.setItem('cookiesAccepted', 'true');
@@ -100,5 +102,10 @@ export class AppComponent implements OnInit{
         }
       }),
     );
+    this.router.events.subscribe((event) => {
+      if(event instanceof NavigationEnd) {
+        logEvent(this.analytics, 'page_view', { page: event.urlAfterRedirects });
+      }
+    })
   }
 }

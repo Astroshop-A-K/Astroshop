@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { Analytics, getAnalytics, logEvent, setAnalyticsCollectionEnabled } from '@angular/fire/analytics';
 
 @Component({
   selector: 'app-products',
@@ -30,7 +31,7 @@ export class ProductsComponent implements OnInit {
   isActive: boolean = false;
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private router: Router) {}
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private router: Router, private analytics: Analytics) {}
 
   toggleSidebar(){
     this.isActive = !this.isActive;
@@ -161,6 +162,21 @@ export class ProductsComponent implements OnInit {
           queryParams: { searchText: null },
         });
       }
+    });
+    setAnalyticsCollectionEnabled(this.analytics, true);
+
+    logEvent(this.analytics, 'page_view', {
+      page_location: window.location.href, 
+      page_title: document.title, 
+      page_path: window.location.pathname,
+      screen_resolution: `${window.screen.width}x${window.screen.height}`, 
+      screen_name: 'Home Page',
+    });
+    logEvent(this.analytics, 'device_info', {
+      language: navigator.language, 
+      platform: navigator.platform,
+      user_agent: navigator.userAgent, 
+      screen_size: `${window.innerWidth}x${window.innerHeight}`,
     });
   }
 }
