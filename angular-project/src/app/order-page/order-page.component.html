@@ -58,12 +58,12 @@
                     </div>
                     <hr>
                     <div class="delivery-option">
-                        <input type="radio" name="deliveryOption" value="Posta" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
+                        <input type="radio" name="deliveryOption" value="Pošta" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
                         <label for="posta"><img src="https://iconape.com/wp-content/png_logo_vector/slovenska-posta-logo.png" alt="posta" title="posta"><span>Delivery to your post office</span></label>
                     </div>
                     <hr>
                     <div class="delivery-option">
-                        <input type="radio" name="deliveryOption" value="Kurier" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
+                        <input type="radio" name="deliveryOption" value="Kuriér" formControlName="deliveryOption" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': orderForm.get('deliveryOption').invalid && orderForm.get('deliveryOption').touched}">
                         <label for="kurier"><img src="https://www.jobkontakt.sk/files/images/logo/qcpZCL4VUvhRfMeOlYJ7fNldCp5cZ7OX_901.png" alt="kurier" title="kurier"><span>Delivery by SPS</span></label>
                     </div>
                 </form>

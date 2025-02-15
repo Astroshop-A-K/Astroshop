@@ -1,4 +1,4 @@
-<title>{{isLoading ? 'Loading...' : user.userName}}</title>
+<title>{{isLoading ? 'Loading...' : 'Welcome ' + user.userName + '!'}}</title>
 <div class="content">
   <div class="dashboard">
     @if(isLoading){
@@ -10,6 +10,7 @@
     }@else{
       <div class="title">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user-icon">
+        <h2>{{user.userName}}</h2>
       </div>
       <div class="icon-bar">
         <div class="icon" [ngClass]="{'active': activeTab === 'info'}" (click)="selectTab('info')">
@@ -27,38 +28,28 @@
       </div>
       <ng-container [ngSwitch]="activeTab">
         <div *ngSwitchCase="'info'" class="info-section">
-          <div class="username-email">
+          <div class="email-phone-number">
             <div class="info">
-              <label>Username</label>
-              <span>{{user.userName}}</span>
-            </div>
-            <div class="info">
-              <label>Email</label>
+              <label>E-mail</label>
               <span>{{user.email}}</span>
             </div>
-          </div>
-          <div class="phone-number-verification">
             <div class="info">
               <label>Phone number</label>
               <span>{{user.phoneNumber ? user.phoneNumber : 'Not entered'}}</span>
+            </div>
+          </div>
+          <div class="email-phone-number-verification">
+            <div class="info">
+              <label>Email Confirmed</label>
+              <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed ? 'Verified' : 'Not verified'}}</span>
             </div>
             <div class="info">
               <label>Phone number confirmed</label>
               <span [ngClass]="{'true': user.phoneNumberConfirmed, 'false': !user.phoneNumberConfirmed}">{{user.phoneNumberConfirmed ? 'Verified' : 'Not verified'}}</span>
             </div>
           </div>
-          <div class="email-twofactor-verification">
-            <div class="info">
-              <label>Email Confirmed</label>
-              <span [ngClass]="{'true': user.emailConfirmed, 'false': !user.emailConfirmed}">{{user.emailConfirmed ? 'Verified' : 'Not verified'}}</span>
-            </div>
-            <div class="info">
-              <label>Two Factor Enabled</label>
-              <span [ngClass]="{'true': user.twoFactorEnabled, 'false': !user.twoFactorEnabled}">{{user.twoFactorEnabled ? 'Verified' : 'Not verified'}}</span>
-            </div>
-          </div>
           <div class="buttons">
-            <button class="btn btn-primary" (click)="logout()">Logout</button>
+            <button class="btn btn-primary" (click)="logout()"><img src="../../assets/Images/logout_icon.png" class="logout-icon">Logout</button>
           </div>
         </div>
         <div *ngSwitchCase="'orders'" class="orders-section">

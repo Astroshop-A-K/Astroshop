@@ -27,8 +27,8 @@
     </div>
     <div class="filters">
       <input class="search-bar form-control" [(ngModel)]="searchText" type="search" placeholder="Click here to search your products" (ngModelChange)="filtersProducts()">
-      <select class="form-control" (change)="onSortChange($event)">
-        <option disabled selected value>Not selected</option>
+      <select #sortSelect class="form-control" (change)="onSortChange($event)"> <!--#sortSelect je Angular template reference variable-->
+        <option disabled selected value="">Not selected</option>
         <option value="all">All products</option>
         <option value="top">By top rated</option>
         <option value="mostExpensive">From the most expensive</option>

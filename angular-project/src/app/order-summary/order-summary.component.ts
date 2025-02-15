@@ -113,7 +113,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       return `
         <tr>
           <td style="padding: 8px;">${product.productName}</td>
-          <td style="padding: 8px;">${product.amount}</td>
+          <td style="padding: 8px;">${product.amount}x</td>
           <td style="padding: 8px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2)}€ -(${product.productDiscount}%)</td>
           <td style="padding: 8px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
         </tr>
@@ -153,7 +153,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
             <tr>
               <td style="padding: 8px;">${product.productName}</td>
               <td style="padding: 8px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }€ (-${product.productDiscount}%)</td>
-              <td style="padding: 8px;">${product.amount}</td>
+              <td style="padding: 8px;">${product.amount}x</td>
               <td style="padding: 8px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
             </tr>
           `).join('')}

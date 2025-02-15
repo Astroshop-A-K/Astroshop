@@ -49,22 +49,24 @@
   align-items: center;
   flex-direction: column;
   margin-bottom: 5px;
+  font-weight: normal;
 }
-.title h1{
+.title h2 {
+  margin: 0;
   font-weight: bold;
 }
 .title img{
   height: 50px;
   width: 50px;
 }
-.username-email, .email-twofactor-verification, .phone-number-verification{
+.email-phone-number, .email-phone-number-verification {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   gap: 20px;
 }
-.username-email .info, .email-twofactor-verification .info, .phone-number-verification .info{
+.email-phone-number .info, .email-phone-number-verification .info {
   width: 50%;
 }
 .info-section .info {
@@ -92,6 +94,14 @@
   align-items: center;
   gap: 20px;
 }
+.buttons button{
+  display: flex;
+  align-items: center;
+}
+.buttons img{
+  height: 30px;
+  width: 30px;
+}
 .icon.active p{
   font-weight: bold;
 }
@@ -109,15 +119,13 @@
   .dashboard {
     max-width: 94%;
   }
-  .username-email,
-  .email-twofactor-verification,
-  .phone-number-verification {
+  .email-phone-number,
+  .email-phone-number-verification {
     flex-direction: column;
     gap: 0;
   }
-  .username-email .info,
-  .email-twofactor-verification .info,
-  .phone-number-verification .info {
+  .email-phone-number .info,
+  .email-phone-number-verification .info {
     width: 100%; 
   }
 }

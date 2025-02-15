@@ -120,6 +120,9 @@ h2{
     .order-form {
         width: 75%;
     }
+    .content{
+        padding: 60px 0 160px 0;
+    }
 }
 @media (max-width: 676px){
     .order-form {

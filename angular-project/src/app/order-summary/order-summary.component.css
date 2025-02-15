@@ -86,7 +86,7 @@
   font-weight: bold;
 }
 .no-discount-price {
-  margin-top: 40px;
+  margin: auto 0;
 }
 .product-prices {
   display: flex;
