@@ -32,7 +32,7 @@
           @else{
         
           }
-          <span><a [routerLink]="['/home']" [ngClass]="{'navigation-active': isCurrentRoute('/home')}">Home</a></span>
+          <span><a [routerLink]="['/home']" [ngClass]="{'navigation-active': isCurrentRoute('/home', '/')}">Home</a></span>
           <span><a [routerLink]="['/products']" [ngClass]="{'navigation-active': isCurrentRoute('/products')}">Products</a></span>
           <span><a [routerLink]="['/contact']" [ngClass]="{'navigation-active': isCurrentRoute('/contact')}">Contact</a></span>
         </div>
@@ -80,7 +80,7 @@
           <span class="close-btn" (click)="toggleSideBar('main')"><img src="https://static-00.iconduck.com/assets.00/cancel-icon-2048x2048-milcunum.png" height="10" width="10"></span>
         </div>
         }
-        <span><a [routerLink]="['/home']" [ngClass]="{'sidebar-active': isCurrentRoute('/home')}">Home</a></span>
+        <span><a [routerLink]="['/home']" [ngClass]="{'sidebar-active': isCurrentRoute('/home', '/')}">Home</a></span>
         <span><a [routerLink]="['/products']" [ngClass]="{'sidebar-active': isCurrentRoute('/products')}">Products</a></span>
         <span><a [routerLink]="['/contact']" [ngClass]="{'sidebar-active': isCurrentRoute('/contact')}">Contact</a></span>
         @if(roleName == 'admin'){

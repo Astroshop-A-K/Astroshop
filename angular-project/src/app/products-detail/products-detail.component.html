@@ -77,36 +77,50 @@
             <div class="char-count" style="visibility: hidden; display: none;">a</div>
           }
         </div>
-        <div class="reviews">
-        <div class="review" *ngFor="let review of reviewsData">
-          <div class="title">
-            <div class="title-part1">
-              <h3 class="review-creator"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user" height="40" width="40">{{review.reviewCreator}}</h3>
-              <div class="star-rating">
-                <app-star-rating [rating]="review.starRating" [readOnly]="true"></app-star-rating>
-              </div>
-              <h3 class="review-date">{{review.reviewDate}}</h3>
-            </div>
-            <div class="title-part2">
-              <div class="dropdown">
-                <img src="https://cdn-icons-png.freepik.com/512/7066/7066144.png" height="20" width="20" alt="dots"> 
-                <div class="dropdown-content">
-                  <a (click)="shareReview(review.reviewCreator, review.reviewComment, review.reviewDate)"><img src="https://www.freeiconspng.com/thumbs/share-icon/share-icon-png-2.png" height="20" width="20" alt="share-icon"></a>
-                  @if(review.reviewCreator === user?.userName || roleName === 'admin'){
-                    <a (click)="removeReview(review.reviewId)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="20px" width="16px" alt="bin"></a>
-                  }
-                  @else{
-  
-                  }
+        @if(!isLoading_review){
+          @if(reviewsData.length > 0){
+            <div class="reviews">
+              <div class="review" *ngFor="let review of reviewsData">
+                <div class="title">
+                  <div class="title-part1">
+                    <h3 class="review-creator"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user" height="40" width="40">{{review.reviewCreator}}</h3>
+                    <div class="star-rating">
+                      <app-star-rating [rating]="review.starRating" [readOnly]="true"></app-star-rating>
+                    </div>
+                    <h3 class="review-date">{{review.reviewDate}}</h3>
+                  </div>
+                  <div class="title-part2">
+                    <div class="dropdown">
+                      <img src="https://cdn-icons-png.freepik.com/512/7066/7066144.png" height="20" width="20" alt="dots"> 
+                      <div class="dropdown-content">
+                        <a (click)="shareReview(review.reviewCreator, review.reviewComment, review.reviewDate)"><img src="https://www.freeiconspng.com/thumbs/share-icon/share-icon-png-2.png" height="20" width="20" alt="share-icon"></a>
+                        @if(review.reviewCreator === user?.userName || roleName === 'admin'){
+                          <a (click)="removeReview(review.reviewId)"><img src="https://cdn-icons-png.flaticon.com/512/484/484662.png" height="20px" width="16px" alt="bin"></a>
+                        }
+                        @else{
+        
+                        }
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                 <div class="description">
+                  <p>{{review.reviewComment}}</p>
+                 </div>
               </div>
             </div>
+          }@else{
+            <div class="no-reviews">
+              <p>There are no reviews yet.</p>
+            </div>
+          }
+        }@else{
+          <div class="spinner-container" style="height: 200px;">
+            <div class="spinner">
+            </div>
+            Loading...
           </div>
-           <div class="description">
-            <p>{{review.reviewComment}}</p>
-           </div>
-        </div>
-      </div>
+        }       
       </div>
   }
   </div>

@@ -37,7 +37,8 @@ export class MainNavComponent implements OnInit {
 
   isCurrentRoute(...routes: string[]): boolean {
     const currentRoute = this.router.url;
-    return routes.some(route => currentRoute.startsWith(route)); //metoda v JS ktora ci aspon jeden prvok v array splna podmienku (true/false);
+    return routes.some(route => 
+      route === '/' ? currentRoute === '/' : currentRoute.startsWith(route)); //metoda v JS ktora ci aspon jeden prvok v array splna podmienku (true/false);
   }
 
   toggleSideBar(type: 'main' | 'category'){

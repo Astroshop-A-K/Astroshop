@@ -17,5 +17,4 @@ export class SearchPipe implements PipeTransform {
       return item.productName.toLowerCase().includes(args);
     });
   }
-
 }

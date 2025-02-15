@@ -183,11 +183,15 @@ html{
   justify-content: flex-start;
   gap: 10px;
 }
-.review {
+.review, .no-reviews {
   border-radius: 8px;
   padding: 20px;
   margin: 16px 0;
   background: #f9f9f9;
+}
+.no-reviews p{
+  margin: 0;
+  font-weight: 400;
 }
 .title{
   display: flex;
@@ -212,6 +216,7 @@ html{
 .review-date{
   color: #666;
   font-size: 14px;
+  margin-top: 2px;
 }
 .title-part2 {
   display: flex;
@@ -222,6 +227,7 @@ html{
   border-radius: 15px;
   cursor: pointer;
   padding: 5px;
+  z-index: 9999;
 }
 .dropdown-content {
   display: none;
@@ -251,6 +257,9 @@ html{
 }
 .description p{
   margin: 0;
+}
+.description{
+  z-index: 0;
 }
 fa-icon {
   font-size: 24px;

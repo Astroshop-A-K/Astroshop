@@ -17,16 +17,18 @@ import { Analytics, getAnalytics, logEvent, setAnalyticsCollectionEnabled } from
   imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent, MatProgressSpinnerModule],
 })
 export class ProductsComponent implements OnInit {
-  public productData: ProductsDTO[] = [];
-  public ourFilteredProducts: ProductsDTO[] = [];
-  public categoryFilteredProducts: ProductsDTO[] = [];
-  public sortedProducts: ProductsDTO[] = [];
+  productData: ProductsDTO[] = [];
+  ourFilteredProducts: ProductsDTO[] = [];
+  categoryFilteredProducts: ProductsDTO[] = [];
+  sortedProducts: ProductsDTO[] = [];
 
   searchText: any;
   currentPage: number = 1;
   totalItems: number = 0;
   limit: number = 8;
+
   selectedCategory: string = '';
+  selectedSortOption: string = '';
 
   isActive: boolean = false;
   isLoading: boolean = true;
@@ -61,7 +63,7 @@ export class ProductsComponent implements OnInit {
     this.currentPage = 1;
     this.updateCurrentProducts();
     this.selectedCategory = category;
-    this.searchText = '';
+    this.searchText = this.selectedSortOption = '';
   }
 
   showAllProducts() {
@@ -71,19 +73,20 @@ export class ProductsComponent implements OnInit {
     this.totalItems = this.sortedProducts.length;
     this.updateCurrentProducts();
     this.selectedCategory = '';
-    this.searchText = '';
+    this.searchText = this.selectedSortOption = '';
   }
 
   filtersProducts() {
     if (!this.searchText || this.searchText.trim() === '') {
       this.sortedProducts = this.selectedCategory ? this.categoryFilteredProducts : this.productData;
-      this.selectedCategory = '';
     } else {
       let productsToSearch = this.selectedCategory ? this.categoryFilteredProducts : this.productData;
 
       this.sortedProducts = productsToSearch.filter(product =>
         product.productName.toLowerCase().includes(this.searchText.toLowerCase())
       );
+
+      this.selectedSortOption = '';
     }
 
     this.totalItems = this.sortedProducts.length;
@@ -159,10 +162,11 @@ export class ProductsComponent implements OnInit {
         localStorage.removeItem('searchText');
 
         this.router.navigate([], {
-          queryParams: { searchText: null },
+          queryParams: { searchText: null }, //vymazeme queryParams z aktualnej url preto dame [] to znamena current url
         });
       }
     });
+
     setAnalyticsCollectionEnabled(this.analytics, true);
 
     logEvent(this.analytics, 'page_view', {

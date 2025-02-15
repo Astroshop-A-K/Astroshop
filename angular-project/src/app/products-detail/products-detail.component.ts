@@ -38,11 +38,11 @@ export class ProductsDetailComponent implements OnInit {
         amount: 0,
         productDiscount: 0
     }; 
-    public productName: string = '';
-    public currentImagePosition: number = 0;
-    public currentPageURL: string = '';
+    productName: string = '';
+    currentImagePosition: number = 0;
+    currentPageURL: string = '';
 
-    public reviewsData: ReviewsDTO[] = [];
+    reviewsData: ReviewsDTO[] = [];
     reviewCreator: string = '';
     sharingReviewText: string = '';
     repeatedReviewCreator: boolean = false;
@@ -68,6 +68,7 @@ export class ProductsDetailComponent implements OnInit {
     userMessage: string = '';
 
     isLoading: boolean = true;
+    isLoading_review: boolean = false;
     isActive: boolean = false;
 
     constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
@@ -184,6 +185,8 @@ export class ProductsDetailComponent implements OnInit {
     
                 let averageStarRating = 0;
                 let reviewsCount = 0;
+
+                this.isLoading_review = true;
     
                 this.createReview(reviewComment, this.reviewCreator, this.productName, starRating, this.currentDate).subscribe(newReview =>{
                     const reviewDto: ReviewsDTO = newReview as ReviewsDTO; //povedat newReview ze je typu ReviewsDTO
@@ -199,6 +202,7 @@ export class ProductsDetailComponent implements OnInit {
                     this.getReviews(this.productName).subscribe(result => {
                         this.reviewsData = result;
                         this.filterReviews();
+                        this.isLoading_review = false;
                     });
                     this.snackBar.open("Your review was successfully created!", "", { duration: 1500, }); 
                 }
@@ -223,6 +227,8 @@ export class ProductsDetailComponent implements OnInit {
         let averageStarRating = 0;
         let reviewsCount = 0;
 
+        this.isLoading_review = true;
+
         if(reviewId != null){
             this.deleteReview(reviewId).subscribe(
                 () => {
@@ -231,7 +237,9 @@ export class ProductsDetailComponent implements OnInit {
 
                     if(this.reviewsData.length > 0){
                         averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
-                        this.averageStarRatingSignal.update(value => averageStarRating);
+                        this.averageStarRatingSignal.update(() => averageStarRating);
+                    }else{
+                        this.averageStarRatingSignal.update(() => 0);
                     }
 
                     this.snackBar.open("Your review was successfully removed!", "", { duration: 1500, }); 
@@ -239,6 +247,8 @@ export class ProductsDetailComponent implements OnInit {
                     reviewsCount = this.reviewsData.length;
                     this.reviewsCountSignal.update(value => this.reviewsData.length);
                     this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
+
+                    this.isLoading_review = false;
                 }
             );
         }
@@ -289,7 +299,6 @@ export class ProductsDetailComponent implements OnInit {
         queryParams = queryParams.append("reviewId", reviewId);
         return this.http.get<ReviewsDTO>(this.baseUrl + 'reviews/getCurrentReview', { params: queryParams});
     }
-
     deleteReview(reviewId: number): Observable<any>{
         const url = `${this.baseUrl}reviews/${reviewId}`;
         return this.http.delete(url);
@@ -314,39 +323,41 @@ export class ProductsDetailComponent implements OnInit {
             result => {
                 this.productInfo = result;
                 this.isLoading = false;
+                this.getReviews(this.productName).subscribe(
+                    result => {
+                        this.reviewsData = result;
+                        this.refreshData();
+                        if(this.authService.authenticated()){
+                         this.authService.getCurrentUser().subscribe(result =>{
+                             this.user = result;
+                             this.reviewCreator = this.user.userName;
+                             this.filterReviews();
+                             this.isLoading_review = false;
+                             this.authService.getRole(this.user.id).subscribe(result => {
+                                 this.role = result;
+                                 if(this.role != null){
+                                     this.roleName = this.role.name;
+                                 }
+                             })
+                             this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
+                                 this.favoriteProductsData = result;
+                                 if(this.checkFavoriteProduct()){
+                                     this.favoriteProductExists = true;
+                                 }
+                                 else{
+                                     this.favoriteProductExists = false;
+                                 }
+                             })
+                             
+                         })
+                     }
+                    },
+                    error => console.error(error)
+                 );
             },
             error => console.error(error)
         );
-        this.getReviews(this.productName).subscribe(
-           result => {
-               this.reviewsData = result;
-               this.refreshData();
-               if(this.authService.authenticated()){
-                this.authService.getCurrentUser().subscribe(result =>{
-                    this.user = result;
-                    this.reviewCreator = this.user.userName;
-                    this.filterReviews();
-                    this.authService.getRole(this.user.id).subscribe(result => {
-                        this.role = result;
-                        if(this.role != null){
-                            this.roleName = this.role.name;
-                        }
-                    })
-                    this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
-                        this.favoriteProductsData = result;
-                        if(this.checkFavoriteProduct()){
-                            this.favoriteProductExists = true;
-                        }
-                        else{
-                            this.favoriteProductExists = false;
-                        }
-                    })
-                })
-            }
-           },
-           error => console.error(error)
-        );
-        this.currentDate = this.datePipe.transform(new Date(), 'MMM d, y, h:mm a');
+        this.currentDate = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm:ss');
     }
 }
 export interface ReviewsDTO{
