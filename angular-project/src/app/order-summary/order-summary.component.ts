@@ -107,10 +107,25 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       this.snackBar.open("You forgot to complete re-captcha!", "", { duration: 1500, });
     }
   }
+
+  generateProductsTable(): string {
+    return this.selectedProducts.map(product => {
+      return `
+        <tr>
+          <td style="padding: 8px;">${product.productName}</td>
+          <td style="padding: 8px;">${product.amount}</td>
+          <td style="padding: 8px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2)}€ -(${product.productDiscount}%)</td>
+          <td style="padding: 8px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
   generateInvoice() {
     const invoiceHTML = `
     <div style="width: 100%;box-sizing: border-box; padding: 50px">
       <div class="title-element" style="font-family: Arial, Helvetica, sans-serif; text-align: center;">
+        <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon" height="50px" width="50px">
         <h2>Číslo objednávky: <strong>${this.orderId}</strong></h2>
       </div>
       <div class="first-table">
@@ -118,10 +133,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
           <tr>
             <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Dátum</th>
             <td style="padding: 8px;">${this.currentDate}</td>
-          </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Hmotnosť objednávky</th>
-            <td style="padding: 8px;">0 kg</td>
           </tr>
           <tr>
             <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Celkový počet produktov</th>
@@ -133,24 +144,24 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         <h3>Objednané produkty</h3>
         <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
           <tr style="background-color: #0d6efd; color: white;">
-            <th style="padding: 8px;">Číslo produktu</th>
+            <th style="padding: 8px;">Názov produktu</th>
             <th style="padding: 8px;">Cena/ks</th>
             <th style="padding: 8px;">Ks</th>
             <th style="padding: 8px;">Celkom</th>
           </tr>
-          ${this.selectedProducts.map(item => `
+          ${this.selectedProducts.map(product => `
             <tr>
-              <td style="padding: 8px;">${item.productId}</td>
-              <td style="padding: 8px;">${(item.price - ((item.price / 100)) * item.productDiscount).toFixed(2) }€ (-${item.productDiscount}%)</td>
-              <td style="padding: 8px;">${item.amount}</td>
-              <td style="padding: 8px;">${(item.amount * (item.price - (item.price / 100) * item.productDiscount)).toFixed(2)}€</td>
+              <td style="padding: 8px;">${product.productName}</td>
+              <td style="padding: 8px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }€ (-${product.productDiscount}%)</td>
+              <td style="padding: 8px;">${product.amount}</td>
+              <td style="padding: 8px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
             </tr>
           `).join('')}
           <tr>
             <td style="font-weight: bold; padding: 8px;">CELKOM:</td>
             <td style="padding: 8px;"></td>
             <td style="padding: 8px;"></td>
-            <td style="font-weight: bold; padding: 8px">${this.totalPrice.toFixed(2)}€</td>
+            <td style="font-weight: bold; padding: 8px">${this.CartService.totalPrice().toFixed(2)}€</td>
           </tr>
         </table>
       </div>
@@ -163,7 +174,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
           </tr>
           <tr>
             <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Adresa</th>
-            <td style="padding: 8px;">${this.OrderService.order.address}, ${this.OrderService.order.city}, ${this.OrderService.order.postalCode}</td>
+            <td style="padding: 8px;">${this.OrderService.order.address}, ${this.OrderService.order.postalCode}, ${this.OrderService.order.city}</td>
           </tr>
           <tr>
             <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">E-mail</th>
@@ -184,19 +195,22 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
     const emailParams = {
       customer_name: `${this.OrderService.order.name} ${this.OrderService.order.surname}`,
+      customer_phoneNumber: this.OrderService.order.phoneNumber,
       customer_email: this.OrderService.order.email,
       customer_address: this.OrderService.order.address,
       customer_city: this.OrderService.order.city,
+      customer_postalCode: this.OrderService.order.postalCode,
       customer_country: this.OrderService.order.country,
+      delivery_option: this.OrderService.order.deliveryOption,
+      payment_option: this.OrderService.order.payment,
       order_id: this.orderId,
       order_date: this.currentDate,
-      products_table: this.selectedProducts.map(product => {
-        const total = (product.amount * product.price).toFixed(2);
-        return `${product.productName} | ${product.amount} | ${product.price.toFixed(2)}€ | ${total}€`;
-      }).join('\n'), //zmapujeme kazdy product v array a to sa tam akoby ulozi pre kazdy prvok ta value co sa vracia a join('\n') spoji vsetky prvky array do jedneho stringu a tie prvky su oddelene novym riadkom aby to tam nebolo prepchate preto to '\n'
+      products_table: this.generateProductsTable(),
       total_price: this.totalPrice.toFixed(2),
       subject: 'Order Information'
     };
+
+    console.log(emailParams.products_table);
 
     emailjs.init('vvvXsO3WEU729fqbQ');
     emailjs.send('service_cleravy', 'template_5nu9fji', emailParams);
@@ -207,6 +221,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       pdf.save(`Faktura_č${this.orderId}.pdf`);
     })
   }
+
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string, orderNoteBE: string, recaptchaResponse: string) {
     const url = `${this.baseUrl}orders/create-order`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -228,9 +243,9 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.selectedProducts = this.CartService.products;
-    // if(this.selectedProducts.length === 0 || this.OrderService.order == null){
-    //   this.router.navigate(['/products']);
-    // }
+    if(this.selectedProducts.length === 0 || this.OrderService.order == null){
+      this.router.navigate(['/products']);
+    }
     this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
   }
   ngOnDestroy(): void{

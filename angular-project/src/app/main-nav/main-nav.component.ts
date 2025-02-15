@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal, Inject } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
@@ -12,19 +12,15 @@ import { FavoriteProductsService } from '../favorite-products/favorite-products.
 @Component({
   selector: 'app-main-nav',
   standalone: true,
-  imports: [RouterLink, MatToolbar, MatButton, NgIf, NgClass, MatBadgeModule, MatIconModule, CommonModule],
+  imports: [RouterLink, MatToolbar, MatButton, NgIf, NgClass, MatBadgeModule, MatIconModule, CommonModule, RouterLinkActive],
   templateUrl: './main-nav.component.html',
   styleUrl: './main-nav.component.css'
 })
 export class MainNavComponent implements OnInit {
-  navbarfixed: boolean = false;
-  authService = inject(AuthenticationService);
-  private router = inject(Router)
   countNum = this.CartService.countNum;
   fav_countNum = this.FProductsService.countNum;
-  favoriteProducts: ProductsDTO[] = [];
-  currentRoute: string = "";
 
+  favoriteProducts: ProductsDTO[] = [];
   products: ProductsDTO[] = [];
 
   user: UserDTO;
@@ -35,23 +31,13 @@ export class MainNavComponent implements OnInit {
   isActive_category: boolean = false;i
   isNavFixed: boolean = false;
 
-  constructor(private CartService: CartService, private router_nav: Router, private FProductsService: FavoriteProductsService){
-    this.currentRoute = this.router_nav.url;
+  constructor(private CartService: CartService, private FProductsService: FavoriteProductsService, private router: Router, public authService: AuthenticationService){
     this.products = this.CartService.getProducts();
   }
 
   isCurrentRoute(...routes: string[]): boolean {
     const currentRoute = this.router.url;
-    return routes.includes(currentRoute);
-  }
-
-  toFavoriteProducts(){
-    if(this.authService.authenticated()){
-      this.router_nav.navigate(['/favorite-products']);
-    }
-    else{
-      this.router_nav.navigate(['/login']);
-    }
+    return routes.some(route => currentRoute.startsWith(route)); //metoda v JS ktora ci aspon jeden prvok v array splna podmienku (true/false);
   }
 
   toggleSideBar(type: 'main' | 'category'){
@@ -118,7 +104,7 @@ export class MainNavComponent implements OnInit {
    }
    this.router.events.subscribe(event => { //zapne sa vzdy ked sa udeje novy event ktory je emitovany Observable
     if(event instanceof NavigationEnd){ //navigacia prebehla uspesne
-      this.currentRoute = event.urlAfterRedirects;
+      this.isActive = false;
     }
    })
  } 

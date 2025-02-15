@@ -70,15 +70,15 @@
                 </div>
                 <form [formGroup]="paymentForm">
                   <div class="field">
-                    <input type="radio" id="p1" name="paymentMethod" value="paymentOnDelivery" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                    <input type="radio" id="p1" name="paymentMethod" value="Platba hotovosťou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
                     <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" alt="paymentOnDelivery">Payment on delivery</label><br>
                   </div>
                   <div class="field">
-                    <input type="radio" id="p2" name="paymentMethod" value="cardPaymentUponCollection" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                    <input type="radio" id="p2" name="paymentMethod" value="Platba kartou pri prevzatí" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
                     <label for="p2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzJFEBgcViSG5jF0lIrNdPrWgJbg7OyxrXNKKvGDK1OJO9xQt1pcnNs61wXaCBDSkUOeE&usqp=CAU" alt="cardPaymentUponCollection">Bank transfer</label><br>
                   </div>
                   <div class="field">
-                    <input type="radio" id="p3" name="paymentMethod" value="cardPayment" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                    <input type="radio" id="p3" name="paymentMethod" value="Platba kartou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
                     <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" alt="cardPayment">Online card payment</label><br>
                   </div>
                 </form>

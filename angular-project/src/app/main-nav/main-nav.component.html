@@ -32,18 +32,18 @@
           @else{
         
           }
-          <span><a [routerLink]="['/home']" [ngClass]="{'active': isCurrentRoute('/home', '/')}">Home</a></span>
-          <span><a [routerLink]="['/products']" [ngClass]="{'active': isCurrentRoute('/products') || isCurrentRoute('/products')}">Products</a></span>
-          <span><a [routerLink]="['/contact']" [ngClass]="{'active': isCurrentRoute('/contact')}">Contact</a></span>
+          <span><a [routerLink]="['/home']" [ngClass]="{'navigation-active': isCurrentRoute('/home')}">Home</a></span>
+          <span><a [routerLink]="['/products']" [ngClass]="{'navigation-active': isCurrentRoute('/products')}">Products</a></span>
+          <span><a [routerLink]="['/contact']" [ngClass]="{'navigation-active': isCurrentRoute('/contact')}">Contact</a></span>
         </div>
-        <a (click)="toFavoriteProducts()" [routerLink]="[]"><mat-icon matBadge="{{fav_countNum()}}" aria-hidden="false" matBadgeClass="custom-badge"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
+        <a [routerLink]="['/favorite-products']"><mat-icon matBadge="{{fav_countNum()}}" aria-hidden="false" matBadgeClass="custom-badge"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
         <div class="shopping-cart">
         <a [routerLink]="['/shopping-cart']"><mat-icon matBadge="{{countNum()}}" aria-hidden="false" matBadgeClass="custom-badge"><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png" height="25" width="25" alt="shopping-cart" title="shopping-cart"/></mat-icon></a>
         <div class="cart-dropdown-menu">
           @if(products.length > 0){
             <div *ngFor="let product of products" class="products">
               <img [src]="product.productImage0" [alt]="product.productName" height="50" width="50">
-              <p>{{ product.productName }}</p>
+              <p class="product-name">{{ product.productName }}</p>
               <p style="font-weight: bold;">{{ product.amount}}x</p>
             </div>
           }
@@ -63,8 +63,8 @@
       } @else {
         <a [routerLink]="['/login']"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png" alt="user" height="40" width="40" /></a>
       }
-    </div>
-    </div>
+      </div>
+     </div>
     </div>
   </nav>
   <nav class="sidebar" [ngClass]="{'active': isActive}">
@@ -81,7 +81,7 @@
         </div>
         }
         <span><a [routerLink]="['/home']" [ngClass]="{'sidebar-active': isCurrentRoute('/home')}">Home</a></span>
-        <span><a [routerLink]="['/products']" [ngClass]="{'sidebar-active': isCurrentRoute('/products') || isCurrentRoute('/products')}">Products</a></span>
+        <span><a [routerLink]="['/products']" [ngClass]="{'sidebar-active': isCurrentRoute('/products')}">Products</a></span>
         <span><a [routerLink]="['/contact']" [ngClass]="{'sidebar-active': isCurrentRoute('/contact')}">Contact</a></span>
         @if(roleName == 'admin'){
           <span><a [routerLink]="['/user-orders']" [ngClass]="{'sidebar-active': isCurrentRoute('/user-orders')}">Orders</a></span>

@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductsDTO } from '../shopping-cart/cart.service';
-import { FavoriteProductDTO } from './favorite-products.component';
 
 @Injectable({
   providedIn: 'root'
