@@ -4,13 +4,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 60px 0 300px 0;
+  padding: 80px 0 180px 0;
   background-image: url(https://t4.ftcdn.net/jpg/04/94/85/25/360_F_494852538_r8ylVApdAY0YuWYCkWIsg5pDZkboERYI.jpg);
   background-position: center;
   background-size: cover;
 }
 .container {
-  width: 80%;
+  width: 75%;
   max-width: 1200px;
   display: flex;
   align-items: center;
@@ -174,6 +174,10 @@ input[type="text"] {
   flex-direction: column;
   align-items: center;
 }
+.coupon button{
+  padding: 10px 18px;
+  border-radius: 10px;
+}
 .order-summary {
   border-top: 1px solid #ccc;
   width: 100%;
@@ -265,14 +269,17 @@ input[type="text"] {
   .container {
     width: 90%;
   }
+  .content{
+    padding: 80px 0 170px 0;
+  }
 }
 @media (max-width: 900px){
   .selectedProducts .product-image{
     width: 175px;
     height: 175px;
   }
-  .content {
-    padding: 60px 0 200px 0;
+  .content{
+    padding: 80px 0 160px 0;
   }
   .delivery-data h2,
   .payment-form h2 {
@@ -285,7 +292,7 @@ input[type="text"] {
     width: 100%;
   }
   .content {
-    padding: 60px 0 150px 0;
+    padding: 60px 0 130px 0;
   }
   .container {
     width: 95%;
@@ -303,6 +310,9 @@ input[type="text"] {
   }
   .re-captcha-container{
     flex-direction: column;
+  }
+  .content{
+    padding: 60px 0 115px 0;
   }
 }
 @media (max-width: 600px) {

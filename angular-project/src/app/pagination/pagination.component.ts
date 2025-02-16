@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
-export class PaginationComponent implements OnInit { /*TODO*/
+export class PaginationComponent implements OnInit {
   @Input() currentPage: number = 1;
   @Input() total: number = 0;
   @Input() limit: number = 4;

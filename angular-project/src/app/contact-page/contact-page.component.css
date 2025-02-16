@@ -63,6 +63,7 @@ p {
   text-align: right;
   font-size: 0.9em;
   color: black;
+  margin-top: 3px;
 }
 .is-invalid {
   border-color: red !important;

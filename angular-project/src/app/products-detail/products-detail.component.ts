@@ -52,7 +52,6 @@ export class ProductsDetailComponent implements OnInit {
     averageStarRatingSignal = signal(0);
     reviewsCountSignal = signal(0);
 
-    authService = inject(AuthenticationService);
     user: UserDTO;
     role: RoleDTO;
     roleName: string = '';
@@ -61,6 +60,7 @@ export class ProductsDetailComponent implements OnInit {
 
     favoriteProductsData: ProductsDTO[] = [];
     favoriteProductExists: boolean = false;
+
     faHeart = faHeart;
     isClicked: boolean;
 
@@ -69,9 +69,10 @@ export class ProductsDetailComponent implements OnInit {
 
     isLoading: boolean = true;
     isLoading_review: boolean = false;
+
     isActive: boolean = false;
 
-    constructor(private http: HttpClient, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
+    constructor(private http: HttpClient, private authService: AuthenticationService, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
@@ -128,7 +129,7 @@ export class ProductsDetailComponent implements OnInit {
     checkFavoriteProduct() : boolean{
         if(this.authService.authenticated()){
             if(this.favoriteProductsData){
-              return this.favoriteProductsData.some(p => p.productName === this.productInfo.productName); //vrati true ak sa najde
+              return this.favoriteProductsData.some(p => p.productName === this.productInfo.productName);
             }
         }
         return false;
@@ -213,6 +214,9 @@ export class ProductsDetailComponent implements OnInit {
                 this.userMessage = '';
             }else{
                 this.snackBar.open("You already have a review here!", "", { duration: 1500, })
+                this.reviewForm.reset();
+                this.userMessage = '';
+                this.productRating = this.charactersCount = 0;
             }}else{
                 this.validateAllFormFields(this.reviewForm);
                 this.snackBar.open("Field for review description wasn't filled or star rating wasn't selected!", "", { duration: 1500, })
@@ -288,7 +292,6 @@ export class ProductsDetailComponent implements OnInit {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.put(url, { ReviewComment: reviewCommentBE, ReviewCreator: reviewCreatorBE, ReviewedProduct: reviewdProductBE, StarRating: starRatingBE, ReviewDate: reviewDateBE }, { headers });
     }
-
     getReviews(productName: string): Observable<ReviewsDTO[]> { 
         let queryParams = new HttpParams();
         queryParams = queryParams.append("productName", productName);
@@ -322,7 +325,6 @@ export class ProductsDetailComponent implements OnInit {
         this.getProductInfo(this.productName).subscribe(
             result => {
                 this.productInfo = result;
-                this.isLoading = false;
                 this.getReviews(this.productName).subscribe(
                     result => {
                         this.reviewsData = result;
@@ -332,7 +334,6 @@ export class ProductsDetailComponent implements OnInit {
                              this.user = result;
                              this.reviewCreator = this.user.userName;
                              this.filterReviews();
-                             this.isLoading_review = false;
                              this.authService.getRole(this.user.id).subscribe(result => {
                                  this.role = result;
                                  if(this.role != null){
@@ -347,15 +348,23 @@ export class ProductsDetailComponent implements OnInit {
                                  else{
                                      this.favoriteProductExists = false;
                                  }
+                                 this.isLoading = false;
                              })
                              
                          })
+                     }else {
+                        this.isLoading = false;
                      }
                     },
-                    error => console.error(error)
+                    () => {
+                        this.isLoading = false;
+                    }
                  );
             },
-            error => console.error(error)
+            error => {
+                console.error(error);
+                this.isLoading = false;
+            }
         );
         this.currentDate = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm:ss');
     }

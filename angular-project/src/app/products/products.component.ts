@@ -57,23 +57,27 @@ export class ProductsComponent implements OnInit {
   }
 
   filterProducts(category: string) {
-    this.categoryFilteredProducts = this.productData.filter(product => product.productCategory === category);
-    this.sortedProducts = this.categoryFilteredProducts.slice();
-    this.totalItems = this.sortedProducts.length;
-    this.currentPage = 1;
-    this.updateCurrentProducts();
-    this.selectedCategory = category;
-    this.searchText = this.selectedSortOption = '';
+    if(this.productData.length > 0){
+      this.categoryFilteredProducts = this.productData.filter(product => product.productCategory === category);
+      this.sortedProducts = this.categoryFilteredProducts.slice();
+      this.totalItems = this.sortedProducts.length;
+      this.currentPage = 1;
+      this.updateCurrentProducts();
+      this.selectedCategory = category;
+      this.searchText = this.selectedSortOption = '';
+    }
   }
 
   showAllProducts() {
-    this.categoryFilteredProducts = [];
-    this.sortedProducts = this.productData.slice();
-    this.currentPage = 1;
-    this.totalItems = this.sortedProducts.length;
-    this.updateCurrentProducts();
-    this.selectedCategory = '';
-    this.searchText = this.selectedSortOption = '';
+    if(this.productData.length > 0){
+      this.categoryFilteredProducts = [];
+      this.sortedProducts = this.productData.slice();
+      this.currentPage = 1;
+      this.totalItems = this.sortedProducts.length;
+      this.updateCurrentProducts();
+      this.selectedCategory = '';
+      this.searchText = this.selectedSortOption = '';
+    }
   }
 
   filtersProducts() {

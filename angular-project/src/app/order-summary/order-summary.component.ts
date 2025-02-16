@@ -122,6 +122,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   }
 
   generateInvoice() {
+    const discount = this.appliedCoupon ? '-50% zľava z kupónu' : '';
     const invoiceHTML = `
     <div style="width: 100%;box-sizing: border-box; padding: 50px">
       <div class="title-element" style="font-family: Arial, Helvetica, sans-serif; text-align: center;">
@@ -161,7 +162,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
             <td style="font-weight: bold; padding: 8px;">CELKOM:</td>
             <td style="padding: 8px;"></td>
             <td style="padding: 8px;"></td>
-            <td style="font-weight: bold; padding: 8px">${this.CartService.totalPrice().toFixed(2)}€</td>
+            <td style="font-weight: bold; padding: 8px">${((this.CartService.totalPrice()) / 2).toFixed(2)}€ (${discount})</td>
           </tr>
         </table>
       </div>
@@ -206,7 +207,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       order_id: this.orderId,
       order_date: this.currentDate,
       products_table: this.generateProductsTable(),
-      total_price: this.totalPrice.toFixed(2),
+      total_price: this.appliedCoupon ? `${((this.CartService.totalPrice()) / 2).toFixed(2)}€ (${discount})` : `${this.CartService.totalPrice().toFixed(2)}€`,
       subject: 'Order Information'
     };
 

@@ -10,42 +10,42 @@
             <div class="full-name-field">
                 <div class="field">
                     <label class="form-label">First name*</label><br>
-                    <input type="text" class="form-control" placeholder="Your first name" formControlName="firstName" [ngClass]="{'is-invalid': orderForm.get('firstName').invalid && orderForm.get('firstName').touched}">
+                    <input type="text" class="form-control" placeholder="Your first name" formControlName="firstName" [ngClass]="{'is-invalid': orderForm.get('firstName').invalid && orderForm.get('firstName').touched}" maxlength="30">
                 </div>
                 <div class="field">
                     <label class="form-label">Last name*</label><br>
-                    <input type="text" class="form-control" placeholder="Your last name" formControlName="lastName" [ngClass]="{'is-invalid': orderForm.get('lastName').invalid && orderForm.get('lastName').touched}">
+                    <input type="text" class="form-control" placeholder="Your last name" formControlName="lastName" [ngClass]="{'is-invalid': orderForm.get('lastName').invalid && orderForm.get('lastName').touched}" maxlength="30">
                 </div>
             </div>
             <div class="field">
                 <label class="form-label">Address*</label><br>
-                <input type="text" class="form-control" placeholder="Your address" formControlName="address" [ngClass]="{'is-invalid': orderForm.get('address').invalid && orderForm.get('address').touched}">
+                <input type="text" class="form-control" placeholder="Your address" formControlName="address" [ngClass]="{'is-invalid': orderForm.get('address').invalid && orderForm.get('address').touched}" maxlength="60">
             </div>
             <div class="postal-code-city-field">
                 <div class="field">
                     <label class="form-label">Postal code*</label><br>
-                    <input type="text" class="form-control" placeholder="Your postal code" formControlName="postalCode" [ngClass]="{'is-invalid': orderForm.get('postalCode').invalid && orderForm.get('postalCode').touched}">
+                    <input type="text" class="form-control" placeholder="Your postal code" formControlName="postalCode" [ngClass]="{'is-invalid': orderForm.get('postalCode').invalid && orderForm.get('postalCode').touched}" maxlength="8">
                 </div>
                 <div class="field">
                     <label class="form-label">City*</label><br>
-                    <input type="text" class="form-control" placeholder="Your city" formControlName="city" [ngClass]="{'is-invalid': orderForm.get('city').invalid && orderForm.get('city').touched}">
+                    <input type="text" class="form-control" placeholder="Your city" formControlName="city" [ngClass]="{'is-invalid': orderForm.get('city').invalid && orderForm.get('city').touched}" maxlength="30">
                 </div>
             </div>
             <div class="field">
                 <label class="form-label">E-mail*</label><br>
-                <input type="email" class="form-control" placeholder="Your e-mail address" formControlName="email" [ngClass]="{'is-invalid': orderForm.get('email').invalid && orderForm.get('email').touched}">
+                <input type="email" class="form-control" placeholder="Your e-mail address" formControlName="email" [ngClass]="{'is-invalid': orderForm.get('email').invalid && orderForm.get('email').touched}" maxlength="60">
             </div>
             <div class="phone-number-country-field">
                 <div class="field">
                     <label class="form-label">Phone number*</label><br>
-                    <input type="number" class="form-control" placeholder="Your phone number" formControlName="phoneNumber" [ngClass]="{'is-invalid': orderForm.get('phoneNumber').invalid && orderForm.get('phoneNumber').touched}">
+                    <input type="tel" class="form-control" placeholder="Your phone number" formControlName="phoneNumber" [ngClass]="{'is-invalid': orderForm.get('phoneNumber').invalid && orderForm.get('phoneNumber').touched}" maxlength="10">
                 </div>
                 <div class="field">
                     <label class="form-label">Country*</label><br>
                     <select class="form-control" (change)="onSelectChange($event)" [ngClass]="{'is-invalid': orderForm.get('country').invalid && orderForm.get('country').touched}">
                         <option disabled selected value>Not selected</option>
-                        <option>Slovakia</option>
-                        <option>Czech Republic</option>
+                        <option>Slovensko</option>
+                        <option>Česká republika</option>
                     </select>
                 </div>
             </div>
