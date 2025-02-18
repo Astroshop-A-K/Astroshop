@@ -3,8 +3,12 @@ using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration.dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Json;
 using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 
 namespace AspNetCoreAPI.Registration
 {
@@ -27,25 +31,84 @@ namespace AspNetCoreAPI.Registration
         public async Task<IActionResult> RegisterUser([FromBody] UserRegistrationDto userRegistrationDto)
         {
             if (userRegistrationDto == null || !ModelState.IsValid)
-                return BadRequest();
-
-            var user = new User { UserName = userRegistrationDto.Email,  Email = userRegistrationDto.Email };
-            var result = await _userManager.CreateAsync(user, userRegistrationDto.Password);
-            if (!result.Succeeded)
             {
-                var errors = result.Errors.Select(e => e.Description);
-
-                return BadRequest(new UserRegistrationResponseDto { Errors = errors });
+                return BadRequest("Invalid registration data.");
             }
 
-            var signingCredentials = _jwtHandler.GetSigningCredentials();
-            var claims = _jwtHandler.GetClaims(user);
-            var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);
-            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            var existingUser = await _userManager.FindByEmailAsync(userRegistrationDto.Email);
 
-            return Ok(new UserRegistrationResponseDto { Token = token, Username = user.UserName });
+            if (existingUser != null)
+            {
+                return BadRequest("This user already exists");
+            }
+
+            var tempUser = new User { Email = userRegistrationDto.Email, UserName = userRegistrationDto.Email };
+            string hashedPassword = _userManager.PasswordHasher.HashPassword(tempUser, userRegistrationDto.Password);
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(tempUser);
+            var encodedToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(token)).Replace("+", "-").Replace("/", "_").Replace("=", "");
+
+            var pendingUser = new PendingUsersModel
+            {
+                Email = userRegistrationDto.Email,
+                PasswordHash = hashedPassword,
+                Token = encodedToken,
+                ExpiresAt = DateTime.UtcNow.AddHours(1) 
+            };
+
+            _context.PendingUsers.Add(pendingUser);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Registration initiated. Check your email for the verification link.", encodedToken });
         }
-         
+
+        [HttpGet("verify")]
+        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                return BadRequest("Token is required!");
+            }
+
+            var pendingUser = await _context.PendingUsers.FirstOrDefaultAsync(p => p.Token == token);
+
+            if (pendingUser == null)
+            {
+                return BadRequest("Invalid token");
+            }
+
+            if (pendingUser.ExpiresAt < DateTime.UtcNow)
+            {
+                return BadRequest("Token expired.");
+            }
+
+            var newUser = new User
+            {
+                Email = pendingUser.Email,
+                UserName = pendingUser.Email,
+                EmailConfirmed = true,
+                PasswordHash = pendingUser.PasswordHash
+            };
+
+            var result = await _userManager.CreateAsync(newUser);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "Creation of user failed.", errors = result.Errors.Select(e => e.Description) });
+            }
+
+            _context.PendingUsers.Remove(pendingUser);
+            await _context.SaveChangesAsync();
+
+            var signingCredentials = _jwtHandler.GetSigningCredentials();
+            var claims = _jwtHandler.GetClaims(newUser);
+            var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);
+            var jwtToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+
+            return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = newUser.UserName });
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
         {

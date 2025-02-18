@@ -1,9 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { equalValuesValidator, passwordStrengthValidator } from '../password-validators';
 import { Router, RouterLink } from '@angular/router';
+import emailjs from 'emailjs-com';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-registration',
@@ -19,10 +21,22 @@ export class RegistrationComponent implements OnInit {
 
   register() {
     if(this.registerForm.valid) {
-      this.authService.registerUser({...this.registerForm.value}).subscribe({
+      const userData = {
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+      }
+      this.authService.registerUser(userData).subscribe({
         next: (response) => {
-          this.authService.storeUserCredentials(response.token, response.username);
-          this.router.navigate(['/']);
+          let token = response.encodedToken;
+          const emailParams = {
+            to_email: this.registerForm.value.email,
+            verification_link: `http://localhost:4200/verification/verify?token=${token}`,
+            subject: 'Verify your email address'
+          };
+          emailjs.init('vvvXsO3WEU729fqbQ');
+          emailjs.send('service_cleravy', 'template_s8wrvm5', emailParams);
+          console.log(token);
+          this.router.navigate(['/verification']);
         },
         error: (err: HttpErrorResponse) => console.log('Oops, something went wrong!', err)
       });

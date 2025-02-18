@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import emailjs from 'emailjs-com';
 import { Observable } from 'rxjs';
 
@@ -13,36 +13,31 @@ import { Observable } from 'rxjs';
 })
 export class VerificationComponent {
   verificationStatus: string = '';
+  showVerificationContainer: boolean = true;
 
-  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private route: ActivatedRoute){}
+  isLoading: boolean = false;
 
-  sendVerificationEmail(userEmail: string, verificationToken){
-    const emailParams = {
-      to_email: userEmail,
-      verification_link: `http://localhost:4200/verification/verify?token=${verificationToken}`,
-      subject: 'Verify your email address'
-    };
-    emailjs.init('vvvXsO3WEU729fqbQ');
-    emailjs.send('service_cleravy', 'template_s8wrvm5', emailParams);
-  }
+  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private route: ActivatedRoute, private router: Router){}
 
   verifyEmail(token: string): Observable<any>{
-    const url = `${this.baseUrl}/user/verify`;
+    const url = `${this.baseUrl}user/verify`;
     const params = new HttpParams().set('token', token);
     return this.http.get(url, { params });
   }
 
   ngOnInit(): void {
-    const token = this.route.snapshot.queryParamMap.get('token');
+    const token = this.route.snapshot.queryParamMap.get('token') || '';
     if(token){
+      this.isLoading = true;
+      this.showVerificationContainer = false;
       this.verifyEmail(token).subscribe(() => {
-        this.verificationStatus = 'Email successfully verified!';
+        this.isLoading = false;
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 5000);
       }, (error) => {
         console.error('Verification failed. Invalid or expired token.', error);
       });
-    }else{
-      
-      this.verificationStatus = 'Invalid token.';
     }
   }
 }

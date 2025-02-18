@@ -1,1 +1,26 @@
-<p>verification works!</p>
+<title>Overenie používateľa</title>
+<div class="content">
+    <div class="verification">
+        @if(showVerificationContainer){
+            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+            <h1>Overenie e-mailovej adresy</h1>
+            <div class="verification-container">
+                <p>Na e-mailovú adresu Vám bol poslaný overovací odkaz, prosím kliknite naň pre dokončenie registrácie.</p>
+            </div>
+        }@else{
+            @if(isLoading){
+                <div class="spinner-container" style="height: 200px;">
+                    <div class="spinner">
+                    </div>
+                    Načítavanie...
+                </div>
+            }@else{
+                <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+                <h1>E-mailová adresa bola úspešne overená!</h1>
+                <div class="verification-container">
+                    <p>Prihlasuje sa...</p>
+                </div>
+            }
+        }
+      </div>
+</div>
