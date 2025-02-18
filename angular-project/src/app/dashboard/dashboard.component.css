@@ -13,7 +13,7 @@
 .dashboard {
   background: #fff;
   border-radius: 10px;
-  padding: 25px;
+  padding: 20px;
   width: 800px;
   border: 2px solid #f4f4f4;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -23,8 +23,8 @@
   justify-content: space-around;
 }
 .icon-bar img{
-  height: 25px;
-  width: 25px;
+  height: 22.5px;
+  width: 22.5px;
 }
 .icon{
   text-align: center;
@@ -48,7 +48,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 5px;
   font-weight: normal;
 }
 .title h2 {
@@ -102,8 +101,14 @@
   height: 30px;
   width: 30px;
 }
+.spinner-container{
+  height: 350px;
+}
 .icon.active p{
   font-weight: bold;
+}
+p {
+  font-size: 17px;
 }
 @media (max-width: 1200px) {
   .dashboard {
@@ -132,5 +137,8 @@
 @media (max-width: 480px) {
   .content {
     padding: 50px 0px 110px 0px;
+  }
+  p {
+    font-size: 16px;
   }
 }

@@ -1,6 +1,8 @@
 ﻿using AspNetCoreAPI.Data;
+using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration.dto;
+using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +21,14 @@ namespace AspNetCoreAPI.Registration
         private readonly UserManager<User> _userManager;
         private readonly JwtHandler _jwtHandler;
         private readonly ApplicationDbContext _context;
+        private readonly RecaptchaService _recaptchaService;
 
-        public UserController(UserManager<User> userManager, JwtHandler jwtHandler, ApplicationDbContext context)
+        public UserController(UserManager<User> userManager, JwtHandler jwtHandler, ApplicationDbContext context, RecaptchaService recaptchaService)
         {
             _userManager = userManager;
             _jwtHandler = jwtHandler;
             _context = context;
+            _recaptchaService = recaptchaService;
         }
 
         [HttpPost("register")]
@@ -32,14 +36,21 @@ namespace AspNetCoreAPI.Registration
         {
             if (userRegistrationDto == null || !ModelState.IsValid)
             {
-                return BadRequest("Invalid registration data.");
+                return BadRequest(new { message = "Invalid registration data"} );
+            }
+
+            var isRecaptchaValid = await _recaptchaService.VerifyCaptcha(userRegistrationDto.RecaptchaResponse);
+
+            if (!isRecaptchaValid)
+            {
+                return BadRequest(new { message = "An error occurred while trying to verify recaptcha." });
             }
 
             var existingUser = await _userManager.FindByEmailAsync(userRegistrationDto.Email);
 
             if (existingUser != null)
             {
-                return BadRequest("This user already exists");
+                return BadRequest(new { ErrorMessage = "This user already exists" });
             }
 
             var tempUser = new User { Email = userRegistrationDto.Email, UserName = userRegistrationDto.Email };
@@ -59,7 +70,7 @@ namespace AspNetCoreAPI.Registration
             _context.PendingUsers.Add(pendingUser);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Registration initiated. Check your email for the verification link.", encodedToken });
+            return Ok(new { message = "Registration started sending token to e-mail!", encodedToken });
         }
 
         [HttpGet("verify")]
@@ -74,12 +85,12 @@ namespace AspNetCoreAPI.Registration
 
             if (pendingUser == null)
             {
-                return BadRequest("Invalid token");
+                return BadRequest(new { status = "invalid", message = "Invalid token!" });
             }
 
             if (pendingUser.ExpiresAt < DateTime.UtcNow)
             {
-                return BadRequest("Token expired.");
+                return BadRequest(new { status = "expired", message = "Token is expired!" });
             }
 
             var newUser = new User
@@ -94,7 +105,7 @@ namespace AspNetCoreAPI.Registration
 
             if (!result.Succeeded)
             {
-                return BadRequest(new { message = "Creation of user failed.", errors = result.Errors.Select(e => e.Description) });
+                return BadRequest(new { message = "An error occurred while trying to create user."});
             }
 
             _context.PendingUsers.Remove(pendingUser);
@@ -106,7 +117,7 @@ namespace AspNetCoreAPI.Registration
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
 
-            return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = newUser.UserName });
+            return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = jwtToken, Username = newUser.UserName });
         }
 
         [HttpPost("login")]
@@ -115,7 +126,9 @@ namespace AspNetCoreAPI.Registration
             var user = await _userManager.FindByNameAsync(userLoginDto.Email);
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, userLoginDto.Password))
-                return Unauthorized(new UserLoginResponseDto { ErrorMessage = "Invalid Authentication" });
+            {
+                return Unauthorized(new UserLoginResponseDto { ErrorMessage = "Invalid Authentication", IsAuthSuccessful = false });
+            }
 
             var signingCredentials = _jwtHandler.GetSigningCredentials();
             var claims = _jwtHandler.GetClaims(user);

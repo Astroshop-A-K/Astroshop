@@ -3,6 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import emailjs from 'emailjs-com';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from '../api-authorization/authentication.service';
 
 @Component({
   selector: 'app-verification',
@@ -17,7 +18,9 @@ export class VerificationComponent {
 
   isLoading: boolean = false;
 
-  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private route: ActivatedRoute, private router: Router){}
+  tokenStatus: string = '';
+
+  constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private route: ActivatedRoute, private router: Router, private authService: AuthenticationService){}
 
   verifyEmail(token: string): Observable<any>{
     const url = `${this.baseUrl}user/verify`;
@@ -30,9 +33,10 @@ export class VerificationComponent {
     if(token){
       this.isLoading = true;
       this.showVerificationContainer = false;
-      this.verifyEmail(token).subscribe(() => {
+      this.verifyEmail(token).subscribe((response) => {
         this.isLoading = false;
         setTimeout(() => {
+          this.authService.storeUserCredentials(response.token, response.username);
           this.router.navigate(['/dashboard']);
         }, 5000);
       }, (error) => {

@@ -72,7 +72,7 @@
                 <label for="note" class="form-label">Note</label>
                 <textarea class="form-control" placeholder="Write a note" minlength="0" maxlength="250" [(ngModel)]="userMessage" (input)="update()" formControlName="note"></textarea>
                 @if(userMessage.length > 0){
-                    <div class="char-count">{{ charactersCount }} / 250 characters</div>
+                    <div class="char-count"><p>{{ charactersCount }} / 250 characters</p></div>
                 }
                 @else{
                     

@@ -37,7 +37,7 @@ h2 {
 }
 .ending a {
   color: white;
-  font-size: 16.5px;
+  font-size: 16px;
   display: block;
   margin-bottom: 5px;
   width: auto;
@@ -224,10 +224,15 @@ h2 {
   padding: 20px;
   max-width: 350px;
   margin-left: 20px;
+  font-size: 17px;
 }
-.accept-cookies,
-.decline-cookies {
-  margin: 5px;
+.cookie-popup img{
+  height: 20px;
+  width: 20px;
+  margin: 0 0 2.5px 0;
+}
+.decline-cookies{
+  margin: 0 0 0 10px;
 }
 .hidden {
   display: none;
@@ -305,6 +310,9 @@ h2 {
   .gallery img{
     height: 35px;
     width: 35px;
+  }
+  .ending h2 {
+    font-size: 19px;
   }
 }
 

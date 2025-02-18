@@ -1,24 +1,32 @@
-<title>Login</title>
+<title>Prihlásenie</title>
 <div class="content">
 @if (authService.authenticated()) {
-  <h1>You're currently logged in.</h1>
+  <h1>Ste aktuálne prihlásený!</h1>
 } @else {
   <div class="login-form">
   <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-  <h1>Login</h1>
+  <h1>Prihlásenie</h1>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <div class="field">
-      <label class="form-label">E-mail*</label><br>
-      <input type="email" class="form-control" formControlName="email" required placeholder="Your e-mail address">
-    </div>
-    <div class="field">
-      <label class="form-label">Password*</label><br>
-      <input [type]="'password'" formControlName="password" placeholder="Your password">
-    </div>
-    <div class="field" style="text-align: center;">
-      <label class="no-acc-label">Don't have an account? Register <a [routerLink]="['/register']">here</a></label>
-    </div>
-    <button class="btn btn-primary" type="submit" (click)="login()">Login</button>
+    @if(isLoading){
+      <div class="spinner-container">
+        <div class="spinner">
+        </div>
+        Načítavanie...
+      </div>
+    }@else{
+      <div class="field">
+        <label class="form-label">E-mailová adresa*</label><br>
+        <input type="email" class="form-control" formControlName="email" placeholder="Zadajte e-mailovú adresu" [ngClass]="{'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}">
+      </div>
+      <div class="field">
+        <label class="form-label">Heslo*</label><br>
+        <input [type]="'password'" class="form-control" formControlName="password" placeholder="Zadajte heslo" [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
+      </div>
+      <div class="field" style="text-align: center;">
+        <label class="no-acc-label">Nemáte u nás účet? Kliknite <a [routerLink]="['/register']">sem</a></label>
+      </div>
+      <button class="btn btn-primary" type="submit" (click)="login()">Login</button>
+    }
   </form>
 </div>
 }

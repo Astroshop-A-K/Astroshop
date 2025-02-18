@@ -39,7 +39,9 @@ nav{
   margin-top: 19px;
   box-shadow: 0 .35rem .85rem rgba(0, 0, 0, .05);
   color: black;
-  font-size: 8px;
+}
+.cart-dropdown-menu p {
+  font-size: 8px !important;
 }
 .nav-icons .shopping-cart:hover{
   .cart-dropdown-menu{
@@ -108,7 +110,7 @@ img{
   align-items: center;
   justify-content: center;
   height: 50px;
-  font-size: 10px;
+  font-size: 10px !important;
 }
 .empty-cart p{
   margin-top: 6px;
@@ -120,7 +122,7 @@ img{
 .products_categories{
   float: left;
   color: black;
-  font-size: medium;
+  font-size: 17px;
 }
 .products_categories:hover{
   cursor: pointer;

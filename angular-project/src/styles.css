@@ -39,3 +39,44 @@ app-root {
     transform: rotate(360deg);
   }
 }
+.spinner-container,
+label,
+.table .co-1, 
+.table .co-2,
+input,
+select,
+input::placeholder, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder{
+  font-size: 17px;
+}
+h1{
+  font-weight: bold;
+  margin: 0;
+}
+a {
+  color: black;
+}
+.form-control.is-invalid {
+  border-color: red !important;
+}
+.form-control.ng-invalid.ng-touched{
+  border-color: red !important;
+}
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5em;
+  }
+}
+@media (max-width: 480px) {
+  .spinner-container,
+  label,
+  .table .co-1, 
+  .table .co-2,
+  input,
+  select,
+  input::placeholder, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder {
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
+}

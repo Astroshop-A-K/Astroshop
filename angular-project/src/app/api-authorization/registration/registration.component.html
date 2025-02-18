@@ -1,29 +1,33 @@
-<title>Register</title>
+<title>Registrácia</title>
 <div class="content">
 @if (authService.authenticated()) {
-  <h1>You're currently logged in.</h1>
+  <h1>Ste aktuálne prihlásený!</h1>
 } @else {
   <div class="register-form">
   <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-  <h1>Register</h1>
+  <h1>Registrácia</h1>
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="field">
-      <label class="form-label">E-mail*</label>
-      <input type="email" class="form-control" formControlName="email" required placeholder="Your e-mail address">
+      <label class="form-label">E-mailová adresa*</label>
+      <input type="email" class="form-control" formControlName="email" placeholder="Zadajte e-mailovú adresu" [ngClass]="{'is-invalid': registerForm.get('email').invalid && registerForm.get('email').touched}">
     </div>
 
     <div class="field">
-      <label class="form-label">Password*</label>
-      <input [type]="'password'" class="form-control" formControlName="password" placeholder="Your password">
+      <label class="form-label">Heslo*</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="Zadajte heslo" [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}">
     </div>
 
     <div class="field">
-      <label class="form-label">Same password again*</label>
-      <input [type]="'password'" class="form-control" formControlName="confirmPassword" placeholder="Your password again">
+      <label class="form-label">Rovnaké heslo znova*</label>
+      <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Zadajte heslo znova" [ngClass]="{'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched}">
+    </div>
+
+    <div class="recaptcha-field">
+      <re-captcha class="re-captcha" (resolved)="resolved($event)" siteKey="6Lf2McAqAAAAABgfm-2i732qCGpO4z3QPwhv10ZZ"></re-captcha>
     </div>
 
     <div class="field" style="text-align: center;">
-      <label class="acc-label">Already have an account? Click <a [routerLink]="['/login']">here</a></label>
+      <label class="acc-label">Už máte u nás účet? Kliknite <a [routerLink]="['/login']">sem</a></label>
     </div>
 
     <button class="btn btn-primary" type="submit">Register</button>

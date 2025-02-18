@@ -2,7 +2,7 @@
 <div class="content">
     <div class="verification">
         @if(showVerificationContainer){
-            <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/020/009/614/small_2x/email-and-mail-icon-black-free-png.png" alt="email-icon" title="email-icon">
             <h1>Overenie e-mailovej adresy</h1>
             <div class="verification-container">
                 <p>Na e-mailovú adresu Vám bol poslaný overovací odkaz, prosím kliknite naň pre dokončenie registrácie.</p>
@@ -15,11 +15,19 @@
                     Načítavanie...
                 </div>
             }@else{
-                <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-                <h1>E-mailová adresa bola úspešne overená!</h1>
-                <div class="verification-container">
-                    <p>Prihlasuje sa...</p>
-                </div>
+                @if(tokenStatus === 'invalid'){
+                    <img src="https://static.thenounproject.com/png/1520720-200.png" alt="error-icon" title="error-icon">
+                    <h1>Neplatný overovací odkaz!</h1>
+                    <div class="verification-container">
+                        <p>Tento odkaz je neplatný alebo už dávno vypršal!</p>
+                    </div>
+                }@else{
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/020/009/614/small_2x/email-and-mail-icon-black-free-png.png" alt="email-icon" title="email-icon">
+                    <h1>E-mailová adresa bola úspešne overená!</h1>
+                    <div class="verification-container">
+                        <p>Prihlasuje sa...</p>
+                    </div>   
+                }
             }
         }
       </div>
