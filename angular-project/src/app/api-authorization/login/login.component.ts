@@ -4,6 +4,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { ResourceLoader } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,13 @@ export class LoginComponent implements OnInit {
           if(response.isAuthSuccessful){
             this.authService.storeUserCredentials(response.token, response.username);
             this.router.navigate(['/home']).then(() => {
-              this.isLoading = false;
+              this.authService.getRole(response.userId).subscribe((result) => {
+                let role = result;
+                if(role.name === 'admin'){
+                  this.authService.storeAdminCredentials(true);
+                  this.isLoading = false;
+                }
+              })
               this.snackbar.open("Prihlásovanie prebehlo úspešne!", "", { duration: 1500 });
             });
           }

@@ -86,6 +86,10 @@
   margin: 30px 0 30px 0;
   text-align: center;
 }
+.orders-section a {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .buttons{
   margin: 10px 0 0 0;
   display: flex;

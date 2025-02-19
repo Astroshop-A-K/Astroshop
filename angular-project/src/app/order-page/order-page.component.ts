@@ -84,7 +84,7 @@ export class OrderPageComponent implements OnInit {
       this.router.navigate(['/order/order-summary'])
   }else{
     this.validateAllFormFields(this.orderForm);
-    this.snackBar.open('Entered values are incorrect or fields with a star were skipped!', '', {duration: 1000});
+    this.snackBar.open('Zadané údaje nie sú správne alebo polia označené hviezdičkou boli vynechané!', '', {duration: 1000});
   }
   }
   ngOnInit(): void{

@@ -1,16 +1,16 @@
-<title>Shopping cart</title>
+<title>Nákupný košík</title>
 <div class="content">
   <div class="shopping-cart" [ngClass]="{'empty-cart': products.length === 0}">
   <div class="heading">
-    <h1>Shopping cart</h1>
-    <a (click)="clearCart()">Clear cart</a>
+    <h1>Nákupný košík</h1>
+    <a (click)="clearCart()">Vyprázdniť košík</a>
   </div>
   @if(products.length > 0){
     <table class="selectedProducts">
       <tr *ngFor="let product of products" class="product">
         @if(product.productDiscount > 0){
           <div class="product-tag">
-            -{{product.productDiscount}}% off
+            zľava -{{product.productDiscount}}% 
           </div>
         }
         @else{
@@ -40,24 +40,24 @@
                 <p class="no-discount-price">{{ product.price }}€</p>
               }
             </div>
-            <a (click)="CartService.removeProduct(product)" class="remove-product">Remove</a>
+            <a (click)="CartService.removeProduct(product)" class="remove-product">Odstrániť</a>
           </div>
         </td>
       </tr>
     </table>
     <div class="order-summary">
       <div class="total-price">
-        <p>Total price</p>
+        <p>Celková cena</p>
         <p>{{CartService.totalPrice()}}€</p>
       </div>
     </div>
     <div class="submit">
-      <button class="btn btn-secondary" [routerLink]="['/order']">Proceed to checkout</button>
+      <button class="btn btn-secondary" [routerLink]="['/order']">Pokračovať v objednávke</button>
     </div>
   }
   @else{
   <div class="empty-cart-text">
-    <p>Your shopping cart is empty</p>
+    <p>Váš nákupný košík je prázdny</p>
   </div>
   }
  </div>

@@ -3,38 +3,32 @@
     <div class="categories-sidebar-content">
       <ul class="categories-list">
         <div class="close-btn-c">
-          <li (click)="onFilter('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" />Telescopes</li>
+          <li (click)="onFilter('TELE')"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" />Teleskopy</li>
           <a (click)="toggleSideBar('category')"><span><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon--myiconfinder-23.png" height="35" width="35" alt="menu-icon"></span></a>
         </div>
-        <li (click)="onFilter('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" />Mounts</li>
-        <li (click)="onFilter('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" />Binoculars</li>
-        <li><img src="https://cdn-icons-png.flaticon.com/512/467/467619.png" alt="solar-observation" /> Solar observation</li>
-        <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Eyepieces</li>
-        <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="filters" /> Filters</li>
-        <li><img src="https://www.freeiconspng.com/thumbs/camera-icon/camera-icon-21.png" alt="astrophotography" /> Astrophotography</li>
-        <li><img src="https://cdn-icons-png.flaticon.com/512/2120/2120445.png" alt="observatories" /> Observatories</li>
-        <li><img src="https://www.freeiconspng.com/thumbs/plus-icon/plus-icon-black-2.png" alt="telescope-accessories" /> Telescope access.</li>
-        <li><img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="media" /> Media</li>
-        <li><img src="https://cdn-icons-png.flaticon.com/512/44/44386.png" alt="nature-observation" /> Nature observation</li>
+        <li (click)="onFilter('MONT')"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" />Montáže</li>
+        <li (click)="onFilter('BINO')"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" />Binokuláre</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/467/467619.png" alt="solar-observation" /> Pozorovanie slnka</li>
+        <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Okuláre</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="filters" /> Filtre</li>
+        <li><img src="https://www.freeiconspng.com/thumbs/camera-icon/camera-icon-21.png" alt="astrophotography" /> Astrofotografia</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/2120/2120445.png" alt="observatories" /> Observatória</li>
+        <li><img src="https://www.freeiconspng.com/thumbs/plus-icon/plus-icon-black-2.png" alt="telescope-accessories" /> Príslušenstvo teles.</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="media" /> Média</li>
+        <li><img src="https://cdn-icons-png.flaticon.com/512/44/44386.png" alt="nature-observation" /> Bežné pozorovanie</li>
       </ul>
     </div>
   </nav>
   <nav>
     <div class="nav-content">
       <div class="products_categories">
-        <span class="categories-text" (click)="toggleSideBar('category')"><img src="../../assets/Images/menu_categories_icon.png"><a class="categories-link">Categories</a></span>
+        <span class="categories-text" (click)="toggleSideBar('category')"><img src="../../assets/Images/menu_categories_icon.png"><a class="categories-link">Kategórie</a></span>
       </div>
       <div class="nav-icons">
         <div class="nav-items">
-          @if(roleName == 'admin'){
-            <span><a [routerLink]="['/user-orders']" [ngClass]="{'active': isCurrentRoute('/user-orders')}">Orders</a></span>
-          }
-          @else{
-        
-          }
-          <span><a [routerLink]="['/home']" [ngClass]="{'navigation-active': isCurrentRoute('/home', '/')}">Home</a></span>
-          <span><a [routerLink]="['/products']" [ngClass]="{'navigation-active': isCurrentRoute('/products')}">Products</a></span>
-          <span><a [routerLink]="['/contact']" [ngClass]="{'navigation-active': isCurrentRoute('/contact')}">Contact</a></span>
+          <span><a [routerLink]="['/home']" [ngClass]="{'navigation-active': isCurrentRoute('/home', '/')}">Domov</a></span>
+          <span><a [routerLink]="['/products']" [ngClass]="{'navigation-active': isCurrentRoute('/products')}">Produkty</a></span>
+          <span><a [routerLink]="['/contact']" [ngClass]="{'navigation-active': isCurrentRoute('/contact')}">Kontakt</a></span>
         </div>
         <a [routerLink]="['/favorite-products']"><mat-icon matBadge="{{fav_countNum()}}" aria-hidden="false" matBadgeClass="custom-badge"><img src="https://cdn-icons-png.flaticon.com/512/2/2267.png" height="25" width="25" alt="favorite-products" title="favorite-products"></mat-icon></a>
         <div class="shopping-cart">
@@ -49,7 +43,7 @@
           }
           @else{
             <div class="empty-cart">
-              <p>Your cart is empty</p>
+              <p>Váš košík je prázdny</p>
             </div>
           }
         </div>
@@ -80,15 +74,9 @@
           <span class="close-btn" (click)="toggleSideBar('main')"><img src="https://static-00.iconduck.com/assets.00/cancel-icon-2048x2048-milcunum.png" height="10" width="10"></span>
         </div>
         }
-        <span><a [routerLink]="['/home']" [ngClass]="{'sidebar-active': isCurrentRoute('/home', '/')}">Home</a></span>
-        <span><a [routerLink]="['/products']" [ngClass]="{'sidebar-active': isCurrentRoute('/products')}">Products</a></span>
-        <span><a [routerLink]="['/contact']" [ngClass]="{'sidebar-active': isCurrentRoute('/contact')}">Contact</a></span>
-        @if(roleName == 'admin'){
-          <span><a [routerLink]="['/user-orders']" [ngClass]="{'sidebar-active': isCurrentRoute('/user-orders')}">Orders</a></span>
-        }
-        @else{
-      
-        }
+        <span><a [routerLink]="['/home']" [ngClass]="{'sidebar-active': isCurrentRoute('/home', '/')}">Domov</a></span>
+        <span><a [routerLink]="['/products']" [ngClass]="{'sidebar-active': isCurrentRoute('/products')}">Produkty</a></span>
+        <span><a [routerLink]="['/contact']" [ngClass]="{'sidebar-active': isCurrentRoute('/contact')}">Kontakt</a></span>
     </div>
   </nav>
 </div>

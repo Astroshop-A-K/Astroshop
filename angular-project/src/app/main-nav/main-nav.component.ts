@@ -24,8 +24,6 @@ export class MainNavComponent implements OnInit {
   products: ProductsDTO[] = [];
 
   user: UserDTO;
-  role: RoleDTO;
-  roleName: string = '';
 
   isActive: boolean = false;
   isActive_category: boolean = false;i
@@ -94,12 +92,6 @@ export class MainNavComponent implements OnInit {
           this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
             this.favoriteProducts = result;
             this.fav_countNum.set(this.favoriteProducts.length);
-          })
-          this.authService.getRole(this.user.id).subscribe(result => {
-              this.role = result;
-              if(this.role != null){
-                  this.roleName = this.role.name;
-              }
           })
       })
    }

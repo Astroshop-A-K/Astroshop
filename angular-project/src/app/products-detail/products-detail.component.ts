@@ -104,7 +104,7 @@ export class ProductsDetailComponent implements OnInit {
             this.CartService.addToCart(this.productInfo);
         }
         else{
-            this.snackBar.open("This product is not avaiable!", "", { duration: 1500, }); 
+            this.snackBar.open("Tento produkt nie je dostupný!", "", { duration: 1500, }); 
         }
     }
 
@@ -168,7 +168,7 @@ export class ProductsDetailComponent implements OnInit {
         textArea.select();
 
         document.execCommand('copy');
-        this.snackBar.open("Copied!", "", { duration: 1500, }); 
+        this.snackBar.open("Skopírované do schránky!", "", { duration: 1500, }); 
 
         document.body.removeChild(textArea);
     }
@@ -205,7 +205,7 @@ export class ProductsDetailComponent implements OnInit {
                         this.filterReviews();
                         this.isLoading_review = false;
                     });
-                    this.snackBar.open("Your review was successfully created!", "", { duration: 1500, }); 
+                    this.snackBar.open("Recenzia bola úspešne vytvorená!", "", { duration: 1500, }); 
                 }
                 );
     
@@ -213,13 +213,13 @@ export class ProductsDetailComponent implements OnInit {
                 this.productRating = 0;
                 this.userMessage = '';
             }else{
-                this.snackBar.open("You already have a review here!", "", { duration: 1500, })
+                this.snackBar.open("Pre tento produkt už máte recenziu!", "", { duration: 1500, })
                 this.reviewForm.reset();
                 this.userMessage = '';
                 this.productRating = this.charactersCount = 0;
             }}else{
                 this.validateAllFormFields(this.reviewForm);
-                this.snackBar.open("Field for review description wasn't filled or star rating wasn't selected!", "", { duration: 1500, })
+                this.snackBar.open("Pole pre komentár recenzie bolo vynechané alebo hviezdičkové hodnotenie nebolo zvolené!", "", { duration: 1500, })
             }
         }
         else{
@@ -246,7 +246,7 @@ export class ProductsDetailComponent implements OnInit {
                         this.averageStarRatingSignal.update(() => 0);
                     }
 
-                    this.snackBar.open("Your review was successfully removed!", "", { duration: 1500, }); 
+                    this.snackBar.open("Recenzia bola úspešne vymazaná!", "", { duration: 1500, }); 
 
                     reviewsCount = this.reviewsData.length;
                     this.reviewsCountSignal.update(value => this.reviewsData.length);

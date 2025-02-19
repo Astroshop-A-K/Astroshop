@@ -191,6 +191,9 @@ namespace AspNetCoreAPI.Controllers
                         {
                             ProductName = product.ProductName,
                             Quantity = orderProduct.Quantity,
+                            Price = product.Price,
+                            ProductImage0 = product.ProductImage0,
+                            ProductDiscount = product.ProductDiscount
                         };
 
                         productsInfos.Add(info);
@@ -204,7 +207,7 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        [HttpPut("changeOrderStatus")]
+        [HttpPost("changeOrderStatus")]
         public ActionResult ChangeOrderStatus([FromBody] ChangeOrderStatusDTO orderStatusDTO)
         {
             var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderStatusDTO.OrderId);
@@ -217,7 +220,7 @@ namespace AspNetCoreAPI.Controllers
             order.OrderStatus = orderStatusDTO.OrderStatus;
             _context.SaveChanges();
 
-            return Ok("Success!");
+            return Ok( new { OrderStatus = order.OrderStatus });
         }
     }
 }

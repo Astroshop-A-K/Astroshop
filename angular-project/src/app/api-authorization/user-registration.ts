@@ -1,6 +1,7 @@
 export interface UserRegistration {
   email: string,
   password: string,
+  recaptchaResponse: string;
 }
 
 export interface RegistrationResponse {
@@ -18,6 +19,7 @@ export interface UserLogin {
 export interface UserLoginResponse {
   isAuthSuccessful: boolean;
   errorMessage: string;
+  userId: string;
   token: string;
   username: string;
 }

@@ -1,17 +1,17 @@
-<title>Order summary</title>
+<title>Sumarizácia objednávky</title>
 @if(!orderCompleted){
     <div class="content">
       <div class="container">
         <div class="part1">
           <div class="selected-products">
             <div class="sub-title">
-              <h2>Your selected products</h2>
+              <h2>Vaše zvolené produkty</h2>
             </div>
             <table class="selectedProducts">
               <tr *ngFor="let product of selectedProducts" class="product">
                 @if(product.productDiscount > 0){
                   <div class="product-tag">
-                    -{{product.productDiscount}}% off
+                    zľava -{{product.productDiscount}}%
                   </div>
                 }
                 @else{
@@ -43,39 +43,39 @@
             <div class="delivery-payment-data-container">
               <div class="delivery-data">
                 <div class="sub-title">
-                  <h2>Your delivery data</h2>
+                  <h2>Vaše údaje objednávky</h2>
                 </div>
                 <div class="table">
                   <div class="co-1">
-                    <b>Full name: </b>{{OrderService.order?.name}} {{OrderService.order?.surname}}<br>
-                    <b>E-mail: </b>{{OrderService.order?.email}}<br>
-                    <b>Address: </b>{{OrderService.order?.address}}<br>
-                    <b>Postal code: </b>{{OrderService.order?.postalCode}}<br>
+                    <b>Meno a priezvisko: </b>{{OrderService.order?.name}} {{OrderService.order?.surname}}<br>
+                    <b>E-mailová adresa: </b>{{OrderService.order?.email}}<br>
+                    <b>Adresa: </b>{{OrderService.order?.address}}<br>
+                    <b>PSČ: </b>{{OrderService.order?.postalCode}}<br>
                   </div>
                   <div class="co-2">
-                    <b>Phone number: </b>{{OrderService.order?.phoneNumber}}<br>
-                    <b>City: </b>{{OrderService.order?.city}}<br>
-                    <b>Country: </b>{{OrderService.order?.country}}<br>
-                    <b>Delivery option: </b>{{OrderService.order?.deliveryOption}}
+                    <b>Telefónne číslo: </b>{{OrderService.order?.phoneNumber}}<br>
+                    <b>Mesto: </b>{{OrderService.order?.city}}<br>
+                    <b>Štát: </b>{{OrderService.order?.country}}<br>
+                    <b>Spôsob dopravy: </b>{{OrderService.order?.deliveryOption}}
                   </div>
                 </div>
               </div>
               <div class="payment-form">
                 <div class="sub-title">
-                  <h2>Payment option</h2>
+                  <h2>Spôsob platby</h2>
                 </div>
                 <form [formGroup]="paymentForm">
                   <div class="field">
                     <input type="radio" id="p1" name="paymentMethod" value="Platba hotovosťou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
-                    <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" alt="paymentOnDelivery">Payment on delivery</label><br>
+                    <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" alt="paymentOnDelivery">Platna hotovosťou</label><br>
                   </div>
                   <div class="field">
-                    <input type="radio" id="p2" name="paymentMethod" value="Platba kartou pri prevzatí" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
-                    <label for="p2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzJFEBgcViSG5jF0lIrNdPrWgJbg7OyxrXNKKvGDK1OJO9xQt1pcnNs61wXaCBDSkUOeE&usqp=CAU" alt="cardPaymentUponCollection">Bank transfer</label><br>
+                    <input type="radio" id="p2" name="paymentMethod" value="Platba bankovým prevodom" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                    <label for="p2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzJFEBgcViSG5jF0lIrNdPrWgJbg7OyxrXNKKvGDK1OJO9xQt1pcnNs61wXaCBDSkUOeE&usqp=CAU" alt="cardPaymentUponCollection">Bankovým prevodom</label><br>
                   </div>
                   <div class="field">
                     <input type="radio" id="p3" name="paymentMethod" value="Platba kartou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
-                    <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" alt="cardPayment">Online card payment</label><br>
+                    <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" alt="cardPayment">Platba kartou</label><br>
                   </div>
                 </form>
               </div>
@@ -86,14 +86,14 @@
               <form [formGroup]="paymentForm">
                 <div class="coupon-field">
                     <div class="field">
-                        <input type="text" id="coupon" class="form-control" name="coupon" placeholder="Type your coupon here..." formControlName="coupon" [ngClass]="{'is-invalid': paymentForm.get('coupon').invalid}">
+                        <input type="text" id="coupon" class="form-control" name="coupon" placeholder="Sem zadajte váš kupón" formControlName="coupon" [ngClass]="{'is-invalid': paymentForm.get('coupon').invalid}">
                         <button class="btn coupon" (click)="applyCoupon()" type="button" [disabled]="appliedCoupon">{{couponButtonText}}</button>
                     </div>
                 </div>
             </form>
             </div>
             <div class="total-price">
-              <p>Total price</p>
+              <p>Celková cena</p>
               @if(!appliedCoupon){
                 <p>{{CartService.totalPrice()}}€</p>
               }
@@ -105,12 +105,12 @@
           <div class="re-captcha-container">
             <re-captcha class="re-captcha" (resolved)="resolved($event)" siteKey="6Lf2McAqAAAAABgfm-2i732qCGpO4z3QPwhv10ZZ"></re-captcha>
             <div class="submit">
-              <button class="btn btn-secondary" (click)="onSubmit()" type="button">Finish order</button>
+              <button class="btn btn-secondary" (click)="onSubmit()" type="button">Dokončiť objednávku</button>
             </div>
           </div>
-          </div>
-          </div>
         </div>
+      </div>
+    </div>
 }
 @else{
   <div class="content">
@@ -119,15 +119,15 @@
         <div class="spinner-container">
           <div class="spinner">
           </div>
-          Loading...
+          Načítavanie...
         </div>
       }@else{
         <div class="title">
           <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon">
-          <h1>Thank you for your order!</h1>
+          <h1>Ďakujeme za Vašu objednávku!</h1>
         </div>
-        <p>Your order with ID {{orderId}} is being processed and soon will be send to you!</p>
-        <button class="btn btn-secondary" [routerLink]="['/home']">Return home</button>
+        <p>Vaša objednávka s číslom {{orderId}} je spracovávaná a čoskoro Vám bude odoslaná!</p>
+        <button class="btn btn-secondary" [routerLink]="['/home']">Vrátiť sa domov</button>
       }
     </div>
   </div>

@@ -1,39 +1,62 @@
-.content{
+.content {
+    padding: 25px 20px 200px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 300px;
-    padding-top: 60px;
+    text-align: center;
+}
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.title h1{
+    font-weight: bold;
+    margin: 0;
+}
+.title img{
+    height: 45px;
+    width: 45px;
+    margin-bottom: 2.5px;
 }
 .orders {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    overflow-x: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 10px;
+}
+.no-orders{
+    width: 100%;
+    margin-top: 50px;
 }
 .ordersTable{
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
     box-sizing: border-box;
     background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
+    min-width: 1000px;
 }
-.ordersTable td{
+.ordersTable td {
     padding: 10px;
     text-align: left;
-    font-size: 1rem;
+    font-size: 17px;
     color: #555;
     border-bottom: 1px solid #f4f4f4;
+    width: auto;
 }
 .ordersTable th {
     background-color: #0d6efd;
     color: white;
     padding: 10px;
     text-align: left;
-    font-size: 1.1rem;
+    font-size: 17px;
     letter-spacing: 0.5px;
 }
 .ordersTable tr:hover {
@@ -46,15 +69,35 @@
 .link:hover{
     cursor: pointer;
 }
-.red-text{
-    color: rgb(255, 43, 43) !important;
-    font-weight: bold;
+.paginator{
+    margin: 20px 0 0 0;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
 }
-.yellow-text{
-    color: rgb(255, 227, 69) !important;
-    font-weight: bold;
+.red-text {
+  color: rgb(255, 45, 45) !important;
+  font-weight: bold;
 }
-.green-text{
-    color: rgb(0, 174, 0) !important;
-    font-weight: bold;
+.yellow-text {
+  color: rgb(255, 217, 0) !important;
+  font-weight: bold;
+}
+.green-text {
+  color: rgb(0, 162, 0) !important;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .content {
+    padding: 25px 20px 60px 20px;
+  }
+  h1 {
+    font-size: 1.4rem !important;
+  }
+}
+@media (max-width: 480px) {
+  .content {
+    padding: 25px 15px 50px 15px;
+  }
 }

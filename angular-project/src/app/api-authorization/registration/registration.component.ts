@@ -58,11 +58,10 @@ export class RegistrationComponent implements OnInit {
           const emailParams = {
             to_email: this.registerForm.value.email,
             verification_link: `http://localhost:4200/verification/verify?token=${token}`,
-            subject: 'Verify your email address'
+            subject: 'Overte vašu e-mailovú adresu'
           };
           emailjs.init('vvvXsO3WEU729fqbQ');
           emailjs.send('service_cleravy', 'template_s8wrvm5', emailParams);
-          console.log(token);
           this.router.navigate(['/verification']);
         },(error) => {
           console.log('An error have occurred while trying to register.', error);

@@ -9,23 +9,24 @@ import { FavoriteProductsService } from '../favorite-products/favorite-products.
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private httpClient = inject(HttpClient);
   private jwtHelper = inject(JwtHelperService);
 
   authenticated = signal(this.isAuthenticated());
 
-  constructor(@Inject('BASE_URL') private baseUrl: string, private favoriteProductsService: FavoriteProductsService) {  }
+  constructor(@Inject('BASE_URL') private baseUrl: string, private favoriteProductsService: FavoriteProductsService, private http: HttpClient) {  }
 
   registerUser(userData: UserRegistration): Observable<RegistrationResponse> {
-    return this.httpClient.post<RegistrationResponse>(this.baseUrl + 'user/register', userData);
+    return this.http.post<RegistrationResponse>(this.baseUrl + 'user/register', userData);
   }
 
   loginUser(userData: UserLogin): Observable<UserLoginResponse> {
-    return this.httpClient.post<UserLoginResponse>(this.baseUrl + 'user/login', userData);
+    return this.http.post<UserLoginResponse>(this.baseUrl + 'user/login', userData);
   }
 
   logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("adminLogged");
+
     this.authenticated.set(false);
     this.favoriteProductsService.countNum.set(0);
   }
@@ -33,21 +34,31 @@ export class AuthenticationService {
   storeUserCredentials(token: string, username: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
+
     this.authenticated.set(true);
+  }
+
+  storeAdminCredentials(adminLogged: boolean){
+    localStorage.setItem('adminLogged', String(adminLogged));
   }
   
   getCurrentUser(){
-    return this.httpClient.get<UserDTO>(this.baseUrl + 'user');
+    return this.http.get<UserDTO>(this.baseUrl + 'user');
   }
 
   getRole(userId: string): Observable<RoleDTO>{
-    return this.httpClient.get<RoleDTO>(this.baseUrl + `user/role/${userId}`);
+    return this.http.get<RoleDTO>(this.baseUrl + `user/role/${userId}`);
   }
 
-  private isAuthenticated() {
+  public isAuthenticated() {
     const token = localStorage.getItem('token');
 
     return token && !this.jwtHelper.isTokenExpired(token);
+  }
+  public isAdminAuthenticated() {
+    const adminLogged = localStorage.getItem('adminLogged');
+
+    return Boolean(adminLogged);
   }
 }
 export interface UserDTO{

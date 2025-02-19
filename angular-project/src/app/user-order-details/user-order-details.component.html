@@ -1,63 +1,98 @@
-<title>Order with ID {{orderInfo.orderId}}</title>
-     <div class="content">
-        <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-        <h1 style="font-weight: bold;">Order details</h1><br>
-        <div class="part1">
-            <h2>Delivery data</h2>
-                <address>
-                <ng-container>
-                    <b>Name: </b>{{orderInfo.name}}<br>
-                    <b>Surname: </b>{{orderInfo.surname}}<br>
-                    <b>E-mail: </b>{{orderInfo.email}}<br>
-                    <b>Address: </b>{{orderInfo.address}}<br>
-                    <b>Postal code: </b>{{orderInfo.psc}}<br>
-                    <b>Phone number: </b>{{orderInfo.phoneNumber}}<br>
-                    <b>City: </b>{{orderInfo.city}}<br>
-                    <b>Country: </b>{{orderInfo.country}}<br>
-                    <b>Delivery option: </b>{{orderInfo.deliveryOption}}<br>
-                    <b>Payment: </b>{{orderInfo.payment}}<br>
-                    <b>Note: </b>{{orderInfo.orderNote}}
-                </ng-container>
-                </address>
-        </div>
-        <div class="part2"><br>
-          <h2>Other information</h2>
-          <address>
-            <ng-container>
-                <b>Order ID: </b>{{orderInfo.orderId}}<br>
-                <b>Order Date: </b>{{orderInfo.orderDate}}<br>
-                <b>Order Status: </b><span [ngClass]="{
-                  'red-text': orderStatus() === 'Pending',
-                  'yellow-text': orderStatus() === 'Preparing',
-                  'green-text': orderStatus() === 'Delivered'
-                }">{{orderStatus()}}</span><br>
-                <b>Order Verification Key: </b>{{orderInfo.orderVerificationKey}}
-            </ng-container>
-          </address>
-        </div>
-        <div class="part3">
-          <h2>Change order status</h2>
-          <select (change)="changeStatus($event)" [disabled]="orderInfo.orderStatus === 'Delivered'">
-            <option disabled selected value>Not selected</option>
-            <option>Pending</option>
-            <option>Preparing</option>
-            <option>Delivered</option>
-          </select>
-        </div>
-        <div class="part4"><br>
-           <h2>Selected products</h2>
-           <table class="ordersTable">
-            <tr>
-              <th>Product name</th>
-              <th>Quantity</th>
-            </tr>
-            <tr *ngFor="let product of selectedProducts">
-                <td>{{product.productName}}x</td>
-                <td style="text-align: center;">{{product.quantity}}x</td>
-            </tr>
-          </table>
-        </div>
-        <div class="part4"><br>
-            <p><b>Total price: </b>{{orderInfo.totalPrice}}€</p>
-        </div>
-   </div>
+<title>{{isLoading ? 'Načítava sa...' : 'Detaily objednávky číslo ' + orderInfo.orderId }}</title>
+    <div class="content">
+      <div class="container">
+        @if(isLoading){
+          <div class="spinner-container">
+            <div class="spinner">
+            </div>
+            Načítavanie...
+          </div>
+        }@else{
+          <div class="part1">
+            <div class="selected-products">
+              <div class="sub-title">
+                <h2>Objednané produkty</h2>
+              </div>
+              <table class="selectedProducts">
+                <tr *ngFor="let product of selectedProducts" class="product">
+                  @if(product.productDiscount > 0){
+                    <div class="product-tag">
+                      zľava -{{product.productDiscount}}%
+                    </div>
+                  }
+                  @else{
+                    <div class="product-tag-hidden"></div>
+                  }
+                  <td class="product-image-cell"><img [src]="product.productImage0" [alt]="product.productName" [title]="product.productName" width="50" class="product-image"></td>
+                  <td class="product-name">{{product.productName}}<br>
+                    @if(product.quantity > 0){
+                      <span class="available">Na sklade</span>
+                    }
+                  </td>
+                  <td>{{product.quantity}}x</td>
+                  <td>
+                    <div class="price-container">
+                      <div class="product-prices">
+                        @if(product.productDiscount > 0){
+                          <p class="price"><del>{{ product.price }}€</del></p>
+                          <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }}€</p>
+                        }@else{
+                          <p class="no-discount-price">{{ product.price }}€</p>
+                        }
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="order-info">
+              <div class="delivery-payment-data-container">
+                <div class="delivery-data">
+                  <div class="sub-title">
+                    <h2>Informácie objednávky</h2>
+                  </div>
+                  <div class="table">
+                    <div class="co-1">
+                      <b>Meno a priezvisko: </b>{{orderInfo.name}} {{orderInfo.surname}}<br>
+                      <b>E-mailová adresa: </b>{{orderInfo.email}}<br>
+                      <b>Telefónne číslo: </b>{{orderInfo.phoneNumber}}<br>
+                      <b>Addresa: </b>{{orderInfo.address}}, {{orderInfo.psc}}<br>
+                      <b>Dátum objednávky: </b>{{orderInfo.orderDate}}
+                    </div>
+                    <div class="co-2">
+                      <b>Mesto: </b>{{orderInfo.city}}<br>
+                      <b>Štát: </b>{{orderInfo.country}}<br>
+                      <b>Spôsob dopravy: </b>{{orderInfo.deliveryOption}}<br>
+                      <b>Spôsob platby: </b>{{orderInfo.payment}}<br>
+                      <b>Poznámka k objednávke: </b>{{orderInfo.orderNote}}
+                    </div>
+                  </div>
+                </div>
+                <div class="change-status">
+                  <h2>Zmeniť stav objednávky</h2>
+                  <select (change)="changeStatus($event)">
+                    <option disabled selected value>Not selected</option>
+                    <option>Čakajúce</option>
+                    <option>Pripravuje sa</option>
+                    <option>Doručené</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="order-summary">
+              <div class="order-status">
+                <b>Stav objednávky: </b><span [ngClass]="{
+                  'red-text': orderStatus() === 'Čakajúce',
+                  'yellow-text': orderStatus() === 'Pripravuje sa',
+                  'green-text': orderStatus() === 'Doručené'
+                }">{{orderStatus()}}</span>
+              </div>
+              <div class="total-price">
+                <p>Celková cena</p>
+                <p>{{orderInfo.totalPrice}}€</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+  </div>

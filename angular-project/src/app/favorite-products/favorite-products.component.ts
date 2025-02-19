@@ -7,6 +7,7 @@ import { Router, RouterLink } from '@angular/router';
 import { FavoriteProductsService } from './favorite-products.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ProductsComponent } from '../products/products.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-favorite-products',
@@ -59,7 +60,10 @@ export class FavoriteProductsComponent implements OnInit {
         this.currentPage--;
       }
       this.updateCurrentProducts();
-      this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe((error) => {
+
+      this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe(() => {
+        
+      },(error) => {
         console.error(error);
       });
     }

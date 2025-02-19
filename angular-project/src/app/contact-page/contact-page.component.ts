@@ -65,10 +65,10 @@ export class ContactPageComponent implements OnInit {
       this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe();
       this.router.navigate(['/home']);
 
-      this.snackBar.open('Your message has been sent successfully!', '', {duration: 1000});
+      this.snackBar.open('Vaša správa bola úspešne odoslaná!', '', {duration: 1000});
     }else{
       this.validateAllFormFields(this.contactForm);
-      this.snackBar.open('Entered values are incorrect or fields with a star were skipped!', '', {duration: 1000});
+      this.snackBar.open('Zadané údaje nie sú správne alebo polia označené hviezdičkou boli vynechané!', '', {duration: 2000});
     }
   }
   changeStatus(problemId: number){

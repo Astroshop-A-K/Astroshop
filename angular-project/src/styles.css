@@ -43,9 +43,10 @@ app-root {
 label,
 .table .co-1, 
 .table .co-2,
+.table .co-3,
 input,
 select,
-input::placeholder, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder{
+input::placeholder, span, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder{
   font-size: 17px;
 }
 h1{
@@ -71,6 +72,7 @@ a {
   label,
   .table .co-1, 
   .table .co-2,
+  .table .co-3,
   input,
   select,
   input::placeholder, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder {

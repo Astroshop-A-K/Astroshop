@@ -17,17 +17,17 @@ export class CartService {
       if(alreadySelectedProduct.amount != alreadySelectedProduct.quantity){
         alreadySelectedProduct.amount++;
         this.countNum.update(value => value + 1);
-        this.snackBar.open("The product has been successfully added to the cart!", "", { duration: 1500, }); 
+        this.snackBar.open("Produkt bol úspešne pridaný do košíka!", "", { duration: 1500, }); 
       }
       else{
-        this.snackBar.open("You have added all the products to your cart!", "", { duration: 1500, }); 
+        this.snackBar.open("Pridali ste do košíka všetky dostupné produkty!", "", { duration: 1500, }); 
       }
     }
     else{
       product.amount = 1;
       this.products.push(product);
       this.countNum.update(value => value + 1);
-      this.snackBar.open("The product has been successfully added to the cart!", "", { duration: 1500, }); 
+      this.snackBar.open("Produkt bol úspešne pridaný do košíka!", "", { duration: 1500, }); 
     }
   }
 
@@ -52,7 +52,7 @@ export class CartService {
     if(index !== -1){
       this.countNum.update(value => value - product.amount);
       this.products.splice(index, 1);
-      this.snackBar.open("The product was successfully removed!", "", { duration: 1500, });
+      this.snackBar.open("Produkt bol z košíka odstránený!", "", { duration: 1500, });
     }
   }
 

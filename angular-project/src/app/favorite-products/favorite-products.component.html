@@ -1,15 +1,15 @@
-<title>Your favorite products</title>
+<title>Vaše obľúbené produkty</title>
 <div class="content">
     <div class="container" [ngClass]="{'isLoading': isLoading}">
         <div class="title">
             <img src="../../assets/favicon.ico" alt="astroshop-icon">
-            <h1>Your favorite products</h1>
+            <h1>Vaše obľúbené produkty</h1>
         </div>
         @if(isLoading){
             <div class="spinner-container">
                 <div class="spinner">
                 </div>
-                Loading...
+                Načítavanie...
             </div>
         }
         @else{
@@ -19,14 +19,14 @@
                         <div class="favorite-product">
                             @if(favoriteProduct.productDiscount > 0){
                                 <div class="product-tag">
-                                  -{{favoriteProduct.productDiscount}}% off
+                                  zľava -{{favoriteProduct.productDiscount}}%
                                 </div>
                             }
                             @else{
                                 <div class="product-tag-hidden"></div>
                             }
                             <a class="remove-fav-product" (click)="removeFavoriteProduct(user.id, favoriteProduct.productId)">
-                                <img src="../../assets/Images/remove-icon.png" alt="Remove Favorite" width="20" height="20">
+                                <img src="../../assets/Images/remove-icon.png" alt="Remove Favorite" width="20px" height="20px">
                             </a>
                           <div class="name-image">
                             <img [src]="favoriteProduct.productImage0" height="250" [alt]="favoriteProduct.productImage0" class="product-image"  [routerLink]="['/products', favoriteProduct.productName]">          
@@ -41,7 +41,7 @@
             }
             @else{
                 <div class="no-fproducts">
-                    <h2>You don't have any favorite products</h2> 
+                    <h2>Nemáte žiadne obľúbené produkty!</h2> 
                 </div>
             }
         }

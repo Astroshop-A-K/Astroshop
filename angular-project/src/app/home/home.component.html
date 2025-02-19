@@ -1,11 +1,11 @@
-<title>Home</title>
+<title>Domov</title>
 <div class="content">
   <div class="title">
     <div class="title_content">
       <div class="text_content">
-        <h1>Your Portal to the Stars</h1>
-        <h3>Find everything you need for night sky imaging at <b>AstroShop</b></h3><br>
-        <button [routerLink]="['/products']" class="btn btn-primary" id="shop_now_button">Shop now <img src="../../assets/Images/shopping_cart_white.png" height="25" width="25"></button>
+        <h1>Váš portál k hviezdam</h1>
+        <h3>Nájdite všetko čo potrebujete na <b>Astrostore</b></h3><br>
+        <button [routerLink]="['/products']" class="btn btn-primary" id="shop_now_button">Nakupovať <img src="../../assets/Images/shopping_cart_white.png" height="25" width="25"></button>
       </div>
       <div class="image_content">
         <img src="../../assets/Images/title_image_content.png" alt="image_content_title" height="350" width="255">
@@ -17,20 +17,20 @@
       <div class="spinner-container">
         <div class="spinner">
         </div>
-        Loading...
+        Načítavanie...
       </div>
     }
     @else{
       <div class="first-section">
         <div class="text">
-          <h2>Current bestsellers</h2>
+          <h2>Aktuálne bestsellery</h2>
         </div>
         <div class="gallery">
           <div *ngFor="let product of productData.slice(0, 5); let i = index" class="product-card">
             <a [routerLink]="['/products', product.productName]">
               @if(i < 5){
                 <div class="product-tag">
-                  -{{product.productDiscount}}% off
+                  zľava -{{product.productDiscount}}%
                 </div>
               }
               <div class="image-container">
@@ -58,10 +58,10 @@
       </div>
       <div class="second-section">
         <div class="text">
-          <h2>Great for advanced</h2>
+          <h2>Skvelé pre pokročilých</h2>
         </div>
         <div class="gallery">
-          <div *ngFor="let product of productData.slice(5, 10)" class="product-card">
+          <div *ngFor="let product of productData.slice(28, 33)" class="product-card">
             <a [routerLink]="['/products', product.productName]">
               <div class="image-container">
                 <img [src]="product.productImage0" alt="{{ product.productName }}" class="product-image" />
@@ -75,9 +75,9 @@
                 <div class="product-prices">
                   @if(product.productDiscount > 0){
                     <p class="price"><del>{{ product.price }}€</del></p>
-                    <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(0) }}€</p>
+                    <p class="new-price">{{ (product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }}€</p>
                   }@else{
-                    <p class="no-discount-price">{{ product.price }}€</p>
+                    <p class="no-discount-price">{{ product.price.toFixed(2) }}€</p>
                   }
                 </div>
                 <p>{{ product.quantity > 0 ? 'Na sklade' : 'Vypredané' }}</p>

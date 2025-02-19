@@ -1,29 +1,45 @@
-<title>Orders</title>
+<title>Objednávky</title>
 <div class="content">
-    <img src="../../assets/favicon.ico" height="50" width="50" alt="astroshop-icon" title="astroshop-icon">
-    <h1 style="font-weight: bold;">Orders</h1>
-    <div class="orders">
+  @if(!isLoading){
+    <div class="title">
+      <h1>Objednávky používateľov <img src="https://static.thenounproject.com/png/101952-200.png" alt="oder-icon"></h1>
+    </div>
+    @if(ordersData.length > 0){
+      <div class="orders">
         <table class="ordersTable">
             <tr>
-              <th>Order ID</th>
-              <th>Order Email</th>
-              <th>Order Verification Key</th>
-              <th>Order Date</th>
-              <th>Order Price</th>
-              <th>Order Status</th>
+              <th>Číslo objednávky</th>
+              <th>E-mailová adresa</th>
+              <th>Dátum objednávky</th>
+              <th>Cena objednávky</th>
+              <th>Stav objednávky</th>
             </tr>
-            <tr *ngFor="let order of ordersData">
+            <tr *ngFor="let order of filteredOrdersData" [routerLink]="['/user-orders', order.orderId]">
                 <td class="link" [routerLink]="['/user-orders', order.orderId]">{{order.orderId}}</td>  
                 <td>{{order.email}}</td>
-                <td>{{order.orderVerificationKey}}</td>
                 <td>{{order.orderDate}}</td>
-                <td>{{order.totalPrice}}€</td>
+                <td>{{order.totalPrice.toFixed(2)}}€</td>
                 <td [ngClass]="{
-                  'red-text': order.orderStatus === 'Pending',
-                  'yellow-text': order.orderStatus === 'Preparing',
-                  'green-text': order.orderStatus === 'Delivered'
-                }" style="text-align: center;">{{order.orderStatus}}</td>
+                  'red-text': order.orderStatus === 'Čakajúce',
+                  'yellow-text': order.orderStatus === 'Pripravuje sa',
+                  'green-text': order.orderStatus === 'Doručené'
+                }">{{order.orderStatus}}</td>
             </tr>
           </table>
     </div>
+    <div class="paginator">
+      <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+    </div>
+    }@else{
+      <div class="no-orders">
+        <p>Žiadne objednávky!</p>
+      </div>
+    }
+  }@else{
+    <div class="spinner-container">
+      <div class="spinner">
+      </div>
+      Načítavanie...
+    </div>
+  }
 </div>

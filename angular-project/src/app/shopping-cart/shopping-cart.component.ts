@@ -1,10 +1,8 @@
-import { Component, EmbeddedViewRef, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CartService } from './cart.service';
 import { CommonModule, NgFor } from '@angular/common';
 import { ProductsDTO } from './cart.service';
 import { RouterLink } from '@angular/router';
-import { NgModel } from '@angular/forms';
-import { MainNavComponent } from '../main-nav/main-nav.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -25,7 +23,7 @@ export class ShoppingCartComponent {
       product.amount++;
       this.CartService.updateAmount(product.amount - defAmount);
     }else{
-      this.snackBar.open("You've added all the products!", "", { duration: 1500, });
+      this.snackBar.open("Pridali ste všetky produkty!", "", { duration: 1500, });
     }
   }
   decrease(product: ProductsDTO){
@@ -35,7 +33,6 @@ export class ShoppingCartComponent {
         this.CartService.updateAmount(product.amount - defAmount);
       }else{
         this.CartService.removeProduct(product);
-        this.snackBar.open("Removed the product!", "", { duration: 1500, });
       }
   }
 
@@ -43,9 +40,9 @@ export class ShoppingCartComponent {
     if(this.products.length > 0){
       this.products = [];
       this.CartService.clearCart();
-      this.snackBar.open("Cleared the cart!", "", { duration: 1500, });
+      this.snackBar.open("Košík bol úspešne vyprázdnený!", "", { duration: 1500, });
     }else{
-      this.snackBar.open("The cart is already empty!", "", { duration: 1500, })
+      this.snackBar.open("Košík už je prázdny!", "", { duration: 1500, })
     }
   }
 }

@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import emailjs from 'emailjs-com';
 import { Observable } from 'rxjs';
@@ -19,6 +19,7 @@ export class VerificationComponent {
   isLoading: boolean = false;
 
   tokenStatus: string = '';
+  newToken: string = '';
 
   constructor(@Inject('BASE_URL') private baseUrl: string, private http: HttpClient, private route: ActivatedRoute, private router: Router, private authService: AuthenticationService){}
 
@@ -27,6 +28,11 @@ export class VerificationComponent {
     const params = new HttpParams().set('token', token);
     return this.http.get(url, { params });
   }
+
+  // @HostListener('window:onbeforeunload', ['$event'])
+  // preventClose(event: Event): void {
+  //   event.returnValue = true;
+  // }
 
   ngOnInit(): void {
     const token = this.route.snapshot.queryParamMap.get('token') || '';
@@ -40,7 +46,11 @@ export class VerificationComponent {
           this.router.navigate(['/dashboard']);
         }, 5000);
       }, (error) => {
-        console.error('Verification failed. Invalid or expired token.', error);
+        this.isLoading = false;
+        if(error.status = 'invalid'){
+          this.tokenStatus = error.status;
+          console.log(this.tokenStatus);
+        }
       });
     }
   }

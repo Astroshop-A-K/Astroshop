@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   activeTab: string = 'info';
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private snackBar: MatSnackBar){}
 
   selectTab(tab: string){
     this.activeTab = tab;
@@ -28,7 +29,9 @@ export class DashboardComponent implements OnInit {
   
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(() => {
+      this.snackBar.open("Boli ste úspešne odhlásený!", "", { duration: 1500 });
+    });
   }
 
   ngOnInit(): void {

@@ -72,7 +72,31 @@ namespace AspNetCoreAPI.Registration
 
             return Ok(new { message = "Registration started sending token to e-mail!", encodedToken });
         }
+        //[HttpPost("generate-new-token")]
+        //public async Task<IActionResult> GenerateNewToken([FromQuery] string token)
+        //{
+        //    if (string.IsNullOrEmpty(token))
+        //    {
+        //        return BadRequest(new { message = "Token is required" });
+        //    }
 
+        //    var pendingUser = await _context.PendingUsers.FirstOrDefaultAsync(u => u.Token == token);
+
+        //    if (pendingUser == null)
+        //    {
+        //        return BadRequest(new { message = "User doesn't exist or was already registered" });
+        //    }
+
+        //    var newToken = await _userManager.GenerateEmailConfirmationTokenAsync();
+        //    var encodedToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(token)).Replace("+", "-").Replace("/", "_").Replace("=", "");
+
+        //    pendingUser.Token = newToken;
+        //    pendingUser.ExpiresAt = DateTime.UtcNow.AddHours(1);
+
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(encodedToken);
+        //}
         [HttpGet("verify")]
         public async Task<IActionResult> VerifyEmail([FromQuery] string token)
         {
@@ -135,7 +159,7 @@ namespace AspNetCoreAPI.Registration
             var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-            return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = user.UserName });
+            return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = user.UserName, UserId = user.Id });
         }
 
         [HttpGet]

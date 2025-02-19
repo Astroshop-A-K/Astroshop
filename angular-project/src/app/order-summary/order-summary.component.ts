@@ -25,7 +25,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   selectedProducts: ProductsDTO[];
   orderCompleted: boolean;
   appliedCoupon: boolean = false;
-  couponButtonText: string = "Apply";
+  couponButtonText: string = "Uplatniť";
   
   totalPrice = this.CartService.totalPrice();
   orderId: number = 0;
@@ -59,14 +59,14 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     const couponControl = this.paymentForm.get('coupon');
     if(this.paymentForm.value.coupon == "BESTSHOP"){
       this.appliedCoupon = true;
-      this.couponButtonText = "Applied";
+      this.couponButtonText = "Uplatnené";
       
       this.totalPrice /= 2; 
       couponControl.setErrors(null);
       couponControl.disable();
     }
     else{
-      this.snackBar.open("Invalid coupon", "", { duration: 1500, });
+      this.snackBar.open("Nesprávny kupón", "", { duration: 1500, });
       couponControl.setErrors({invalidCoupon: true});
     }
   }
@@ -85,7 +85,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         orderVerificationKey += characters[randomIndex];
       }
 
-      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey, this.currentDate, "Pending", orderNote, this.captcha).subscribe(
+      this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey, this.currentDate, "Čakajúce", orderNote, this.captcha).subscribe(
         () => {
           this.getOrderId(orderVerificationKey).subscribe(result => {
             this.isLoading = false;
@@ -100,11 +100,11 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       );
       this.orderCompleted = true;
     }else if(this.paymentForm.invalid){
-      this.snackBar.open("You forgot to choose payment option!", "", { duration: 1500, });
+      this.snackBar.open("Zabudli ste zvoliť spôsob platby!", "", { duration: 1500, });
       const paymentControl = this.paymentForm.get('paymentMethod');
       paymentControl.markAsTouched();
     }else if(!this.recaptchaDone){
-      this.snackBar.open("You forgot to complete re-captcha!", "", { duration: 1500, });
+      this.snackBar.open("Zabudli ste na overenie reCAPTCHA!", "", { duration: 1500, });
     }
   }
 
@@ -208,7 +208,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       order_date: this.currentDate,
       products_table: this.generateProductsTable(),
       total_price: this.appliedCoupon ? `${((this.CartService.totalPrice()) / 2).toFixed(2)}€ (${discount})` : `${this.CartService.totalPrice().toFixed(2)}€`,
-      subject: 'Order Information'
+      subject: 'Informácie objednávky'
     };
 
     console.log(emailParams.products_table);
@@ -247,7 +247,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     if(this.selectedProducts.length === 0 || this.OrderService.order == null){
       this.router.navigate(['/products']);
     }
-    this.currentDate = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
+    this.currentDate = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm:ss');
   }
   ngOnDestroy(): void{
     if(this.orderCompleted){

@@ -5,6 +5,7 @@ import { ActivatedRoute, Route } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { NgClass, NgFor, NgForOf } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-order-details',
@@ -14,7 +15,7 @@ import { NgClass, NgFor, NgForOf } from '@angular/common';
   styleUrl: './user-order-details.component.css'
 })
 export class UserOrderDetailsComponent implements OnInit {
-  public orderInfo: OrdersDTO = { //namiesto array vytvorim objekt, ktory ma ProductsDTO interface 
+  public orderInfo: OrdersDTO = { 
     orderId: 0,
     name: '',
     surname: '',
@@ -32,17 +33,23 @@ export class UserOrderDetailsComponent implements OnInit {
     orderStatus: '',
     orderNote: ''
   }; 
-  public orderId: number = 0;
-  public selectedProducts: ProductsDTO[] = [];
+
+  orderId: number = 0;
+  selectedProducts: ProductsDTO[] = [];
 
   orderStatus = signal<string>('');
+  isLoading: boolean = true;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute){}
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private route: ActivatedRoute, private snackBar: MatSnackBar){}
 
   changeStatus(event: any){
     let orderStatus = event.target.value;
-    this.changeOrderStatus(this.orderId, orderStatus).subscribe( () => {});
-    this.orderStatus.update(value => value = orderStatus);
+    this.changeOrderStatus(this.orderId, orderStatus).subscribe((response) => {
+      if(response){
+        this.orderStatus.set(response.orderStatus);
+        this.snackBar.open("Stav objednávky bol úspešne zmenený!", "", { duration: 1500 });
+      }
+    });
   }
 
   getOrderInfo(orderId: number){
@@ -55,10 +62,10 @@ export class UserOrderDetailsComponent implements OnInit {
     queryParams = queryParams.append("orderId", orderId);
     return this.http.get<ProductsDTO[]>(this.baseUrl + 'orders/getOrderProducts', { params: queryParams });
   }
-  changeOrderStatus(orderId: number, orderStatusBE: string){
+  changeOrderStatus(orderId: number, orderStatusBE: string): Observable<any>{
     const url = `${this.baseUrl}orders/changeOrderStatus`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, {OrderId: orderId, OrderStatus: orderStatusBE}, { headers });
+    return this.http.post(url, {OrderId: orderId, OrderStatus: orderStatusBE}, { headers });
   }
 
   ngOnInit(): void {
@@ -67,10 +74,13 @@ export class UserOrderDetailsComponent implements OnInit {
 
     this.getOrderInfo(this.orderId).subscribe(result => {
       this.orderInfo = result;
-      this.orderStatus.set(this.orderInfo.orderStatus);
-    })
-    this.getOrderProducts(this.orderId).subscribe(result => {
-      this.selectedProducts = result;
+      if(result){
+        this.getOrderProducts(this.orderId).subscribe(result => {
+          this.selectedProducts = result;
+          this.orderStatus.set(this.orderInfo.orderStatus);
+          this.isLoading = false;
+        })
+      }
     })
   }
 }

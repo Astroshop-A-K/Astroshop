@@ -1,15 +1,15 @@
-<title>{{isLoading ? 'Loading...' : productInfo.productName}}</title>
+<title>{{isLoading ? 'Načítavanie...' : productInfo.productName}}</title>
 <div class="content" *ngIf="productInfo">
   @if(productInfo.productDiscount > 0 && !isLoading){
     <div class="product-tag">
-      -{{productInfo.productDiscount}}% off
+      zľava -{{productInfo.productDiscount}}%
     </div>
   }
   @if(isLoading){
     <div class="spinner-container">
       <div class="spinner">
       </div>
-      Loading...
+      Načítavanie...
     </div>
   }@else{
     <div class="part1">
@@ -50,28 +50,28 @@
           </div>
         </div>
         <div class="add-to-cart-button">
-            <button class="btn btn-success" (click)="addToCart()">Add to cart<img src="https://pngimg.com/d/shopping_cart_PNG64.png"></button>
+            <button class="btn btn-success" (click)="addToCart()">Pridať do košíka<img src="https://pngimg.com/d/shopping_cart_PNG64.png"></button>
         </div>
       </div>
     </div>
       <div class="part2" id="review-form-id"> <!--Tu redirect-->
-        <h2>Description</h2>
+        <h2>Popis produktu</h2>
         <p style="padding-bottom: 40px;">{{productInfo.productDescription}}</p>
-        <h2>Reviews</h2>
+        <h2>Recenzie</h2>
         <div class="review-form">
           <form [formGroup]="reviewForm">
             <div class="field">
               <div class="reviewComment">
-                <input type="text" class="form-control" placeholder="Type your review here..."  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': reviewForm.get('reviewComment').invalid && reviewForm.get('reviewComment').touched}">
+                <input type="text" class="form-control" placeholder="Sem napíšte vašu recenziu..."  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': reviewForm.get('reviewComment').invalid && reviewForm.get('reviewComment').touched}">
               </div>
               <div class="star-rating-form">
                   <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
               </div>
-              <button class="btn btn-secondary" type="button" (click)="onSubmit()">Send</button>
+              <button class="btn btn-secondary" type="button" (click)="onSubmit()">Poslať</button>
             </div>
           </form>
           @if(userMessage.length > 0){
-            <div class="char-count">{{ charactersCount }} / 150 characters</div>
+            <div class="char-count">{{ charactersCount }} / 150 znakov</div>
           }
           @else{
             <div class="char-count" style="visibility: hidden; display: none;">a</div>
@@ -111,14 +111,14 @@
             </div>
           }@else{
             <div class="no-reviews">
-              <p>There are no reviews yet.</p>
+              <p>Pre tento produkt zatiaľ nie sú žiadne recenzie.</p>
             </div>
           }
         }@else{
           <div class="spinner-container" style="height: 200px;">
             <div class="spinner">
             </div>
-            Loading...
+            Načítavanie...
           </div>
         }       
       </div>

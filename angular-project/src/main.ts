@@ -23,10 +23,11 @@ import { authGuard } from './app/api-authorization/auth.guard';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 import { VerificationComponent } from './app/verification/verification.component';
+import { unauthGuard } from './app/api-authorization/unauth.guard';
 
 
 export function getBaseUrl() {
-  return 'https://localhost:7186/api/';
+  return 'https://astroshop.bsite.net/api/';
 }
 
 export function tokenGetter() {
@@ -64,8 +65,8 @@ bootstrapApplication(AppComponent, {
         { path: 'order/order-summary', component: OrderSummaryComponent},
         { path: 'user-orders', component: UserOrdersComponent, canActivate: [authGuard]},
         { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [authGuard]},
-        { path: 'verification', component: VerificationComponent },
-        { path: 'verification/:token', component: VerificationComponent },
+        { path: 'verification', component: VerificationComponent, canActivate: [unauthGuard]},
+        { path: 'verification/:token', component: VerificationComponent, canActivate: [unauthGuard]},
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ]), provideFirebaseApp(() => initializeApp({"projectId":"astroshopsoc","appId":"1:856605368007:web:0a261edcfb9baacf03e8e2","storageBucket":"astroshopsoc.firebasestorage.app","apiKey":"AIzaSyDx3F1BMXOwJwr96wwmk65eAImd9TsPkpc","authDomain":"astroshopsoc.firebaseapp.com","messagingSenderId":"856605368007","measurementId":"G-PXMJCTGV77"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService
     ]
