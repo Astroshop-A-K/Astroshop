@@ -57,7 +57,7 @@ export class RegistrationComponent implements OnInit {
           let token = response.encodedToken;
           const emailParams = {
             to_email: this.registerForm.value.email,
-            verification_link: `http://localhost:4200/verification/verify?token=${token}`,
+            verification_link: `http://astroshopsoc.web.app/verification/verify?token=${token}`,
             subject: 'Overte vašu e-mailovú adresu'
           };
           emailjs.init('vvvXsO3WEU729fqbQ');
