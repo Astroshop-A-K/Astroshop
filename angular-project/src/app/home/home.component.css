@@ -26,6 +26,9 @@
   text-align: left;
   font-weight: bold;
 }
+.title_content h3{
+  font-size: 18px;
+}
 .title_content {
   text-shadow: 2px 2px 2px gray;
 }
