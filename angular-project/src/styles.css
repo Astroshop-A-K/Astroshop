@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-  font-size: 18px;
+  font-size: 17.5px;
 }
 body {
   margin: 0;
@@ -39,11 +39,7 @@ app-root {
     transform: rotate(360deg);
   }
 }
-.spinner-container,
-label,
-.table .co-1, 
-.table .co-2,
-.table .co-3,
+html,
 input,
 select,
 input::placeholder, span, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder{
@@ -68,11 +64,7 @@ a {
   }
 }
 @media (max-width: 480px) {
-  .spinner-container,
-  label,
-  .table .co-1, 
-  .table .co-2,
-  .table .co-3,
+  html,
   input,
   select,
   input::placeholder, input[type="text"], input[type="email"], input[type="number"], input[type="tel"], option, textarea, textarea::placeholder {

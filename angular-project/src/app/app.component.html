@@ -25,7 +25,7 @@
           <input class="search-bar" type="search" placeholder="Kliknite sem pre vyhľadávanie" [matAutocomplete]="auto" [(ngModel)]="searchText" [formControl]="searchBar">
           <button class="btn btn-coupon" (click)="onSearch()"><img src="../assets/Images/search_icon.png" title="Click to search"></button>
             <mat-autocomplete #auto="matAutocomplete">
-              @for(product of filteredProducts | async; track product) {
+              @for(product of filteredProducts | async; track product) { <!--async postupne updatuje produkty z observable a trackproduct zabezpeci plnyule update DOM-->
               <a (click)="onProductSelected(product)" style="text-decoration: none"> <!-- TODO zmenit je to docasne-->
                 <mat-option [value]="product">{{product.productName}}</mat-option>
               </a>

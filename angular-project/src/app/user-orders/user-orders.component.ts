@@ -19,7 +19,7 @@ export class UserOrdersComponent implements OnInit {
 
   currentPage: number = 1;
   totalItems: number = 0;
-  limit: number = 10;
+  limit: number = 6;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
 

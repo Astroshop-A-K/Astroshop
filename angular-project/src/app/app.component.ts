@@ -40,19 +40,16 @@ export class AppComponent implements OnInit{
   }
 
   onSearch(){
-    console.log(this.searchText);
     if(this.searchText.trim()){
       localStorage.setItem('searchText', this.searchText);
       if(this.router.url === '/products'){
         window.location.reload();
       }else{
-        this.router.navigate(['/products'], {
-          queryParams: {searchText: this.searchText},
-        });
+        this.router.navigate(['/products']); //, {  queryParams: {searchText: this.searchText },
       }
       this.searchText = '';
     }else{
-      this.snackBar.open("Please enter a value!", "", { duration: 1500, }); 
+      this.snackBar.open("Prosím zadajte hodnotu pre vyhľadávanie!", "", { duration: 1500, }); 
     }
   }
   private filterProducts(value: string): ProductsDTO[]{
@@ -60,7 +57,7 @@ export class AppComponent implements OnInit{
     return this.productsData.filter(product => this.normalizeValue(product.productName).includes(filteredValue));
   }
   private normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
+    return value.toLowerCase().replace(/\s/g, ''); // /\s/g da prec prazdne miesta
   }
 
   onProductSelected(product: ProductsDTO){
@@ -102,6 +99,7 @@ export class AppComponent implements OnInit{
         }
       }),
     );
+    
     this.router.events.subscribe((event) => {
       if(event instanceof NavigationEnd) {
         logEvent(this.analytics, 'page_view', { page: event.urlAfterRedirects });

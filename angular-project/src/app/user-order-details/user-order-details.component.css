@@ -62,7 +62,7 @@
 }
 .change-status {
   flex: 0.5;
-  min-width: 400px;
+  min-width: 325px;
 }
 .change-status h2 {
   text-align: left;
