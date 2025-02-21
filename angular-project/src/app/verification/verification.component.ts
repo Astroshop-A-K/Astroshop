@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, HostListener, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import emailjs from 'emailjs-com';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../api-authorization/authentication.service';
 
