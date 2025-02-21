@@ -74,10 +74,12 @@ export class FavoriteProductsComponent implements OnInit {
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
           this.FavProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
-            this.sortedFavoriteProducts = result;
-            this.favoriteProducts = result;
+            this.favoriteProducts = this.sortedFavoriteProducts = result != null ? result : [];
+
             this.totalItems = this.sortedFavoriteProducts.length;
             this.updateCurrentProducts();
+            this.isLoading = false;
+          }, (error) => {
             this.isLoading = false;
           });
       })

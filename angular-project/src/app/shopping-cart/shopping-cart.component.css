@@ -20,14 +20,13 @@
   flex-direction: column;
   background-color: white;
   border-radius: 10px;
-  padding: 20px 40px 40px 40px;
+  padding: 30px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .empty-cart{
   width: 45%;
 }
 .heading {
-  padding: 20px 0 0 0;
   width: 100%;
   text-align: center;
   display: flex;
@@ -153,6 +152,9 @@
   width: 100%;
   margin: 50px 0 0 0;
   text-align: left;
+}
+.empty-cart-text p {
+  margin: 0;
 }
 @media (max-width: 1250px) { 
   .selectedProducts .product-image {

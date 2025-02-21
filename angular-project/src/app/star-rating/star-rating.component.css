@@ -20,3 +20,8 @@ fa-icon{
 .readOnly{
     padding: 0;
 }
+@media (max-width: 559px){
+    fa-icon{
+        font-size: 26px;
+    }
+}
