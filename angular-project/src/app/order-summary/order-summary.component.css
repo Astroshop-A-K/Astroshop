@@ -47,6 +47,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  overflow: hidden;
 }
 .delivery-data {
   display: flex;

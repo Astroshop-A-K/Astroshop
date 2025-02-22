@@ -63,6 +63,7 @@
 .change-status {
   flex: 0.5;
   min-width: 325px;
+  margin: 9px 0 10px 0;
 }
 .change-status h2 {
   text-align: left;
@@ -147,7 +148,7 @@
   flex-direction: row;
   gap: 35px;
   margin: 0;
-  text-wrap: nowrap;
+  text-wrap: wrap;
   text-overflow: ellipsis;
   width: 100%;
   flex-wrap: wrap;
