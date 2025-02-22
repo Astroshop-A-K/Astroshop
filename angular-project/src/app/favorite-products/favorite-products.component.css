@@ -146,6 +146,9 @@ h1 {
   .content {
     padding: 90px 0px 160px 0px;
   }
+  h1 {
+    font-size: 1.5em;
+  }
 }
 @media (max-width: 580px) {
   .name-image {
@@ -167,5 +170,8 @@ h1 {
 @media (max-width: 480px) {
   .content {
     padding: 50px 0px 110px 0px;
+  }
+  h1 {
+    font-size: 1.2em;
   }
 }
