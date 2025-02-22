@@ -49,6 +49,16 @@
   gap: 20px;
   flex-wrap: wrap;
 }
+.change-status-container{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-status{
+  margin-top: 45px;
+}
 .delivery-data {
   display: flex;
   flex-wrap: wrap;
@@ -61,7 +71,7 @@
   margin: 0;
 }
 .change-status {
-  flex: 0.5;
+  flex: 0.6;
   min-width: 325px;
   margin: 9px 0 10px 0;
 }
@@ -186,7 +196,7 @@ select {
   flex: 1;
 }
 .order-status {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 .total-price p {
   margin: 0;
@@ -194,6 +204,9 @@ select {
 }
 .total-price p:nth-child(even) {
   text-align: right;
+}
+.spinner-container{
+  height: 350px;
 }
 .red-text {
   color: rgb(255, 45, 45);
@@ -264,16 +277,14 @@ select {
     text-align: left;
     width: 100%;
   }
-}
-@media (max-width: 500px) {
-  .content {
-    padding: 60px 0 130px 0;
-  }
-  .order-summary {
+  .change-status-container{
     flex-direction: column;
     align-items: flex-start;
   }
   .order-status{
+    width: 100%;
+  }
+  .change-status{
     width: 100%;
   }
   .total-price,
@@ -283,6 +294,19 @@ select {
     gap: 15px;
     width: 100%;
     margin: 10px 0px 10px 0px;
+  }
+  .order-status{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 500px) {
+  .content {
+    padding: 60px 0 130px 0;
+  }
+  .order-summary {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .total-price p:nth-child(even) {
     text-align: right;

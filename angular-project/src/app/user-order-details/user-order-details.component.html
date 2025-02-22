@@ -67,26 +67,28 @@
                       <b>Poznámka k objednávke: </b>{{orderInfo.orderNote ? orderInfo.orderNote : 'Nezadané'}}
                     </div>
                   </div>
-                </div>
-                <div class="change-status">
-                  <h2>Zmeniť stav objednávky</h2>
-                  <select (change)="changeStatus($event)">
-                    <option disabled selected value>Not selected</option>
-                    <option>Čakajúce</option>
-                    <option>Pripravuje sa</option>
-                    <option>Doručené</option>
-                  </select>
+                  <div class="change-status-container">
+                    <div class="change-status">
+                      <h2>Zmeniť stav objednávky</h2>
+                      <select (change)="changeStatus($event)">
+                        <option disabled selected value>Kliknite sem pre zvolenie stavu objednávky</option>
+                        <option>Čakajúce</option>
+                        <option>Pripravuje sa</option>
+                        <option>Doručené</option>
+                      </select>
+                    </div>
+                    <div class="order-status">
+                      <b>Stav objednávky: </b><span [ngClass]="{
+                        'red-text': orderStatus() === 'Čakajúce',
+                        'yellow-text': orderStatus() === 'Pripravuje sa',
+                        'green-text': orderStatus() === 'Doručené'
+                      }">{{orderStatus()}}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="order-summary">
-              <div class="order-status">
-                <b>Stav objednávky: </b><span [ngClass]="{
-                  'red-text': orderStatus() === 'Čakajúce',
-                  'yellow-text': orderStatus() === 'Pripravuje sa',
-                  'green-text': orderStatus() === 'Doručené'
-                }">{{orderStatus()}}</span>
-              </div>
               <div class="total-price">
                 <p>Celková cena</p>
                 <p>{{orderInfo.totalPrice}}€</p>
