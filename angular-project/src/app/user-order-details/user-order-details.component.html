@@ -46,44 +46,70 @@
               </table>
             </div>
             <div class="order-info">
-              <div class="delivery-payment-data-container">
-                <div class="delivery-data">
-                  <div class="sub-title">
-                    <h2>Informácie objednávky</h2>
+              <div class="delivery-data">
+                <div class="table-container">
+                  <table class="order-table">
+                    <tr>
+                      <th colspan="2">Informácie objednávky</th>
+                    </tr>
+                    <tr>
+                      <td><b>Meno a priezvisko:</b></td>
+                      <td>{{orderInfo.name}} {{orderInfo.surname}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>E-mailová adresa:</b></td>
+                      <td>{{orderInfo.email}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Telefónne číslo:</b></td>
+                      <td>{{orderInfo.phoneNumber}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Adresa:</b></td>
+                      <td>{{orderInfo.address}}, {{orderInfo.psc}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Dátum objednávky:</b></td>
+                      <td>{{orderInfo.orderDate}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Mesto:</b></td>
+                      <td>{{orderInfo.city}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Štát:</b></td>
+                      <td>{{orderInfo.country}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Spôsob dopravy:</b></td>
+                      <td>{{orderInfo.deliveryOption}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Spôsob platby:</b></td>
+                      <td>{{orderInfo.payment}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Poznámka k objednávke:</b></td>
+                      <td>{{orderInfo.orderNote ? orderInfo.orderNote : 'Nezadané'}}</td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="change-status-container">
+                  <div class="change-status">
+                    <h2>Zmeniť stav objednávky</h2>
+                    <select (change)="changeStatus($event)">
+                      <option disabled selected value>Kliknite sem pre zvolenie stavu objednávky</option>
+                      <option>Čakajúce</option>
+                      <option>Pripravuje sa</option>
+                      <option>Doručené</option>
+                    </select>
                   </div>
-                  <div class="table">
-                    <div class="co-1">
-                      <b>Meno a priezvisko: </b>{{orderInfo.name}} {{orderInfo.surname}}<br>
-                      <b>E-mailová adresa: </b>{{orderInfo.email}}<br>
-                      <b>Telefónne číslo: </b>{{orderInfo.phoneNumber}}<br>
-                      <b>Addresa: </b>{{orderInfo.address}}, {{orderInfo.psc}}<br>
-                      <b>Dátum objednávky: </b>{{orderInfo.orderDate}}
-                    </div>
-                    <div class="co-2">
-                      <b>Mesto: </b>{{orderInfo.city}}<br>
-                      <b>Štát: </b>{{orderInfo.country}}<br>
-                      <b>Spôsob dopravy: </b>{{orderInfo.deliveryOption}}<br>
-                      <b>Spôsob platby: </b>{{orderInfo.payment}}<br>
-                      <b>Poznámka k objednávke: </b>{{orderInfo.orderNote ? orderInfo.orderNote : 'Nezadané'}}
-                    </div>
-                  </div>
-                  <div class="change-status-container">
-                    <div class="change-status">
-                      <h2>Zmeniť stav objednávky</h2>
-                      <select (change)="changeStatus($event)">
-                        <option disabled selected value>Kliknite sem pre zvolenie stavu objednávky</option>
-                        <option>Čakajúce</option>
-                        <option>Pripravuje sa</option>
-                        <option>Doručené</option>
-                      </select>
-                    </div>
-                    <div class="order-status">
-                      <b>Stav objednávky: </b><span [ngClass]="{
-                        'red-text': orderStatus() === 'Čakajúce',
-                        'yellow-text': orderStatus() === 'Pripravuje sa',
-                        'green-text': orderStatus() === 'Doručené'
-                      }">{{orderStatus()}}</span>
-                    </div>
+                  <div class="order-status">
+                    <b>Stav objednávky: </b><span [ngClass]="{
+                      'red-text': orderStatus() === 'Čakajúce',
+                      'yellow-text': orderStatus() === 'Pripravuje sa',
+                      'green-text': orderStatus() === 'Doručené'
+                    }">{{orderStatus()}}</span>
                   </div>
                 </div>
               </div>

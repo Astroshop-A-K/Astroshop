@@ -41,6 +41,7 @@ h2 {
   display: block;
   margin-bottom: 5px;
   width: auto;
+  text-decoration: none;
 }
 .ending a:hover {
   text-decoration: underline;

@@ -41,44 +41,64 @@
           </div>
           <div class="order-info">
             <div class="delivery-payment-data-container">
-              <div class="delivery-data">
-                <div class="sub-title">
-                  <h2>Vaše údaje objednávky</h2>
-                </div>
-                <div class="table">
-                  <div class="co-1">
-                    <b>Meno a priezvisko: </b>{{OrderService.order?.name}} {{OrderService.order?.surname}}<br>
-                    <b>E-mailová adresa: </b>{{OrderService.order?.email}}<br>
-                    <b>Adresa: </b>{{OrderService.order?.address}}<br>
-                    <b>PSČ: </b>{{OrderService.order?.postalCode}}<br>
-                  </div>
-                  <div class="co-2">
-                    <b>Telefónne číslo: </b>{{OrderService.order?.phoneNumber}}<br>
-                    <b>Mesto: </b>{{OrderService.order?.city}}<br>
-                    <b>Štát: </b>{{OrderService.order?.country}}<br>
-                    <b>Spôsob dopravy: </b>{{OrderService.order?.deliveryOption}}
-                  </div>
-                </div>
+              <div class="table-container">
+                <table class="order-table">
+                  <tr>
+                    <th colspan="2">Informácie objednávky</th>
+                  </tr>
+                  <tr>
+                    <td><b>Meno a priezvisko:</b></td>
+                    <td>{{OrderService.order?.name}} {{OrderService.order?.surname}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>E-mailová adresa:</b></td>
+                    <td>{{OrderService.order?.email}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Adresa:</b></td>
+                    <td>{{OrderService.order?.address}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>PSČ:</b></td>
+                    <td>{{OrderService.order?.postalCode}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Telefónne číslo:</b></td>
+                    <td>{{OrderService.order?.phoneNumber}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Mesto:</b></td>
+                    <td>{{OrderService.order?.city}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Štát:</b></td>
+                    <td>{{OrderService.order?.country}}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Spôsob dopravy:</b></td>
+                    <td>{{OrderService.order?.deliveryOption}}</td>
+                  </tr>
+                </table>
               </div>
-              <div class="payment-form">
-                <div class="sub-title">
-                  <h2>Spôsob platby</h2>
-                </div>
-                <form [formGroup]="paymentForm">
-                  <div class="field">
-                    <input type="radio" id="p1" name="paymentMethod" value="Platba hotovosťou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
-                    <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" alt="paymentOnDelivery">Platna hotovosťou</label><br>
-                  </div>
-                  <div class="field">
-                    <input type="radio" id="p2" name="paymentMethod" value="Platba bankovým prevodom" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
-                    <label for="p2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzJFEBgcViSG5jF0lIrNdPrWgJbg7OyxrXNKKvGDK1OJO9xQt1pcnNs61wXaCBDSkUOeE&usqp=CAU" alt="cardPaymentUponCollection">Bankovým prevodom</label><br>
-                  </div>
-                  <div class="field">
-                    <input type="radio" id="p3" name="paymentMethod" value="Platba kartou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
-                    <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" alt="cardPayment">Platba kartou</label><br>
-                  </div>
-                </form>
+            </div>
+            <div class="payment-form">
+              <div class="sub-title">
+                <h2>Spôsob platby</h2>
               </div>
+              <form [formGroup]="paymentForm">
+                <div class="field">
+                  <input type="radio" id="p1" name="paymentMethod" value="Platba hotovosťou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                  <label for="p1"><img src="https://cdn-icons-png.flaticon.com/512/6491/6491490.png" alt="paymentOnDelivery">Platna hotovosťou pri prevzatí</label><br>
+                </div>
+                <div class="field">
+                  <input type="radio" id="p2" name="paymentMethod" value="Platba bankovým prevodom" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                  <label for="p2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzJFEBgcViSG5jF0lIrNdPrWgJbg7OyxrXNKKvGDK1OJO9xQt1pcnNs61wXaCBDSkUOeE&usqp=CAU" alt="cardPaymentUponCollection">Bankovým prevodom na číslo účtu</label><br>
+                </div>
+                <div class="field">
+                  <input type="radio" id="p3" name="paymentMethod" value="Platba kartou" formControlName="paymentMethod" (change)="onRadioChange($event)" class="form-check-input" [ngClass]="{'is-invalid': paymentForm.get('paymentMethod').invalid && paymentForm.get('paymentMethod').touched}">
+                  <label for="p3"><img src="https://www.freeiconspng.com/thumbs/credit-card-icon-png/credit-card-black-png-0.png" alt="cardPayment">Platba kartou u nás na webe</label><br>
+                </div>
+              </form>
             </div>
           </div>
           <div class="order-summary">

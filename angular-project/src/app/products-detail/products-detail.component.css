@@ -315,6 +315,9 @@ fa-icon.not-clicked {
   }
 }
 @media (max-width: 560px){
+  .title-part1 {
+    overflow-x: scroll;
+  }
   .check{
     flex-direction: column;
     justify-content: flex-start;
