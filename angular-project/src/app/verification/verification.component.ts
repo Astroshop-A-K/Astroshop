@@ -3,11 +3,12 @@ import { Component, HostListener, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../api-authorization/authentication.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-verification',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './verification.component.html',
   styleUrl: './verification.component.css'
 })

@@ -51,7 +51,7 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   gap: 20px;
-  overflow: scroll;
+  overflow-x: scroll;
 }
 .table-container {
   width: 100%;
@@ -64,7 +64,7 @@
   border-collapse: collapse;
   background-color: #fff;
   border-radius: 10px;
-  overflow: scroll;
+  overflow-x: scroll;
   margin: 0;
   max-width: 100%;
 }
@@ -74,11 +74,12 @@
   text-align: left;
   font-size: 20px;
   font-weight: bold;
+  width: 30%;
 }
 .order-table td {
   padding: 10px 0;
   border-bottom: 1px solid #ddd;
-  width: 50%;
+  width: 30%;
 }
 .order{
   display: flex;
@@ -254,6 +255,9 @@ input[type="text"] {
   margin: 5px 0 10px 0;
   font-size: 17.5px;
 }
+.order-finished-align{
+  padding: 110px 0 232.5px 0;
+}
 .re-captcha-container{
   display: flex;
   align-items: center;
@@ -264,7 +268,7 @@ input[type="text"] {
   margin-top: 15px;
 }
 .spinner-container{
-  height: 156px;
+  height: 200px;
   width: 250px;
 }
 .form-check-input.is-invalid, .is-invalid {

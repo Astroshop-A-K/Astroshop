@@ -1,8 +1,8 @@
 <title>Overenie používateľa</title>
-<div class="content">
+<div class="content" [ngClass]="{'no-verification': tokenStatus === 'invalid' || !showVerificationContainer}">
     <div class="verification">
         @if(showVerificationContainer){
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/020/009/614/small_2x/email-and-mail-icon-black-free-png.png" alt="email-icon" title="email-icon">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/020/009/614/small_2x/email-and-mail-icon-black-free-png.png" height="45px" width="45px" alt="email-icon" title="email-icon">
             <h1>Overenie e-mailovej adresy</h1>
             <div class="verification-container">
                 <p>Na e-mailovú adresu Vám bol poslaný overovací odkaz, prosím kliknite naň pre dokončenie registrácie.</p>
@@ -10,23 +10,23 @@
             </div>
         }@else{
             @if(isLoading){
-                <div class="spinner-container" style="height: 200px;">
+                <div class="spinner-container">
                     <div class="spinner">
                     </div>
                     Načítavanie...
                 </div>
             }@else{
                 @if(tokenStatus === 'invalid'){
-                    <img src="https://static.thenounproject.com/png/1520720-200.png" alt="error-icon" title="error-icon">
+                    <img src="https://cdn4.iconfinder.com/data/icons/emails-3/24/Mail-Error-512.png" alt="error-icon" title="error-icon" height="40px" width="40px">
                     <h1>Neplatný overovací odkaz!</h1>
                     <div class="verification-container">
                         <p>Tento odkaz je neplatný alebo už dávno vypršal!</p>
                     </div>
                 }@else{
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/020/009/614/small_2x/email-and-mail-icon-black-free-png.png" alt="email-icon" title="email-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1810/1810717.png" alt="email-icon" title="email-icon" height="40px" width="40px">
                     <h1>E-mailová adresa bola úspešne overená!</h1>
                     <div class="verification-container">
-                        <p>Prihlasuje sa...</p>
+                        <p>Prihlasuje sa do systému prosím počkajte...</p>
                     </div>   
                 }
             }
