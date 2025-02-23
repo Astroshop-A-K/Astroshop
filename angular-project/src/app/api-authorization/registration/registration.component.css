@@ -66,6 +66,9 @@ a {
 .acc-label{
   font-weight: normal !important;
 }
+.spinner-container{
+  height: 300px;
+}
 .is-invalid .form-control.ng-invalid.ng-touched{
   border-color: red !important;
 }

@@ -23,6 +23,8 @@ export class RegistrationComponent implements OnInit {
   recaptchaDone: boolean = false;
   @ViewChild(RecaptchaComponent) recaptchaComponent!: RecaptchaComponent;
 
+  isLoading: boolean = false;
+
   constructor(public authService: AuthenticationService, private router: Router, private snackBar: MatSnackBar){}
 
   resolved(captchaResponse: string){
@@ -47,6 +49,7 @@ export class RegistrationComponent implements OnInit {
 
   register() {    
     if(this.registerForm.valid && this.recaptchaDone && (this.registerForm.value.password === this.registerForm.value.confirmPassword)) {
+      this.isLoading = true;
       const userData = {
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
@@ -62,6 +65,8 @@ export class RegistrationComponent implements OnInit {
           };
           emailjs.init('vvvXsO3WEU729fqbQ');
           emailjs.send('service_cleravy', 'template_s8wrvm5', emailParams);
+
+          this.isLoading = false;
           this.router.navigate(['/verification']);
         },(error) => {
           console.log('An error have occurred while trying to register.', error);
