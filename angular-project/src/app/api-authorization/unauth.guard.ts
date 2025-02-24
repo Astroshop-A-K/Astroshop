@@ -1,15 +1,17 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
+import { CanDeactivateFn, Router } from '@angular/router';
 
-export const unauthGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthenticationService);
-  const router = inject(Router);
-  
-  if (!authService.isAuthenticated()) {
-    return true; 
-  } else {
-    router.navigate(['/home']); 
-    return false; 
-  }
+export const unauthGuard: CanDeactivateFn<any> = () => {
+  return new Promise<boolean>((resolve) => {
+    const timeout = setTimeout(() => {
+      resolve(true);
+    }, 5000);
+
+    const confirmLeave = confirm('Prebieha overovanie, naozaj chcete opustiť stránku?');
+    if(confirmLeave){
+      clearTimeout(timeout);
+      resolve(true);
+    }else{
+      resolve(false);
+    }
+  })
 };
