@@ -29,11 +29,6 @@ export class VerificationComponent {
     return this.http.get(url, { params });
   }
 
-  // @HostListener('window:onbeforeunload', ['$event'])
-  // preventClose(event: Event): void {
-  //   event.returnValue = true;
-  // }
-
   ngOnInit(): void {
     const token = this.route.snapshot.queryParamMap.get('token') || '';
     if(token){

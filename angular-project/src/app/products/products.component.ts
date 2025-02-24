@@ -179,12 +179,23 @@ export class ProductsComponent implements OnInit {
       page_path: window.location.pathname,
       screen_resolution: `${window.screen.width}x${window.screen.height}`, 
       screen_name: 'Home Page',
+      referrer: document.referrer,
+      history_length: history.length,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      viewport_width: window.innerWidth,
+      viewport_height: window.innerHeight,
+      device_pixel_ratio: window.devicePixelRatio,
     });
     logEvent(this.analytics, 'device_info', {
       language: navigator.language, 
       platform: navigator.platform,
       user_agent: navigator.userAgent, 
       screen_size: `${window.innerWidth}x${window.innerHeight}`,
+      available_ram: (navigator as any).deviceMemory, 
+      cpu_cores: navigator.hardwareConcurrency, 
+      do_not_track: navigator.doNotTrack, 
+      online: navigator.onLine, 
+      max_touch_points: navigator.maxTouchPoints,
     });
   }
 }
