@@ -6,6 +6,11 @@ export const unauthGuard: CanDeactivateFn<any> = () => {
       resolve(true);
     }, 5000);
 
+    if(localStorage.getItem('token')){
+      clearTimeout(timeout);
+      resolve(true);
+    }
+
     const confirmLeave = confirm('Prebieha overovanie, naozaj chcete opustiť stránku?');
     if(confirmLeave){
       clearTimeout(timeout);
