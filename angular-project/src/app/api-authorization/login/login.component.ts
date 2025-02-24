@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       );
     }else{
       this.snackbar.open("Zadané údaje nie sú správne alebo polia označené hviezdičkou boli vynechané!", "", { duration: 1500 });
+      this.loginForm.markAllAsTouched();
     }
   }
 

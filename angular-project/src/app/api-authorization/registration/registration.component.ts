@@ -79,12 +79,13 @@ export class RegistrationComponent implements OnInit {
     }else if(this.registerForm.value.password !== this.registerForm.value.confirmPassword){
       this.snackBar.open("Heslá sa nezhodujú!", "", { duration: 1500, });
       this.registerForm.markAllAsTouched();
+    }else if(this.registerForm.invalid){
+      this.snackBar.open("Zadané údaje nie sú správne alebo polia označené hviezdičkou boli vynechané!", "", { duration: 1500 });
+      this.registerForm.markAllAsTouched();
     }else if(!this.recaptchaDone){
       this.snackBar.open("Zabudli ste na overenie reCAPTCHA!", "", { duration: 2000, });
     }else if(this.registerForm.controls['password'].errors){
       this.snackBar.open("Heslo musí obsahovať veľké písmeno, malé písmeno, číslo a špeciálny znak!", "", { duration: 2000 });
-    }else{
-      this.snackBar.open("Zadané údaje nie sú správne alebo polia označené hviezdičkou boli vynechané!", "", { duration: 1500 });
     }
   }
 
