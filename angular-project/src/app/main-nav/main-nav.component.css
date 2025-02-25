@@ -250,6 +250,7 @@ img{
   filter: brightness(0%);
   transform: rotate(180deg);
   margin-left: 15px;
+  margin-bottom: 5px;
 }
 .close-btn-c a:hover{
   cursor: pointer;

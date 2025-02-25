@@ -66,6 +66,10 @@ export class ProductsComponent implements OnInit {
       this.selectedCategory = category;
       this.searchText = this.selectedSortOption = '';
       this.isActive = false;
+
+      this.router.navigate([], {
+        queryParams: { category: this.selectedCategory },
+      });
     }
   }
 

@@ -2,7 +2,7 @@
 <div class="content">
     <div class="container" [ngClass]="{'isLoading': isLoading}">
         <div class="title">
-            <img src="../../assets/favicon.ico" alt="astroshop-icon">
+            <img src="https://cdn0.iconfinder.com/data/icons/zwo-shopping-ecommerce-vol-1/25/wishlist_favorite_product_products-512.png" alt="astroshop-icon">
             <h1>Vaše obľúbené produkty</h1>
         </div>
         @if(isLoading){
@@ -29,7 +29,7 @@
                                 <img src="../../assets/Images/remove-icon.png" alt="Remove Favorite" width="20px" height="20px">
                             </a>
                           <div class="name-image">
-                            <img [src]="favoriteProduct.productImage0" height="250" [alt]="favoriteProduct.productImage0" class="product-image"  [routerLink]="['/products', favoriteProduct.productName]">          
+                            <img [src]="favoriteProduct.productImage0" height="230" [alt]="favoriteProduct.productImage0" class="product-image"  [routerLink]="['/products', favoriteProduct.productName]">          
                             <a [routerLink]="['/products', favoriteProduct.productName]" class="link">{{favoriteProduct.productName}}</a>
                           </div>  
                         </div>
