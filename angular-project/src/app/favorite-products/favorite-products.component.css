@@ -24,7 +24,9 @@
 }
 .isLoading{
   width: 40%;
-  height: 400px;
+}
+.isLoading .spinner-container {
+  height: 200px;
 }
 .favorite-products {
   display: flex;
@@ -127,7 +129,9 @@ h1 {
   }
   .isLoading{
     width: 60%;
-    height: 300px;
+  }
+  .isLoading .spinner-container {
+    height: 125px;
   }
   .product-image {
     padding: 20px;
@@ -144,9 +148,6 @@ h1 {
 @media (max-width: 768px){
   .content {
     padding: 90px 0px 160px 0px;
-  }
-  h1 {
-    font-size: 1.5em;
   }
 }
 @media (max-width: 580px) {
