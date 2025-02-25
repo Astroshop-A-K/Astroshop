@@ -78,6 +78,7 @@ export class ProductsComponent implements OnInit {
       this.updateCurrentProducts();
       this.selectedCategory = '';
       this.searchText = this.selectedSortOption = '';
+      this.isActive = false;
     }
   }
 
