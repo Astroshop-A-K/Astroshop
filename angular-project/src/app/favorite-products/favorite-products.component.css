@@ -135,7 +135,7 @@ h1 {
   }
   .product-image {
     padding: 20px;
-    width: 225px;
+    width: 210px;
     height: auto;
   }
   .remove-fav-product{
@@ -153,8 +153,11 @@ h1 {
 @media (max-width: 580px) {
   .name-image {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     justify-content: flex-end;
+  }
+  .favorite-product {
+    padding: 10px;
   }
   .remove-fav-product{
     order: 1;
