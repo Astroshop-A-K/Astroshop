@@ -18,11 +18,11 @@
         }
       </div>
       <div class="icon-bar">
-        <div class="icon" [ngClass]="{'active': activeTab === 'info'}" (click)="selectTab('info')">
+        <div class="icon" [ngClass]="{'active': activeTab === 'info'}" (click)="selectTab('info')" [ngClass]="{'active-section': activeTab === 'info'}">
           <span><img src="https://www.iconpacks.net/icons/1/free-information-icon-348-thumb.png"></span>
           <p>Informácie účtu</p>
         </div>
-        <div class="icon" [ngClass]="{'active': activeTab === 'orders'}" (click)="selectTab('orders')">
+        <div class="icon" [ngClass]="{'active': activeTab === 'orders'}" (click)="selectTab('orders')" [ngClass]="{'active-section': activeTab === 'orders'}">
           <span><img src="https://cdn-icons-png.freepik.com/512/1413/1413908.png"></span>
           @if(authService.isAdminAuthenticated()){
             <p>Všetky objednávky</p>
@@ -30,8 +30,8 @@
             <p>Vaše objednávky</p>
           }
         </div>
-        <div class="icon" [ngClass]="{'active': activeTab === 'settings'}" (click)="selectTab('settings')">
-          <span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDgp53HKq4fyclYtZdD-0wHVV2YC2rZ0tmGg&s"></span>
+        <div class="icon" [ngClass]="{'active': activeTab === 'settings'}" (click)="selectTab('settings')" [ngClass]="{'active-section': activeTab === 'settings'}">
+          <span><img src="https://static-00.iconduck.com/assets.00/settings-icon-2048x2048-ht9jo5se.png"></span>
           <p>Nastavenia účtu</p>
         </div>
       </div>

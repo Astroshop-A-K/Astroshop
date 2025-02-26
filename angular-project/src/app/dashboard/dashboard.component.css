@@ -89,6 +89,9 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.active-section p{
+  font-weight: bold;
+}
 .buttons{
   margin: 10px 0 0 0;
   display: flex;
@@ -135,6 +138,28 @@ p {
   .email-phone-number .info,
   .email-phone-number-verification .info {
     width: 100%; 
+  }
+  .icon-bar {
+    margin-bottom: 3px;
+  }
+  .icon-bar .icon {
+    width: auto;
+    padding: 7px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+  .icon-bar .icon:hover {
+    background-color: #f9f9f9;
+  }
+  .icon-bar p {
+    font-size: 0px;
+  }
+  .icon-bar img {
+    height: 27px;
+    width: 27px;
+  }
+  .active-section {
+    background-color: #f9f9f9;
   }
 }
 @media (max-width: 480px) {
