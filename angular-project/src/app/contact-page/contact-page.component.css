@@ -142,7 +142,6 @@ p {
     font-size: 0.8em;
   }
 }
-
 @media (max-width: 480px) {
   .content {
     padding: 50px 15px 110px 15px;
