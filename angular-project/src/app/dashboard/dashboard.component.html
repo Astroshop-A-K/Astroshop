@@ -63,7 +63,7 @@
         </div>
         <div *ngSwitchCase="'orders'" class="orders-section">
           @if(authService.isAdminAuthenticated()){
-            <p>Vitajte administrátor kliknutím <a [routerLink]="['/user-orders']">sem</a> zobrazíte všetky objednávky.</p>
+            <p>Vitajte administrátor! Kliknutím <a [routerLink]="['/user-orders']">sem</a> zobrazíte všetky objednávky.</p>
           }@else{
             <p>Nemáte zatiaľ žiadne objednávky!</p>
           }

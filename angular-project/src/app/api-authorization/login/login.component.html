@@ -20,7 +20,7 @@
       </div>
       <div class="field">
         <label class="form-label">Heslo*</label><br>
-        <input [type]="'password'" class="form-control" formControlName="password" placeholder="Zadajte heslo" [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
+        <input type="password" class="form-control" formControlName="password" placeholder="Zadajte heslo" [ngClass]="{'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
       </div>
       <div class="field" style="text-align: center;">
         <label class="no-acc-label">Nemáte u nás účet? Kliknite <a [routerLink]="['/register']">sem</a></label>
