@@ -97,6 +97,7 @@
 .dropdown-button, .filter-date-dropdown-btn{
   background-color: #f2f2f2;
   border: 1px solid #333;
+  font-size: 17px !important;
 }
 .dropdown-content{
   background-color: #f2f2f2;
@@ -159,8 +160,13 @@
   .content {
     padding: 25px 20px 150px 20px;
   }
-  h1 {
-    font-size: 1.4rem !important;
+}
+@media (max-width: 659px) {
+  #second-dropdown-content{
+    left: 62%;
+  }
+  .filters {
+    margin-bottom: 1px;
   }
 }
 @media (max-width: 480px) {
