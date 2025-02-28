@@ -13,7 +13,15 @@ import { PaginationComponent } from '../pagination/pagination.component';
 })
 export class UserOrdersComponent implements OnInit {
   ordersData: OrdersDTO[] = [];
+  allOrdersData: OrdersDTO[] = [];
   filteredOrdersData: OrdersDTO[] = [];
+
+  selectedStatuses: string[] = [];
+  orderStatuses: string[] = [
+    'Čakajúce',
+    'Pripravuje sa',
+    'Dokončené'
+  ];
 
   isLoading: boolean = true;
 
@@ -21,31 +29,90 @@ export class UserOrdersComponent implements OnInit {
   totalItems: number = 0;
   limit: number = 6;
 
+  dateSortOrder: string = '';
+  isVisibleDateFilter: boolean = false;
+  isVisibleCheckbox: boolean = false;
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
 
   onPageChange(page: number){
     this.currentPage = page;
     this.updateCurrentProducts();
   }
+
   updateCurrentProducts(){
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
     this.filteredOrdersData = this.ordersData.slice(startIndex, endIndex);
   }
 
+  toggleDropdown(dropdown: 'status' | 'date'){
+    if(dropdown === 'status'){
+      this.isVisibleCheckbox = !this.isVisibleCheckbox;
+    }else{
+      this.isVisibleDateFilter = !this.isVisibleDateFilter;
+    }
+  }
+
+  sortByDate(order: 'newest' | 'oldest'): void {
+    this.dateSortOrder = order;
+    this.applyFilters();
+  }
+
+  parseDate(dateString: string): Date {
+    const[datePart, timePart] = dateString.split(' ');
+    const[day, month, year] = datePart.split('.').map(Number);
+    const [hours, minutes, seconds = 0] = timePart.split(':').map(Number);
+    return new Date(year, month - 1, day, hours, minutes, seconds);
+  }
+
+  applyFilters(): void {
+    let filtered = [...this.allOrdersData];
+
+    if(this.selectedStatuses.length > 0){
+      filtered = filtered.filter(order => this.selectedStatuses.includes(order.orderStatus));
+    }
+
+    if(this.dateSortOrder){
+      filtered = filtered.sort((a, b) => {
+        const dateA = this.parseDate(a.orderDate).getTime();
+        const dateB = this.parseDate(b.orderDate).getTime();
+        return this.dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+      });
+    }
+
+    this.ordersData = filtered;
+    this.totalItems = filtered.length;
+    this.currentPage = 1;
+    this.updateCurrentProducts();
+  }
+
+  onCheckboxChange(event: Event){
+    const checkBox = event.target as HTMLInputElement;
+    const value = checkBox.value;
+
+    if(checkBox.checked){
+      this.selectedStatuses.push(value);
+    }else{
+      this.selectedStatuses = this.selectedStatuses.filter(status => status !== value);
+    }
+
+    this.applyFilters();
+  }
+
   getOrders(){
     this.http.get<OrdersDTO[]>(this.baseUrl + 'orders').subscribe(result => {
-      this.ordersData = result;
+      this.allOrdersData = result;
       this.isLoading = false;
-      this.totalItems = this.ordersData.length;
-      this.updateCurrentProducts();
+      this.applyFilters();
     }, error => console.error(error));
-  } 
+  }
 
   ngOnInit(): void {
     this.getOrders();
   }
 }
+
 export interface OrdersDTO{
   orderId: number;
   name: string;

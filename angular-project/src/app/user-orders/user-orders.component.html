@@ -1,8 +1,38 @@
 <title>Objednávky</title>
-<div class="content">
+<div class="content" [ngClass]="{'no-orders-data': ordersData.length === 0}">
   @if(!isLoading){
     <div class="title">
       <h1>Objednávky používateľov <img src="https://static.thenounproject.com/png/101952-200.png" alt="oder-icon"></h1>
+    </div>
+    <div class="filters">
+      <div class="checkbox-dropdown-container">
+        <div class="checkbox-dropdown">
+          <button type="button" class="btn btn-light dropdown-button" (click)="toggleDropdown('status')">Zvoľte stavy objednávok pre filtráciu</button>
+        </div>
+        <div class="dropdown-content" [ngClass]="isVisibleCheckbox ? 'is-visible': 'is-not-visible'">
+          <div class="checkbox-item" *ngFor="let status of orderStatuses">
+            <label class="checkbox-label">
+              <input type="checkbox" class="form-check-input" id="checkbox" [value]="status" (change)="onCheckboxChange($event)" [checked]="selectedStatuses.includes(status)">
+              {{status}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="filter-date-container">
+        <div class="filter-date-dropdown">
+          <button type="button" class="btn btn-light filter-date-dropdown-btn" (click)="toggleDropdown('date')">Zvoľte spôsob filtrácie podľa dátumu</button>
+        </div>
+        <div class="dropdown-content" [ngClass]="isVisibleDateFilter ? 'is-visible': 'is-not-visible'">
+          <div class="filter-date-field">
+            <div class="filter-date-item" (click)="sortByDate('newest')">
+              <span>Najnovšie</span>
+            </div>
+            <div class="filter-date-item" (click)="sortByDate('oldest')">
+              <span>Najstaršie</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     @if(ordersData.length > 0){
       <div class="orders">
@@ -32,7 +62,11 @@
     </div>
     }@else{
       <div class="no-orders">
-        <p>Žiadne objednávky!</p>
+        @if(allOrdersData.length > 0) {
+          <p>Neboli nájdené žiadne objednávky podľa príslušného filtra!</p>
+        }@else{
+          <p>Žiadne objednávky!</p>
+        }
       </div>
     }
   }@else{

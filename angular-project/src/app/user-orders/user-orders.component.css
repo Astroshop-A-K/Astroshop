@@ -1,80 +1,147 @@
 .content {
-    padding: 25px 20px 200px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  padding: 25px 20px 226px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-.title h1{
-    font-weight: bold;
-    margin: 0;
+.title h1 {
+  font-weight: bold;
+  margin: 0;
 }
-.title img{
-    height: 42.5px;
-    width: 42.5px;
-    margin-bottom: 2.5px;
+.title img {
+  height: 42.5px;
+  width: 42.5px;
+  margin-bottom: 2.5px;
 }
 .orders {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    overflow-x: auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    border-radius: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 14px;
+  border-radius: 10px;
 }
-.no-orders{
-    width: 100%;
-    margin-top: 50px;
+.no-orders {
+  width: 100%;
+  margin-top: 50px;
 }
-.ordersTable{
-    width: 100%;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-    min-width: 1000px;
+.no-orders-data {
+  padding: 25px 20px 332px 20px;
+}
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 1000px;
 }
 .ordersTable td {
-    padding: 10px;
-    text-align: left;
-    font-size: 17px;
-    color: #555;
-    border-bottom: 1px solid #f4f4f4;
-    width: auto;
+  padding: 10px;
+  text-align: left;
+  font-size: 17px;
+  color: #555;
+  border-bottom: 1px solid #f4f4f4;
+  width: auto;
 }
 .ordersTable th {
-    background-color: #0d6efd;
-    color: white;
-    padding: 10px;
-    text-align: left;
-    font-size: 17px;
-    letter-spacing: 0.5px;
+  background-color: #0d6efd;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  font-size: 17px;
+  letter-spacing: 0.5px;
 }
 .ordersTable tr:hover {
-    background-color: #f9f9f9;
-    cursor: pointer;
+  background-color: #f9f9f9;
+  cursor: pointer;
 }
-.link{
-    text-decoration: underline;
+.link {
+  text-decoration: underline;
 }
-.link:hover{
-    cursor: pointer;
+.link:hover {
+  cursor: pointer;
 }
-.paginator{
-    margin: 20px 0 0 0;
-    width: 100%;
-    display: grid;
-    align-items: center;
-    justify-content: center;
+.paginator {
+  margin: 20px 0 0 0;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+.filters {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.checkbox-dropdown-container, .filter-date-container{
+  max-width: 350px;
+  position: relative;
+}
+.dropdown-label {
+  display: block;
+}
+.dropdown-button, .filter-date-dropdown-btn{
+  background-color: #f2f2f2;
+  border: 1px solid #333;
+}
+.dropdown-content{
+  background-color: #f2f2f2;
+  padding: 10px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow-y: auto;
+  z-index: 10;
+}
+.checkbox-item, .filter-date-field{
+  padding: 4px 0;
+  border-radius: 5px;
+}
+.filter-date-item{
+  padding: 8px;
+  border-radius: 5px;
+}
+.checkbox-item:hover, .filter-date-item:hover{
+  background-color: #fbfbfb;
+  cursor: pointer;
+}
+.checkbox-item input[type="checkbox"] {
+  cursor: pointer;
+  border: 2px solid #ccc;
+  height: 20px;
+  width: 20px;
+  margin-bottom: 5px;
+}
+.checkbox-label{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.is-visible{
+  display: block;
+}
+.is-not-visible{
+  display: none;
 }
 .red-text {
   color: rgb(255, 45, 45) !important;
@@ -90,7 +157,7 @@
 }
 @media (max-width: 768px) {
   .content {
-    padding: 25px 20px 60px 20px;
+    padding: 25px 20px 150px 20px;
   }
   h1 {
     font-size: 1.4rem !important;
