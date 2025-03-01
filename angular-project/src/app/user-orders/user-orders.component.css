@@ -156,6 +156,14 @@
   color: rgb(0, 162, 0) !important;
   font-weight: bold;
 }
+@media (min-width: 1800px) {
+  .content{
+    padding: 25px 20px 314px 20px;
+  }
+  .no-orders-data {
+    padding: 25px 20px 421px 20px;
+  }
+}
 @media (max-width: 768px) {
   .content {
     padding: 25px 20px 150px 20px;

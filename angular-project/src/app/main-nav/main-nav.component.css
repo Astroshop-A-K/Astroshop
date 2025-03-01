@@ -258,11 +258,15 @@ img{
 .close-btn{
   margin-left: 25px;
 }
+.close-btn img{
+  margin-bottom: 4px;
+}
 .close-btn:hover{
   cursor: pointer;
 }
 .login-link{
   margin-left: 40px;
+  margin-top: 4px;
 }
 .active{
   width: 220px;
