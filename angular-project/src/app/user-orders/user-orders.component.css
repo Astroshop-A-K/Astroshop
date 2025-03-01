@@ -19,7 +19,7 @@
 .title img {
   height: 42.5px;
   width: 42.5px;
-  margin-bottom: 2.5px;
+  margin-bottom: 3.5px;
 }
 .orders {
   width: 100%;
@@ -180,5 +180,13 @@
 @media (max-width: 480px) {
   .content {
     padding: 25px 15px 50px 15px;
+  }
+}
+@media (max-width: 347px) {
+  .title img {
+    display: none;
+  }
+  .title {
+    margin-bottom: 7px;
   }
 }
