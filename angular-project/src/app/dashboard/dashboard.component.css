@@ -48,6 +48,7 @@
   align-items: center;
   flex-direction: column;
   font-weight: normal;
+  text-align: center;
 }
 .title h2 {
   margin: 0;
