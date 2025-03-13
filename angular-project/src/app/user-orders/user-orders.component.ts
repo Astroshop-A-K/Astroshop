@@ -20,7 +20,7 @@ export class UserOrdersComponent implements OnInit {
   orderStatuses: string[] = [
     'Čakajúce',
     'Pripravuje sa',
-    'Dokončené'
+    'Doručené'
   ];
 
   isLoading: boolean = true;
