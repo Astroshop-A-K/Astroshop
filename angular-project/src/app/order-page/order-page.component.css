@@ -124,6 +124,9 @@ h2{
     .content{
         padding: 60px 0 160px 0;
     }
+    .order-form {
+        padding: 10px 30px 10px 30px;
+    }
 }
 @media (max-width: 676px){
     .order-form {
