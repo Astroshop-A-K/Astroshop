@@ -181,8 +181,8 @@
   .product {
     width: 100%;
   }
-  .content {
-    padding: 90px 0 160px;
+  .content{
+    padding: 60px 0 160px 0;
   }
   .amount-control button {
     margin: 0 5px;
@@ -211,6 +211,14 @@
   }
   .shopping-cart {
     padding: 25px;
+  }
+  .content{
+    padding: 60px 0 130px 0;
+  }
+}
+@media (max-width: 576px) {
+  .content{
+    padding: 60px 0 100px 0;
   }
 }
 @media (max-width: 480px) {
