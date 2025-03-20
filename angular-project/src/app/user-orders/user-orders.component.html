@@ -84,8 +84,13 @@
         <canvas #ordersDate></canvas>
       </div>
     </div>
-    <div class="total-revenue">
-      <h1>Celkový príjem zo všetkých objednávok: </h1><h1 style="font-weight: normal;"> {{totalRevenue}}€</h1>
+    <div class="total-revenue-chart">
+      <div class="total-revenue">
+        <h1>Celkový príjem:</h1><p style="font-weight: normal;"> {{totalRevenue}}€</p>
+      </div>
+      <div class="canvas-chart">
+        <canvas #revenueChart></canvas>
+      </div>
     </div>
   }
   @else{

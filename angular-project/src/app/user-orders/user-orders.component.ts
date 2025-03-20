@@ -38,6 +38,10 @@ export class UserOrdersComponent implements OnInit {
   searchText: string = '';
   totalRevenue: number = 0;
 
+  revenue_chartInstance: any;
+  revenue_ctx: any;
+  @ViewChild('revenueChart') revenueChart!: { nativeElement: any };
+
   orders_chartInstance: any;
   orders_ctx: any;
   @ViewChild('ordersDate') ordersDate!: { nativeElement: any };
@@ -134,7 +138,7 @@ export class UserOrdersComponent implements OnInit {
     this.applyFilters();
   }
 
-  createChart(chart: 'status' | 'orders'): void {
+  createChart(chart: 'status' | 'orders' | 'revenue'): void {
     if(chart === 'status'){
       this.pie_chartInstance = this.ordersStatusChart.nativeElement;
       this.pie_ctx = this.pie_chartInstance.getContext('2d');
@@ -164,8 +168,6 @@ export class UserOrdersComponent implements OnInit {
       const dates = Object.keys(ordersByDate);
       const orderCounts = Object.values(ordersByDate);
 
-      console.log(dates, orderCounts)
-
       this.orders_chartInstance = new Chart(this.orders_ctx, {
         type: 'bar',
         data: {
@@ -173,8 +175,29 @@ export class UserOrdersComponent implements OnInit {
           datasets: [{
             label: 'Počet objednávok',
             data: orderCounts, 
-            backgroundColor: '#42A5F5',
-            borderColor: '#1E88E5',
+            backgroundColor: '#0d6efd',
+            borderColor: '#1e88e5',
+            borderWidth: 1
+          }]
+        },
+      })
+    }else if(chart === 'revenue') {
+      this.revenue_chartInstance= this.revenueChart.nativeElement;
+      this.revenue_ctx = this.revenue_chartInstance.getContext('2d');
+      const ordersRevenue = this.groupOrdersByDateRevenue(this.allOrdersData);
+
+      const labels = Object.keys(ordersRevenue);
+      const data = Object.values(ordersRevenue).map(o => o.totalRevenue);
+
+      this.revenue_chartInstance = new Chart(this.revenue_ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Denná tržba (€)',
+            data: data, 
+            backgroundColor: '#0d6efd',
+            borderColor: '#1e88e5',
             borderWidth: 1
           }]
         },
@@ -196,6 +219,20 @@ export class UserOrdersComponent implements OnInit {
       return acc;
     }, {});
   }
+  groupOrdersByDateRevenue(orders: OrdersDTO[]): { [date: string]: { totalRevenue: number } } {
+    return orders.reduce((acc, order) => {
+      const [datePart] = order.orderDate.split(' ');
+      const [day, month, year] = datePart.split('.').map(Number);
+      const formattedDate = `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${year}`;
+
+      if(!acc[formattedDate]){
+        acc[formattedDate] = { totalRevenue: 0 };
+      }
+      acc[formattedDate].totalRevenue += order.totalPrice;
+
+      return acc;
+    }, {} as { [date: string]: { totalRevenue: number } });
+  }
 
   getOrders(){
     this.http.get<OrdersDTO[]>(this.baseUrl + 'orders').subscribe(result => {
@@ -210,6 +247,7 @@ export class UserOrdersComponent implements OnInit {
       setTimeout(() => {
         this.createChart('status');
         this.createChart('orders');
+        this.createChart('revenue');
       }, 0);
     }, error => console.error(error));
   }
