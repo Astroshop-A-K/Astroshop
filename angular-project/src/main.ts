@@ -28,7 +28,7 @@ import { guestGuard } from './app/api-authorization/guest.guard';
 
 
 export function getBaseUrl() {
-  return 'https://astroshop.bsite.net/api/'; //test
+  return 'https://astroshop.bsite.net/api/';
 }
 
 export function tokenGetter() {
