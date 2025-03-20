@@ -38,9 +38,13 @@ export class UserOrdersComponent implements OnInit {
   searchText: string = '';
   totalRevenue: number = 0;
 
-  chartInstance: any;
-  ctx: any;
-  @ViewChild('ordersChart') ordersChart!: { nativeElement: any};
+  orders_chartInstance: any;
+  orders_ctx: any;
+  @ViewChild('ordersDate') ordersDate!: { nativeElement: any };
+
+  pie_chartInstance: any;
+  pie_ctx: any;
+  @ViewChild('ordersStatusChart') ordersStatusChart!: { nativeElement: any };
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
 
@@ -130,29 +134,68 @@ export class UserOrdersComponent implements OnInit {
     this.applyFilters();
   }
 
-  createChart(): void {
-    this.chartInstance = this.ordersChart.nativeElement;
-    this.ctx = this.chartInstance.getContext('2d');
+  createChart(chart: 'status' | 'orders'): void {
+    if(chart === 'status'){
+      this.pie_chartInstance = this.ordersStatusChart.nativeElement;
+      this.pie_ctx = this.pie_chartInstance.getContext('2d');
+  
+      const delivered = this.ordersData.filter(o => o.orderStatus === 'Doručené').length;
+      const preparing = this.ordersData.filter(o => o.orderStatus === 'Pripravuje sa').length;
+      const pending = this.ordersData.filter(o => o.orderStatus === 'Čakajúce').length;
+  
+      this.pie_chartInstance = new Chart(this.pie_ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Doručené', 'Pripravuje sa', 'Čakajúce'],
+          datasets: [
+            {
+              label: 'Koláčový graf',
+              data: [delivered, preparing, pending],
+              backgroundColor: ['#00a200', '#ffd900', '#ff2d2d'],
+            }
+          ]
+        }
+      });
+    }else if(chart === 'orders'){
+      this.orders_chartInstance = this.ordersDate.nativeElement;
+      this.orders_ctx = this.orders_chartInstance.getContext('2d');
+      const ordersByDate = this.groupOrdersByDate(this.allOrdersData);
 
-    const delivered = this.ordersData.filter(o => o.orderStatus === 'Doručené').length;
-    const preparing = this.ordersData.filter(o => o.orderStatus === 'Pripravuje sa').length;
-    const pending = this.ordersData.filter(o => o.orderStatus === 'Čakajúce').length;
+      const dates = Object.keys(ordersByDate);
+      const orderCounts = Object.values(ordersByDate);
 
-    this.chartInstance = new Chart(this.ctx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Doručené', 'Pripravuje sa', 'Čakajúce'],
-        datasets: [
-          {
-            label: 'My First Dataset',
-            data: [delivered, preparing, pending],
-            backgroundColor: ['#00a200', '#ffd900', '#ff2d2d'],
-          }
-        ]
-      }
-    });
+      console.log(dates, orderCounts)
+
+      this.orders_chartInstance = new Chart(this.orders_ctx, {
+        type: 'bar',
+        data: {
+          labels: dates,
+          datasets: [{
+            label: 'Počet objednávok',
+            data: orderCounts, 
+            backgroundColor: '#42A5F5',
+            borderColor: '#1E88E5',
+            borderWidth: 1
+          }]
+        },
+      })
+    }
   }
 
+  groupOrdersByDate(orders: OrdersDTO[]) {
+    return orders.reduce((acc, order) => {
+      const [datePart] = order.orderDate.split(' ');
+      const [day, month, year] = datePart.split('.').map(Number);
+      const formattedDate = `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${year}`;
+
+      if(!acc[formattedDate]){
+        acc[formattedDate] = 0;
+      }
+      acc[formattedDate] += 1;
+
+      return acc;
+    }, {});
+  }
 
   getOrders(){
     this.http.get<OrdersDTO[]>(this.baseUrl + 'orders').subscribe(result => {
@@ -165,7 +208,8 @@ export class UserOrdersComponent implements OnInit {
       )
 
       setTimeout(() => {
-        this.createChart();
+        this.createChart('status');
+        this.createChart('orders');
       }, 0);
     }, error => console.error(error));
   }

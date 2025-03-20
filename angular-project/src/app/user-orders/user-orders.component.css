@@ -1,5 +1,5 @@
 .content {
-  padding: 25px 20px 226px 20px;
+  padding: 25px 20px 100px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@
   justify-content: center;
   flex-direction: column;
 }
-.title h1, .canvas-chart h1, .total-revenue h1 {
+.title h1, .title-chart h1, .total-revenue h1 {
   font-weight: bold;
   margin: 0;
 }
@@ -168,7 +168,7 @@
 .charts-revenue-section {
   width: 100%;
   display: flex;
-  align-items: top;
+  align-items: center;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
@@ -176,19 +176,20 @@
 .canvas-chart{
   height: 100%;
   margin-top: 25px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.total-revenue, .title-chart {
+  margin-top: 20px;
 }
 .total-revenue {
-  margin-top: 25px;
-}
-@media (min-width: 1800px) {
-  .content{
-    padding: 25px 20px 314px 20px;
-  }
-}
-@media (max-width: 768px) {
-  .content {
-    padding: 25px 20px 150px 20px;
-  }
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 @media (max-width: 659px) {
   #second-dropdown-content{
@@ -198,7 +199,7 @@
     margin-bottom: 1px;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 580px) {
   .content {
     padding: 25px 15px 50px 15px;
   }

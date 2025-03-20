@@ -73,15 +73,19 @@
         }
       </div>
     }
+    <div class="title-chart">
+      <h1>Sekcia grafov</h1>
+    </div>
     <div class="charts-revenue-section">
       <div class="canvas-chart">
-        <h1>Sekcia grafov</h1>
-        <canvas #ordersChart></canvas>
+        <canvas #ordersStatusChart></canvas>
       </div>
-      <div class="total-revenue">
-        <h1>Celkový príjem</h1>
-        {{totalRevenue}}€
+      <div class="canvas-chart">
+        <canvas #ordersDate></canvas>
       </div>
+    </div>
+    <div class="total-revenue">
+      <h1>Celkový príjem zo všetkých objednávok: </h1><h1 style="font-weight: normal;"> {{totalRevenue}}€</h1>
     </div>
   }
   @else{
