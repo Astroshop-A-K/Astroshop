@@ -1,5 +1,5 @@
 <title>Objednávky</title>
-<div class="content" [ngClass]="{'no-orders-data': ordersData.length === 0}">
+<div class="content">
   @if(!isLoading){
     <div class="title">
       <h1>Objednávky používateľov <img src="https://static.thenounproject.com/png/101952-200.png" alt="oder-icon"></h1>
@@ -34,6 +34,9 @@
         </div>
       </div>
     </div>
+    <div class="search-bar">
+      <input class="search-bar form-control" [(ngModel)]="searchText" type="search" placeholder="Kliknite sem pre vyhľadávanie objednávok v systéme" (ngModelChange)="searchOrders()">
+    </div>
     @if(ordersData.length > 0){
       <div class="orders">
         <table class="ordersTable">
@@ -60,7 +63,8 @@
     <div class="paginator">
       <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
     </div>
-    }@else{
+    }
+    @else{
       <div class="no-orders">
         @if(allOrdersData.length > 0) {
           <p>Neboli nájdené žiadne objednávky podľa príslušného filtra!</p>
@@ -69,7 +73,18 @@
         }
       </div>
     }
-  }@else{
+    <div class="charts-revenue-section">
+      <div class="canvas-chart">
+        <h1>Sekcia grafov</h1>
+        <canvas #ordersChart></canvas>
+      </div>
+      <div class="total-revenue">
+        <h1>Celkový príjem</h1>
+        {{totalRevenue}}€
+      </div>
+    </div>
+  }
+  @else{
     <div class="spinner-container">
       <div class="spinner">
       </div>

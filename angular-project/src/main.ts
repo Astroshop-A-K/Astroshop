@@ -24,6 +24,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 import { VerificationComponent } from './app/verification/verification.component';
 import { unauthGuard } from './app/api-authorization/unauth.guard';
+import { guestGuard } from './app/api-authorization/guest.guard';
 
 
 export function getBaseUrl() {
@@ -52,8 +53,8 @@ bootstrapApplication(AppComponent, {
       provideHttpClient(withInterceptors([errorHandlerInterceptor, jwtInterceptor])),
       provideRouter([
         { path: '', component: HomeComponent },
-        { path: 'login', component: LoginComponent} ,
-        { path: 'register', component: RegistrationComponent },
+        { path: 'login', component: LoginComponent, canActivate: [guestGuard]} ,
+        { path: 'register', component: RegistrationComponent, canActivate: [guestGuard]},
         { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard]},
         { path: 'home', component: HomeComponent },
         { path: 'products', component: ProductsComponent },

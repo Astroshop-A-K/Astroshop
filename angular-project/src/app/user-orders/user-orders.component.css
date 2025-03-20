@@ -12,7 +12,7 @@
   justify-content: center;
   flex-direction: column;
 }
-.title h1 {
+.title h1, .canvas-chart h1, .total-revenue h1 {
   font-weight: bold;
   margin: 0;
 }
@@ -33,9 +33,6 @@
 .no-orders {
   width: 100%;
   margin-top: 50px;
-}
-.no-orders-data {
-  padding: 25px 20px 332px 20px;
 }
 .ordersTable {
   width: 100%;
@@ -144,6 +141,18 @@
 .is-not-visible{
   display: none;
 }
+.search-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.search-bar input {
+  padding: 10px 18px;
+  margin-top: 14.5px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  max-width: 1200px;
+}
 .red-text {
   color: rgb(255, 45, 45) !important;
   font-weight: bold;
@@ -156,12 +165,24 @@
   color: rgb(0, 162, 0) !important;
   font-weight: bold;
 }
+.charts-revenue-section {
+  width: 100%;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.canvas-chart{
+  height: 100%;
+  margin-top: 25px;
+}
+.total-revenue {
+  margin-top: 25px;
+}
 @media (min-width: 1800px) {
   .content{
     padding: 25px 20px 314px 20px;
-  }
-  .no-orders-data {
-    padding: 25px 20px 421px 20px;
   }
 }
 @media (max-width: 768px) {
