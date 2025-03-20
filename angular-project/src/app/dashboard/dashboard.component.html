@@ -44,7 +44,7 @@
             </div>
             <div class="info">
               <label>Telefónne číslo</label>
-              <span>{{user.phoneNumber ? user.phoneNumber : 'Not entered'}}</span>
+              <span>{{user.phoneNumber ? user.phoneNumber : 'Nezadané'}}</span>
             </div>
           </div>
           <div class="email-phone-number-verification">
@@ -54,7 +54,7 @@
             </div>
             <div class="info">
               <label>Overené telefónne číslo</label>
-              <span [ngClass]="{'true': user.phoneNumberConfirmed, 'false': !user.phoneNumberConfirmed}">{{user.phoneNumberConfirmed ? 'Overený' : 'Neoverený'}}</span>
+              <span [ngClass]="{'true': user.phoneNumberConfirmed, 'false': !user.phoneNumberConfirmed}">{{user.phoneNumberConfirmed ? 'Overené' : 'Neoverené'}}</span>
             </div>
           </div>
           <div class="buttons">
