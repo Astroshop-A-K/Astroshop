@@ -1,5 +1,5 @@
 <title>Objednávky</title>
-<div class="content">
+<div class="content" [ngClass]="{'is-loading': isLoading}">
   @if(!isLoading){
     <div class="title">
       <h1>Objednávky používateľov <img src="https://static.thenounproject.com/png/101952-200.png" alt="oder-icon"></h1>

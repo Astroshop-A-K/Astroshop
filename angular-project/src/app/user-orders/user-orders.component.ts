@@ -228,7 +228,7 @@ export class UserOrdersComponent implements OnInit {
       if(!acc[formattedDate]){
         acc[formattedDate] = { totalRevenue: 0 };
       }
-      acc[formattedDate].totalRevenue += order.totalPrice;
+      acc[formattedDate].totalRevenue += parseFloat(order.totalPrice.toFixed(2));
 
       return acc;
     }, {} as { [date: string]: { totalRevenue: number } });
