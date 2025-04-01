@@ -21,6 +21,7 @@ html{
   font-size: 15px;
   margin-bottom: 15px;
   width: 100%;
+  text-wrap: nowrap;
 }
 .location-links span {
   margin-bottom: 1px;

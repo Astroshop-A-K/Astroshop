@@ -27,7 +27,7 @@
         </div>
         <div class="gallery">
           <div *ngFor="let product of productData.slice(0, 5); let i = index" class="product-card">
-            <a [routerLink]="['/products', product.productName]">
+            <a [routerLink]="['/products', getCategoryName(product.productCategory), product.productName]">
               @if(i < 5){
                 <div class="product-tag">
                   zľava -{{product.productDiscount}}%
@@ -62,7 +62,7 @@
         </div>
         <div class="gallery">
           <div *ngFor="let product of productData.slice(28, 33)" class="product-card">
-            <a [routerLink]="['/products', product.productName]">
+            <a [routerLink]="['/products', getCategoryName(product.productCategory), product.productName]">
               <div class="image-container">
                 <img [src]="product.productImage0" alt="{{ product.productName }}" class="product-image" />
               </div>

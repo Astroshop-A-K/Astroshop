@@ -67,6 +67,7 @@ export class AppComponent implements OnInit{
       'TELE': 'Teleskopy',
       'MONT': 'Montáže',
       'BINO': 'Binokuláre',
+      'OTHR': 'Ostatné'
     };
 
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => { //celkovo metoda spravi ze vynuti reloadnutie stranky v Angular aj ked sme na rovnakom komponente ale davame do URL adresy ine parametre a skipLocationChange: true, zabezpeci ze sa ta URL nezmeni a "/" je jako medziciel nech spravime Angular mysliet ze sme opustili stranku celkovo tento trik resetuje routing.

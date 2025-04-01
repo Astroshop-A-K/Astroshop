@@ -148,6 +148,7 @@ export class ProductsComponent implements OnInit {
         'TELE': 'Teleskopy',
         'MONT': 'Montáže',
         'BINO': 'Binokuláre',
+        'OTHR': 'Ostatné'
     };
     return categoryMap[category] || category;
   }

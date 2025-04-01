@@ -4,6 +4,7 @@ using AspNetCoreAPI.Models;
 using AspNetCoreAPI.DTO;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -19,9 +20,9 @@ namespace AspNetCoreAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductsDTO> GetProductInformation()
+        public async Task<IEnumerable<ProductsDTO>> GetProductInformation()
         {
-            IEnumerable<ProductsModel> dbProducts = _context.Products;
+            IEnumerable<ProductsModel> dbProducts = await _context.Products.ToListAsync();
 
             return dbProducts.Select(dbProducts => new ProductsDTO
             {
@@ -37,15 +38,13 @@ namespace AspNetCoreAPI.Controllers
                 AverageStarRating = dbProducts.AverageStarRating,
                 ReviewsCount = dbProducts.ReviewsCount,
                 ProductDiscount = dbProducts.ProductDiscount
-            });
+            }).ToList();
         }
         [HttpGet]
         [Route("getProductInfo")]
-        public ProductsDTO getProductInfo(string productName)
+        public async Task<ProductsDTO> getProductInfo(string productName)
         {
-            ProductsModel product = _context.Products.Where(p => p.ProductName == productName).FirstOrDefault();
-
-            
+            ProductsModel product = await _context.Products.Where(p => p.ProductName == productName).FirstOrDefaultAsync();
 
             var info = new ProductsDTO
             {

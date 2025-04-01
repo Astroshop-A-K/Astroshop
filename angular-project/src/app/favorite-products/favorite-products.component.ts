@@ -68,6 +68,15 @@ export class FavoriteProductsComponent implements OnInit {
       });
     }
   }
+  getCategoryName(category: string): string {
+    const categoryMap: { [key: string]: string } = {
+        'TELE': 'Teleskopy',
+        'MONT': 'Montáže',
+        'BINO': 'Binokuláre',
+        'OTHR': 'Ostatné'
+    };
+    return categoryMap[category] || category;
+  }
   
   ngOnInit(): void {
     if(this.authService.authenticated()){

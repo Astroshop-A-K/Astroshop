@@ -25,6 +25,16 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private FProductsService: FavoriteProductsService) {}
 
+  getCategoryName(category: string): string {
+    const categoryMap: { [key: string]: string } = {
+        'TELE': 'Teleskopy',
+        'MONT': 'Montáže',
+        'BINO': 'Binokuláre',
+        'OTHR': 'Ostatné'
+    };
+    return categoryMap[category] || category;
+  }
+
   getData() {
     this.http.get<HomeProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productData = result;

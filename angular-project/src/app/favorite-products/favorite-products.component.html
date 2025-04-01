@@ -30,7 +30,7 @@
                             </a>
                           <div class="name-image">
                             <img [src]="favoriteProduct.productImage0" height="230" [alt]="favoriteProduct.productImage0" class="product-image"  [routerLink]="['/products', favoriteProduct.productName]">          
-                            <a [routerLink]="['/products', favoriteProduct.productCategory, favoriteProduct.productName]" class="link">{{favoriteProduct.productName}}</a>
+                            <a [routerLink]="['/products', getCategoryName(favoriteProduct.productCategory), favoriteProduct.productName]" class="link">{{favoriteProduct.productName}}</a>
                           </div>  
                         </div>
                     </ng-container>
