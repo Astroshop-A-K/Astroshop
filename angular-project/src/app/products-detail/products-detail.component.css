@@ -13,6 +13,26 @@ html{
   border-radius: 10px;
   position: relative;
 }
+.location-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  font-size: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+.location-links a, .location-links p {
+  text-decoration: none;
+  color: #666;
+  font-weight: normal;
+  transition: color 0.3s;
+  margin: 0;
+}
+.location-links a:hover, .location-links p:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .part1 {
   display: flex;
   justify-content: center;

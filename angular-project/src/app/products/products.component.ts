@@ -169,6 +169,7 @@ export class ProductsComponent implements OnInit {
 
     this.route.queryParams.subscribe(() => {
       const storedSearch = localStorage.getItem('searchText');
+      const queryCategory = localStorage.getItem('category');
   
       if (storedSearch) {
         this.searchText = storedSearch;
@@ -178,6 +179,9 @@ export class ProductsComponent implements OnInit {
         this.router.navigate([], {
           queryParams: { searchText: null }, //vymazeme queryParams z aktualnej url preto dame [] to znamena current url
         });
+      }
+      if(queryCategory){
+        this.filterProducts(queryCategory);
       }
     });
 

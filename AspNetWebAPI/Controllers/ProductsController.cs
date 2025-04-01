@@ -139,9 +139,10 @@ namespace AspNetCoreAPI.Controllers
                     {
                         ProductsDTO info = new ProductsDTO
                         {
-                            ProductName = product.ProductName,
-                            ProductImage0 = product.ProductImage0,
                             ProductId = product.ProductId,
+                            ProductName = product.ProductName,                                                                                                                  
+                            ProductCategory = product.ProductCategory,
+                            ProductImage0 = product.ProductImage0,
                             ProductDiscount = product.ProductDiscount
                         };
 

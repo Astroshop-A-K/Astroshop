@@ -60,7 +60,7 @@ bootstrapApplication(AppComponent, {
         { path: 'products', component: ProductsComponent },
         { path: 'favorite-products', component: FavoriteProductsComponent, canActivate: [authGuard]},
         { path: 'contact', component: ContactPageComponent },
-        { path: 'products/:productName', component: ProductsDetailComponent },
+        { path: 'products/:productCategory/:productName', component: ProductsDetailComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent },
         { path: 'order', component: OrderPageComponent },
         { path: 'order/order-summary', component: OrderSummaryComponent },

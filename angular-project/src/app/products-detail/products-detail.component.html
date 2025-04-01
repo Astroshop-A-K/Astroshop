@@ -30,6 +30,17 @@
         <button class="arrow-right"><img src="https://www.freeiconspng.com/thumbs/arrow-icon/arrow-icon-28.png" (click)="positionRight()"></button>
       </div>
       <div class="product-information">
+        <div class="location-links">
+          <a [routerLink]="['/']">Domov</a>
+          <span>›</span>
+          <a [routerLink]="['/products']">Produkty</a>
+          <span>›</span>
+          <a [routerLink]="['/products']" [queryParams]="productInfo?.productCategory ? { category: productInfo.productCategory } : {}">
+            {{ productInfo.productCategory }}
+          </a>
+          <span>›</span>
+          <p>{{ productInfo.productName }}</p>
+        </div>
         <h1>{{productInfo.productName}}</h1>
         <div [ngClass]="{'available': productInfo.quantity > 0, 'unavailable': productInfo.quantity <= 0}" class="check">
           <div class="check-container">
