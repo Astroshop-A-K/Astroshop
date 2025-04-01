@@ -143,6 +143,15 @@ export class ProductsComponent implements OnInit {
     this.updateCurrentProducts();
   }
 
+  getCategoryName(category: string): string {
+    const categoryMap: { [key: string]: string } = {
+        'TELE': 'Teleskopy',
+        'MONT': 'Montáže',
+        'BINO': 'Binokuláre',
+    };
+    return categoryMap[category] || category;
+  }
+
   getData() {
     this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
       this.productData = result;

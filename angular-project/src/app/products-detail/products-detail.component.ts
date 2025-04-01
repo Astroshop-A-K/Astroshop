@@ -287,6 +287,15 @@ export class ProductsDetailComponent implements OnInit {
         }
     }
 
+    getCategoryName(category: string): string {
+        const categoryMap: { [key: string]: string } = {
+            'TELE': 'Teleskopy',
+            'MONT': 'Montáže',
+            'BINO': 'Binokuláre',
+        };
+        return categoryMap[category] || category;
+    }
+
     createReview(reviewCommentBE: string, reviewCreatorBE: string, reviewdProductBE: string, starRatingBE: number, reviewDateBE: string) {
         const url = `${this.baseUrl}reviews/create-review`;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

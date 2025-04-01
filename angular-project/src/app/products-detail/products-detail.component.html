@@ -31,12 +31,12 @@
       </div>
       <div class="product-information">
         <div class="location-links">
-          <a [routerLink]="['/']">Domov</a>
+          <a [routerLink]="['/']" class="home-link"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="home-icon" height="15px" width="15px"><span>Domov</span></a>
           <span>›</span>
           <a [routerLink]="['/products']">Produkty</a>
           <span>›</span>
           <a [routerLink]="['/products']" [queryParams]="productInfo?.productCategory ? { category: productInfo.productCategory } : {}">
-            {{ productInfo.productCategory }}
+            {{ getCategoryName(productInfo.productCategory) }}
           </a>
           <span>›</span>
           <p>{{ productInfo.productName }}</p>
@@ -67,7 +67,7 @@
     </div>
       <div class="part2" id="review-form-id"> <!--Tu redirect-->
         <h2>Popis produktu</h2>
-        <p style="padding-bottom: 40px;">{{productInfo.productDescription}}</p>
+        <p style="margin-bottom: 25px;">{{productInfo.productDescription}}</p>
         <h2>Recenzie</h2>
         <div class="review-form">
           <form [formGroup]="reviewForm">
