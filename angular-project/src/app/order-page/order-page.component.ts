@@ -5,7 +5,6 @@ import { OrderService } from './order.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { getAnalytics, logEvent, setAnalyticsCollectionEnabled } from '@angular/fire/analytics';
 
 @Component({
   selector: 'app-order-page',

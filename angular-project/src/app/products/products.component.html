@@ -44,7 +44,7 @@
       </div>
     }
     @else{
-      @if((ourFilteredProducts | search: searchText).length > 0){
+      @if((ourFilteredProducts).length > 0){
       <div class="gallery">
         <div *ngFor="let product of ourFilteredProducts" class="product-card">
           <a [routerLink]="['/products', getCategoryName(product.productCategory), product.productName]" class="link">

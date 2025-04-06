@@ -26,6 +26,7 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/
 import { VerificationComponent } from './app/verification/verification.component';
 import { unauthGuard } from './app/api-authorization/unauth.guard';
 import { guestGuard } from './app/api-authorization/guest.guard';
+import { PageNotFoundComponent } from './app/page-not-found/page-not-found.component';
 
 
 export function getBaseUrl() {
@@ -69,6 +70,7 @@ bootstrapApplication(AppComponent, {
         { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [authGuard] },
         { path: 'verification', component: VerificationComponent },
         { path: 'verification/:token', component: VerificationComponent, canDeactivate: [unauthGuard] },
+        { path: '**', component: PageNotFoundComponent}, //** znamená že všetko čo nezodpovedá inej route tak sa táto použije
         { path: '', redirectTo: '/home', pathMatch: 'full' }, // default redirect
       ]), provideFirebaseApp(() => initializeApp({"projectId":"astroshopsoc","appId":"1:856605368007:web:0a261edcfb9baacf03e8e2","storageBucket":"astroshopsoc.firebasestorage.app","apiKey":"AIzaSyDx3F1BMXOwJwr96wwmk65eAImd9TsPkpc","authDomain":"astroshopsoc.firebaseapp.com","messagingSenderId":"856605368007","measurementId":"G-PXMJCTGV77"})), provideAnalytics(() => getAnalytics()), ScreenTrackingService
     ]

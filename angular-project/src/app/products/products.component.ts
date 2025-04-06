@@ -2,19 +2,18 @@ import { Component, HostListener, inject, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
-import { SearchPipe } from './search.pipe';
 import { FormsModule } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { Analytics, getAnalytics, logEvent, setAnalyticsCollectionEnabled } from '@angular/fire/analytics';
+import { Analytics, logEvent, setAnalyticsCollectionEnabled } from '@angular/fire/analytics';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgFor, SearchPipe, FormsModule, StarRatingComponent, PaginationComponent, MatProgressSpinnerModule],
+  imports: [RouterLink, NgClass, NgIf, NgFor, FormsModule, StarRatingComponent, PaginationComponent, MatProgressSpinnerModule],
 })
 export class ProductsComponent implements OnInit {
   productData: ProductsDTO[] = [];
@@ -126,10 +125,14 @@ export class ProductsComponent implements OnInit {
   private sortData(order: string) {
     let productsToSort = this.sortedProducts.length > 0 ? this.sortedProducts : this.productData; //kontroluje ci ma produkty a ak hej tak assigne to tej novej array ak ak je sortedProducts prazdne tak to da productData
 
+    const getDiscountPrice = (product): number => {
+      return product.productDiscount ? product.price * (1 - product.productDiscount / 100) : product.price;
+    };
+
     if (order === 'lexp') {
-      this.sortedProducts = productsToSort.sort((a, b) => a.price - b.price);
+      this.sortedProducts = productsToSort.sort((a, b) => getDiscountPrice(a) - getDiscountPrice(b));
     } else if (order === 'mexp') {
-      this.sortedProducts = productsToSort.sort((a, b) => b.price - a.price);
+      this.sortedProducts = productsToSort.sort((a, b) => getDiscountPrice(b) - getDiscountPrice(a));
     } else if (order === 'isa') {
       this.sortedProducts = productsToSort.filter(product => product.quantity > 0);
       console.log(this.sortedProducts);
@@ -202,7 +205,7 @@ export class ProductsComponent implements OnInit {
       page_title: document.title, 
       page_path: window.location.pathname,
       screen_resolution: `${window.screen.width}x${window.screen.height}`, 
-      screen_name: 'Home Page',
+      screen_name: 'Produkty',
       referrer: document.referrer,
       history_length: history.length,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
