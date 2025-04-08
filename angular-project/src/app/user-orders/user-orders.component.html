@@ -2,7 +2,8 @@
 <div class="content" [ngClass]="{'is-loading': isLoading}">
   @if(!isLoading){
     <div class="title">
-      <h1>Objednávky používateľov <img src="https://static.thenounproject.com/png/101952-200.png" alt="oder-icon"></h1>
+      <h1>Objednávky používateľov</h1>
+      <img src="https://static.thenounproject.com/png/101952-200.png" alt="order-icon">
     </div>
     <div class="filters">
       <div class="checkbox-dropdown-container">
@@ -61,7 +62,7 @@
           </table>
       </div>
     <div class="paginator">
-      <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChangeOrders($event)"></app-pagination>
+      <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event, 'orders')"></app-pagination>
     </div>
     }
     @else{
@@ -73,11 +74,61 @@
         }
       </div>
     }
+    <div class="title">
+      <h1>Správy od používateľov</h1>
+      <img src="../../assets/Images/user_message_icon.png" alt="user-message-icon">
+    </div>
+    @if(filteredProblemsData.length > 0){
+      <div class="problems">
+        <table class="problemsTable">
+            <tr>
+              <th>Číslo správy</th>
+              <th>Meno a priezvisko</th>
+              <th>E-mailová adresa</th>
+              <th>Dátum vytvorenia</th>
+              <th>Popis problému</th>
+              <th style="text-align: center;">Stav správy</th>
+              <th>Akcia</th>
+            </tr>
+            <tr *ngFor="let problem of filteredProblemsData">
+                <td class="link">{{problem.problemId}}</td>  
+                <td>{{problem.nameSurname}}</td>
+                <td>{{problem.email}}</td>
+                <td>{{problem.problemDate}}</td>
+                <td>{{problem.problem}}</td>
+                <td [ngClass]="{
+                  'red-text': problem.problemStatus === 'Nevyriešené',
+                  'green-text': problem.problemStatus === 'Vyriešené'
+                }">{{problem.problemStatus}}</td>
+                <td>
+                  <a class="change-status-link" (click)="changeProblemStatus(problem)" [title]="problem.problemStatus === 'Nevyriešené' ? 'Označiť ako vyriešené' : 'Označiť ako nevyriešené'" [ngClass]="{ 'disabled-link': isLoadingStatus(problem.problemId) }">
+                    @if(!isLoadingStatus(problem.problemId)){
+                      <img src="https://images.icon-icons.com/3402/PNG/512/change_status_icon_215496.png" class="change-status-icon">
+                    }@else{
+                      <div class="spinner-container">
+                        <div class="spinner">
+                        </div>
+                      </div>
+                    }
+                  </a>
+                </td>
+            </tr>
+          </table>
+      </div>
+      <div class="paginator">
+        <app-pagination [currentPage]="problemsCurrentPage" [limit]="problemsLimit" [total]="problemsTotalItems" (changePage)="onPageChange($event, 'messages')"></app-pagination>
+      </div>
+    }@else{
+      <div class="no-problems">
+         <p>Žiadne správy od používateľov!</p>
+      </div>
+    }
     <div class="title-chart">
       <h1>Sekcia grafov</h1>
+      <img src="https://www.iconpacks.net/icons/1/free-chart-icon-646-thumb.png" alt="chart-icon">
     </div>
     <div class="charts-revenue-section">
-      <div class="canvas-chart">
+      <div class="canvas-chart" style="width: 350px;">
         <canvas #ordersStatusChart></canvas>
       </div>
       <div class="canvas-chart">
@@ -91,29 +142,6 @@
       <div class="canvas-chart">
         <canvas #revenueChart></canvas>
       </div>
-    </div>
-    <div class="problems">
-      <table class="problemsTable">
-          <tr>
-            <th>Číslo problému</th>
-            <th>E-mailová adresa</th>
-            <th>Meno a priezvisko</th>
-            <th>Dátum vytvorenia</th>
-            <th>Popis problému</th>
-            <th>Stav problému</th>
-          </tr>
-          <tr *ngFor="let problem of filteredProblemsData">
-              <td class="link">{{problem.problemId}}</td>  
-              <td>{{problem.email}}</td>
-              <td>{{problem.nameSurname}}</td>
-              <td>{{problem.problemDate}}€</td>
-              <td>{{problem.problem}}€</td>
-              <td>{{problem.problemStatus}}</td>
-          </tr>
-        </table>
-    </div>
-    <div class="paginator">
-      <app-pagination [currentPage]="problemsCurrentPage" [limit]="problemsLimit" [total]="problemsTotalItems" (changePage)="onPageChangeProblems($event)"></app-pagination>
     </div>
   }
   @else{

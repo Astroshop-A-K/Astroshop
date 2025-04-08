@@ -10,7 +10,6 @@ body {
 app-root {
   width: 100vw;
 }
-
 .spinner-container {
   display: flex;
   justify-content: center;

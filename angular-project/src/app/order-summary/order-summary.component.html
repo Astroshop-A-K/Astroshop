@@ -133,7 +133,7 @@
     </div>
 }
 @else{
-  <div class="content" [ngClass]="{'order-finished-align': orderCompleted}">
+  <div [ngClass]="{'order-finished-align': orderCompleted}">
     <div class="order-finished">
       @if(isLoading){
         <div class="spinner-container">

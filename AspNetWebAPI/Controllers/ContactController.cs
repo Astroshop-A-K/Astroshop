@@ -64,20 +64,20 @@ namespace AspNetCoreAPI.Controllers
                 return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpPut("change-problem-status/{problemId}")]
-        public async Task<ActionResult> ChangeProblemStatus([FromRoute] int problemId)
+        [HttpPut("change-problem-status")]
+        public async Task<ActionResult> ChangeProblemStatus([FromBody] ChangeProblemStatusDTO changeProblemStatusDTO)
         {
-            var problem = await _context.Problems.SingleOrDefaultAsync(p => p.ProblemId == problemId);
+            var problem = await _context.Problems.SingleOrDefaultAsync(p => p.ProblemId == changeProblemStatusDTO.ProblemId);
 
             if (problem == null)
             {
                 return NotFound();
             }
 
-            problem.ProblemStatus = "Vyriešený";
+            problem.ProblemStatus = changeProblemStatusDTO.ProblemStatus;
             await _context.SaveChangesAsync();
 
-            return Ok(new { ProblemId = problemId, ProblemStatus = problem.ProblemStatus });
+            return Ok(new { message = "Success!" });
         }
     }
 }

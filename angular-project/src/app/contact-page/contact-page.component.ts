@@ -48,7 +48,7 @@ export class ContactPageComponent {
       let emailBE = this.contactForm.value.email ?? '';
       let problemBE = this.contactForm.value.problem ?? '';
 
-      let problemDateBE = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
+      let problemDateBE = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm:ss');
 
       this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe(() => {
         this.router.navigate(['/home']);

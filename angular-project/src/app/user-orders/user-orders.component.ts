@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { CommonModule, NgClass, NgFor, NgForOf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { Chart } from 'chart.js/auto';
 import { FormsModule } from '@angular/forms';
 import { ProblemsDTO } from '../contact-page/contact-page.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-orders',
@@ -58,29 +59,31 @@ export class UserOrdersComponent implements OnInit {
   problemsData: ProblemsDTO[] = [];
   filteredProblemsData: ProblemsDTO[] = [];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
+  loadingStatusId: Set<number> = new Set();
 
-  onPageChangeOrders(page: number){
-    this.currentPage = page;
-    this.updateCurrentOrders();
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private snackBar: MatSnackBar){}
+
+  onPageChange(page: number, dataType: 'orders' | 'messages'){
+    if(dataType === 'orders') {
+      this.currentPage = page;
+      this.updateCurrentData('orders');
+    }else if(dataType === 'messages'){
+      this.problemsCurrentPage = page;
+      this.updateCurrentData('messages');
+    }
   }
 
-  updateCurrentOrders(){
-    const startIndex = (this.currentPage - 1) * this.limit;
-    const endIndex = startIndex + this.limit;
-    this.filteredOrdersData = this.ordersData.slice(startIndex, endIndex);
-  }
-
-  onPageChangeProblems(page: number){
-    this.problemsCurrentPage = page;
-    this.updateCurrentProblems();
-  }
-
-  updateCurrentProblems(): void {
-    const startIndex = (this.problemsCurrentPage - 1) * this.problemsLimit;
-    const endIndex = startIndex + this.problemsLimit;
-    this.filteredProblemsData = this.problemsData.slice(startIndex, endIndex);
-  }
+  updateCurrentData(dataType: 'orders' | 'messages'){
+    if(dataType === 'orders') {
+      const startIndex = (this.currentPage - 1) * this.limit;
+      const endIndex = startIndex + this.limit;
+      this.filteredOrdersData = this.ordersData.slice(startIndex, endIndex);
+    }else if(dataType === 'messages'){
+      const startIndex = (this.problemsCurrentPage - 1) * this.problemsLimit;
+      const endIndex = startIndex + this.problemsLimit;
+      this.filteredProblemsData = this.problemsData.slice(startIndex, endIndex);
+    }
+  };
 
   toggleDropdown(dropdown: 'status' | 'date'){
     if(dropdown === 'status'){
@@ -120,7 +123,7 @@ export class UserOrdersComponent implements OnInit {
     this.ordersData = filtered;
     this.totalItems = filtered.length;
     this.currentPage = 1;
-    this.updateCurrentOrders();
+    this.updateCurrentData('orders');
   }
 
   searchOrders() {
@@ -140,7 +143,7 @@ export class UserOrdersComponent implements OnInit {
       this.ordersData = filtered;
       this.totalItems = filtered.length;
       this.currentPage = 1;
-      this.updateCurrentOrders();
+      this.updateCurrentData('orders');
     }
   }
 
@@ -177,6 +180,10 @@ export class UserOrdersComponent implements OnInit {
               backgroundColor: ['#00a200', '#ffd900', '#ff2d2d'],
             }
           ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
         }
       });
     }else if(chart === 'orders'){
@@ -199,6 +206,10 @@ export class UserOrdersComponent implements OnInit {
             borderWidth: 1
           }]
         },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
       })
     }else if(chart === 'revenue') {
       this.revenue_chartInstance= this.revenueChart.nativeElement;
@@ -220,6 +231,10 @@ export class UserOrdersComponent implements OnInit {
             borderWidth: 1
           }]
         },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
       })
     }
   }
@@ -253,6 +268,19 @@ export class UserOrdersComponent implements OnInit {
     }, {} as { [date: string]: { totalRevenue: number } });
   }
 
+  changeProblemStatus(problem: ProblemsDTO){
+    this.loadingStatusId.add(problem.problemId)
+    problem.problemStatus = problem.problemStatus === 'Nevyriešené' ? 'Vyriešené' : 'Nevyriešené';
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.put(this.baseUrl + 'contact/change-problem-status', { ProblemId: problem.problemId, ProblemStatus: problem.problemStatus }, { headers }).subscribe(() => {
+      this.snackBar.open("Stav správy bol úspešne zmenený!", "", { duration: 1500 });
+      this.loadingStatusId.delete(problem.problemId);
+    });
+  }
+  isLoadingStatus(problemId: number): boolean {
+    return this.loadingStatusId.has(problemId);
+  }
+
   getOrders(){
     this.http.get<OrdersDTO[]>(this.baseUrl + 'orders/get-orders').subscribe(result => {
       this.allOrdersData = result;
@@ -275,7 +303,7 @@ export class UserOrdersComponent implements OnInit {
       this.problemsData = result;
       this.problemsTotalItems = this.problemsData.length;
       this.problemsCurrentPage = 1;
-      this.updateCurrentProblems();
+      this.updateCurrentData('messages');
     });
   }
 
