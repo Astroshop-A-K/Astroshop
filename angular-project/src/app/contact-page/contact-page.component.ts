@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
-import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
 import { CommonModule, DatePipe, NgFor, NgForOf } from '@angular/common';
 
 @Component({
@@ -15,21 +14,10 @@ import { CommonModule, DatePipe, NgFor, NgForOf } from '@angular/common';
   providers: [DatePipe]
 })
 
-export class ContactPageComponent implements OnInit {
+export class ContactPageComponent {
   public problemsData: ProblemsDTO[] = [];
   currentDate: number = 0;
 
-  authService = inject(AuthenticationService);
-  user: UserDTO;
-  role: RoleDTO;
-  roleName: string = '';
-
-  imageUrls: string[] = [
-    "https://www.freeiconspng.com/uploads/x-png-22.png",
-    "https://www.iconpacks.net/icons/2/free-check-icon-3278-thumb.png"
-  ];
-
-  currentImageUrlIndex: number = 1;
   userMessage: string = '';
   charactersCount: number = 0;
 
@@ -62,19 +50,14 @@ export class ContactPageComponent implements OnInit {
 
       let problemDateBE = this.datePipe.transform(new Date(), 'MMM d, yyyy, h:mm a');
 
-      this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe();
-      this.router.navigate(['/home']);
-
-      this.snackBar.open('Vaša správa bola úspešne odoslaná!', '', {duration: 1000});
+      this.createProblem(nameSurnameBE, emailBE, problemBE, problemDateBE).subscribe(() => {
+        this.router.navigate(['/home']);
+        this.snackBar.open('Vaša správa bola úspešne odoslaná!', '', {duration: 1000});
+      });
     }else{
       this.validateAllFormFields(this.contactForm);
       this.snackBar.open('Zadané údaje nie sú správne alebo polia označené hviezdičkou boli vynechané!', '', {duration: 2000});
     }
-  }
-  changeStatus(problemId: number){
-    this.changeProblemStatus(problemId).subscribe();
-    const problem = this.problemsData.find(p => p.problemId === problemId);
-    problem.currentImageUrlIndex = 1;
   }
 
   emailValidator(control: any) {
@@ -88,40 +71,10 @@ export class ContactPageComponent implements OnInit {
   }
 
   createProblem(nameSurnameBE: string, emailBE: string, problemBE: string, problemDateBE: string) {
-    const url = `${this.baseUrl}contact/create`;
+    const url = `${this.baseUrl}contact/create-problem`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { NameSurname: nameSurnameBE, Email: emailBE, Problem: problemBE, ProblemDate: problemDateBE }, { headers });
+    return this.http.post(url, { NameSurname: nameSurnameBE, Email: emailBE, Problem: problemBE, ProblemDate: problemDateBE }, { headers });
   }
-  changeProblemStatus(problemId: number){
-    const url = `${this.baseUrl}contact/changeProblemStatus/${problemId}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { ProblemId: problemId}, { headers });
-  }
-  getProblems(){
-    return this.http.get<ProblemsDTO[]>(this.baseUrl + 'contact');
-  }
-
-  ngOnInit(): void {
-    if(this.authService.authenticated()){
-      this.authService.getCurrentUser().subscribe(result =>{
-          this.user = result;
-          this.authService.getRole(this.user.id).subscribe(result => {
-              this.role = result;
-              if(this.role != null){
-                  this.roleName = this.role.name;
-              }
-          })
-      })
-   }
-
-   this.getProblems().subscribe(result => {
-    this.problemsData = result.map(problem => ({
-      ...problem, //arrow function
-      currentImageUrlIndex: problem.currentImageUrlIndex ?? 0 //vrati nulu ak je null / undefined to dava tomu povodnemu objektu
-    })
-    )
-   })
- } 
 }
 export interface ProblemsDTO {
   problemId: number;

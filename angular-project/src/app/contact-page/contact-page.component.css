@@ -10,7 +10,7 @@
   background-size: cover;
 }
 .contact-form {
-  padding: 20px 40px 0 40px;
+  padding: 20px 30px 0 30px;
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -74,49 +74,6 @@ p {
 }
 .ng-invalid.ng-touched{
   border-color: red;
-}
-
-
-/*TODO*/
-.problems {
-  padding-bottom: 300px;
-}
-.problemsTable {
-  width: 80%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-.problemsTable th {
-  background-color: #f4f4f4;
-  padding: 10px;
-  text-align: left;
-}
-.problemsTable td {
-  padding: 8px;
-  text-align: left;
-}
-.problemsTable img {
-  max-width: 100%;
-  height: auto;
-}
-.problems {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-p {
-  width: 500px;
-}
-.problemText {
-  text-align: left;
-  width: 400px;
-  overflow-y: scroll;
-}
-.solvedButton {
-  background-color: transparent;
-  border: none;
 }
 @media (max-width: 768px) {
   .content {

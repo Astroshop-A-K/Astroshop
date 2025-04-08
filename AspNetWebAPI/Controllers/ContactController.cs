@@ -2,6 +2,7 @@
 using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using AspNetCoreAPI.DTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -16,72 +17,67 @@ namespace AspNetCoreAPI.Controllers
             _context = context;
         }
 
-        [HttpPut("create")]
-        public ActionResult<ProblemsDTO> CreateProblem([FromBody] ProblemsDTO problemsDTO)
+        [HttpPost("create-problem")]
+        public async Task<ActionResult<ProblemsDTO>> CreateProblem([FromBody] ProblemsDTO problemsDTO)
         {
             try
             {
-                using (var context = _context)
+                var newProblem = new ProblemsModel
                 {
-                    var newProblem = new ProblemsModel
-                    {
-                        NameSurname = problemsDTO.NameSurname,
-                        Email = problemsDTO.Email,
-                        Problem = problemsDTO.Problem,
-                        ProblemDate = problemsDTO.ProblemDate,
-                        ProblemStatus = "NotSolved"
-                    };
+                    NameSurname = problemsDTO.NameSurname,
+                    Email = problemsDTO.Email,
+                    Problem = problemsDTO.Problem,
+                    ProblemDate = problemsDTO.ProblemDate,
+                    ProblemStatus = "Nevyriešené"
+                };
 
-                    context.Problems.Add(newProblem);
-                    context.SaveChanges();
+                await _context.Problems.AddAsync(newProblem);
+                await _context.SaveChangesAsync();
 
-                    var info = new ProblemsDTO
-                    {
-                        NameSurname = problemsDTO.NameSurname,
-                        Email = problemsDTO.Email,
-                        Problem = problemsDTO.Problem,
-                        ProblemDate = problemsDTO.ProblemDate,
-                        ProblemStatus = "NotSolved"
-                    };
-
-                    return Ok(info);
-                }
+                return Ok(new { problemId = newProblem.ProblemId });
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error");
-                return StatusCode(500, new { message = "Mame problem." });
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpGet]
-        public IEnumerable<ProblemsDTO> GetProblems()
+        [HttpGet("get-problems")]
+        public async Task<ActionResult<IEnumerable<ProblemsDTO>>> GetProblems()
         {
-            IEnumerable<ProblemsModel> dbProblems = _context.Problems;
-
-            return dbProblems.Select(dbProblems => new ProblemsDTO
+            try
             {
-                NameSurname = dbProblems.NameSurname,
-                Email = dbProblems.Email,
-                Problem = dbProblems.Problem,
-                ProblemDate = dbProblems.ProblemDate,
-                ProblemId = dbProblems.ProblemId,
-                ProblemStatus = dbProblems.ProblemStatus
-            });
+                var dbProblems = await _context.Problems
+                    .Select(dbProblem => new ProblemsDTO
+                    {
+                        NameSurname = dbProblem.NameSurname,
+                        Email = dbProblem.Email,
+                        Problem = dbProblem.Problem,
+                        ProblemDate = dbProblem.ProblemDate,
+                        ProblemId = dbProblem.ProblemId,
+                        ProblemStatus = dbProblem.ProblemStatus
+                    }).ToListAsync();
+
+                return Ok(dbProblems);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
         }
-        [HttpPut("changeProblemStatus/{problemId}")]
-        public ActionResult<int> ChangeProblemStatus(int problemId)
+        [HttpPut("change-problem-status/{problemId}")]
+        public async Task<ActionResult> ChangeProblemStatus([FromRoute] int problemId)
         {
-            var problem = _context.Problems.SingleOrDefault(p => p.ProblemId == problemId);
+            var problem = await _context.Problems.SingleOrDefaultAsync(p => p.ProblemId == problemId);
 
             if (problem == null)
             {
-                return NotFound("Problem");
+                return NotFound();
             }
 
-            problem.ProblemStatus = "Solved";
-            _context.SaveChanges();
+            problem.ProblemStatus = "Vyriešený";
+            await _context.SaveChangesAsync();
 
-            return Ok(problem.ProblemStatus);
+            return Ok(new { ProblemId = problemId, ProblemStatus = problem.ProblemStatus });
         }
     }
 }

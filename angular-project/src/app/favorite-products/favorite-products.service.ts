@@ -17,12 +17,12 @@ export class FavoriteProductsService {
     const url = `${this.baseUrl}products/add-favorite-product`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.snackBar.open("Produkt bol do vášho zoznamu úspešne pridaný!", "", { duration: 1500 });
-    return this.http.put(url, { ProductId: productId, UserId: userId }, { headers });
+    return this.http.post(url, { ProductId: productId, UserId: userId }, { headers });
   }
   getFavoriteProducts(userId: string): Observable<ProductsDTO[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("userId", userId);
-    return this.http.get<ProductsDTO[]>(this.baseUrl + 'products/getFavoriteProducts', { params: queryParams });
+    return this.http.get<ProductsDTO[]>(this.baseUrl + 'products/get-favorite-products', { params: queryParams });
   }
   removeFavoriteProduct(userId: string, productId: number): Observable<any>{
     this.countNum.update(value => value - 1);

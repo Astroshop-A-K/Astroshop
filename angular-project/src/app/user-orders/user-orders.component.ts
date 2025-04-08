@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { Chart } from 'chart.js/auto';
 import { FormsModule } from '@angular/forms';
+import { ProblemsDTO } from '../contact-page/contact-page.component';
 
 @Component({
   selector: 'app-user-orders',
@@ -31,6 +32,10 @@ export class UserOrdersComponent implements OnInit {
   totalItems: number = 0;
   limit: number = 6;
 
+  problemsCurrentPage: number = 1;
+  problemsTotalItems: number = 0;
+  problemsLimit: number = 6;
+
   dateSortOrder: string = '';
   isVisibleDateFilter: boolean = false;
   isVisibleCheckbox: boolean = false;
@@ -50,9 +55,12 @@ export class UserOrdersComponent implements OnInit {
   pie_ctx: any;
   @ViewChild('ordersStatusChart') ordersStatusChart!: { nativeElement: any };
 
+  problemsData: ProblemsDTO[] = [];
+  filteredProblemsData: ProblemsDTO[] = [];
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string){}
 
-  onPageChange(page: number){
+  onPageChangeOrders(page: number){
     this.currentPage = page;
     this.updateCurrentOrders();
   }
@@ -61,6 +69,17 @@ export class UserOrdersComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.limit;
     const endIndex = startIndex + this.limit;
     this.filteredOrdersData = this.ordersData.slice(startIndex, endIndex);
+  }
+
+  onPageChangeProblems(page: number){
+    this.problemsCurrentPage = page;
+    this.updateCurrentProblems();
+  }
+
+  updateCurrentProblems(): void {
+    const startIndex = (this.problemsCurrentPage - 1) * this.problemsLimit;
+    const endIndex = startIndex + this.problemsLimit;
+    this.filteredProblemsData = this.problemsData.slice(startIndex, endIndex);
   }
 
   toggleDropdown(dropdown: 'status' | 'date'){
@@ -235,7 +254,7 @@ export class UserOrdersComponent implements OnInit {
   }
 
   getOrders(){
-    this.http.get<OrdersDTO[]>(this.baseUrl + 'orders').subscribe(result => {
+    this.http.get<OrdersDTO[]>(this.baseUrl + 'orders/get-orders').subscribe(result => {
       this.allOrdersData = result;
       this.isLoading = false;
       this.applyFilters();
@@ -251,9 +270,18 @@ export class UserOrdersComponent implements OnInit {
       }, 0);
     }, error => console.error(error));
   }
+  getProblems(){
+    this.http.get<ProblemsDTO[]>(this.baseUrl + 'contact/get-problems').subscribe((result) => {
+      this.problemsData = result;
+      this.problemsTotalItems = this.problemsData.length;
+      this.problemsCurrentPage = 1;
+      this.updateCurrentProblems();
+    });
+  }
 
   ngOnInit(): void {
     this.getOrders();
+    this.getProblems();
   }
 }
 

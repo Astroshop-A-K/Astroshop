@@ -59,9 +59,9 @@
                 }">{{order.orderStatus}}</td>
             </tr>
           </table>
-    </div>
+      </div>
     <div class="paginator">
-      <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChange($event)"></app-pagination>
+      <app-pagination [currentPage]="currentPage" [limit]="limit" [total]="totalItems" (changePage)="onPageChangeOrders($event)"></app-pagination>
     </div>
     }
     @else{
@@ -91,6 +91,29 @@
       <div class="canvas-chart">
         <canvas #revenueChart></canvas>
       </div>
+    </div>
+    <div class="problems">
+      <table class="problemsTable">
+          <tr>
+            <th>Číslo problému</th>
+            <th>E-mailová adresa</th>
+            <th>Meno a priezvisko</th>
+            <th>Dátum vytvorenia</th>
+            <th>Popis problému</th>
+            <th>Stav problému</th>
+          </tr>
+          <tr *ngFor="let problem of filteredProblemsData">
+              <td class="link">{{problem.problemId}}</td>  
+              <td>{{problem.email}}</td>
+              <td>{{problem.nameSurname}}</td>
+              <td>{{problem.problemDate}}€</td>
+              <td>{{problem.problem}}€</td>
+              <td>{{problem.problemStatus}}</td>
+          </tr>
+        </table>
+    </div>
+    <div class="paginator">
+      <app-pagination [currentPage]="problemsCurrentPage" [limit]="problemsLimit" [total]="problemsTotalItems" (changePage)="onPageChangeProblems($event)"></app-pagination>
     </div>
   }
   @else{

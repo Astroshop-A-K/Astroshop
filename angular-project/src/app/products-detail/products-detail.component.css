@@ -196,6 +196,12 @@ html{
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.review-form form {
+  width: 100%;
 }
 .review-form input {
   padding: 8px;
@@ -203,6 +209,10 @@ html{
   border-radius: 10px;
   border: 1px solid #ccc;
   width: 100%;
+  min-width: 50%;
+}
+.reviewComment {
+  flex: 1 auto;
 }
 .char-count {
   font-size: 14px;
@@ -338,7 +348,7 @@ fa-icon.not-clicked {
 }
 @media (max-width: 768px){
   .content{
-    padding: 25px;
+    padding: 20px;
   }
   .gallery{
     align-items: center;

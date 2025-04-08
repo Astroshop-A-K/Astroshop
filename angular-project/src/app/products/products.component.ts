@@ -157,7 +157,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getData() {
-    this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
+    this.http.get<ProductsDTO[]>(this.baseUrl + 'products/get-products').subscribe(result => {
       this.productData = result;
       this.isLoading = false;
       this.sortedProducts = this.productData;

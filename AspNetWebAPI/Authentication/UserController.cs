@@ -1,5 +1,4 @@
 ﻿using AspNetCoreAPI.Data;
-using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Registration.dto;
 using AspNetCoreAPI.Services;
@@ -7,10 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Json;
 
 namespace AspNetCoreAPI.Registration
 {
@@ -72,31 +69,6 @@ namespace AspNetCoreAPI.Registration
 
             return Ok(new { message = "Registration started sending token to e-mail!", encodedToken });
         }
-        //[HttpPost("generate-new-token")]
-        //public async Task<IActionResult> GenerateNewToken([FromQuery] string token)
-        //{
-        //    if (string.IsNullOrEmpty(token))
-        //    {
-        //        return BadRequest(new { message = "Token is required" });
-        //    }
-
-        //    var pendingUser = await _context.PendingUsers.FirstOrDefaultAsync(u => u.Token == token);
-
-        //    if (pendingUser == null)
-        //    {
-        //        return BadRequest(new { message = "User doesn't exist or was already registered" });
-        //    }
-
-        //    var newToken = await _userManager.GenerateEmailConfirmationTokenAsync();
-        //    var encodedToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(token)).Replace("+", "-").Replace("/", "_").Replace("=", "");
-
-        //    pendingUser.Token = newToken;
-        //    pendingUser.ExpiresAt = DateTime.UtcNow.AddHours(1);
-
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(encodedToken);
-        //}
         [HttpGet("verify")]
         public async Task<IActionResult> VerifyEmail([FromQuery] string token)
         {
@@ -162,7 +134,7 @@ namespace AspNetCoreAPI.Registration
             return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = user.UserName, UserId = user.Id });
         }
 
-        [HttpGet]
+        [HttpGet("get-user")]
         public User? GetCurrentUser()
         {
             var userName = User.FindFirstValue(ClaimTypes.Name);
@@ -171,21 +143,20 @@ namespace AspNetCoreAPI.Registration
         }
 
         [HttpGet("role/{userId}")]
-        public IActionResult GetRole(string userId)
+        public async Task<IActionResult> GetRole([FromRoute] string userId)
         {
-            var role = _context.UserRoles.SingleOrDefault(u => u.UserId == userId);
+            var role = await _context.UserRoles.SingleOrDefaultAsync(u => u.UserId == userId);
 
             if (role == null)
             {
-                return NoContent();
+                return NotFound();
             }
 
-            var roleId = role.RoleId;
-            var newRole = _context.Roles.SingleOrDefault(r => r.Id == roleId);
+            var newRole = await _context.Roles.SingleOrDefaultAsync(r => r.Id == role.RoleId);
 
             if (newRole == null)
             {
-                return NoContent();
+                return NotFound();
             }
 
             return Ok(newRole);

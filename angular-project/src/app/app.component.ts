@@ -81,7 +81,7 @@ export class AppComponent implements OnInit{
   }
 
   getData(){
-    this.http.get<ProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
+    this.http.get<ProductsDTO[]>(this.baseUrl + 'products/get-products').subscribe(result => {
       this.productsData = result;
     })
   }

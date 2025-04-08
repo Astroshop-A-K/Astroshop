@@ -300,27 +300,22 @@ export class ProductsDetailComponent implements OnInit {
     createReview(reviewCommentBE: string, reviewCreatorBE: string, reviewdProductBE: string, starRatingBE: number, reviewDateBE: string) {
         const url = `${this.baseUrl}reviews/create-review`;
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.put(url, { ReviewComment: reviewCommentBE, ReviewCreator: reviewCreatorBE, ReviewedProduct: reviewdProductBE, StarRating: starRatingBE, ReviewDate: reviewDateBE }, { headers });
+        return this.http.post(url, { ReviewComment: reviewCommentBE, ReviewCreator: reviewCreatorBE, ReviewedProduct: reviewdProductBE, StarRating: starRatingBE, ReviewDate: reviewDateBE }, { headers });
     }
     getReviews(productName: string): Observable<ReviewsDTO[]> { 
         let queryParams = new HttpParams();
         queryParams = queryParams.append("productName", productName);
-        return this.http.get<ReviewsDTO[]>(this.baseUrl + 'reviews/getReviews', { params: queryParams });
-    }
-    getCurrentReview(reviewId: number): Observable<ReviewsDTO>{
-        let queryParams = new HttpParams();
-        queryParams = queryParams.append("reviewId", reviewId);
-        return this.http.get<ReviewsDTO>(this.baseUrl + 'reviews/getCurrentReview', { params: queryParams});
+        return this.http.get<ReviewsDTO[]>(this.baseUrl + 'reviews/get-reviews', { params: queryParams });
     }
     deleteReview(reviewId: number): Observable<any>{
-        const url = `${this.baseUrl}reviews/${reviewId}`;
+        const url = `${this.baseUrl}reviews/delete-review/${reviewId}`;
         return this.http.delete(url);
     }
     
     getProductInfo(productName: string): Observable<ProductsDTO> { 
         let queryParams = new HttpParams();
         queryParams = queryParams.append("productName", productName);
-        return this.http.get<ProductsDTO>(this.baseUrl + 'products/getProductInfo', { params: queryParams });
+        return this.http.get<ProductsDTO>(this.baseUrl + 'products/get-product-information', { params: queryParams });
     }
     updateAverageStarRating(productNameBE: string, ratingBE: number, reviewsCountBE: number){
         const url = `${this.baseUrl}products/update-rating`;

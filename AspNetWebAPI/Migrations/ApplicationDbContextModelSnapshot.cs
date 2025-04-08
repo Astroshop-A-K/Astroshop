@@ -32,7 +32,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("UserId", "ProductId");
 
-                    b.ToTable("FavoriteProducts");
+                    b.ToTable("FavoriteProducts", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.OrderProductsModel", b =>
@@ -51,7 +51,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("OrderProducts");
+                    b.ToTable("OrderProducts", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.OrdersModel", b =>
@@ -109,7 +109,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.PendingUserModel", b =>
@@ -137,7 +137,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PendingUsers");
+                    b.ToTable("PendingUsers", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ProblemsModel", b =>
@@ -165,7 +165,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ProblemId");
 
-                    b.ToTable("Problems");
+                    b.ToTable("Problems", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ProductsModel", b =>
@@ -214,7 +214,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.ReviewsModel", b =>
@@ -242,7 +242,7 @@ namespace AspNetCoreAPI.Migrations
 
                     b.HasKey("ReviewId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("AspNetCoreAPI.Models.User", b =>

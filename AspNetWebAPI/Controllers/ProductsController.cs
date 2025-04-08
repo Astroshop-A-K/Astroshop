@@ -2,8 +2,6 @@
 using AspNetCoreAPI.Data;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.DTO;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
@@ -19,76 +17,103 @@ namespace AspNetCoreAPI.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<ProductsDTO>> GetProductInformation()
-        {
-            IEnumerable<ProductsModel> dbProducts = await _context.Products.ToListAsync();
-
-            return dbProducts.Select(dbProducts => new ProductsDTO
-            {
-                ProductId = dbProducts.ProductId,
-                ProductName = dbProducts.ProductName,
-                ProductDescription = dbProducts.ProductDescription,
-                Price = dbProducts.Price,
-                ProductCategory = dbProducts.ProductCategory,
-                ProductImage0 = dbProducts.ProductImage0,
-                ProductImage1 = dbProducts.ProductImage1,
-                ProductImage2 = dbProducts.ProductImage2,
-                Quantity = dbProducts.Quantity,
-                AverageStarRating = dbProducts.AverageStarRating,
-                ReviewsCount = dbProducts.ReviewsCount,
-                ProductDiscount = dbProducts.ProductDiscount
-            }).ToList();
-        }
-        [HttpGet]
-        [Route("getProductInfo")]
-        public async Task<ProductsDTO> getProductInfo(string productName)
-        {
-            ProductsModel product = await _context.Products.Where(p => p.ProductName == productName).FirstOrDefaultAsync();
-
-            var info = new ProductsDTO
-            {
-                ProductId = product.ProductId,
-                ProductName = productName,
-                ProductDescription = product.ProductDescription,
-                Price = product.Price,
-                ProductCategory = product.ProductCategory,
-                ProductImage0 = product.ProductImage0,
-                ProductImage1 = product.ProductImage1,
-                ProductImage2 = product.ProductImage2,
-                Quantity = product.Quantity,
-                AverageStarRating = product.AverageStarRating,
-                ReviewsCount = product.ReviewsCount,
-                ProductDiscount = product.ProductDiscount
-            };
-
-            return info;
-        }
-        [HttpPut("update-rating")]
-        public ActionResult<UpdateRatingDTO> UpdateAverageStarRating([FromBody] UpdateRatingDTO updateRatingDTO)
+        [HttpGet("get-products")]
+        public async Task<ActionResult<IEnumerable<ProductsDTO>>> GetProductInformation()
         {
             try
             {
-                var product = _context.Products.SingleOrDefault(p => p.ProductName == updateRatingDTO.ProductName);
+                var dbProducts = await _context.Products
+                    .Select(dbProduct => new ProductsDTO
+                    {
+                        ProductId = dbProduct.ProductId,
+                        ProductName = dbProduct.ProductName,
+                        ProductDescription = dbProduct.ProductDescription,
+                        Price = dbProduct.Price,
+                        ProductCategory = dbProduct.ProductCategory,
+                        ProductImage0 = dbProduct.ProductImage0,
+                        ProductImage1 = dbProduct.ProductImage1,
+                        ProductImage2 = dbProduct.ProductImage2,
+                        Quantity = dbProduct.Quantity,
+                        AverageStarRating = dbProduct.AverageStarRating,
+                        ReviewsCount = dbProduct.ReviewsCount,
+                        ProductDiscount = dbProduct.ProductDiscount
+                    }).ToListAsync();
+                return Ok(dbProducts);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
+        }
+        [HttpGet("get-product-information")]
+        public async Task<ActionResult<ProductsDTO>> GetProductInfo([FromQuery] string productName)
+        {
+            try
+            {
+                var product = await _context.Products
+                    .Where(p => p.ProductName == productName)
+                    .FirstOrDefaultAsync();
 
                 if(product == null)
                 {
-                    return NotFound(updateRatingDTO.ProductName);
+                    return NotFound();
+                }
+
+                var info = new ProductsDTO
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    ProductDescription = product.ProductDescription,
+                    Price = product.Price,
+                    ProductCategory = product.ProductCategory,
+                    ProductImage0 = product.ProductImage0,
+                    ProductImage1 = product.ProductImage1,
+                    ProductImage2 = product.ProductImage2,
+                    Quantity = product.Quantity,
+                    AverageStarRating = product.AverageStarRating,
+                    ReviewsCount = product.ReviewsCount,
+                    ProductDiscount = product.ProductDiscount
+                };
+
+                return Ok(info);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
+        }
+        [HttpPut("update-rating")]
+        public async Task<ActionResult<UpdateRatingDTO>> UpdateAverageStarRating([FromBody] UpdateRatingDTO updateRatingDTO)
+        {
+            try
+            {
+                if (updateRatingDTO.Rating < 1 || updateRatingDTO.Rating > 5)
+                {
+                    return BadRequest("Rating must be in the range 1-5");
+                }
+
+                var product = await _context.Products
+                    .Where(p => p.ProductName == updateRatingDTO.ProductName)
+                    .FirstOrDefaultAsync();
+
+                if(product == null)
+                {
+                    return NotFound();
                 }
 
                 product.AverageStarRating = updateRatingDTO.Rating;
                 product.ReviewsCount = updateRatingDTO.ReviewsCount;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-                return Ok(updateRatingDTO);
+                return Ok(new { message = "Success!"});
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpPut("add-favorite-product")]
-        public ActionResult<FavoriteProductDTO> AddProductId([FromBody] FavoriteProductDTO favoriteProductDTO)
+        [HttpPost("add-favorite-product")]
+        public async Task<ActionResult> AddProductId([FromBody] FavoriteProductDTO favoriteProductDTO)
         {
             try
             {
@@ -98,85 +123,67 @@ namespace AspNetCoreAPI.Controllers
                     UserId = favoriteProductDTO.UserId
                 };
 
-                _context.FavoriteProducts.Add(newRow);
-                _context.SaveChanges();
+                await _context.FavoriteProducts.AddAsync(newRow);
+                await _context.SaveChangesAsync();
 
                 return Ok("Success!");
             }
-            catch 
+            catch(Exception ex)
             {
-                return Ok("User already has this product in favorites!"); ;
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpGet]
-        [Route("getFavoriteProducts")]
-        public ActionResult<List<ProductsDTO>> getFavoriteProducts([FromQuery] string userId)
+        [HttpGet("get-favorite-products")]
+        public async Task<ActionResult<List<ProductsDTO>>> GetFavoriteProducts([FromQuery] string userId)
         {
             try
             {
-                List<FavoriteProductDTO> products = _context.FavoriteProducts
-                .Where(p => p.UserId == userId)
-                .Select(p => new FavoriteProductDTO
-                {
-                    ProductId = p.ProductId,
-                })
-                .ToList();
+                var favoriteProducts = await _context.FavoriteProducts
+                    .Where(p => p.UserId == userId)
+                    .Select(p => p.ProductId)
+                    .ToListAsync();
 
-
-                if (products.Count == 0)
+                if(favoriteProducts.Count == 0)
                 {
                     return null;
-                }
+                };
 
-                List<ProductsDTO> productsInfos = new List<ProductsDTO>();
-
-                foreach (var favoriteProduct in products)
-                {
-                    ProductsModel product = _context.Products.FirstOrDefault(p => p.ProductId == favoriteProduct.ProductId);
-
-                    if (product != null)
+                var productsInfos = await _context.Products
+                    .Where(p => favoriteProducts.Contains(p.ProductId))
+                    .Select(p => new ProductsDTO
                     {
-                        ProductsDTO info = new ProductsDTO
-                        {
-                            ProductId = product.ProductId,
-                            ProductName = product.ProductName,                                                                                                                  
-                            ProductCategory = product.ProductCategory,
-                            ProductImage0 = product.ProductImage0,
-                            ProductDiscount = product.ProductDiscount
-                        };
+                        ProductId = p.ProductId,
+                        ProductName = p.ProductName,
+                        ProductCategory = p.ProductCategory,
+                        ProductImage0 = p.ProductImage0,
+                        ProductDiscount = p.ProductDiscount
+                    }).ToListAsync();
 
-                        productsInfos.Add(info);
-                    }
-                }
                 return Ok(productsInfos);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
         [HttpDelete("remove-favorite-product")]
-        public IActionResult RemoveFavoriteProduct([FromQuery] string userId, int productId)
+        public async Task<IActionResult> RemoveFavoriteProduct([FromQuery] string userId, int productId)
         {
             try
             {
-                var product = _context.FavoriteProducts.SingleOrDefault(p => p.UserId == userId && p.ProductId == productId);
+                var favoriteProduct = await _context.FavoriteProducts.FirstOrDefaultAsync(p => p.UserId == userId && p.ProductId == productId);
+                if(favoriteProduct == null)
+                {
+                    return NotFound();
+                };
+                _context.FavoriteProducts.Remove(favoriteProduct);
+                await _context.SaveChangesAsync();
 
-                    if (product == null)
-                    {
-                        return NotFound();
-                    }
-
-                    _context.FavoriteProducts.Remove(product      );
-                    _context.SaveChanges();
-
-                    return Ok("removed" + product);
+                return Ok(new { message = "Successfully removed favorite product." });
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
     }

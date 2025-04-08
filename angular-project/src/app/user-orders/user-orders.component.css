@@ -24,7 +24,7 @@
   width: 42.5px;
   margin-bottom: 3.5px;
 }
-.orders {
+.orders, .problems {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -37,7 +37,7 @@
   width: 100%;
   margin-top: 50px;
 }
-.ordersTable {
+.ordersTable, .problemsTable {
   width: 100%;
   border-collapse: collapse;
   box-sizing: border-box;
@@ -46,7 +46,7 @@
   overflow: hidden;
   min-width: 1000px;
 }
-.ordersTable td {
+.ordersTable td, .problemsTable td {
   padding: 10px;
   text-align: left;
   font-size: 17px;
@@ -54,7 +54,7 @@
   border-bottom: 1px solid #f4f4f4;
   width: auto;
 }
-.ordersTable th {
+.ordersTable th, .problemsTable th {
   background-color: #0d6efd;
   color: white;
   padding: 10px;
@@ -62,7 +62,7 @@
   font-size: 17px;
   letter-spacing: 0.5px;
 }
-.ordersTable tr:hover {
+.ordersTable tr:hover, .problemsTable tr:hover {
   background-color: #f9f9f9;
   cursor: pointer;
 }

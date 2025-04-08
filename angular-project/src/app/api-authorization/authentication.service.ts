@@ -43,7 +43,7 @@ export class AuthenticationService {
   }
   
   getCurrentUser(){
-    return this.http.get<UserDTO>(this.baseUrl + 'user');
+    return this.http.get<UserDTO>(this.baseUrl + 'user/get-user');
   }
 
   getRole(userId: string): Observable<RoleDTO>{

@@ -23,7 +23,7 @@ import * as html2pdf from 'html2pdf.js';
 })
 export class OrderSummaryComponent implements OnInit, OnDestroy{
   selectedProducts: ProductsDTO[];
-  orderCompleted: boolean;
+  orderCompleted: boolean = false;
   appliedCoupon: boolean = false;
   couponButtonText: string = "Uplatniť";
   
@@ -75,6 +75,7 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let orderVerificationKey: string = '';
     if(this.paymentForm.valid && this.selectedProducts.length > 0 && this.OrderService.order != null && this.recaptchaDone){
+      this.isLoading = this.orderCompleted = true;
       let payment = this.paymentForm.value.paymentMethod;
       let {name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, orderNote} = this.OrderService.order;
 
@@ -86,19 +87,13 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       }
 
       this.createOrder(name, surname, email, phoneNumber, address, postalCode, city, country, deliveryOption, payment, this.totalPrice, orderVerificationKey, this.currentDate, "Čakajúce", orderNote, this.captcha).subscribe(
-        () => {
-          this.getOrderId(orderVerificationKey).subscribe(result => {
+        (response: number) => {
             this.isLoading = false;
-            this.orderId = result;
+            this.orderId = response;
             this.generateInvoice();
-            this.selectedProducts.forEach((product) => {
-              this.addProductId(product.productId, this.orderId, product.amount).subscribe();
-            })
             this.CartService.clearCart();
-          });
         }
       );
-      this.orderCompleted = true;
     }else if(this.paymentForm.invalid){
       this.snackBar.open("Zabudli ste zvoliť spôsob platby!", "", { duration: 1500, });
       const paymentControl = this.paymentForm.get('paymentMethod');
@@ -124,74 +119,82 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   generateInvoice() {
     const discount = this.appliedCoupon ? '-50% zľava z kupónu' : '';
     const invoiceHTML = `
-    <div style="width: 100%;box-sizing: border-box; padding: 50px">
-      <div class="title-element" style="font-family: Arial, Helvetica, sans-serif; text-align: center;">
-        <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon" height="50px" width="50px">
-        <h2>Číslo objednávky: <strong>${this.orderId}</strong></h2>
-      </div>
-      <div class="first-table">
-        <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
+    <div style="width: 100%; margin: 10px auto; box-sizing: border-box; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333;">
+  <div style="background-color: #f8f9fa; padding: 10px; text-align: center; border-bottom: 1px solid #e0e0e0;">
+    <img src="../../assets/favicon.ico" alt="astroshop-icon" title="astroshop-icon" height="50px" width="50px">
+    <h2 style="margin-top: 5px;">Číslo objednávky: <strong>${this.orderId}</strong></h2>
+  </div>
+  <div style="padding: 20px;">
+    <div style="margin-bottom: 20px;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white; border-bottom: 1px solid #0d6efd;">Dátum vystavenia faktúry</th>
+          <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">${this.currentDate}</td>
+        </tr>
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white; border-bottom: 1px solid #0d6efd;">Číslo faktúry</th>
+          <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">${this.orderId}</td>
+        </tr>
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white;">Celkový počet produktov</th>
+          <td style="padding: 10px;">${this.selectedProducts.reduce((sum, product) => sum + product.amount, 0)} ks</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h3 style="margin-bottom: 10px; font-weight: bold;">Objednané produkty</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead style="background-color: #0d6efd; color: white;">
           <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Dátum</th>
-            <td style="padding: 8px;">${this.currentDate}</td>
+            <th style="padding: 10px; text-align: left;">Názov produktu</th>
+            <th style="padding: 10px; text-align: center;">Cena/ks</th>
+            <th style="padding: 10px; text-align: center;">Množstvo</th>
+            <th style="padding: 10px; text-align: center;">Celkom (€)</th>
           </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Celkový počet produktov</th>
-            <td style="padding: 8px;">${this.selectedProducts.reduce((sum, product) => sum + product.amount, 0)} ks</td>
-          </tr>
-        </table>
-      </div>
-      <div class="second-table" style="margin-top: 10px">
-        <h3>Objednané produkty</h3>
-        <table style="width: 100%; border: 1px solid #ccc; border-collapse: collapse; text-align: center;">
-          <tr style="background-color: #0d6efd; color: white;">
-            <th style="padding: 8px;">Názov produktu</th>
-            <th style="padding: 8px;">Cena/ks</th>
-            <th style="padding: 8px;">Ks</th>
-            <th style="padding: 8px;">Celkom</th>
-          </tr>
+        </thead>
+        <tbody>
           ${this.selectedProducts.map(product => `
             <tr>
-              <td style="padding: 8px;">${product.productName}</td>
-              <td style="padding: 8px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2) }€ (-${product.productDiscount}%)</td>
-              <td style="padding: 8px;">${product.amount}x</td>
-              <td style="padding: 8px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
+              <td style="padding: 10px; text-align: left; border-bottom: 1px solid #f0f0f0;">${product.productName}</td>
+              <td style="padding: 10px; text-align: center; border-bottom: 1px solid #f0f0f0;">${product.price}€</td>
+              <td style="padding: 10px; text-align: center; border-bottom: 1px solid #f0f0f0;">${product.amount} ks</td>
+              <td style="padding: 10px; text-align: center; border-bottom: 1px solid #f0f0f0;">${(product.amount* (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
             </tr>
           `).join('')}
           <tr>
-            <td style="font-weight: bold; padding: 8px;">CELKOM:</td>
-            <td style="padding: 8px;"></td>
-            <td style="padding: 8px;"></td>
-            <td style="font-weight: bold; padding: 8px"> ${discount ? ((this.CartService.totalPrice() / 2).toFixed(2) + '€ (' + discount + ')') : (this.CartService.totalPrice().toFixed(2) + '€')}</td>
+            <td style="padding: 10px; font-weight: bold; text-align: left;">CELKOM:</td>
+            <td style="padding: 10px;"></td>
+            <td style="padding: 10px;"></td>
+            <td style="font-weight: bold; padding: 10px" style="text-align: center"> ${discount ? ((this.CartService.totalPrice() / 2).toFixed(2) + '€ (' + discount + ')') : (this.CartService.totalPrice().toFixed(2) + '€')}</td>
           </tr>
-        </table>
-      </div>
-      <div class="third-table" style="margin-top: 10px">
-        <h3>Objednávateľ</h3>
-        <table style="width: 100%; border-collapse: collapse; border: 1px solid #ccc;">
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Meno</th>
-            <td style="padding: 8px;">${this.OrderService.order.name} ${this.OrderService.order.surname}</td>
-          </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Adresa</th>
-            <td style="padding: 8px;">${this.OrderService.order.address}, ${this.OrderService.order.postalCode}, ${this.OrderService.order.city}</td>
-          </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">E-mail</th>
-            <td style="padding: 8px;">${this.OrderService.order.email}</td>
-          </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Tel.č.</th>
-            <td style="padding: 8px;">${this.OrderService.order.phoneNumber}</td>
-          </tr>
-          <tr>
-            <th style="padding: 8px; text-align: left; background-color: #0d6efd; color: white;">Štát</th>
-            <td style="padding: 8px;">${this.OrderService.order.country}</td>
-          </tr>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
+
+    <div style="margin-bottom: 20px;">
+      <h3 style="margin-bottom: 10px; font-weight: bold;">Objednávateľ</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white; border-bottom: 1px solid #0d6efd;">Meno a priezvisko</th>
+          <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;"> ${this.OrderService.order.name} ${this.OrderService.order.surname}</td>
+        </tr>
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white; border-bottom: 1px solid #0d6efd;">Adresa</th>
+          <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">${this.OrderService.order.address}, ${this.OrderService.order.postalCode}, ${this.OrderService.order.city}</td>
+        </tr>
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white; border-bottom: 1px solid #0d6efd;">E-mail</th>
+          <td style="padding: 10px; border-bottom: 1px solid #e0e0e0;">${this.OrderService.order.email}</td>
+        </tr>
+        <tr>
+          <th style="padding: 10px; text-align: left; background-color: #0d6efd; color: white;">Tel.č.</th>
+          <td style="padding: 10px;">${this.OrderService.order.phoneNumber}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
   `;
 
     const emailParams = {
@@ -211,14 +214,19 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
       subject: 'Informácie objednávky'
     };
 
-    console.log(emailParams.products_table);
-
     emailjs.init('vvvXsO3WEU729fqbQ');
     emailjs.send('service_cleravy', 'template_5nu9fji', emailParams);
 
+    const options = {
+      margin: [5, 5, 5, 5],
+      filename: `Faktúra_č${this.orderId}.pdf`,
+      html2canvas: { scale: 2 },
+      jsPDF: {unit: 'mm', format: 'a4', orientation: 'portrait'}
+    };
+
     const element = document.createElement('div');
     element.innerHTML = invoiceHTML;
-    html2pdf().from(element).toPdf().get('pdf').then((pdf)=>{
+    html2pdf().set(options).from(element).toPdf().get('pdf').then((pdf)=>{
       pdf.save(`Faktura_č${this.orderId}.pdf`);
     })
   }
@@ -226,20 +234,14 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
   createOrder(nameBE: string, surnameBE: string, emailBE: string, phoneNumberBE: number, addressBE: string, postalCodeBE: number, cityBE: string, countryBE: string, deliveryOptionBE: string, paymentOptionBE: string, totalPriceBE: number, orderVerificationKeyBE: string, currentDateBE: string, orderStatusBE: string, orderNoteBE: string, recaptchaResponse: string) {
     const url = `${this.baseUrl}orders/create-order`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE, OrderVerificationKey: orderVerificationKeyBE, OrderDate: currentDateBE, OrderStatus: orderStatusBE, OrderNote: orderNoteBE, RecaptchaResponse: recaptchaResponse }, { headers });
+    const orderProducts = this.selectedProducts.map(product => ({
+      ProductId: product.productId,
+      Quantity: product.amount
+    }))
+    return this.http.post(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE, OrderVerificationKey: orderVerificationKeyBE, OrderDate: currentDateBE, OrderStatus: orderStatusBE, OrderNote: orderNoteBE, RecaptchaResponse: recaptchaResponse, OrderProducts: orderProducts }, { headers });
   }
   getOrderId(orderVerificationKeyBE: string){
     return this.http.get<number>(this.baseUrl + `orders/${orderVerificationKeyBE}`);
-  }
-  addProductId(productId: number, orderId: number, amountBE: number){
-    const url = `${this.baseUrl}orders/add-productId`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { ProductId: productId, OrderId: orderId, Quantity: amountBE }, { headers });
-  }
-  changeProductQuantity(productId: number, quantity: number){
-    const url = `${this.baseUrl}orders/changeProductQuantity`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put(url, { ProductId: productId, Quantity: quantity}, { headers });
   }
 
   ngOnInit(): void {

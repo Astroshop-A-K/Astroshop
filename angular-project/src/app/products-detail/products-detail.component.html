@@ -73,7 +73,7 @@
           <form [formGroup]="reviewForm">
             <div class="field">
               <div class="reviewComment">
-                <input type="text" class="form-control" placeholder="Sem napíšte vašu recenziu..."  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': reviewForm.get('reviewComment').invalid && reviewForm.get('reviewComment').touched}">
+                <input type="text" class="form-control" placeholder="Sem môžete zanechať podrobnú recenziu produktu! Podeľte sa o svoje skúsenosti, hodnotenie a tipy pre ostatných zákazníkov!"  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': reviewForm.get('reviewComment').invalid && reviewForm.get('reviewComment').touched}">
               </div>
               <div class="star-rating-form">
                   <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>

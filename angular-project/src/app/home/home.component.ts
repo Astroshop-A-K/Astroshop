@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   getData() {
-    this.http.get<HomeProductsDTO[]>(this.baseUrl + 'products').subscribe(result => {
+    this.http.get<HomeProductsDTO[]>(this.baseUrl + 'products/get-products').subscribe(result => {
       this.productData = result;
       this.isLoading = false;
     }, error => console.error(error));

@@ -3,7 +3,7 @@ using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
 using AspNetCoreAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -20,7 +20,7 @@ namespace AspNetCoreAPI.Controllers
             _recaptchaService = recaptchaService;
         }
 
-        [HttpPut("create-order")]
+        [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] OrdersDTO ordersDTO)
         {
             try
@@ -53,137 +53,122 @@ namespace AspNetCoreAPI.Controllers
                 };
 
                 _context.Orders.Add(newOrder);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
-                return Ok(newOrder);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "An error occurred." });
-            }
-        }
-        [HttpGet("{orderVerificationKey}")]
-        public ActionResult<int> GetOrderId(string orderVerificationKey)
-        {
-            var order = _context.Orders.FirstOrDefault(o => o.OrderVerificationKey == orderVerificationKey);
-
-            if(order == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(order.OrderId);
-        }
-        [HttpPut("add-productId")]
-        public ActionResult<OrderProductsDTO> AddProductId([FromBody] OrderProductsDTO orderProductsDTO)
-        {
-            try
-            {
-                var product = _context.Products.FirstOrDefault(p => p.ProductId == orderProductsDTO.ProductId);
-
-                var newRow = new OrderProductsModel
+                foreach(var orderProduct in ordersDTO.OrderProducts)
                 {
-                    ProductId = orderProductsDTO.ProductId,
-                    OrderId = orderProductsDTO.OrderId,
-                    Quantity = orderProductsDTO.Quantity
-                };
+                    var newOrderProduct = new OrderProductsModel
+                    {
+                        OrderId = newOrder.OrderId,
+                        ProductId = orderProduct.ProductId,
+                        Quantity = orderProduct.Quantity
+                    };
 
-                product.Quantity -= orderProductsDTO.Quantity;
-                _context.OrderProducts.Add(newRow);
-                _context.SaveChanges();
+                    _context.OrderProducts.Add(newOrderProduct);
+                }
 
-                return Ok("Success!");
+                await _context.SaveChangesAsync();
+
+                return Ok(newOrder.OrderId);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message); 
-                return StatusCode(500, new { message = "Internal server error" });
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpGet]
-        public IEnumerable<OrdersDTO> GetOrders()
-        {
-            IEnumerable<OrdersModel> dbOrders = _context.Orders;
-
-            return dbOrders.Select(dbOrders => new OrdersDTO
-            {
-                OrderId = dbOrders.OrderId,
-                OrderVerificationKey = dbOrders.OrderVerificationKey,
-                DeliveryOption = dbOrders.DeliveryOption,
-                Address = dbOrders.Address,
-                City = dbOrders.City,
-                Country = dbOrders.Country,
-                Email = dbOrders.Email,
-                Name = dbOrders.Name,
-                Payment = dbOrders.Payment,
-                PhoneNumber = dbOrders.PhoneNumber,
-                PSC = dbOrders.PSC,
-                Surname = dbOrders.Surname,
-                TotalPrice = dbOrders.TotalPrice,
-                OrderDate = dbOrders.OrderDate,
-                OrderStatus = dbOrders.OrderStatus,
-                OrderNote = dbOrders.OrderNote
-            });
-        }
-        [HttpGet]
-        [Route("getOrderInfo")]
-        public ActionResult<OrdersDTO> getOrderInfo(int orderId)
-        {
-            OrdersModel order = _context.Orders.Where(o => o.OrderId == orderId).FirstOrDefault();
-
-            if(order == null)
-            {
-                return NotFound();
-            }
-
-            var info = new OrdersDTO
-            {
-                OrderId = order.OrderId,
-                OrderVerificationKey = order.OrderVerificationKey,
-                DeliveryOption = order.DeliveryOption,
-                Address = order.Address,
-                City = order.City,
-                Country = order.Country,
-                Email = order.Email,
-                Name = order.Name,
-                Payment = order.Payment,
-                PhoneNumber = order.PhoneNumber,
-                PSC = order.PSC,
-                Surname = order.Surname,
-                TotalPrice = order.TotalPrice,
-                OrderDate = order.OrderDate,
-                OrderStatus = order.OrderStatus,
-                OrderNote = order.OrderNote
-            };
-
-            return Ok(info);
-        }
-        [HttpGet]
-        [Route("getOrderProducts")]
-        public ActionResult<List<ProductsDTO>> getOrderProducts([FromQuery] int orderId)
+        [HttpGet("get-orders")]
+        public async Task<ActionResult<IEnumerable<OrdersDTO>>> GetOrders()
         {
             try
             {
-                List<OrderProductsDTO> products = _context.OrderProducts
+                return await _context.Orders.Select(o => new OrdersDTO
+                {
+                    OrderId = o.OrderId,
+                    OrderVerificationKey = o.OrderVerificationKey,
+                    DeliveryOption = o.DeliveryOption,
+                    Address = o.Address,
+                    City = o.City,
+                    Country = o.Country,
+                    Email = o.Email,
+                    Name = o.Name,
+                    Payment = o.Payment,
+                    PhoneNumber = o.PhoneNumber,
+                    PSC = o.PSC,
+                    Surname = o.Surname,
+                    TotalPrice = o.TotalPrice,
+                    OrderDate = o.OrderDate,
+                    OrderStatus = o.OrderStatus,
+                    OrderNote = o.OrderNote
+                }).ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
+        }
+        [HttpGet("get-order-details")]
+        public async Task<ActionResult<OrdersDTO>> GetOrderDetails([FromQuery] int orderId)
+        {
+            try
+            {
+                var orderDto = await _context.Orders
+                    .Where(o => o.OrderId == orderId)
+                    .Select(order => new OrdersDTO
+                    {
+                        OrderId = order.OrderId,
+                        OrderVerificationKey = order.OrderVerificationKey,
+                        DeliveryOption = order.DeliveryOption,
+                        Address = order.Address,
+                        City = order.City,
+                        Country = order.Country,
+                        Email = order.Email,
+                        Name = order.Name,
+                        Payment = order.Payment,
+                        PhoneNumber = order.PhoneNumber,
+                        PSC = order.PSC,
+                        Surname = order.Surname,
+                        TotalPrice = order.TotalPrice,
+                        OrderDate = order.OrderDate,
+                        OrderStatus = order.OrderStatus,
+                        OrderNote = order.OrderNote
+                    }).FirstOrDefaultAsync();
+
+                if (orderDto == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(orderDto);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
+        }
+        [HttpGet("get-order-products")]
+        public async Task<ActionResult<List<ProductsDTO>>> GetOrderProducts([FromQuery] int orderId)
+        {
+            try
+            {
+                var orderProducts = await _context.OrderProducts
                 .Where(p => p.OrderId == orderId)
                 .Select(r => new OrderProductsDTO
                 {
                     ProductId = r.ProductId,
                     Quantity = r.Quantity,
                 })
-                .ToList();
+                .ToListAsync();
 
-
-                if (products.Count == 0)
+                if (orderProducts.Count == 0)
                 {
                     return NotFound();
                 }
 
-                List<ProductsDTO> productsInfos = new List<ProductsDTO>();
+                List<ProductsDTO> products = new List<ProductsDTO>();
 
-                foreach (var orderProduct in products)
+                foreach (var orderProduct in orderProducts)
                 {
-                    ProductsModel product = _context.Products.FirstOrDefault(p => p.ProductId == orderProduct.ProductId);
+                    var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == orderProduct.ProductId);
 
                     if (product != null)
                     {
@@ -196,21 +181,20 @@ namespace AspNetCoreAPI.Controllers
                             ProductDiscount = product.ProductDiscount
                         };
 
-                        productsInfos.Add(info);
+                        products.Add(info);
                     }
                 }
-                return Ok(productsInfos);
+                return Ok(products);
             }
             catch(Exception ex) 
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpPost("changeOrderStatus")]
-        public ActionResult ChangeOrderStatus([FromBody] ChangeOrderStatusDTO orderStatusDTO)
+        [HttpPut("change-order-status")]
+        public async Task<ActionResult> ChangeOrderStatus([FromBody] ChangeOrderStatusDTO orderStatusDTO)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderStatusDTO.OrderId);
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderStatusDTO.OrderId);
 
             if(order == null)
             {
@@ -218,7 +202,7 @@ namespace AspNetCoreAPI.Controllers
             }
 
             order.OrderStatus = orderStatusDTO.OrderStatus;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok( new { OrderStatus = order.OrderStatus });
         }

@@ -1,9 +1,12 @@
-﻿namespace AspNetCoreAPI.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AspNetCoreAPI.DTO
 {
     public class OrderProductsDTO
     {
-        public int OrderId { get; set; }
+        [Required]
         public int ProductId { get; set; }
+        [Required]
         public int Quantity { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using AspNetCoreAPI.DTO;
 using AspNetCoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreAPI.Controllers
 {
@@ -16,50 +17,37 @@ namespace AspNetCoreAPI.Controllers
             _context = context;
         }
 
-        [HttpPut("create-review")]
-        public ActionResult<ReviewsDTO> CreateReview([FromBody] ReviewsDTO reviewsDTO)
+        [HttpPost("create-review")]
+        public async Task<ActionResult<ReviewsDTO>> CreateReview([FromBody] ReviewsDTO reviewsDTO)
         {
             try
             {
-                using (var context = _context)
+                var newReview = new ReviewsModel
                 {
-                    var newReview = new ReviewsModel
-                    {
-                        ReviewId = reviewsDTO.ReviewId,
-                        ReviewComment = reviewsDTO.ReviewComment,
-                        ReviewCreator = reviewsDTO.ReviewCreator,
-                        ReviewedProduct = reviewsDTO.ReviewedProduct,
-                        StarRating = reviewsDTO.StarRating,
-                        ReviewDate = reviewsDTO.ReviewDate,
-                    };
+                    ReviewId = reviewsDTO.ReviewId,
+                    ReviewComment = reviewsDTO.ReviewComment,
+                    ReviewCreator = reviewsDTO.ReviewCreator,
+                    ReviewedProduct = reviewsDTO.ReviewedProduct,
+                    StarRating = reviewsDTO.StarRating,
+                    ReviewDate = reviewsDTO.ReviewDate,
+                };
 
-                    context.Reviews.Add(newReview);
-                    context.SaveChanges();
+                _context.Reviews.Add(newReview);
+                await _context.SaveChangesAsync();
 
-                    var info = new ReviewsDTO
-                    {
-                        ReviewId = reviewsDTO.ReviewId,
-                        ReviewComment = reviewsDTO.ReviewComment,
-                        ReviewCreator = reviewsDTO.ReviewCreator,
-                        ReviewedProduct = reviewsDTO.ReviewedProduct,
-                        StarRating = reviewsDTO.StarRating,
-                        ReviewDate = reviewsDTO.ReviewDate,
-                    };
-
-                    return Ok(info);
-                }
+                return Ok("Successfully created review.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error");
-                return StatusCode(500, new { message = "Mame problem." });
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
-        [HttpGet]
-        [Route("getReviews")]
-        public ActionResult<IEnumerable<ReviewsDTO>> GetReviews(string productName)
+        [HttpGet("get-reviews")]
+        public async Task<ActionResult<IEnumerable<ReviewsDTO>>> GetReviews(string productName)
         {
-            List<ReviewsDTO> reviews = _context.Reviews
+            try
+            {
+                var reveiws = await _context.Reviews
                 .Where(r => r.ReviewedProduct == productName)
                 .Select(r => new ReviewsDTO
                 {
@@ -68,36 +56,38 @@ namespace AspNetCoreAPI.Controllers
                     ReviewCreator = r.ReviewCreator,
                     ReviewedProduct = r.ReviewedProduct,
                     StarRating = r.StarRating,
-                    ReviewDate = r.ReviewDate 
-                })
-                .ToList();
+                    ReviewDate = r.ReviewDate
+                }).ToListAsync();
+                if (reveiws.Count == 0)
+                {
+                    return NotFound();
+                }
 
-            return reviews;
+                return Ok(reveiws);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
+            }
         }
-        [HttpDelete("{reviewId}")]
-        public IActionResult DeleteReview(int reviewId)
+        [HttpDelete("delete-review/{reviewId}")]
+        public async Task<IActionResult> DeleteReview([FromRoute] int reviewId)
         {
             try
             {
-                using (var context = _context)
+                var review = await _context.Reviews.FindAsync(reviewId);
+                if(review == null)
                 {
-                    var review = context.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
-
-                    if (review == null)
-                    {
-                        return NotFound();
-                    }
-
-                    context.Reviews.Remove(review);
-                    context.SaveChanges();
-
-                    return NoContent();
+                    return NotFound();
                 }
+                _context.Reviews.Remove(review);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
-                return StatusCode(500);
+                return StatusCode(500, new { message = "An error occurred.", details = ex.Message });
             }
         }
     }

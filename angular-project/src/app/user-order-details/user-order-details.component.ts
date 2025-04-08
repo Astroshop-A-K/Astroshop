@@ -55,17 +55,17 @@ export class UserOrderDetailsComponent implements OnInit {
   getOrderInfo(orderId: number){
     let queryParams = new HttpParams();
     queryParams = queryParams.append("orderId", orderId);
-    return this.http.get<OrdersDTO>(this.baseUrl + 'orders/getOrderInfo', { params: queryParams });
+    return this.http.get<OrdersDTO>(this.baseUrl + 'orders/get-order-details', { params: queryParams });
   }
   getOrderProducts(orderId: number): Observable<ProductsDTO[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("orderId", orderId);
-    return this.http.get<ProductsDTO[]>(this.baseUrl + 'orders/getOrderProducts', { params: queryParams });
+    return this.http.get<ProductsDTO[]>(this.baseUrl + 'orders/get-order-products', { params: queryParams });
   }
   changeOrderStatus(orderId: number, orderStatusBE: string): Observable<any>{
-    const url = `${this.baseUrl}orders/changeOrderStatus`;
+    const url = `${this.baseUrl}orders/change-order-status`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(url, {OrderId: orderId, OrderStatus: orderStatusBE}, { headers });
+    return this.http.put(url, {OrderId: orderId, OrderStatus: orderStatusBE}, { headers });
   }
 
   ngOnInit(): void {
