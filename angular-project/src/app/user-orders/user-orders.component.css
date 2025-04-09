@@ -280,6 +280,15 @@ canvas {
   gap: 10px;
   justify-content: center;
 }
+@media (max-width: 750px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 0px;
+  }
+  .search-bar input, .search-bar select {
+    flex: 1;
+  }
+}
 @media (max-width: 659px) {
   #second-dropdown-content{
     left: 62%;
