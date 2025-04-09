@@ -240,9 +240,6 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     }))
     return this.http.post(url, { Name: nameBE, Surname: surnameBE, Email: emailBE, PhoneNumber: phoneNumberBE, Address: addressBE, PSC: postalCodeBE, City: cityBE, Country: countryBE, DeliveryOption: deliveryOptionBE, Payment: paymentOptionBE, TotalPrice: totalPriceBE, OrderVerificationKey: orderVerificationKeyBE, OrderDate: currentDateBE, OrderStatus: orderStatusBE, OrderNote: orderNoteBE, RecaptchaResponse: recaptchaResponse, OrderProducts: orderProducts }, { headers });
   }
-  getOrderId(orderVerificationKeyBE: string){
-    return this.http.get<number>(this.baseUrl + `orders/${orderVerificationKeyBE}`);
-  }
 
   ngOnInit(): void {
     this.selectedProducts = this.CartService.products;

@@ -72,7 +72,7 @@ export class ProductsDetailComponent implements OnInit {
 
     isActive: boolean = false;
 
-    constructor(private http: HttpClient, private authService: AuthenticationService, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
+    constructor(private http: HttpClient, public authService: AuthenticationService, private FProductsService: FavoriteProductsService, @Inject('BASE_URL') private baseUrl: string, private router: Router, private route: ActivatedRoute, private CartService: CartService, private snackBar: MatSnackBar, private StarRating: StarRatingComponent, private datePipe: DatePipe, private viewportScroller: ViewportScroller) {}
 
     reviewForm = new FormGroup({
         reviewComment: new FormControl('', Validators.required),
@@ -339,12 +339,6 @@ export class ProductsDetailComponent implements OnInit {
                              this.user = result;
                              this.reviewCreator = this.user.userName;
                              this.filterReviews();
-                             this.authService.getRole(this.user.id).subscribe(result => {
-                                 this.role = result;
-                                 if(this.role != null){
-                                     this.roleName = this.role.name;
-                                 }
-                             })
                              this.FProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
                                  this.favoriteProductsData = result;
                                  if(this.checkFavoriteProduct()){
@@ -355,7 +349,6 @@ export class ProductsDetailComponent implements OnInit {
                                  }
                                  this.isLoading = false;
                              })
-                             
                          })
                      }else {
                         this.isLoading = false;

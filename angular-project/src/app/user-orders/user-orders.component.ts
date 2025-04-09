@@ -114,7 +114,7 @@ export class UserOrdersComponent implements OnInit {
 
     if(this.dateSortOrder){
       filtered = filtered.sort((a, b) => {
-        const dateA = this.parseDate(a.orderDate).getTime();
+        const dateA = this.parseDate(a.orderDate).getTime(); //vrati pocet ms 
         const dateB = this.parseDate(b.orderDate).getTime();
         return this.dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
       });
@@ -175,7 +175,7 @@ export class UserOrdersComponent implements OnInit {
           labels: ['Doručené', 'Pripravuje sa', 'Čakajúce'],
           datasets: [
             {
-              label: 'Koláčový graf',
+              label: 'Počet objednávok',
               data: [delivered, preparing, pending],
               backgroundColor: ['#00a200', '#ffd900', '#ff2d2d'],
             }
@@ -312,7 +312,6 @@ export class UserOrdersComponent implements OnInit {
     this.getProblems();
   }
 }
-
 export interface OrdersDTO{
   orderId: number;
   name: string;

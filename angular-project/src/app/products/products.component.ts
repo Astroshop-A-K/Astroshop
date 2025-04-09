@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass, NgFor, NgIf} from '@angular/common';
@@ -55,7 +55,7 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  filterProducts(category: string) {
+  filterProductsByCategory(category: string) {
     if(this.productData.length > 0){
       this.categoryFilteredProducts = this.productData.filter(product => product.productCategory === category);
       this.sortedProducts = this.categoryFilteredProducts.slice();
@@ -89,7 +89,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  filtersProducts() {
+  searchProducts() {
     if (!this.searchText || this.searchText.trim() === '') {
       this.sortedProducts = this.selectedCategory ? this.categoryFilteredProducts : this.productData;
     } else {
@@ -135,7 +135,6 @@ export class ProductsComponent implements OnInit {
       this.sortedProducts = productsToSort.sort((a, b) => getDiscountPrice(b) - getDiscountPrice(a));
     } else if (order === 'isa') {
       this.sortedProducts = productsToSort.filter(product => product.quantity > 0);
-      console.log(this.sortedProducts);
     } else if (order === 'asa') {
       this.showAllProducts();
     } else if(order === 'rew') {
@@ -166,12 +165,10 @@ export class ProductsComponent implements OnInit {
       this.route.queryParams.subscribe(params => {
         let tempCategory = params['category'];
         if(tempCategory){
-          this.filterProducts(tempCategory);
-        }else{
-          
+          this.filterProductsByCategory(tempCategory);
         }
         if (this.searchText) {
-          this.filtersProducts();
+          this.searchProducts();
         }
       })
     }, error => console.error(error));
@@ -180,21 +177,17 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getData();
 
-    this.route.queryParams.subscribe(() => {
+    this.route.queryParams.subscribe((params) => {
       const storedSearch = localStorage.getItem('searchText');
-      const queryCategory = localStorage.getItem('category');
+      const queryCategory = params['category'];
   
       if (storedSearch) {
         this.searchText = storedSearch;
-        this.filtersProducts();
+        this.searchProducts();
         localStorage.removeItem('searchText');
-
-        this.router.navigate([], {
-          queryParams: { searchText: null }, //vymazeme queryParams z aktualnej url preto dame [] to znamena current url
-        });
       }
       if(queryCategory){
-        this.filterProducts(queryCategory);
+        this.filterProductsByCategory(queryCategory);
       }
     });
 

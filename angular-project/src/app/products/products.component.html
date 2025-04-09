@@ -7,9 +7,9 @@
     </div>
     <ul class="category-list">
       <li (click)="showAllProducts()"> Všetky produkty</li>
-      <li (click)="filterProducts('TELE')" [ngClass]="{'active-category': selectedCategory === 'TELE'}"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Teleskopy</li>
-      <li (click)="filterProducts('MONT')" [ngClass]="{'active-category': selectedCategory === 'MONT'}"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Montáže</li>
-      <li (click)="filterProducts('BINO')" [ngClass]="{'active-category': selectedCategory === 'BINO'}"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binokuláre</li>
+      <li (click)="filterProductsByCategory('TELE')" [ngClass]="{'active-category': selectedCategory === 'TELE'}"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991509.png" alt="telescope" /> Teleskopy</li>
+      <li (click)="filterProductsByCategory('MONT')" [ngClass]="{'active-category': selectedCategory === 'MONT'}"><img src="https://cdn-icons-png.flaticon.com/512/3814/3814739.png" alt="mount" /> Montáže</li>
+      <li (click)="filterProductsByCategory('BINO')" [ngClass]="{'active-category': selectedCategory === 'BINO'}"><img src="https://cdn-icons-png.freepik.com/512/69/69125.png" alt="binocular" /> Binokuláre</li>
       <li><img src="https://cdn-icons-png.flaticon.com/512/467/467619.png" alt="solar-observation" /> Pozorovanie slnka</li>
       <li><img src="https://cdn1.iconfinder.com/data/icons/100-pirate-set/40/64-512.png" alt="eyepiece" /> Okuláre</li>
       <li><img src="https://cdn-icons-png.flaticon.com/512/164/164334.png" alt="filters" /> Filtre</li>
@@ -26,7 +26,7 @@
       <button class="toggle-sidebar" (click)="toggleSidebar()">☰ <span>Kategórie</span></button>
     </div>
     <div class="filters">
-      <input class="search-bar form-control" [(ngModel)]="searchText" type="search" placeholder="Kliknite sem pre vyhľadávanie" (ngModelChange)="filtersProducts()">
+      <input class="search-bar form-control" [(ngModel)]="searchText" type="search" placeholder="Kliknite sem pre vyhľadávanie" (ngModelChange)="searchProducts()">
       <select class="form-control" [(ngModel)]="selectedSortOption" (change)="onSortChange($event)"> <!--#sortSelect je Angular template reference variable-->
         <option disabled selected value="">Nezvolené</option>
         <option value="all">Všetky produkty</option>
