@@ -93,6 +93,9 @@ html{
   cursor: pointer;
   height: 75px;
 }
+.selected {
+  border: 1px solid #ddd;
+}
 .arrow-left, .arrow-right{
   background-color: transparent;
   border: none;
@@ -213,12 +216,15 @@ html{
 }
 .reviewComment {
   flex: 1 auto;
+  flex-direction: row;
+  display: flex;
 }
 .char-count {
   font-size: 14px;
   overflow: auto;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  margin-left: 10px;
+  width: 100px;
+  text-align: center;
 }
 .field {
   display: flex;
@@ -308,12 +314,6 @@ fa-icon {
   font-size: 24px;
   padding-bottom: 12px;
   transition: color 0.2s ease-in-out;
-}
-fa-icon.clicked {
-  color: red;
-}
-fa-icon.not-clicked {
-  color: black;
 }
 .exists {
   color: red;

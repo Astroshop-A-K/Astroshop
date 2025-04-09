@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, inject, signal} from '@angular/core';
+import { Component, Inject, OnInit, signal} from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -7,7 +7,7 @@ import { CartService } from '../shopping-cart/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
-import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
+import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 import { ProductsDTO } from '../shopping-cart/cart.service';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -38,9 +38,9 @@ export class ProductsDetailComponent implements OnInit {
         amount: 0,
         productDiscount: 0
     }; 
+
     productName: string = '';
     currentImagePosition: number = 0;
-    currentPageURL: string = '';
 
     reviewsData: ReviewsDTO[] = [];
     reviewCreator: string = '';
@@ -53,8 +53,6 @@ export class ProductsDetailComponent implements OnInit {
     reviewsCountSignal = signal(0);
 
     user: UserDTO;
-    role: RoleDTO;
-    roleName: string = '';
 
     currentDate: string = '';
 
@@ -62,7 +60,6 @@ export class ProductsDetailComponent implements OnInit {
     favoriteProductExists: boolean = false;
 
     faHeart = faHeart;
-    isClicked: boolean;
 
     charactersCount: number = 0;
     userMessage: string = '';
@@ -112,12 +109,10 @@ export class ProductsDetailComponent implements OnInit {
         if(this.authService.authenticated()){
             let userId = this.user.id;
             if(!this.favoriteProductExists){
-                this.isClicked = true;
                 this.FProductsService.addFavoriteProduct(this.productInfo.productId, userId).subscribe();
                 this.favoriteProductExists = true;
             }
             else{
-                this.isClicked = false;
                 this.favoriteProductExists = false;
                 this.FProductsService.removeFavoriteProduct(userId, this.productInfo.productId).subscribe();
             }
@@ -178,9 +173,6 @@ export class ProductsDetailComponent implements OnInit {
             const repeatedReviewCreator = this.reviewsData.find(r => r.reviewCreator === this.reviewCreator);
             if(this.reviewForm.valid && this.productRating > 0){
               if(!repeatedReviewCreator){
-                const routeParams = this.route.snapshot.paramMap;
-                this.productName = String(routeParams.get('productName'));
-    
                 let reviewComment = this.reviewForm.value.reviewComment;
                 let starRating = this.productRating;
     
@@ -194,18 +186,18 @@ export class ProductsDetailComponent implements OnInit {
                     this.reviewsData.push(reviewDto);
     
                     if(this.reviewsData.length > 0){
-                        averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
-                        this.averageStarRatingSignal.update(value => averageStarRating);
+                        averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length);
+                        this.averageStarRatingSignal.update(() => averageStarRating);
                     }
                     reviewsCount = this.reviewsData.length;
-                    this.reviewsCountSignal.update(value => this.reviewsData.length);
-                    this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
-                    this.getReviews(this.productName).subscribe(result => {
-                        this.reviewsData = result;
-                        this.filterReviews();
-                        this.isLoading_review = false;
+                    this.reviewsCountSignal.update(() => this.reviewsData.length);
+                    this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe((response) => {
+                        if(response){
+                            this.filterReviews();
+                            this.isLoading_review = false;
+                            this.snackBar.open("Recenzia bola úspešne vytvorená!", "", { duration: 1500, }); 
+                        }
                     });
-                    this.snackBar.open("Recenzia bola úspešne vytvorená!", "", { duration: 1500, }); 
                 }
                 );
     
@@ -240,7 +232,7 @@ export class ProductsDetailComponent implements OnInit {
                     this.reviewsData.splice(index, 1);
 
                     if(this.reviewsData.length > 0){
-                        averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
+                        averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length);
                         this.averageStarRatingSignal.update(() => averageStarRating);
                     }else{
                         this.averageStarRatingSignal.update(() => 0);
@@ -249,7 +241,7 @@ export class ProductsDetailComponent implements OnInit {
                     this.snackBar.open("Recenzia bola úspešne vymazaná!", "", { duration: 1500, }); 
 
                     reviewsCount = this.reviewsData.length;
-                    this.reviewsCountSignal.update(value => this.reviewsData.length);
+                    this.reviewsCountSignal.update(() => this.reviewsData.length);
                     this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
 
                     this.isLoading_review = false;
@@ -259,18 +251,15 @@ export class ProductsDetailComponent implements OnInit {
     }
 
     refreshData(){
-        const routeParams = this.route.snapshot.paramMap;
-        this.productName = String(routeParams.get('productName'));
-
         let averageStarRating = 0;
         let reviewsCount = 0;
         
         if(this.reviewsData.length > 0){
-            averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length); //call back funkcia
-            this.averageStarRatingSignal.update(value => averageStarRating);
+            averageStarRating = Math.round(this.reviewsData.reduce((acc, review) => acc + review.starRating, 0) / this.reviewsData.length);
+            this.averageStarRatingSignal.update(() => averageStarRating);
         }
         reviewsCount = this.reviewsData.length;
-        this.reviewsCountSignal.update(value => this.reviewsData.length);
+        this.reviewsCountSignal.update(() => this.reviewsData.length);
 
         this.updateAverageStarRating(this.productName, averageStarRating, reviewsCount).subscribe();
     }
@@ -317,7 +306,7 @@ export class ProductsDetailComponent implements OnInit {
         queryParams = queryParams.append("productName", productName);
         return this.http.get<ProductsDTO>(this.baseUrl + 'products/get-product-information', { params: queryParams });
     }
-    updateAverageStarRating(productNameBE: string, ratingBE: number, reviewsCountBE: number){
+    updateAverageStarRating(productNameBE: string, ratingBE: number, reviewsCountBE: number): Observable<any>{
         const url = `${this.baseUrl}products/update-rating`;
         const headers = new HttpHeaders({'Content-Type': 'application/json' });
         return this.http.put(url, { ProductName: productNameBE, Rating: ratingBE, ReviewsCount: reviewsCountBE }, { headers });

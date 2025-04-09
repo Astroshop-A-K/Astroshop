@@ -35,7 +35,17 @@ namespace AspNetCoreAPI.Controllers
                 _context.Reviews.Add(newReview);
                 await _context.SaveChangesAsync();
 
-                return Ok("Successfully created review.");
+                var createdReviewDTO = new ReviewsDTO
+                {
+                    ReviewId = newReview.ReviewId, 
+                    ReviewComment = newReview.ReviewComment,
+                    ReviewCreator = newReview.ReviewCreator,
+                    ReviewedProduct = newReview.ReviewedProduct,
+                    StarRating = newReview.StarRating,
+                    ReviewDate = newReview.ReviewDate
+                };
+
+                return Ok(createdReviewDTO);
             }
             catch (Exception ex)
             {

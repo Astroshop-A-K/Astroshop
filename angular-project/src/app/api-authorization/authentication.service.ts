@@ -46,11 +46,7 @@ export class AuthenticationService {
   getCurrentUser(){
     return this.http.get<UserDTO>(this.baseUrl + 'user/get-user');
   }
-
-  getRole(userId: string): Observable<RoleDTO>{
-    return this.http.get<RoleDTO>(this.baseUrl + `user/role/${userId}`);
-  }
-
+  
   public isAuthenticated() {
     const token = localStorage.getItem('token');
 

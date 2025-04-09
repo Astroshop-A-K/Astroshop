@@ -37,7 +37,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<JwtHandler>();
 builder.Services.AddScoped<RecaptchaService, RecaptchaService>();
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddSwaggerGen();
@@ -47,13 +46,12 @@ builder.Services.AddCors(options =>
         name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            policy.WithOrigins("https://astroshopsoc.web.app").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
         });
 });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

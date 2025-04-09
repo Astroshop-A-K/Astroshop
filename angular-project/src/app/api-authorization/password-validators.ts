@@ -18,7 +18,6 @@ export function passwordStrengthValidator(): ValidatorFn {
     return passwordValid ? null : { passwordStrength: true };
   }
 }
-
 export function equalValuesValidator(fieldToBeComparedWith: string): ValidatorFn {
   return (control: AbstractControl) : ValidationErrors | null => {
     const fieldValue = control.root.get(fieldToBeComparedWith);

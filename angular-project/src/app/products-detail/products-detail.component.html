@@ -57,7 +57,7 @@
             <app-star-rating [rating]="averageStarRatingSignal()" [readOnly]="true"></app-star-rating>
           </a>
           <p class="reviewsCount">({{reviewsCountSignal()}})</p>
-          <fa-icon (click)="addToFavorite()" [ngClass]="{'exists': favoriteProductExists, 'no-exists': !favoriteProductExists, 'clicked': isClicked}" [icon]="faHeart"></fa-icon>
+          <fa-icon (click)="addToFavorite()" [ngClass]="{'exists': favoriteProductExists, 'no-exists': !favoriteProductExists}" [icon]="faHeart"></fa-icon>
           </div>
         </div>
         <div class="add-to-cart-button">
@@ -74,6 +74,12 @@
             <div class="field">
               <div class="reviewComment">
                 <input type="text" class="form-control" placeholder="Sem môžete zanechať podrobnú recenziu produktu! Podeľte sa o svoje skúsenosti, hodnotenie a tipy pre ostatných zákazníkov!"  name="reviewComment" formControlName="reviewComment" maxlength="150" [(ngModel)]="userMessage" (input)="update()" [ngClass]="{'is-invalid': reviewForm.get('reviewComment').invalid && reviewForm.get('reviewComment').touched}">
+                @if(userMessage.length > 0){
+                  <div class="char-count">{{ charactersCount }} / 150 znakov</div>
+                }
+                @else{
+                  <div class="char-count" style="visibility: hidden; display: none;">a</div>
+                }
               </div>
               <div class="star-rating-form">
                   <app-star-rating [rating]="productRating" (ratingChange)="onRatingChange($event)"></app-star-rating>
@@ -81,12 +87,6 @@
               <button class="btn btn-secondary" type="button" (click)="onSubmit()">Poslať</button>
             </div>
           </form>
-          @if(userMessage.length > 0){
-            <div class="char-count">{{ charactersCount }} / 150 znakov</div>
-          }
-          @else{
-            <div class="char-count" style="visibility: hidden; display: none;">a</div>
-          }
         </div>
         @if(!isLoading_review){
           @if(reviewsData.length > 0){
