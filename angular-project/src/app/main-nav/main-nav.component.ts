@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, inject, signal, Inject } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, HostListener, OnInit  } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatButton } from '@angular/material/button';
 import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
@@ -26,7 +26,8 @@ export class MainNavComponent implements OnInit {
   user: UserDTO;
 
   isActive: boolean = false;
-  isActive_category: boolean = false;i
+  isActive_category: boolean = false;
+
   isNavFixed: boolean = false;
 
   constructor(private CartService: CartService, private FProductsService: FavoriteProductsService, private router: Router, public authService: AuthenticationService){
@@ -36,7 +37,7 @@ export class MainNavComponent implements OnInit {
   isCurrentRoute(...routes: string[]): boolean {
     const currentRoute = this.router.url;
     return routes.some(route => 
-      route === '/' ? currentRoute === '/' : currentRoute.startsWith(route)); //metoda v JS ktora ci aspon jeden prvok v array splna podmienku (true/false);
+      route === '/' ? currentRoute === '/' : currentRoute.startsWith(route)); 
   }
 
   toggleSideBar(type: 'main' | 'category'){
@@ -55,18 +56,18 @@ export class MainNavComponent implements OnInit {
 
   onFilter(category: string){
     if(category){
-      this.router.navigate(['/products'], {queryParams: { category }});
+      this.router.navigate(['/products'], { queryParams: { category }});
       this.isActive_category = false;
     }else{
       this.router.navigate(['/products']);
     }
   }
 
-  @HostListener('window:scroll', []) //zatvorka [] empty array na dalsie argumenty
-  onWindowScroll(){ //tato metoda sa aktivuje vzdy ked sa scrolluje preto je hostlistener hned nad nou
+  @HostListener('window:scroll', []) 
+  onWindowScroll(){ 
     const offset = window.pageYOffset;
     const windowWidth = window.innerWidth;
-    let sidebar = document.getElementsByClassName('sidebar')[0] as HTMLElement;
+    let sidebar = document.getElementsByClassName('sidebar')[0] as HTMLElement; // vratia HTMLCollection cize dame [0] aby sme vybrali prvy prvok
     let categoriesSidebar = document.getElementsByClassName('categories-sidebar')[0] as HTMLElement;
 
     if(offset > 30){
@@ -97,7 +98,7 @@ export class MainNavComponent implements OnInit {
    }
    this.router.events.subscribe(event => { //zapne sa vzdy ked sa udeje novy event ktory je emitovany Observable
     if(event instanceof NavigationEnd){ //navigacia prebehla uspesne
-      this.isActive = false;
+      this.isActive = this.isActive_category = false;
     }
    })
  } 

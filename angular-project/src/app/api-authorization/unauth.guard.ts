@@ -1,4 +1,4 @@
-import { CanDeactivateFn, Router } from '@angular/router';
+import { CanDeactivateFn } from '@angular/router';
 
 export const unauthGuard: CanDeactivateFn<any> = () => {
   if(localStorage.getItem('token')){

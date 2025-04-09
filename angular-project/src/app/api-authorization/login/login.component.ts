@@ -28,14 +28,10 @@ export class LoginComponent implements OnInit {
         (response) => {
           if(response.isAuthSuccessful){
             this.authService.storeUserCredentials(response.token, response.username);
+            if(response.role){
+              this.authService.setAdminRoleFromResponse(response.role);
+            }
             this.router.navigate(['/home']).then(() => {
-              this.authService.getRole(response.userId).subscribe((result) => {
-                let role = result;
-                if(role.name === 'admin'){
-                  this.authService.storeAdminCredentials(true);
-                  this.isLoading = false;
-                }
-              })
               this.snackbar.open("Prihlásovanie prebehlo úspešne!", "", { duration: 1500 });
             });
           }

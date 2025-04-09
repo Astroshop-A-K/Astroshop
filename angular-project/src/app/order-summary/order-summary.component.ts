@@ -23,7 +23,9 @@ import * as html2pdf from 'html2pdf.js';
 })
 export class OrderSummaryComponent implements OnInit, OnDestroy{
   selectedProducts: ProductsDTO[];
+
   orderCompleted: boolean = false;
+
   appliedCoupon: boolean = false;
   couponButtonText: string = "Uplatniť";
   
@@ -107,10 +109,10 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
     return this.selectedProducts.map(product => {
       return `
         <tr>
-          <td style="padding: 8px;">${product.productName}</td>
-          <td style="padding: 8px;">${product.amount}x</td>
-          <td style="padding: 8px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2)}€ (-${product.productDiscount}%)</td>
-          <td style="padding: 8px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
+          <td style="padding: 10px;">${product.productName}</td>
+          <td style="padding: 10px;">${product.amount}x</td>
+          <td style="padding: 10px;">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2)}€ (-${product.productDiscount}%)</td>
+          <td style="padding: 10px;">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
         </tr>
       `;
     }).join('');
@@ -156,11 +158,11 @@ export class OrderSummaryComponent implements OnInit, OnDestroy{
         <tbody>
           ${this.selectedProducts.map(product => `
             <tr>
-              <td style="padding: 10px; text-align: left; border-bottom: 1px solid #f0f0f0;">${product.productName}</td>
-              <td style="padding: 10px; text-align: center; border-bottom: 1px solid #f0f0f0;">${product.price}€</td>
-              <td style="padding: 10px; text-align: center; border-bottom: 1px solid #f0f0f0;">${product.amount} ks</td>
-              <td style="padding: 10px; text-align: center; border-bottom: 1px solid #f0f0f0;">${(product.amount* (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
-            </tr>
+                <td style="padding: 10px;">${product.productName}</td>
+                <td style="padding: 10px; text-align: center">${product.amount}x</td>
+                <td style="padding: 10px; text-align: center">${(product.price - ((product.price / 100)) * product.productDiscount).toFixed(2)}€ (-${product.productDiscount}%)</td>
+                <td style="padding: 10px; text-align: center">${(product.amount * (product.price - ((product.price / 100) * product.productDiscount))).toFixed(2)}€</td>
+           </tr>
           `).join('')}
           <tr>
             <td style="padding: 10px; font-weight: bold; text-align: left;">CELKOM:</td>

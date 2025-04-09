@@ -17,6 +17,7 @@ import { AuthenticationService, UserDTO } from '../api-authorization/authenticat
 
 export class HomeComponent implements OnInit {
   public productData: HomeProductsDTO[] = [];
+  
   favoriteProductsData: ProductsDTO[] = [];
   authService = inject(AuthenticationService);
   user: UserDTO;

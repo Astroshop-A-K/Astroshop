@@ -27,6 +27,7 @@ import { VerificationComponent } from './app/verification/verification.component
 import { unauthGuard } from './app/api-authorization/unauth.guard';
 import { guestGuard } from './app/api-authorization/guest.guard';
 import { PageNotFoundComponent } from './app/page-not-found/page-not-found.component';
+import { adminAuthGuard } from './app/api-authorization/admin-auth.guard';
 
 
 export function getBaseUrl() {
@@ -66,8 +67,8 @@ bootstrapApplication(AppComponent, {
         { path: 'shopping-cart', component: ShoppingCartComponent },
         { path: 'order', component: OrderPageComponent },
         { path: 'order/order-summary', component: OrderSummaryComponent },
-        { path: 'user-orders', component: UserOrdersComponent, canActivate: [authGuard] },
-        { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [authGuard] },
+        { path: 'user-orders', component: UserOrdersComponent, canActivate: [adminAuthGuard] },
+        { path: 'user-orders/:orderId', component: UserOrderDetailsComponent, canActivate: [adminAuthGuard] },
         { path: 'verification', component: VerificationComponent },
         { path: 'verification/:token', component: VerificationComponent, canDeactivate: [unauthGuard] },
         { path: '**', component: PageNotFoundComponent}, //** znamená že všetko čo nezodpovedá inej route tak sa táto použije

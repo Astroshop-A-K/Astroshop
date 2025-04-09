@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule, NgForOf, NgIf } from '@angular/common';
-import { AuthenticationService, RoleDTO, UserDTO } from '../api-authorization/authentication.service';
+import { CommonModule } from '@angular/common';
+import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -14,8 +14,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DashboardComponent implements OnInit {
   authService = inject(AuthenticationService);
   user: UserDTO;
-  role: RoleDTO;
-  roleName: string = '';
 
   isLoading: boolean = true;
 
@@ -38,13 +36,7 @@ export class DashboardComponent implements OnInit {
     if(this.authService.authenticated()){
       this.authService.getCurrentUser().subscribe(result =>{
           this.user = result;
-          this.authService.getRole(this.user.id).subscribe(result => {
-              this.role = result;
-              this.isLoading = false;
-              if(this.role != null){
-                  this.roleName = this.role.name;
-              }
-          })
+          this.isLoading = false;
       })
    }
   }

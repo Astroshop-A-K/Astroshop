@@ -33,7 +33,7 @@ namespace AspNetCoreAPI.Registration
         {
             if (userRegistrationDto == null || !ModelState.IsValid)
             {
-                return BadRequest(new { message = "Invalid registration data"} );
+                return BadRequest(new { message = "Invalid registration data" });
             }
 
             var isRecaptchaValid = await _recaptchaService.VerifyCaptcha(userRegistrationDto.RecaptchaResponse);
@@ -61,7 +61,7 @@ namespace AspNetCoreAPI.Registration
                 Email = userRegistrationDto.Email,
                 PasswordHash = hashedPassword,
                 Token = encodedToken,
-                ExpiresAt = DateTime.UtcNow.AddHours(1) 
+                ExpiresAt = DateTime.UtcNow.AddHours(1)
             };
 
             _context.PendingUsers.Add(pendingUser);
@@ -101,7 +101,7 @@ namespace AspNetCoreAPI.Registration
 
             if (!result.Succeeded)
             {
-                return BadRequest(new { message = "An error occurred while trying to create user."});
+                return BadRequest(new { message = "An error occurred while trying to create user." });
             }
 
             _context.PendingUsers.Remove(pendingUser);
@@ -131,6 +131,15 @@ namespace AspNetCoreAPI.Registration
             var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, claims);
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
+            var userRole = _context.UserRoles
+                .Where(r => r.UserId == user.Id).FirstOrDefault() ?? null;
+
+            if(userRole != null)
+            {
+                var role = _context.Roles
+                   .Where(r => r.Id == userRole.RoleId).FirstOrDefault();
+                return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = user.UserName, UserId = user.Id, Role = role.Name  });
+            }
             return Ok(new UserLoginResponseDto { IsAuthSuccessful = true, Token = token, Username = user.UserName, UserId = user.Id });
         }
 
@@ -140,26 +149,6 @@ namespace AspNetCoreAPI.Registration
             var userName = User.FindFirstValue(ClaimTypes.Name);
 
             return _context.Users.SingleOrDefault(user => user.UserName == userName);
-        }
-
-        [HttpGet("role/{userId}")]
-        public async Task<IActionResult> GetRole([FromRoute] string userId)
-        {
-            var role = await _context.UserRoles.SingleOrDefaultAsync(u => u.UserId == userId);
-
-            if (role == null)
-            {
-                return NotFound();
-            }
-
-            var newRole = await _context.Roles.SingleOrDefaultAsync(r => r.Id == role.RoleId);
-
-            if (newRole == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(newRole);
         }
     }
 }

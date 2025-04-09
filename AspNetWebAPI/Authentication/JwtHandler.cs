@@ -24,9 +24,11 @@ namespace AspNetCoreAPI.Registration
         public List<Claim> GetClaims(IdentityUser user)
         {
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Email)
-                };
+            {
+                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
+            };
+
             return claims;
         }
         public JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)

@@ -1,13 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService, UserDTO } from '../api-authorization/authentication.service';
 import { CommonModule, NgFor, NgForOf } from '@angular/common';
 import { ProductsDTO } from '../shopping-cart/cart.service';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FavoriteProductsService } from './favorite-products.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ProductsComponent } from '../products/products.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-favorite-products',
@@ -30,7 +28,7 @@ export class FavoriteProductsComponent implements OnInit {
 
   isLoading: boolean = true;
 
-  constructor(public FavProductsService: FavoriteProductsService, private router: Router, private cdr: ChangeDetectorRef){}
+  constructor(public FavProductsService: FavoriteProductsService){}
   
   onPageChange(page: number){
     this.currentPage = page;
@@ -62,7 +60,6 @@ export class FavoriteProductsComponent implements OnInit {
       this.updateCurrentProducts();
 
       this.FavProductsService.removeFavoriteProduct(userId, productId).subscribe(() => {
-        
       },(error) => {
         console.error(error);
       });
@@ -84,16 +81,14 @@ export class FavoriteProductsComponent implements OnInit {
           this.user = result;
           this.FavProductsService.getFavoriteProducts(this.user.id).subscribe(result => {
             this.favoriteProducts = this.sortedFavoriteProducts = result != null ? result : [];
-
             this.totalItems = this.sortedFavoriteProducts.length;
             this.updateCurrentProducts();
             this.isLoading = false;
           }, (error) => {
             this.isLoading = false;
+            console.error(error);
           });
       })
-    }else{
-      this.router.navigate(['/login']);
     }
   }
 }

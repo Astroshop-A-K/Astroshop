@@ -24,6 +24,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    localStorage.removeItem("username");
     localStorage.removeItem("token");
     localStorage.removeItem("adminLogged");
 
@@ -53,12 +54,22 @@ export class AuthenticationService {
   public isAuthenticated() {
     const token = localStorage.getItem('token');
 
-    return token && !this.jwtHelper.isTokenExpired(token);
+    if(!token || this.jwtHelper.isTokenExpired(token)){
+      localStorage.removeItem('adminLogged');
+      return false;
+    }
+    return true;
   }
   public isAdminAuthenticated() {
     const adminLogged = localStorage.getItem('adminLogged');
-
-    return Boolean(adminLogged);
+    return adminLogged === 'true' ? true : false
+  }
+  setAdminRoleFromResponse(role: string): void {
+    if(role == 'admin'){
+      this.storeAdminCredentials(true);
+    }else{
+      this.storeAdminCredentials(false);
+    }
   }
 }
 export interface UserDTO{
