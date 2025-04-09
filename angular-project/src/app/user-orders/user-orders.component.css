@@ -45,6 +45,7 @@
 .no-orders {
   width: 100%;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 .ordersTable, .problemsTable {
   width: 100%;
@@ -57,9 +58,6 @@
 }
 .problemsTable {
   min-width: 1200px !important;
-}
-.problemsTable td {
-  text-overflow: ellipsis;
 }
 .ordersTable td, .problemsTable td {
   padding: 10px;
@@ -191,14 +189,24 @@
 .search-bar {
   width: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  max-width: 1200px;
 }
-.search-bar input {
+.search-bar input, .search-bar select {
   padding: 10px 18px;
   margin-top: 14.5px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  max-width: 1200px;
+  width: 100%;
+}
+.search-bar input {
+  flex: 0.7;
+}
+.search-bar select {
+  flex: 0.3;
 }
 .red-text {
   color: rgb(255, 45, 45) !important;
