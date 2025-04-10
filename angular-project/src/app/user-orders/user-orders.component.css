@@ -203,10 +203,7 @@
   width: 100%;
 }
 .search-bar input {
-  flex: 0.7;
-}
-.search-bar select {
-  flex: 0.3;
+  flex: 1;
 }
 .red-text {
   color: rgb(255, 45, 45) !important;

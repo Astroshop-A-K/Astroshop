@@ -128,34 +128,24 @@ export class UserOrdersComponent implements OnInit {
   }
 
   searchOrders() {
-    if(!this.searchText){
-      this.applyFilters();
-      return;
-    }
-
-    let filtered = this.allOrdersData.filter(order => {
-      switch(this.searchOption){
-        case 'orderId':
-          return order.orderId.toString().startsWith(this.searchText)
-        case 'email':
-          return  order.email.toLowerCase().includes(this.searchText.toLowerCase())
-        case 'note':
-          return order.orderNote.toLowerCase().includes(this.searchText.toLowerCase())
-        case 'auto':
-          return (
-            order.orderId.toString().startsWith(this.searchText) ||
-            order.email.toLowerCase().includes(this.searchText.toLowerCase()) ||
-            order.orderNote.toLowerCase().includes(this.searchText.toLowerCase())
-          )
-        default:
-          return false
-      }
-    })
-    this.applyFilters();  
-    this.allOrdersData = filtered;
-    this.totalItems = filtered.length;
-    this.currentPage = 1;
-    this.updateCurrentData('orders');  
+    const search = this.searchText.trim().toLowerCase();
+ 
+     if (!search) {
+      return
+     }
+     else {
+       const filtered = this.allOrdersData.filter(order =>
+         order.orderId.toString().includes(search) || 
+         order.name.toLowerCase().includes(search) ||
+         order.surname.toLowerCase().includes(search) ||
+         order.email.toLowerCase().includes(search) 
+       );
+ 
+       this.ordersData = filtered;
+       this.totalItems = filtered.length;
+       this.currentPage = 1;
+       this.updateCurrentData('orders');
+     }
   }
 
   onCheckboxChange(event: Event){
