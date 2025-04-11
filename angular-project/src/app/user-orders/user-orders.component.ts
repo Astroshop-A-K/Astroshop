@@ -38,11 +38,13 @@ export class UserOrdersComponent implements OnInit {
   problemsLimit: number = 6;
 
   dateSortOrder: string = '';
+
   isVisibleDateFilter: boolean = false;
   isVisibleCheckbox: boolean = false;
 
   searchText: string = '';
   searchOption: string = 'auto';
+
   totalRevenue: number = 0;
 
   revenue_chartInstance: any;
@@ -113,6 +115,27 @@ export class UserOrdersComponent implements OnInit {
       filtered = filtered.filter(order => this.selectedStatuses.includes(order.orderStatus));
     }
 
+    if(this.searchText) {
+      const text = this.searchText.trim().toLowerCase();
+      filtered = filtered.filter(order => {
+        switch (this.searchOption) {
+          case 'orderId':
+            return order.orderId.toString().startsWith(text);
+          case 'email':
+            return order.email.toLowerCase().includes(text);
+          case 'note':
+            return order.orderNote.toLowerCase().includes(text);
+          case 'auto':
+          default:
+            return (
+              order.orderId.toString().startsWith(text) ||
+              order.email.toLowerCase().includes(text) ||
+              order.orderNote.toLowerCase().includes(text)
+            );
+        }
+      });
+    }
+
     if(this.dateSortOrder){
       filtered = filtered.sort((a, b) => {
         const dateA = this.parseDate(a.orderDate).getTime(); //vrati pocet ms 
@@ -128,24 +151,7 @@ export class UserOrdersComponent implements OnInit {
   }
 
   searchOrders() {
-    const search = this.searchText.trim().toLowerCase();
- 
-     if (!search) {
-      return
-     }
-     else {
-       const filtered = this.allOrdersData.filter(order =>
-         order.orderId.toString().includes(search) || 
-         order.name.toLowerCase().includes(search) ||
-         order.surname.toLowerCase().includes(search) ||
-         order.email.toLowerCase().includes(search) 
-       );
- 
-       this.ordersData = filtered;
-       this.totalItems = filtered.length;
-       this.currentPage = 1;
-       this.updateCurrentData('orders');
-     }
+    this.applyFilters();
   }
 
   onCheckboxChange(event: Event){
