@@ -101,7 +101,7 @@
                 <td>{{problem.nameSurname}}</td>
                 <td>{{problem.email}}</td>
                 <td>{{problem.problemDate}}</td>
-                <td style="text-wrap: nowrap; max-width: 200px; display: block; overflow-x: scroll;">{{problem.problem}}</td>
+                <td style="text-wrap: nowrap; max-width: 200px; overflow-x: auto; box-sizing: border-box;">{{problem.problem}}</td>
                 <td [ngClass]="{
                   'red-text': problem.problemStatus === 'Nevyriešené',
                   'green-text': problem.problemStatus === 'Vyriešené'
