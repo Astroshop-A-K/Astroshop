@@ -246,6 +246,7 @@ p {
     justify-content: flex-start;
     align-items: flex-start;
     margin: 5px 0 0 0;
+    padding: 15px 35px 20px 10px;
   }
   .first-section,
   .second-section {
