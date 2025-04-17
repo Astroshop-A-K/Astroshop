@@ -138,6 +138,7 @@ a {
 }
 .price-quantity{
   text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 .price-quantity p{
   margin: 0;
