@@ -174,7 +174,7 @@ a {
 }
 .top-brands {
   width: 100%;
-  padding: 40px 0 20px 0;
+  padding: 20px 0 20px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -238,7 +238,7 @@ p {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 }
 @media (max-width: 1400px) {
   .gallery {
