@@ -1,5 +1,5 @@
 # Astroshop
-Copyright (c) 2025 Alex Káčerík
+Copyright (c) 2026 Alex Káčerík
 
 All Rights Reserved.
 
